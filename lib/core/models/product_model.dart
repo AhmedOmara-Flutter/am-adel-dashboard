@@ -1,0 +1,137 @@
+import 'package:am_adel_dashboard/core/entities/product_entity.dart';
+
+class ProductModel extends ProductEntity {
+  ProductModel({
+    required super.name,
+    required super.code,
+    required super.price,
+    required super.description,
+    super.imageFile,
+    required super.isFeatured,
+    super.image,
+    required super.expirationMonth,
+    required super.unitAmount,
+    required super.numberOfCalories,
+    super.isOrganic = false,
+    super.sellingCount=0,
+    super.subImages,
+    super.subImagesFiles,
+    required super.category,
+    required super.createdAt,
+    super.id,
+    super.averageRating = 0.0,
+    super.reviewsCount = 0,
+    super.ratingSum = 0.0,
+    super.offerId,
+    super.size,
+    super.isPaused = false,
+  });
+
+  factory ProductModel.fromEntity(ProductEntity entity) {
+    return ProductModel(
+      name: entity.name,
+      code: entity.code,
+      price: entity.price,
+      description: entity.description,
+      imageFile: entity.imageFile,
+      isFeatured: entity.isFeatured,
+      image: entity.image,
+      expirationMonth: entity.expirationMonth,
+      unitAmount: entity.unitAmount,
+      numberOfCalories: entity.numberOfCalories,
+      isOrganic: entity.isOrganic,
+      sellingCount: entity.sellingCount,
+      subImages: entity.subImages,
+      subImagesFiles: entity.subImagesFiles,
+      category: entity.category,
+      createdAt: entity.createdAt,
+      id: entity.id,
+      averageRating: entity.averageRating,
+      reviewsCount: entity.reviewsCount,
+      ratingSum: entity.ratingSum,
+      offerId: entity.offerId,
+      size: entity.size,
+      isPaused: entity.isPaused,
+    );
+  }
+
+  ProductEntity toEntity() {
+    return ProductEntity(
+      name: name,
+      price: price,
+      image: image,
+      code: code,
+      description: description,
+      isFeatured: isFeatured,
+      expirationMonth: expirationMonth,
+      unitAmount: unitAmount,
+      numberOfCalories: numberOfCalories,
+      isOrganic: isOrganic,
+      imageFile: imageFile,
+      sellingCount: sellingCount,
+      subImages: subImages,
+      subImagesFiles: subImagesFiles,
+      category: category,
+      createdAt: createdAt,
+      id: id,
+      averageRating: averageRating,
+      reviewsCount: reviewsCount,
+      ratingSum: ratingSum,
+      offerId: offerId,
+      size: size,
+      isPaused: isPaused,
+    );
+  }
+
+  factory ProductModel.fromJson(Map<String, dynamic> json) {
+    return ProductModel(
+      name: json['name'] ?? '',
+      code: json['code'] ?? '',
+      price: (json['price'] as num?)?.toDouble() ?? 0.0,
+      averageRating: (json['averageRating'] as num?)?.toDouble() ?? 0.0,
+      ratingSum: (json['ratingSum'] as num?)?.toDouble() ?? 0.0,
+      description: json['description'] ?? '',
+      isFeatured: json['isFeatured'] ?? false,
+      image: json['image'] ?? '',
+      expirationMonth: json['expirationMonth'] ?? 0,
+      unitAmount: json['unitAmount'] ?? 0,
+      numberOfCalories: json['numberOfCalories'] ?? 0,
+      isOrganic: json['isOrganic'] ?? false,
+      sellingCount: json['sellingCount'] ?? 0,
+      subImages: List<String>.from(json['subImages'] ?? []),
+      category: json['category'] ?? '',
+      createdAt: json['createdAt'] ?? '',
+      id: json['id'] ?? '',
+      reviewsCount: json['reviewsCount'] ?? 0,
+      offerId: json['offerId'],
+      size: json['size'],
+      isPaused: json['isPaused'] ?? false,
+    );
+  }
+  Map<String, dynamic> toJson() {
+    return {
+      'name': name,
+      'code': code,
+      'price': price,
+      'description': description,
+      'isFeatured': isFeatured,
+      'image': image,
+      'expirationMonth': expirationMonth,
+      'unitAmount': unitAmount,
+      'numberOfCalories': numberOfCalories,
+      'isOrganic': isOrganic,
+      'sellingCount': sellingCount,
+      'subImages': subImages,
+      'category': category,
+      'createdAt': createdAt,
+      'id': id,
+      'averageRating': averageRating,
+      'reviewsCount': reviewsCount,
+      'ratingSum': ratingSum,
+      'offerId': offerId,
+      'size': size,
+      'isPaused': isPaused,
+    };
+  }
+}
+

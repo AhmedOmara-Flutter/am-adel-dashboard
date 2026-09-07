@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "80410007107",
+    "project_id": "am-adel-restaurant",
+    "storage_bucket": "am-adel-restaurant.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:80410007107:android:337e6b90b6d503195b26f6",
+        "android_client_info": {
+          "package_name": "com.example.am_adel_dashboard"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBE1cQKyMh6HARg9CH2OAQQwe0xdxBHr-4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:80410007107:android:5b443c3a937626585b26f6",
+        "android_client_info": {
+          "package_name": "com.example.am_adel_market"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBE1cQKyMh6HARg9CH2OAQQwe0xdxBHr-4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

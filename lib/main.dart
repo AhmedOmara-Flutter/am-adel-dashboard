@@ -1,0 +1,24 @@
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/material.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+import 'core/services/services_locator.dart';
+import 'core/src/src.dart';
+import 'firebase_options.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  initAppModule();
+   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+   await Supabase.initialize(
+     url:    'https://iwpajzhxqoniotvcwdwc.supabase.co',
+    anonKey: 'sb_publishable_H-Yl3IPOSuUp3krL4tOOPA_uG8OIx_A',
+  );
+  runApp(
+    // DevicePreview(
+    //   enabled: !kReleaseMode,
+    //   builder: (context) =>
+          MyApp(),
+  //)
+  )
+  ;}
+

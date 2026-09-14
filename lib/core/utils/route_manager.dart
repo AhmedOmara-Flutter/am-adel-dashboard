@@ -5,6 +5,9 @@ import 'package:am_adel_dashboard/core/entities/order_entity.dart';
 import 'package:am_adel_dashboard/core/entities/product_entity.dart';
 import 'package:am_adel_dashboard/core/utils/app_color.dart';
 import 'package:am_adel_dashboard/core/utils/style_manager.dart';
+import 'package:am_adel_dashboard/feature/daily_reports/presentation/view/daily_reports_view.dart';
+import 'package:am_adel_dashboard/feature/send_notification/view/send_notification_for_each_user.dart';
+import 'package:am_adel_dashboard/feature/send_notification/view/send_notification_view.dart';
 
 import '../../feature/add_product/presentation/view/add_product_view.dart';
 import '../../feature/display_order/presentation/view/display_orders_view.dart';
@@ -22,6 +25,10 @@ class RouteManager {
   static const String productReviews = '/productReviewsView';
   static const String editProductView = '/editProductView';
   static const String orderDetails = '/orderDetailsView';
+  static const String sendNotification = '/sendNotificationView';
+  static const String dailyReportView = '/dailyReportView';
+  static const String sendNotificationForEachUser = '/sendNotificationForEachUser';
+
 }
 
 class GenerateRoute {
@@ -44,8 +51,17 @@ class GenerateRoute {
       case RouteManager.main:
         return _route(const MainView());
 
+        case RouteManager.dailyReportView:
+        return _route(const DailyReportView());
+
       case RouteManager.addProductView:
         return _route(const AddProductView());
+
+      case RouteManager.sendNotification:
+        return _route(const SendNotificationView());
+
+      case RouteManager.sendNotificationForEachUser:
+        return _route(const SendNotificationForEachUser());
 
       case RouteManager.displayOrders:
         final orders = settings.arguments as List<OrderEntity>;
@@ -56,10 +72,15 @@ class GenerateRoute {
         );
 
       case RouteManager.orderDetails:
-        final order = settings.arguments as OrderEntity;
+        final args = settings.arguments as Map<String, dynamic>;
+
+        final order = args['order'] as OrderEntity;
+        final orderNumber = args['orderNumber'] as int;
+
         return _route(
           OrderDetailsView(
             order: order,
+            orderNumber: orderNumber,
           ),
         );
 

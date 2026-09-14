@@ -16,6 +16,8 @@ import '../../feature/bundle_offer/presentation/view_model/delete_bundle_offer_c
 import '../../feature/cart_status/domain/repos/cart_status_repo_impl.dart';
 import '../../feature/cart_status/presentation/view_model/cart_status_cubit.dart';
 import '../../feature/category/domain/repos/category_repo_impl.dart';
+import '../../feature/daily_reports/domain/repos/daily_report_repo_impl.dart';
+import '../../feature/daily_reports/presentation/view_model/daily_reports_cubit.dart';
 import '../../feature/main/presentation/view_model/main_cubit.dart';
 import '../../feature/settings/domain/repos/settings_repo_impl.dart';
 import '../../feature/settings/presentation/view_model/settings_cubit.dart';
@@ -72,7 +74,15 @@ class MyApp extends StatelessWidget {
                 cartStatusRepo: CartStatusRepoImpl(
                   databaseServices: FirestoreDatabase(),
                 ),
-              ),)
+              ),),
+        BlocProvider<DailyReportsCubit>(
+          create: (context) => DailyReportsCubit(
+            DailyReportRepoImpl(
+              FirestoreDatabase(),
+            ),
+            context.read<OrdersCubit>(),
+          ),
+        ),
 
       ],
 

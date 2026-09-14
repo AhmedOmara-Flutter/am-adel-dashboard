@@ -57,7 +57,6 @@ class DefaultFirebaseOptions {
     projectId: 'am-adel-restaurant',
     storageBucket: 'am-adel-restaurant.firebasestorage.app',
   );
-
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyCEpoqphQwj5XHwErfTVAKXRIvUDazFGRg',
     appId: '1:80410007107:ios:14926c7d01698d6f5b26f6',
@@ -66,7 +65,6 @@ class DefaultFirebaseOptions {
     storageBucket: 'am-adel-restaurant.firebasestorage.app',
     iosBundleId: 'com.example.amAdelDashboard',
   );
-
   static const FirebaseOptions macos = FirebaseOptions(
     apiKey: 'AIzaSyCEpoqphQwj5XHwErfTVAKXRIvUDazFGRg',
     appId: '1:80410007107:ios:14926c7d01698d6f5b26f6',

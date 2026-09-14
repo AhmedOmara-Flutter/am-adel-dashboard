@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../../../../core/services/print_service.dart';
-import '../../../../core/services/printer_service.dart';
 import '../../../../core/utils/app_color.dart';
 import '../../../../core/utils/style_manager.dart';
 
@@ -21,7 +20,7 @@ class _PrintSettingsTileState extends State<PrintSettingsTile> {
   }
 
   Future<void> _loadCopies() async {
-    final copies = await PrinterService.getPrintCopies();
+    final copies = await PrintService.getPrintCopies();
 
     if (!mounted) return;
 
@@ -31,7 +30,7 @@ class _PrintSettingsTileState extends State<PrintSettingsTile> {
   }
 
   Future<void> _changeCopies(int value) async {
-    await PrinterService.setPrintCopies(value);
+    await PrintService.setPrintCopies(value);
 
     if (!mounted) return;
 

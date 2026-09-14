@@ -26,7 +26,7 @@ class CustomDrawerHeader extends StatelessWidget {
             radius: 30,
             backgroundColor: AppColor.border,
             backgroundImage: AssetImage(
-              Assets.assets.images.amAdelLogo.path,
+              Assets.assets.images.img2.path,
             ),
           ),
           SizedBox(width: 5),

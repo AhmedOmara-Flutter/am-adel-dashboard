@@ -168,15 +168,21 @@ class _SendNotificationForEachUserState extends State<SendNotificationForEachUse
                     const SizedBox(width: 8),
                     Text(
                       "اشعارات مخصصه",
-                      style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                      style: Theme
+                          .of(context)
+                          .textTheme
+                          .labelLarge!
+                          .copyWith(
                         color: AppColor.textPrimary,
                       ),
                     ),
                   ],
                 ),
-                const SizedBox(width: 40,height: 40,),
+
+                const SizedBox(width: 40),
               ],
             ),
+SizedBox(height: 20,),
             _buildHeader(),
             const SizedBox(height: 24),
             LayoutBuilder(

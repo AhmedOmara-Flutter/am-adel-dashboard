@@ -8,27 +8,4 @@ void initAppModule() {
 
   instance.registerLazySingleton<DatabaseServices>(() => FirestoreDatabase());
   instance.registerLazySingleton<StorageServices>(() => SupabaseStorage());
-  // instance.registerLazySingleton<ProductRepo>(
-  //       () => ProductRepoImpl(instance()),
-  // );
-  //
-  // instance.registerLazySingleton<FavoriteRepo>(
-  //       () => FavoriteRepoImpl(instance()),
-  // );
-  // instance.registerLazySingleton<OrderRepo>(
-  //       () => OrderRepoImpl(instance()),
-  // );
-  //
-  // instance.registerLazySingleton<ReviewRepo>(
-  //       () => ReviewRepoImpl(instance()),
-  // );
-  // instance.registerLazySingleton<OfferRepo>(
-  //       () => OfferRepoImpl(instance()),
-  // );
-  // instance.registerLazySingleton<UploadImageRepo>(
-  //       () => UploadImageRepoImpl(instance()),
-  // );
-  // instance.registerLazySingleton<CartRepo>(
-  //       () => CartRepoImpl(instance()),
-  // );
 }

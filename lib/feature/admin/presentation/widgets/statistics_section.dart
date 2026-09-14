@@ -17,13 +17,14 @@ class StatisticsSection extends StatelessWidget {
     return Column(
       children: [
         Container(
-          child:MediaQuery.sizeOf(context).width >ConfigSize.phone? Row(
+          child:MediaQuery.sizeOf(context).width >ConfigSize.phone?
+          Row(
             children: [
               Expanded(
                 child: StatisticsCard(
                   model: StatisticsCardModel(
                     onTap: (){
-                      context.read<MainCubit>().changeIndex(5);
+                      context.read<MainCubit>().changeIndex(6);
                     },
                     color: Colors.green,
                     icon: Icons.people,
@@ -38,7 +39,7 @@ class StatisticsSection extends StatelessWidget {
                 child: StatisticsCard(
                   model: StatisticsCardModel(
                     onTap: (){
-                      context.read<MainCubit>().changeIndex(4);
+                      context.read<MainCubit>().changeIndex(5);
                     },
 
                     color: Colors.orange,
@@ -54,7 +55,7 @@ class StatisticsSection extends StatelessWidget {
                 child: StatisticsCard(
                   model: StatisticsCardModel(
                     onTap: (){
-                      context.read<MainCubit>().changeIndex(6);
+                      context.read<MainCubit>().changeIndex(7);
                     },
                     color: Colors.purple,
                     icon: Icons.inventory_2_outlined,

@@ -51,6 +51,7 @@ class _OrderViewBodyState extends State<OrderViewBody> {
                     _buildTab('انتظار'),
                     _buildTab('مؤكد'),
                     _buildTab('منتهي'),
+                    _buildTab('مسدد'),
                     _buildTab('ملغي'),
                   ],
                 ),
@@ -122,6 +123,9 @@ class _OrderViewBodyState extends State<OrderViewBody> {
               break;
             case 'منتهي':
               cubit.filterByStatus(OrderStatus.delivered);
+              break;
+            case 'مسدد':
+              cubit.filterByStatus(OrderStatus.paid);
               break;
             case 'ملغي':
               cubit.filterByStatus(OrderStatus.cancelled);

@@ -3,15 +3,14 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 
-import '../../entities/order_entity.dart';
 import '../../../../core/models/top_product_model.dart';
 import '../../../../core/repos/orders_repo/orders_repo.dart';
 import '../../../../generated/assets.dart';
+import '../../entities/order_entity.dart';
 import '../../enums/order_enum.dart';
 import '../../services/database_services.dart';
 import '../../services/notification_service.dart';
 import '../../services/print_service.dart';
-import '../../services/printer_service.dart';
 import '../../services/services_locator.dart';
 
 part 'orders_state.dart';
@@ -32,39 +31,61 @@ class OrdersCubit extends Cubit<OrdersState> {
     Assets.assets.images.medal3.path,
   ];
   final Set<String> _printedOrders = {};
+
   void getOrders() {
     emit(GetOrdersLoadingState());
+
     _ordersSubscription?.cancel();
+
     _ordersSubscription = _ordersRepo.getOrders().listen((res) {
       res.fold(
         (failure) {
           emit(GetOrdersErrorState(failure.errMessage));
         },
-        (data) async{
+            (data) async {
           allOrders = List.from(data)
             ..sort((a, b) => b.createdAt!.compareTo(a.createdAt!));
-          for (final order in allOrders) {
+
+          for (int index = 0; index < allOrders.length; index++) {
+            final order = allOrders[index];
+
             if (order.id == null) continue;
+
             if (order.status == OrderStatus.pending &&
                 !_printedOrders.contains(order.id)) {
               _printedOrders.add(order.id!);
 
               try {
-                await PrinterService.printOrder(order);
+                final orderNumber = allOrders.length - index;
+
+                await PrintService.printOrder(order, orderNumber);
               } catch (e) {
                 print('⚠️ Printer error: $e');
               }
             }
           }
-          _applyFilter();
 
-          totalSales = allOrders.fold(
+          _applyFilter();
+          // totalSales = allOrders
+          //     .where((order) => order.status != OrderStatus.cancelled)
+          //     .fold(
+          //       0.0,
+          //       (sum, order) =>
+          //           sum +
+          //           order.cartEntity.cartItems.fold(
+          //             0.0,
+          //             (cartSum, item) => cartSum + item.totalPrice,
+          //           ),
+          //     );
+          totalSales = allOrders
+              .where((order) => order.status == OrderStatus.paid)
+              .fold(
             0.0,
-            (sum, order) =>
-                sum +
+                (sum, order) =>
+            sum +
                 order.cartEntity.cartItems.fold(
                   0.0,
-                  (cartSum, item) => cartSum + item.totalPrice,
+                      (cartSum, item) => cartSum + item.totalPrice,
                 ),
           );
 
@@ -113,8 +134,7 @@ class OrdersCubit extends Cubit<OrdersState> {
   Future<void> updateOrderStatus({
     required String orderId,
     required OrderStatus status,
-  }) async
-  {
+  }) async {
     emit(UpdateOrderLoadingState());
 
     final result = await _ordersRepo.updateOrderStatus(
@@ -127,23 +147,40 @@ class OrdersCubit extends Cubit<OrdersState> {
         emit(UpdateOrderErrorState(failure.errMessage));
       },
           (_) async {
-        final index = allOrders.indexWhere(
-              (e) => e.id == orderId,
-        );
+        final index = allOrders.indexWhere((e) => e.id == orderId);
 
         if (index != -1) {
           final order = allOrders[index];
 
-          allOrders[index] = order.copyWith(
-            status: status,
+          allOrders[index] = order.copyWith(status: status);
+          // totalSales = allOrders
+          //     .where((order) => order.status != OrderStatus.cancelled)
+          //     .fold(
+          //       0.0,
+          //       (sum, order) =>
+          //           sum +
+          //           order.cartEntity.cartItems.fold(
+          //             0.0,
+          //             (cartSum, item) => cartSum + item.totalPrice,
+          //           ),
+          //     );
+          totalSales = allOrders
+              .where((order) => order.status == OrderStatus.paid)
+              .fold(
+            0.0,
+                (sum, order) =>
+            sum +
+                order.cartEntity.cartItems.fold(
+                  0.0,
+                      (cartSum, item) => cartSum + item.totalPrice,
+                ),
           );
-          if (status != OrderStatus.pending) {
-            await _sendOrderStatusNotification(
-              order,
-              status,
-            );
+
+          if (status != OrderStatus.pending && status != OrderStatus.paid) {
+            await _sendOrderStatusNotification(order, status);
           }
         }
+
         if (currentFilter == null) {
           filteredOrders = List.from(allOrders);
         } else {
@@ -157,10 +194,9 @@ class OrdersCubit extends Cubit<OrdersState> {
     );
   }
 
-  Future<void> _sendOrderStatusNotification(
-      OrderEntity order,
-      OrderStatus status,
-      ) async {
+  Future<void> _sendOrderStatusNotification(OrderEntity order,
+      OrderStatus status,) async
+  {
     try {
       final userData = await instance<DatabaseServices>().getData(
         path: 'users',
@@ -197,6 +233,7 @@ class OrdersCubit extends Cubit<OrdersState> {
           break;
 
         case OrderStatus.pending:
+        case OrderStatus.paid:
           return;
       }
 
@@ -228,10 +265,21 @@ class OrdersCubit extends Cubit<OrdersState> {
     }
   }
 
+  // double get totalDeliveryCost {
+  //   return allOrders
+  //       .where((order) => order.status != OrderStatus.cancelled)
+  //       .fold(
+  //     0.0,
+  //         (sum, order) => sum + (order.selectedLocationEntity?.cost ?? 0),
+  //   );
+  // }
   double get totalDeliveryCost {
-    return allOrders.fold(
+    return allOrders
+        .where((order) => order.status == OrderStatus.paid)
+        .fold(
       0.0,
-      (sum, order) => sum + (order.selectedLocationEntity?.cost ?? 0),
+          (sum, order) =>
+      sum + (order.selectedLocationEntity?.cost ?? 0),
     );
   }
 

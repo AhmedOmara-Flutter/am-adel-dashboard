@@ -4,6 +4,7 @@ enum OrderStatus {
   pending,
   confirmed,
   delivered,
+  paid,
   cancelled,
 }
 
@@ -19,8 +20,12 @@ extension OrderStatusUI on OrderStatus {
       case OrderStatus.delivered:
         return 'تم الانتهاء';
 
+      case OrderStatus.paid:
+        return 'مسدد';
+
       case OrderStatus.cancelled:
         return 'ملغي';
+
     }
   }
 
@@ -34,6 +39,9 @@ extension OrderStatusUI on OrderStatus {
 
       case OrderStatus.delivered:
         return Colors.green;
+
+      case OrderStatus.paid:
+        return Colors.teal;
 
       case OrderStatus.cancelled:
         return Colors.red;

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:am_adel_dashboard/core/helper_function/custom_show_snake_bar.dart';
 import 'package:am_adel_dashboard/core/utils/style_manager.dart';
-import 'package:am_adel_dashboard/feature/send_notification/view/send_notification_for_each_user.dart';
 
 import '../../../core/services/notification_service.dart';
 import '../../../core/utils/app_color.dart';
 import '../../../core/utils/config_size.dart';
+import '../../../core/widgets/custom_back_button.dart';
 import '../../../core/widgets/custom_text_form_field.dart';
 
 class SendNotificationView extends StatefulWidget {
@@ -90,43 +90,72 @@ class _SendNotificationViewState extends State<SendNotificationView> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      padding: const EdgeInsets.all(24),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _buildHeader(),
-          const SizedBox(height: 24),
-          LayoutBuilder(
-            builder: (context, constraints) {
-              if (constraints.maxWidth >= 900) {
-                return Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+    return Scaffold(
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(24),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const CustomBackButton(),
+                Row(
                   children: [
-                    Expanded(flex: 6, child: _buildNotificationForm()),
-                    const SizedBox(width: 24),
-                    Expanded(flex: 4, child: _buildPreview()),
+                    Icon(Icons.notification_important, color: AppColor.mainColor),
+                    const SizedBox(width: 8),
+                    Text(
+                      "الاشعارات العامه",
+                      style: Theme
+                          .of(context)
+                          .textTheme
+                          .labelLarge!
+                          .copyWith(
+                        color: AppColor.textPrimary,
+                      ),
+                    ),
+                  ],
+                ),
+
+                const SizedBox(width: 40),
+              ],
+            ),
+            SizedBox(height: 20,),
+            _buildHeader(),
+            const SizedBox(height: 24),
+            LayoutBuilder(
+              builder: (context, constraints) {
+                if (constraints.maxWidth >= 900) {
+                  return Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Expanded(flex: 6, child: _buildNotificationForm()),
+                      const SizedBox(width: 24),
+                      Expanded(flex: 4, child: _buildPreview()),
+                    ],
+                  );
+                }
+                return MediaQuery
+                    .sizeOf(context)
+                    .width > ConfigSize.phone
+                    ? Column(
+                  children: [
+                    _buildNotificationForm(),
+                    const SizedBox(height: 24),
+                    _buildPreview(),
+                  ],
+                )
+                    : Column(
+                  children: [
+                    _buildPreview(),
+                    const SizedBox(height: 15),
+                    _buildNotificationForm(),
                   ],
                 );
-              }
-              return MediaQuery.sizeOf(context).width > ConfigSize.phone
-                  ? Column(
-                      children: [
-                        _buildNotificationForm(),
-                        const SizedBox(height: 24),
-                        _buildPreview(),
-                      ],
-                    )
-                  : Column(
-                      children: [
-                        _buildPreview(),
-                        const SizedBox(height: 15),
-                        _buildNotificationForm(),
-                      ],
-                    );
-            },
-          ),
-        ],
+              },
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -164,11 +193,6 @@ class _SendNotificationViewState extends State<SendNotificationView> {
             ],
           ),
         ),
-        IconButton(onPressed: (){
-          Navigator.push(context, MaterialPageRoute(builder: (context) =>SendNotificationForEachUser() ,));
-        }, icon: Icon(Icons.add))
-
-
       ],
     );
   }

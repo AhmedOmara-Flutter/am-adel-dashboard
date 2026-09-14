@@ -80,7 +80,7 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
           ),
           clipBehavior: Clip.antiAliasWithSaveLayer,
           child: Image.asset(
-            Assets.assets.images.amAdelLogo.path,
+            Assets.assets.images.appLogo2.path,
             height: 220,
             width: double.infinity,
             fit: BoxFit.contain,
@@ -93,8 +93,8 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
         ),
         const SizedBox(height: 15),
         const RestaurantStatusCard(),
-        // const SizedBox(height: 30),
-        // const PrintSettingsTile(),
+        const SizedBox(height: 30),
+        const PrintSettingsTile(),
         const SizedBox(height: 15),
         Row(
           children: [

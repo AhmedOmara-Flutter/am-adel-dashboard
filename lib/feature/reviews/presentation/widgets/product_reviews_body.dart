@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:am_adel_dashboard/core/utils/app_color.dart';
+import 'package:am_adel_dashboard/core/widgets/custom_back_button.dart';
+
 import '../../../../core/entities/product_entity.dart';
-import '../../../../core/utils/app_color.dart';
 import '../../../../core/utils/config_size.dart';
-import '../../../../core/widgets/custom_back_button.dart';
 import '../../domain/entities/review_entity.dart';
 import '../view_model/get_reviews/get_reviews_cubit.dart';
 import 'product_review_card.dart';

@@ -14,7 +14,7 @@ class DailyReportSummary extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: AppColor.card,
+        color: AppColor.cardLight,
         borderRadius: BorderRadius.circular(AppConstants.borderRadius),
         border: Border.all(color: AppColor.mainColor.withOpacity(0.35)),
       ),
@@ -27,7 +27,7 @@ class DailyReportSummary extends StatelessWidget {
                 width: 42,
                 height: 42,
                 decoration: BoxDecoration(
-                  color: AppColor.mainColor.withOpacity(0.12),
+                  color: AppColor.backgroundDark,
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Icon(
@@ -57,7 +57,7 @@ class DailyReportSummary extends StatelessWidget {
           _MoneyRow(title: 'Online', value: report.onlineTotal),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 16),
-            child: Divider(color: AppColor.border, height: 1),
+            child: Divider(color: AppColor.divider, height: 1),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

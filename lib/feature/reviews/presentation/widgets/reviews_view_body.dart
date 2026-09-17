@@ -39,7 +39,7 @@ class ReviewsViewBody extends StatelessWidget {
                           .textTheme
                           .titleMedium
                           ?.copyWith(
-                        color: AppColor.textPrimary,
+                        color: AppColor.red,
                       ),
                     ),
                   ),

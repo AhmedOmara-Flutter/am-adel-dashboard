@@ -37,7 +37,7 @@ class CustomerStatisticsSection extends StatelessWidget {
                 child: Skeletonizer(
                   child: StatisticsCard(
                     model: StatisticsCardModel(
-                      color: Colors.red,
+                      color: AppColor.accentColor,
                       icon: Icons.attach_money,
                       title: '----------------',
                       subTitleNumber: '-----',
@@ -46,13 +46,15 @@ class CustomerStatisticsSection extends StatelessWidget {
                   ),
                 ),
               ),
-
               const SizedBox(width: 10),
             ],
           );
         }
+
         final clients = context.read<ClientsCubit>().clients;
-        final totalPriceWithDelivery = context.read<OrdersCubit>().totalPriceWithDelivery;
+        final totalPriceWithDelivery =
+            context.read<OrdersCubit>().totalPriceWithDelivery;
+
         return Row(
           children: [
             const SizedBox(width: 10),
@@ -67,11 +69,15 @@ class CustomerStatisticsSection extends StatelessWidget {
                 ),
               ),
             ),
-             SizedBox(width:MediaQuery.sizeOf(context).width > ConfigSize.phone?10: 15),
+            SizedBox(
+              width: MediaQuery.sizeOf(context).width > ConfigSize.phone
+                  ? 10
+                  : 15,
+            ),
             Expanded(
               child: StatisticsCard(
                 model: StatisticsCardModel(
-                  color: Colors.red,
+                  color: AppColor.accentColor,
                   icon: Icons.attach_money,
                   title: 'اجمالي المبيعات',
                   subTitleNumber: '${totalPriceWithDelivery} جنيه',

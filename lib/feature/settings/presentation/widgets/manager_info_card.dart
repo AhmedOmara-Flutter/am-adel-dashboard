@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../../core/utils/app_color.dart';
+import '../../../../generated/assets.dart';
 
 class ManagerInfoCard extends StatelessWidget {
   final String name;
@@ -14,90 +15,82 @@ class ManagerInfoCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(14),
+      width: double.infinity,
+      padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        gradient: const LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [
-            Color(0xFF242424),
-            Color(0xFF1D1D1D),
-          ],
-        ),
-        borderRadius: BorderRadius.circular(18),
+        color: AppColor.cardLight,
+        borderRadius: BorderRadius.circular(22),
         border: Border.all(
-          color: AppColor.border.withOpacity(.8),
+          color: AppColor.divider,
         ),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(.18),
-            blurRadius: 15,
-            offset: const Offset(0, 6),
+            color: AppColor.secondaryColor.withOpacity(.10),
+            blurRadius: 16,
+            offset: const Offset(0, 5),
           ),
         ],
       ),
       child: Row(
         children: [
-          // Icon
           Container(
-            width: 54,
-            height: 54,
+            width: 78,
+            height: 78,
             decoration: BoxDecoration(
-              color: AppColor.mainColor.withOpacity(.12),
-              borderRadius: BorderRadius.circular(15),
+              color: AppColor.cardLight,
+              borderRadius: BorderRadius.circular(20),
               border: Border.all(
-                color: AppColor.mainColor.withOpacity(.25),
+                color: AppColor.accentColor.withOpacity(.30),
+                width: 1.2,
               ),
             ),
-            child: const Icon(
-              Icons.person_rounded,
-              color: AppColor.accentColor,
-              size: 28,
+            clipBehavior: Clip.antiAlias,
+            child: Image.asset(
+            Assets.assets.images.amAdelLogo.path,
+              fit: BoxFit.cover,
             ),
           ),
 
-          const SizedBox(width: 14),
+          const SizedBox(width: 15),
 
-          // Information
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
                   children: [
-                    const Text(
-                      'معلومات المدير',
-                      style: TextStyle(
-                        color: AppColor.textSecondary,
-                        fontSize: 10,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-
-                    const SizedBox(width: 7),
-
                     Container(
                       padding: const EdgeInsets.symmetric(
-                        horizontal: 6,
-                        vertical: 2,
+                        horizontal: 8,
+                        vertical: 4,
                       ),
                       decoration: BoxDecoration(
-                        color: AppColor.mainColor.withOpacity(.12),
-                        borderRadius: BorderRadius.circular(5),
+                        color: AppColor.backgroundDark,
+                        borderRadius: BorderRadius.circular(8),
                       ),
                       child: const Text(
                         'MANAGER',
                         style: TextStyle(
-                          color: AppColor.accentColor,
-                          fontSize: 7,
-                          fontWeight: FontWeight.w700,
+                          color: AppColor.mainColor,
+                          fontSize: 8,
+                          fontWeight: FontWeight.w800,
+                          letterSpacing: .5,
                         ),
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    Container(
+                      width: 7,
+                      height: 7,
+                      decoration: const BoxDecoration(
+                        color: AppColor.green,
+                        shape: BoxShape.circle,
                       ),
                     ),
                   ],
                 ),
 
-                const SizedBox(height: 5),
+                const SizedBox(height: 8),
 
                 Text(
                   name,
@@ -105,32 +98,48 @@ class ManagerInfoCard extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                   style: const TextStyle(
                     color: AppColor.textPrimary,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w700,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w800,
                   ),
                 ),
 
-                const SizedBox(height: 4),
+                const SizedBox(height: 5),
 
                 Row(
                   children: [
-                    Icon(
-                      Icons.phone_outlined,
-                      size: 13,
-                      color: AppColor.textSecondary.withOpacity(.8),
+                    const Icon(
+                      Icons.phone_rounded,
+                      color: AppColor.accentColor,
+                      size: 15,
                     ),
-                    const SizedBox(width: 5),
+                    const SizedBox(width: 6),
                     Text(
                       phone,
                       style: const TextStyle(
                         color: AppColor.textSecondary,
-                        fontSize: 11,
-                        fontWeight: FontWeight.w400,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w500,
                       ),
                     ),
                   ],
                 ),
               ],
+            ),
+          ),
+
+          const SizedBox(width: 8),
+
+          Container(
+            width: 36,
+            height: 36,
+            decoration: BoxDecoration(
+              color: AppColor.backgroundDark,
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: const Icon(
+              Icons.verified_rounded,
+              color: AppColor.accentColor,
+              size: 19,
             ),
           ),
         ],

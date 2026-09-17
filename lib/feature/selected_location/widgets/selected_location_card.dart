@@ -21,11 +21,18 @@ class SelectedLocationCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: AppColor.card,
+        color: AppColor.cardLight,
         borderRadius: BorderRadius.circular(14),
         border: Border.all(
-          color: AppColor.border,
+          color: AppColor.divider,
         ),
+        boxShadow: [
+          BoxShadow(
+            color: AppColor.secondaryColor.withOpacity(.08),
+            blurRadius: 8,
+            offset: const Offset(0, 2),
+          ),
+        ],
       ),
       child: Row(
         children: [
@@ -33,8 +40,11 @@ class SelectedLocationCard extends StatelessWidget {
             width: 40,
             height: 40,
             decoration: BoxDecoration(
-              color: AppColor.mainColor.withOpacity(.12),
+              color: AppColor.backgroundDark,
               borderRadius: BorderRadius.circular(10),
+              border: Border.all(
+                color: AppColor.divider,
+              ),
             ),
             child: const Icon(
               Icons.location_on_rounded,
@@ -69,22 +79,25 @@ class SelectedLocationCard extends StatelessWidget {
                     color: AppColor.textSecondary,
                   ),
                 ),
-                const SizedBox(height: 10),
+                const SizedBox(height: 9),
                 Container(
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 8,
-                    vertical: 4,
+                    horizontal: 9,
+                    vertical: 5,
                   ),
                   decoration: BoxDecoration(
-                    color: AppColor.accentColor.withOpacity(.10),
-                    borderRadius: BorderRadius.circular(7),
+                    color: AppColor.backgroundDark,
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(
+                      color: AppColor.divider,
+                    ),
                   ),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       const Icon(
                         Icons.delivery_dining_rounded,
-                        color: AppColor.accentColor,
+                        color: AppColor.mainColor,
                         size: 16,
                       ),
                       const SizedBox(width: 5),
@@ -93,7 +106,7 @@ class SelectedLocationCard extends StatelessWidget {
                         style: StyleManager.font13Weight600(
                           context,
                         ).copyWith(
-                          color: AppColor.accentColor,
+                          color: AppColor.mainColor,
                         ),
                       ),
                     ],
@@ -107,12 +120,12 @@ class SelectedLocationCard extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Material(
-                color: AppColor.mainColor.withOpacity(.10),
+                color: AppColor.mainColor.withOpacity(.08),
                 borderRadius: BorderRadius.circular(8),
                 child: InkWell(
                   onTap: onEdit,
                   borderRadius: BorderRadius.circular(8),
-                  child: const SizedBox(
+                  child: SizedBox(
                     width: 34,
                     height: 34,
                     child: Icon(
@@ -125,12 +138,12 @@ class SelectedLocationCard extends StatelessWidget {
               ),
               const SizedBox(width: 7),
               Material(
-                color: AppColor.red.withOpacity(.10),
+                color: AppColor.red.withOpacity(.08),
                 borderRadius: BorderRadius.circular(8),
                 child: InkWell(
                   onTap: onDelete,
                   borderRadius: BorderRadius.circular(8),
-                  child: const SizedBox(
+                  child: SizedBox(
                     width: 34,
                     height: 34,
                     child: Icon(
@@ -142,7 +155,8 @@ class SelectedLocationCard extends StatelessWidget {
                 ),
               ),
             ],
-          ),        ],
+          ),
+        ],
       ),
     );
   }

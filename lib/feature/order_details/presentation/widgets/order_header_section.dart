@@ -19,10 +19,10 @@ class OrderHeaderSection extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(14),
       decoration: BoxDecoration(
-        color: AppColor.card,
+        color: AppColor.cardLight,
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
-          color: AppColor.border,
+          color: AppColor.divider,
         ),
       ),
       child: Column(
@@ -33,7 +33,7 @@ class OrderHeaderSection extends StatelessWidget {
                 width: 42,
                 height: 42,
                 decoration: BoxDecoration(
-                  color: AppColor.mainColor.withOpacity(.12),
+                  color: AppColor.backgroundDark,
                   shape: BoxShape.circle,
                 ),
                 child: Icon(
@@ -51,7 +51,9 @@ class OrderHeaderSection extends StatelessWidget {
                   children: [
                     Text(
                       'تفاصيل الطلب',
-                      style: StyleManager.font13Weight600(context).copyWith(color: AppColor.white),
+                      style: StyleManager.font13Weight600(context).copyWith(
+                        color: AppColor.textPrimary,
+                      ),
                     ),
                   ],
                 ),
@@ -63,8 +65,11 @@ class OrderHeaderSection extends StatelessWidget {
                   vertical: 5,
                 ),
                 decoration: BoxDecoration(
-                  color: order.status.color.withOpacity(.15),
+                  color: order.status.color.withOpacity(.10),
                   borderRadius: BorderRadius.circular(30),
+                  border: Border.all(
+                    color: order.status.color.withOpacity(.25),
+                  ),
                 ),
                 child: Text(
                   order.status.ar,
@@ -77,8 +82,7 @@ class OrderHeaderSection extends StatelessWidget {
           ),
           SizedBox(height: 12),
           Container(
-            padding: EdgeInsets.only(right:10),
-
+            padding: EdgeInsets.only(right: 10),
             child: Row(
               children: [
                 Icon(
@@ -91,7 +95,9 @@ class OrderHeaderSection extends StatelessWidget {
 
                 Text(
                   getDateFormate(order.createdAt.toString()),
-                  style: StyleManager.font12Weight500(context),
+                  style: StyleManager.font12Weight500(context).copyWith(
+                    color: AppColor.textSecondary,
+                  ),
                 ),
               ],
             ),

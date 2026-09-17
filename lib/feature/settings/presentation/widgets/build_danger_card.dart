@@ -36,7 +36,7 @@ class DangerCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: AppColor.card,
+        color: AppColor.cardLight,
         borderRadius: BorderRadius.circular(18),
         border: Border.all(
           color: color.withOpacity(.16),
@@ -168,7 +168,7 @@ class DangerCard extends StatelessWidget {
 
                 Container(
                   height: 1,
-                  color: AppColor.border.withOpacity(.55),
+                  color: AppColor.divider.withOpacity(.55),
                 ),
 
                 const SizedBox(height: 12),

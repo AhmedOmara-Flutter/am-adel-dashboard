@@ -19,10 +19,10 @@ class DeliveryAddressSection extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(14),
       decoration: BoxDecoration(
-        color: AppColor.card,
+        color: AppColor.cardLight,
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
-          color: AppColor.border,
+          color: AppColor.divider,
         ),
       ),
       child: Column(
@@ -31,7 +31,7 @@ class DeliveryAddressSection extends StatelessWidget {
           Text(
             'عنوان التوصيل',
             style: StyleManager.font13Weight600(context).copyWith(
-              color: AppColor.white,
+              color: AppColor.textPrimary,
             ),
           ),
 
@@ -75,10 +75,10 @@ class _AddressTile extends StatelessWidget {
         vertical: 10,
       ),
       decoration: BoxDecoration(
-        color: AppColor.card,
+        color: AppColor.cardLight,
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
-          color: AppColor.border,
+          color: AppColor.divider,
         ),
       ),
       child: Row(
@@ -87,7 +87,7 @@ class _AddressTile extends StatelessWidget {
             width: 34,
             height: 34,
             decoration: BoxDecoration(
-              color: AppColor.mainColor.withOpacity(.12),
+              color: AppColor.backgroundDark,
               shape: BoxShape.circle,
             ),
             child: Icon(
@@ -105,7 +105,9 @@ class _AddressTile extends StatelessWidget {
               children: [
                 Text(
                   title,
-                  style: StyleManager.font11Weight400(context),
+                  style: StyleManager.font11Weight400(context).copyWith(
+                    color: AppColor.textSecondary,
+                  ),
                 ),
 
                 SizedBox(height: 2),
@@ -113,7 +115,7 @@ class _AddressTile extends StatelessWidget {
                 Text(
                   value,
                   style: StyleManager.font12Weight500(context).copyWith(
-                    color: AppColor.white,
+                    color: AppColor.textPrimary,
                   ),
                 ),
               ],

@@ -16,37 +16,52 @@ class CustomerCard extends StatelessWidget {
   final UserEntity user;
   final List<OrderEntity> orders;
 
-  const CustomerCard({super.key, required this.user, required this.orders});
+  const CustomerCard({
+    super.key,
+    required this.user,
+    required this.orders,
+  });
 
   @override
   Widget build(BuildContext context) {
     final totalAmount =
         orders.fold(
           0.0,
-          (sum, order) => sum + order.cartEntity.getTotalPrice(),
+              (sum, order) => sum + order.cartEntity.getTotalPrice(),
         ) +
-        orders.fold(
-          0.0,
-          (sum, order) => sum + order.selectedLocationEntity!.cost,
-        );
+            orders.fold(
+              0.0,
+                  (sum, order) => sum + order.selectedLocationEntity!.cost,
+            );
 
     return Container(
       padding: EdgeInsets.all(14),
       margin: MediaQuery.sizeOf(context).width > ConfigSize.phone
           ? EdgeInsets.all(10)
-          : EdgeInsets.only(top: 5, left: 10, right: 10, bottom: 5),
+          : EdgeInsets.only(
+        top: 5,
+        left: 10,
+        right: 10,
+        bottom: 5,
+      ),
       decoration: BoxDecoration(
-        color: AppColor.card,
-        borderRadius: BorderRadius.circular(AppConstants.borderRadius),
+        color: AppColor.cardLight,
+        borderRadius: BorderRadius.circular(
+          AppConstants.borderRadius,
+        ),
         boxShadow: [
           BoxShadow(
-            color: AppColor.mainColor.withOpacity(AppConstants.borderColor),
+            color: AppColor.secondaryColor.withOpacity(.12),
             spreadRadius: 1,
             blurRadius: 7,
             offset: const Offset(0, 1),
           ),
         ],
-        border: Border(bottom: BorderSide(color: AppColor.border)),
+        border: Border(
+          bottom: BorderSide(
+            color: AppColor.divider,
+          ),
+        ),
       ),
       clipBehavior: Clip.antiAliasWithSaveLayer,
       child: Column(
@@ -55,10 +70,14 @@ class CustomerCard extends StatelessWidget {
             children: [
               CircleAvatar(
                 radius: 28,
-                backgroundColor: AppColor.mainColor.withOpacity(.15),
-                backgroundImage: AssetImage(Assets.assets.images.customer.path),
+                backgroundColor: AppColor.backgroundDark,
+                backgroundImage: AssetImage(
+                  Assets.assets.images.customer.path,
+                ),
               ),
+
               SizedBox(width: 12),
+
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -67,16 +86,24 @@ class CustomerCard extends StatelessWidget {
                       makeFullName(user.userName),
                       style: StyleManager.font13Weight600(
                         context,
-                      ).copyWith(color: AppColor.white),
+                      ).copyWith(
+                        color: AppColor.textPrimary,
+                      ),
                     ),
+
                     SizedBox(height: 4),
+
                     Text(
                       user.email,
                       style: StyleManager.font12Weight500(
                         context,
-                      ).copyWith(color: AppColor.textSecondary),
+                      ).copyWith(
+                        color: AppColor.textSecondary,
+                      ),
                     ),
+
                     SizedBox(height: 2),
+
                     GestureDetector(
                       onTap: () {
                         makePhoneCall(user.phone);
@@ -85,23 +112,36 @@ class CustomerCard extends StatelessWidget {
                         user.phone,
                         style: StyleManager.font12Weight500(
                           context,
-                        ).copyWith(color: AppColor.textSecondary),
+                        ).copyWith(
+                          color: AppColor.mainColor,
+                        ),
                       ),
                     ),
+
                     SizedBox(height: 2),
+
                     Text(
-                      getDateFormate(user.createdAt.toString()),
+                      getDateFormate(
+                        user.createdAt.toString(),
+                      ),
                       style: StyleManager.font12Weight500(
                         context,
-                      ).copyWith(color: AppColor.textSecondary),
+                      ).copyWith(
+                        color: AppColor.textSecondary,
+                      ),
                     ),
                   ],
                 ),
               ),
+
               SizedBox(width: 10),
+
               if (orders.isNotEmpty) ...[
                 MaterialButton(
-                  padding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                  padding: EdgeInsets.symmetric(
+                    vertical: 15,
+                    horizontal: 20,
+                  ),
                   color: AppColor.mainColor,
                   onPressed: () {
                     Navigator.pushNamed(
@@ -114,7 +154,10 @@ class CustomerCard extends StatelessWidget {
                     'عرض الطلبات',
                     style: StyleManager.font12Weight500(
                       context,
-                    ).copyWith(color: AppColor.white, fontSize: 11),
+                    ).copyWith(
+                      color: AppColor.textOnDark,
+                      fontSize: 11,
+                    ),
                   ),
                 ),
               ],

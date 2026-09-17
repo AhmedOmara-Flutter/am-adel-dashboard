@@ -19,10 +19,10 @@ class OrderSummaryCardSection extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(14),
       decoration: BoxDecoration(
-        color: AppColor.card,
+        color: AppColor.cardLight,
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
-          color: AppColor.border,
+          color: AppColor.divider,
         ),
       ),
       child: Column(
@@ -31,7 +31,7 @@ class OrderSummaryCardSection extends StatelessWidget {
           Text(
             'ملخص الفاتورة',
             style: StyleManager.font13Weight600(context).copyWith(
-              color: AppColor.white,
+              color: AppColor.textPrimary,
             ),
           ),
 
@@ -52,7 +52,7 @@ class OrderSummaryCardSection extends StatelessWidget {
           Padding(
             padding: EdgeInsets.symmetric(vertical: 10),
             child: Divider(
-              color: AppColor.border,
+              color: AppColor.divider,
               height: 1,
             ),
           ),
@@ -63,10 +63,10 @@ class OrderSummaryCardSection extends StatelessWidget {
               vertical: 10,
             ),
             decoration: BoxDecoration(
-              color: AppColor.card,
+              color: AppColor.backgroundDark,
               borderRadius: BorderRadius.circular(12),
               border: Border.all(
-                color: AppColor.border,
+                color: AppColor.divider,
               ),
             ),
             child: Row(
@@ -74,7 +74,7 @@ class OrderSummaryCardSection extends StatelessWidget {
                 Text(
                   'الإجمالي',
                   style: StyleManager.font12Weight500(context).copyWith(
-                    color: AppColor.white,
+                    color: AppColor.textPrimary,
                   ),
                 ),
 
@@ -82,7 +82,9 @@ class OrderSummaryCardSection extends StatelessWidget {
 
                 Text(
                   '${total.toStringAsFixed(2)} ج.م',
-                  style: StyleManager.font13Weight700(context),
+                  style: StyleManager.font13Weight700(context).copyWith(
+                    color: AppColor.mainColor,
+                  ),
                 ),
               ],
             ),
@@ -110,23 +112,25 @@ class _SummaryRow extends StatelessWidget {
         vertical: 10,
       ),
       decoration: BoxDecoration(
-        color: AppColor.card,
+        color: AppColor.cardLight,
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
-          color: AppColor.border,
+          color: AppColor.divider,
         ),
       ),
       child: Row(
         children: [
           Text(
             title,
-            style: StyleManager.font11Weight400(context),
+            style: StyleManager.font11Weight400(context).copyWith(
+              color: AppColor.textSecondary,
+            ),
           ),
           const Spacer(),
           Text(
             value,
             style: StyleManager.font12Weight500(context).copyWith(
-              color: AppColor.white,
+              color: AppColor.textPrimary,
             ),
           ),
         ],

@@ -20,18 +20,22 @@ class ReviewCard extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 10),
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: AppColor.card,
+        color: AppColor.cardLight,
         borderRadius: BorderRadius.circular(AppConstants.borderRadius),
         boxShadow: [
           BoxShadow(
-            color: AppColor.mainColor.withOpacity(AppConstants.borderColor),
+            color: AppColor.secondaryColor.withOpacity(
+              AppConstants.borderColor,
+            ),
             spreadRadius: 1,
             blurRadius: 7,
             offset: const Offset(0, 1),
           ),
         ],
         border: Border(
-          bottom: BorderSide(color: AppColor.border),
+          bottom: BorderSide(
+            color: AppColor.divider,
+          ),
         ),
       ),
       clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -40,7 +44,7 @@ class ReviewCard extends StatelessWidget {
         children: [
           CircleAvatar(
             radius: 22,
-            backgroundColor: AppColor.background,
+            backgroundColor: AppColor.backgroundDark,
             backgroundImage: AssetImage(
               Assets.assets.images.customer.path,
             ),
@@ -52,7 +56,6 @@ class ReviewCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                /// الاسم + التاريخ
                 Row(
                   children: [
                     Expanded(
@@ -60,7 +63,9 @@ class ReviewCard extends StatelessWidget {
                         review.name,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
-                        style: StyleManager.font14Weight600(context),
+                        style: StyleManager.font14Weight600(context).copyWith(
+                          color: AppColor.textPrimary,
+                        ),
                       ),
                     ),
 
@@ -78,7 +83,6 @@ class ReviewCard extends StatelessWidget {
 
                 const SizedBox(height: 6),
 
-                /// التقييم
                 Row(
                   children: [
                     ...List.generate(
@@ -87,7 +91,7 @@ class ReviewCard extends StatelessWidget {
                         index < review.rating
                             ? Icons.star_rounded
                             : Icons.star_border_rounded,
-                        color: Colors.amber,
+                        color: AppColor.accentColor,
                         size: 16,
                       ),
                     ),
@@ -96,7 +100,9 @@ class ReviewCard extends StatelessWidget {
 
                     Text(
                       "${review.rating}/5",
-                      style: StyleManager.font12Weight500(context),
+                      style: StyleManager.font12Weight500(context).copyWith(
+                        color: AppColor.textGold,
+                      ),
                     ),
                   ],
                 ),

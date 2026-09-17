@@ -4,7 +4,6 @@ import 'package:am_adel_dashboard/core/helper_function/get_date_formate.dart';
 import 'package:am_adel_dashboard/core/utils/app_color.dart';
 import 'package:am_adel_dashboard/feature/daily_reports/domain/entities/daily_reports_entity.dart';
 import 'package:am_adel_dashboard/feature/daily_reports/presentation/view_model/daily_reports_cubit.dart';
-
 import '../../../../core/helper_function/custom_show_dialog.dart';
 
 class ReportsViewBody extends StatefulWidget {
@@ -64,7 +63,7 @@ class _ReportsViewBodyState extends State<ReportsViewBody> {
             child: Text(
               state.message,
               style: const TextStyle(
-                color: AppColor.white,
+                color: AppColor.red,
                 fontSize: 15,
               ),
               textAlign: TextAlign.center,
@@ -128,10 +127,10 @@ class _DailyReportCard extends StatelessWidget {
           child: Container(
             padding: const EdgeInsets.all(18),
             decoration: BoxDecoration(
-              color: AppColor.card,
+              color: AppColor.cardLight,
               borderRadius: BorderRadius.circular(20),
               border: Border.all(
-                color: AppColor.mainColor.withOpacity(.15),
+                color: AppColor.divider,
               ),
             ),
             child: Column(
@@ -142,7 +141,7 @@ class _DailyReportCard extends StatelessWidget {
                       width: 48,
                       height: 48,
                       decoration: BoxDecoration(
-                        color: AppColor.mainColor.withOpacity(.12),
+                        color: AppColor.backgroundDark,
                         borderRadius: BorderRadius.circular(14),
                       ),
                       child: const Icon(
@@ -153,13 +152,14 @@ class _DailyReportCard extends StatelessWidget {
                     ),
                     const SizedBox(width: 12),
                     Expanded(
+                      flex: 2,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const Text(
                             'تقرير الجرد',
                             style: TextStyle(
-                              color: AppColor.white,
+                              color: AppColor.textPrimary,
                               fontSize: 17,
                               fontWeight: FontWeight.bold,
                             ),
@@ -175,33 +175,35 @@ class _DailyReportCard extends StatelessWidget {
                         ],
                       ),
                     ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        const Text(
-                          'الإجمالي',
-                          style: TextStyle(
-                            color: AppColor.textSecondary,
-                            fontSize: 11,
+                    SizedBox(
+                      width: 46,
+                      height: 46,
+                      child: ElevatedButton(
+                        onPressed: () async{
+                          //await PrintService.printDailyReport(report);
+                        },
+                        style: ElevatedButton.styleFrom(
+                          elevation: 0,
+                          padding: EdgeInsets.zero,
+                          backgroundColor: AppColor.mainColor,
+                          foregroundColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(14),
                           ),
                         ),
-                        const SizedBox(height: 3),
-                        Text(
-                          '${_formatPrice(report.total)} ج',
-                          style: const TextStyle(
-                            color: AppColor.mainColor,
-                            fontSize: 19,
-                            fontWeight: FontWeight.bold,
-                          ),
+                        child: const Icon(
+                          Icons.print_rounded,
+                          size: 21,
                         ),
-                      ],
-                    ),
+                      ),
+                    )
+
                   ],
                 ),
                 const SizedBox(height: 18),
                 Container(
                   height: 1,
-                  color: AppColor.white.withOpacity(.06),
+                  color: AppColor.divider,
                 ),
                 const SizedBox(height: 16),
                 Row(
@@ -230,7 +232,6 @@ class _DailyReportCard extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: 16),
-
                 Row(
                   children: [
                     Expanded(
@@ -240,10 +241,10 @@ class _DailyReportCard extends StatelessWidget {
                           vertical: 13,
                         ),
                         decoration: BoxDecoration(
-                          color: AppColor.mainColor.withOpacity(.06),
+                          color: AppColor.background,
                           borderRadius: BorderRadius.circular(14),
                           border: Border.all(
-                            color: AppColor.mainColor.withOpacity(.10),
+                            color: AppColor.divider,
                           ),
                         ),
                         child: Row(
@@ -252,7 +253,7 @@ class _DailyReportCard extends StatelessWidget {
                               width: 38,
                               height: 38,
                               decoration: BoxDecoration(
-                                color: AppColor.mainColor.withOpacity(.12),
+                                color: AppColor.backgroundDark,
                                 borderRadius: BorderRadius.circular(11),
                               ),
                               child: const Icon(
@@ -278,7 +279,7 @@ class _DailyReportCard extends StatelessWidget {
                                   Text(
                                     '${_formatPrice(report.subtotal)} ج',
                                     style: const TextStyle(
-                                      color: AppColor.white,
+                                      color: AppColor.textPrimary,
                                       fontSize: 15,
                                       fontWeight: FontWeight.bold,
                                     ),
@@ -298,10 +299,10 @@ class _DailyReportCard extends StatelessWidget {
                           vertical: 13,
                         ),
                         decoration: BoxDecoration(
-                          color: AppColor.mainColor.withOpacity(.06),
+                          color: AppColor.background,
                           borderRadius: BorderRadius.circular(14),
                           border: Border.all(
-                            color: AppColor.mainColor.withOpacity(.10),
+                            color: AppColor.divider,
                           ),
                         ),
                         child: Row(
@@ -310,7 +311,7 @@ class _DailyReportCard extends StatelessWidget {
                               width: 38,
                               height: 38,
                               decoration: BoxDecoration(
-                                color: AppColor.mainColor.withOpacity(.12),
+                                color: AppColor.backgroundDark,
                                 borderRadius: BorderRadius.circular(11),
                               ),
                               child: const Icon(
@@ -336,7 +337,7 @@ class _DailyReportCard extends StatelessWidget {
                                   Text(
                                     '${_formatPrice(report.deliveryCost)} ج',
                                     style: const TextStyle(
-                                      color: AppColor.white,
+                                      color: AppColor.textPrimary,
                                       fontSize: 15,
                                       fontWeight: FontWeight.bold,
                                     ),
@@ -350,6 +351,68 @@ class _DailyReportCard extends StatelessWidget {
                     ),
                   ],
                 ),
+                Container(
+                  margin: const EdgeInsets.only(top: 16),
+                  padding: const EdgeInsets.fromLTRB(14, 12, 14, 2),
+                  decoration: BoxDecoration(
+                    border: Border(
+                      top: BorderSide(
+                        color: AppColor.divider,
+                        width: 1,
+                      ),
+                    ),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Row(
+                        children: [
+                          Container(
+                            width: 7,
+                            height: 7,
+                            decoration: BoxDecoration(
+                              color: AppColor.mainColor,
+                              shape: BoxShape.circle,
+                            ),
+                          ),
+                          const SizedBox(width: 7),
+                          const Text(
+                            'إجمالي التقرير',
+                            style: TextStyle(
+                              color: AppColor.textSecondary,
+                              fontSize: 11,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ],
+                      ),
+
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const Text(
+                            'الإجمالي',
+                            style: TextStyle(
+                              color: AppColor.textSecondary,
+                              fontSize: 10,
+                            ),
+                          ),
+                          const SizedBox(height: 2),
+                          Text(
+                            '${_formatPrice(report.total)} ج',
+                            style: const TextStyle(
+                              color: AppColor.mainColor,
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                )
               ],
             ),
           ),
@@ -358,24 +421,6 @@ class _DailyReportCard extends StatelessWidget {
     );
   }
 
-  String _formatDate(DateTime date) {
-    const months = [
-      'يناير',
-      'فبراير',
-      'مارس',
-      'أبريل',
-      'مايو',
-      'يونيو',
-      'يوليو',
-      'أغسطس',
-      'سبتمبر',
-      'أكتوبر',
-      'نوفمبر',
-      'ديسمبر',
-    ];
-
-    return '${date.day} ${months[date.month - 1]} ${date.year}';
-  }
 
   String _formatPrice(double price) {
     if (price == price.roundToDouble()) {
@@ -418,7 +463,7 @@ class _ReportItem extends StatelessWidget {
         Text(
           value,
           style: const TextStyle(
-            color: AppColor.white,
+            color: AppColor.textPrimary,
             fontSize: 14,
             fontWeight: FontWeight.bold,
           ),

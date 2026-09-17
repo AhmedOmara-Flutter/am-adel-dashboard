@@ -21,31 +21,25 @@ class _OrderViewBodyState extends State<OrderViewBody> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding:  EdgeInsets.only(bottom: 10),
+      padding: const EdgeInsets.only(bottom: 10),
       child: CustomScrollView(
         slivers: [
           SliverToBoxAdapter(
             child: Padding(
-              padding: EdgeInsets.all(10),
+              padding: const EdgeInsets.all(10),
               child: Container(
-                padding: EdgeInsets.all(8),
-                margin: EdgeInsets.only(top: 3),
+                padding: const EdgeInsets.all(8),
+                margin: const EdgeInsets.only(top: 3),
                 decoration: BoxDecoration(
-                  color: AppColor.card,
-                  borderRadius: BorderRadius.circular(AppConstants.borderRadius),
-                  boxShadow: [
-                    BoxShadow(
-                      color: AppColor.mainColor.withOpacity(AppConstants.borderColor),
-                      spreadRadius: 1,
-                      blurRadius: 7,
-                      offset: const Offset(0, 1),
-                    ),
-                  ],
-                  border: Border(
-                    bottom: BorderSide(color: AppColor.border),
+                  color: AppColor.cardLight,
+                  borderRadius: BorderRadius.circular(
+                    AppConstants.borderRadius,
+                  ),
+                  border: Border.all(
+                    color: AppColor.divider.withOpacity(0.5),
+                    width: 1.2,
                   ),
                 ),
-                clipBehavior: Clip.antiAliasWithSaveLayer,
                 child: Row(
                   children: [
                     _buildTab('انتظار'),
@@ -62,6 +56,7 @@ class _OrderViewBodyState extends State<OrderViewBody> {
             builder: (context, state) {
               final cubit = context.watch<OrdersCubit>();
               final orders = cubit.filteredOrders;
+
               if (state is GetOrdersLoadingState) {
                 return SliverList.builder(
                   itemCount: 3,
@@ -74,7 +69,12 @@ class _OrderViewBodyState extends State<OrderViewBody> {
               if (state is GetOrdersErrorState) {
                 return SliverToBoxAdapter(
                   child: Center(
-                    child: Text(state.errMessage),
+                    child: Text(
+                      state.errMessage,
+                      style: const TextStyle(
+                        color: AppColor.red,
+                      ),
+                    ),
                   ),
                 );
               }
@@ -85,6 +85,7 @@ class _OrderViewBodyState extends State<OrderViewBody> {
                   child: EmptyWidget(),
                 );
               }
+
               return SliverList.builder(
                 itemCount: orders.length,
                 itemBuilder: (context, index) {
@@ -97,7 +98,8 @@ class _OrderViewBodyState extends State<OrderViewBody> {
                 },
               );
             },
-          )      ],
+          ),
+        ],
       ),
     );
   }
@@ -134,22 +136,30 @@ class _OrderViewBodyState extends State<OrderViewBody> {
         },
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 250),
-          margin: EdgeInsets.symmetric(horizontal: 2),
-          padding: EdgeInsets.symmetric(vertical: 12),
+          margin: const EdgeInsets.symmetric(horizontal: 3),
+          padding: const EdgeInsets.symmetric(vertical: 11),
           decoration: BoxDecoration(
             color: isSelected
-                ? AppColor.mainColor
+                ? AppColor.backgroundDark
                 : Colors.transparent,
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(8),
+            border: Border.all(
+              color: isSelected
+                  ? AppColor.accentColor
+                  : Colors.transparent,
+              width: 1.2,
+            ),
           ),
           child: Center(
             child: Text(
               title,
               style: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w600,
+                fontSize: 13,
+                fontWeight: isSelected
+                    ? FontWeight.w700
+                    : FontWeight.w500,
                 color: isSelected
-                    ? AppColor.textPrimary
+                    ? AppColor.mainColor
                     : AppColor.textSecondary,
               ),
             ),

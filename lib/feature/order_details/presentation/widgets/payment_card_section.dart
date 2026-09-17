@@ -18,10 +18,10 @@ class PaymentCardSection extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(14),
       decoration: BoxDecoration(
-        color: AppColor.card,
+        color: AppColor.cardLight,
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
-          color: AppColor.border,
+          color: AppColor.divider,
         ),
       ),
       child: Column(
@@ -30,7 +30,7 @@ class PaymentCardSection extends StatelessWidget {
           Text(
             'طريقة الدفع',
             style: StyleManager.font13Weight600(context).copyWith(
-              color: AppColor.white,
+              color: AppColor.textPrimary,
             ),
           ),
 
@@ -42,10 +42,10 @@ class PaymentCardSection extends StatelessWidget {
               vertical: 10,
             ),
             decoration: BoxDecoration(
-              color: AppColor.card,
+              color: AppColor.cardLight,
               borderRadius: BorderRadius.circular(12),
               border: Border.all(
-                color: AppColor.border,
+                color: AppColor.divider,
               ),
             ),
             child: Row(
@@ -54,12 +54,12 @@ class PaymentCardSection extends StatelessWidget {
                   width: 34,
                   height: 34,
                   decoration: BoxDecoration(
-                    color: Colors.green.withOpacity(.12),
+                    color: AppColor.green.withOpacity(.12),
                     shape: BoxShape.circle,
                   ),
                   child: Icon(
                     Icons.payments_outlined,
-                    color: Colors.green,
+                    color: AppColor.green,
                     size: 16,
                   ),
                 ),
@@ -70,13 +70,14 @@ class PaymentCardSection extends StatelessWidget {
                   child: Text(
                     paymentMethod,
                     style: StyleManager.font12Weight500(context).copyWith(
-                      color: AppColor.white,
+                      color: AppColor.textPrimary,
                     ),
                   ),
                 ),
               ],
             ),
           ),
+
           if (paymentImage != null) ...[
             SizedBox(height: 12),
             GestureDetector(

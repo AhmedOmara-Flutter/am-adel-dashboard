@@ -29,7 +29,7 @@ class ProductOptionButton extends StatelessWidget {
           color: AppColor.textSecondary,
           size: 24,
         ),
-        color: AppColor.card,
+        color: AppColor.cardLight,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12),
         ),

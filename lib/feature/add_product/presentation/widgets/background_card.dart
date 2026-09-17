@@ -20,73 +20,92 @@ class BackgroundCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(
-        10,
-      ),
+      margin: const EdgeInsets.all(10),
       decoration: BoxDecoration(
-        color: AppColor.card,
-        borderRadius: BorderRadius.circular(AppConstants.borderRadius),
+        color: AppColor.cardLight,
+        borderRadius: BorderRadius.circular(
+          AppConstants.borderRadius,
+        ),
         boxShadow: [
           BoxShadow(
-            color: AppColor.mainColor.withOpacity(AppConstants.borderColor),
+            color: AppColor.secondaryColor.withOpacity(0.15),
             spreadRadius: 1,
-            blurRadius: 7,
-            offset: const Offset(0, 1),
+            blurRadius: 8,
+            offset: const Offset(0, 2),
           ),
         ],
-        border: Border(
-          bottom: BorderSide(color: AppColor.border),
+        border: Border.all(
+          color: AppColor.divider,
         ),
       ),
-      clipBehavior: Clip.antiAliasWithSaveLayer,
+      clipBehavior: Clip.antiAlias,
       child: Column(
         children: [
           Container(
             width: double.infinity,
-            padding: EdgeInsets.all(10),
-            decoration: BoxDecoration(
-              color: AppColor.background,
+            padding: const EdgeInsets.symmetric(
+              horizontal: 12,
+              vertical: 10,
+            ),
+            decoration: const BoxDecoration(
+              color: AppColor.backgroundDark,
               borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(8),
-                topRight: Radius.circular(8),
+                topLeft: Radius.circular(
+                  AppConstants.borderRadius,
+                ),
+                topRight: Radius.circular(
+                  AppConstants.borderRadius,
+                ),
               ),
-              border: Border.all(
-                color: AppColor.border,
+              border: Border(
+                bottom: BorderSide(
+                  color: AppColor.divider,
+                ),
               ),
             ),
             child: Row(
               children: [
                 Container(
-                  padding: EdgeInsets.all(6),
+                  padding: const EdgeInsets.all(7),
                   decoration: BoxDecoration(
                     color: AppColor.mainColor,
                     borderRadius: BorderRadius.circular(8),
                   ),
-                  child: Icon(
-                    icon,
-                    color: AppColor.white,
+                  child: const Icon(
+                    Icons.info_outline,
+                    color: AppColor.textOnDark,
                     size: 18,
                   ),
                 ),
-                SizedBox(width: 8),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      label,
-                      style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                        color: AppColor.textPrimary,
-                        fontWeight: FontWeight.w700,
+                const SizedBox(width: 10),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        label,
+                        style: Theme
+                            .of(context)
+                            .textTheme
+                            .titleMedium!
+                            .copyWith(
+                          color: AppColor.textPrimary,
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
-                    ),
-                    SizedBox(height: 4),
-                    Text(
-                      subLabel,
-                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                        color: AppColor.textSecondary,
+                      const SizedBox(height: 3),
+                      Text(
+                        subLabel,
+                        style: Theme
+                            .of(context)
+                            .textTheme
+                            .bodyMedium!
+                            .copyWith(
+                          color: AppColor.textSecondary,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ],
             ),

@@ -14,29 +14,6 @@ class DisplayOrdersViewBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Padding(
-          padding: const EdgeInsets.only(top: 30,left: 20,right: 20),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const CustomBackButton(),
-              Row(
-                children: [
-                  Icon(Icons.display_settings, color: AppColor.mainColor),
-                  const SizedBox(width: 8),
-                  Text(
-                    "عرض الطلبات",
-                    style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                      color: AppColor.textPrimary,
-                    ),
-                  ),
-                ],
-              ),
-
-              const SizedBox(width: 40),
-            ],
-          ),
-        ),
         MediaQuery.sizeOf(context).width > ConfigSize.phone
             ? Expanded(
                 child: GridView.builder(

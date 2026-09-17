@@ -17,21 +17,23 @@ class ProductReviewCardDesktop extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 320,
-      margin:EdgeInsets.only(top: 20),
+      margin: EdgeInsets.only(top: 20),
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: AppColor.card,
+        color: AppColor.cardLight,
         borderRadius: BorderRadius.circular(AppConstants.borderRadius),
         boxShadow: [
           BoxShadow(
-            color: AppColor.mainColor.withOpacity(AppConstants.borderColor),
+            color: AppColor.secondaryColor.withOpacity(
+              AppConstants.borderColor,
+            ),
             spreadRadius: 1,
             blurRadius: 7,
             offset: const Offset(0, 1),
           ),
         ],
         border: Border(
-          bottom: BorderSide(color: AppColor.border),
+          bottom: BorderSide(color: AppColor.divider),
         ),
       ),
       clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -43,7 +45,7 @@ class ProductReviewCardDesktop extends StatelessWidget {
             width: double.infinity,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(18),
-              border: Border.all(color: AppColor.border),
+              border: Border.all(color: AppColor.divider),
             ),
             clipBehavior: Clip.antiAlias,
             child: Padding(
@@ -54,22 +56,18 @@ class ProductReviewCardDesktop extends StatelessWidget {
               ),
             ),
           ),
-
           const SizedBox(height: 20),
-
           Text(
             product.name,
             textAlign: TextAlign.center,
-            style:StyleManager.font16Weight700(context).copyWith(
+            style: StyleManager.font16Weight700(context).copyWith(
+              color: AppColor.textPrimary,
               fontWeight: FontWeight.w500,
-            )
+            ),
           ),
-
           const SizedBox(height: 10),
-
           Container(
-            padding:
-            const EdgeInsets.symmetric(horizontal: 18, vertical: 7),
+            padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 7),
             decoration: BoxDecoration(
               color: AppColor.mainColor.withOpacity(.1),
               borderRadius: BorderRadius.circular(30),
@@ -77,16 +75,13 @@ class ProductReviewCardDesktop extends StatelessWidget {
             child: Text(
               product.category,
               style: StyleManager.font12Weight500(context).copyWith(
-                color: AppColor.mainColor
-              )
+                color: AppColor.mainColor,
+              ),
             ),
           ),
-
           const SizedBox(height: 22),
-
           Row(
             children: [
-
               Expanded(
                 child: _InfoCard(
                   icon: Icons.attach_money,
@@ -102,7 +97,7 @@ class ProductReviewCardDesktop extends StatelessWidget {
                   icon: Icons.star,
                   title: "التقييم",
                   value: product.averageRating.toStringAsFixed(1),
-                  color: Colors.amber,
+                  color: AppColor.accentColor,
                 ),
               ),
 
@@ -117,8 +112,7 @@ class ProductReviewCardDesktop extends StatelessWidget {
               ),
             ],
           ),
-
-         Column(
+          Column(
             children: [
               const SizedBox(height: 25),
               Align(
@@ -126,6 +120,7 @@ class ProductReviewCardDesktop extends StatelessWidget {
                 child: Text(
                   "الوصف",
                   style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                    color: AppColor.textPrimary,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -139,7 +134,7 @@ class ProductReviewCardDesktop extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: AppColor.background,
                   borderRadius: BorderRadius.circular(14),
-                  border: Border.all(color: AppColor.border),
+                  border: Border.all(color: AppColor.divider),
                 ),
                 child: Text(
                   product.description,
@@ -155,8 +150,8 @@ class ProductReviewCardDesktop extends StatelessWidget {
       ),
     );
   }
-
 }
+
 class _InfoCard extends StatelessWidget {
   const _InfoCard({
     required this.icon,
@@ -177,7 +172,7 @@ class _InfoCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppColor.background,
         borderRadius: BorderRadius.circular(14),
-        border: Border.all(color: AppColor.border),
+        border: Border.all(color: AppColor.divider),
       ),
       child: Column(
         children: [
@@ -196,6 +191,7 @@ class _InfoCard extends StatelessWidget {
             style: const TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 16,
+              color: AppColor.textPrimary,
             ),
           ),
         ],
@@ -203,9 +199,6 @@ class _InfoCard extends StatelessWidget {
     );
   }
 }
-
-
-
 
 class ProductReviewCardMobile extends StatelessWidget {
   const ProductReviewCardMobile({
@@ -220,10 +213,10 @@ class ProductReviewCardMobile extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(14),
       decoration: BoxDecoration(
-        color: AppColor.card,
+        color: AppColor.cardLight,
         borderRadius: BorderRadius.circular(18),
         border: Border.all(
-          color: AppColor.border,
+          color: AppColor.divider,
         ),
       ),
       child: Row(
@@ -232,10 +225,10 @@ class ProductReviewCardMobile extends StatelessWidget {
             width: 75,
             height: 75,
             decoration: BoxDecoration(
-              color: Colors.transparent,
+              color: AppColor.background,
               borderRadius: BorderRadius.circular(16),
               border: Border.all(
-                color: AppColor.border,
+                color: AppColor.divider,
               ),
             ),
             clipBehavior: Clip.antiAlias,
@@ -251,7 +244,8 @@ class ProductReviewCardMobile extends StatelessWidget {
                 ),
               ),
             ),
-          ),          SizedBox(width: 14),
+          ),
+          SizedBox(width: 14),
 
           Expanded(
             child: Column(
@@ -294,7 +288,7 @@ class ProductReviewCardMobile extends StatelessWidget {
                   children: [
                     Icon(
                       Icons.star_rounded,
-                      color: AppColor.mainColor,
+                      color: AppColor.accentColor,
                       size: 18,
                     ),
 

@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:am_adel_dashboard/core/utils/style_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:am_adel_dashboard/core/entities/product_entity.dart';
@@ -28,20 +29,14 @@ class EditProductViewBody extends StatefulWidget {
 class _EditProductViewBodyState extends State<EditProductViewBody> {
   File? image;
   List<File>? subImagesFiles;
-
   bool isFeatured = false;
-
   AutovalidateMode autoValidateMode = AutovalidateMode.disabled;
-
   final nameController = TextEditingController();
   final priceController = TextEditingController();
   final descriptionController = TextEditingController();
-
   final _formKey = GlobalKey<FormState>();
-
   String? selectedCategory;
   String? selectedSize;
-
   CategoryEntity? get currentCategory {
     final categoryCubit = context.read<CategoryCubit>();
     final categories = categoryCubit.categories;
@@ -66,7 +61,6 @@ class _EditProductViewBodyState extends State<EditProductViewBody> {
       return null;
     }
   }
-
   String? get selectedCategoryId {
     if (selectedCategory != null) {
       return selectedCategory;
@@ -162,28 +156,6 @@ class _EditProductViewBodyState extends State<EditProductViewBody> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            margin: const EdgeInsets.only(left: 10, right: 10, top: 30),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const CustomBackButton(),
-                Row(
-                  children: [
-                    const Icon(Icons.edit, color: AppColor.mainColor),
-                    const SizedBox(width: 8),
-                    Text(
-                      'تعديل المنتج',
-                      style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                        color: AppColor.textPrimary,
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(width: 40, height: 40),
-              ],
-            ),
-          ),
           BackgroundCard(
             label: 'معلومات المنتج',
             subLabel: 'البيانات الاساسيه للمنتج',
@@ -579,7 +551,9 @@ class _EditProductViewBodyState extends State<EditProductViewBody> {
             },
             child: Text(
               'تعديل المنتج',
-              style: Theme.of(context).textTheme.labelSmall,
+              style: StyleManager.font15Weight800(context).copyWith(
+                color: AppColor.white
+              ),
             ),
           ),
           const SizedBox(height: 15),

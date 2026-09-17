@@ -87,7 +87,6 @@ class SelectedLocationViewBody extends StatelessWidget {
                   },
                   accept: () async {
                     Navigator.pop(context);
-
                     await context
                         .read<SelectedLocationCubit>()
                         .deleteLocation(

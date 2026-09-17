@@ -18,12 +18,13 @@ class NotificationsHubView extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 22),
-
               Text(
                 'اختر نوع الإشعارات التي تريد متابعتها',
                 style: StyleManager.font15Weight800(
                   context,
-                ).copyWith(color: AppColor.textSecondary),
+                ).copyWith(
+                  color: AppColor.textSecondary,
+                ),
               ),
               const SizedBox(height: 20),
               Expanded(
@@ -36,10 +37,13 @@ class NotificationsHubView extends StatelessWidget {
                         title: 'الإشعارات العامة',
                         subtitle: 'إشعارات المطعم للجميع',
                         description:
-                            'تابع العروض، الإعلانات، الأخبار والتنبيهات التي يرسلها المطعم لجميع العملاء.',
+                        'تابع العروض، الإعلانات، الأخبار والتنبيهات التي يرسلها المطعم لجميع العملاء.',
                         accent: AppColor.accentColor,
                         onTap: () {
-                          Navigator.pushNamed(context,RouteManager.sendNotification);
+                          Navigator.pushNamed(
+                            context,
+                            RouteManager.sendNotification,
+                          );
                         },
                       ),
                     ),
@@ -51,10 +55,13 @@ class NotificationsHubView extends StatelessWidget {
                         title: 'الإشعارات الخاصة',
                         subtitle: 'إشعاراتك الشخصية',
                         description:
-                            'تابع إشعارات حسابك، تحديثات طلباتك وكل ما يخص تجربتك بشكل شخصي.',
+                        'تابع إشعارات حسابك، تحديثات طلباتك وكل ما يخص تجربتك بشكل شخصي.',
                         accent: AppColor.green,
                         onTap: () {
-                          Navigator.pushNamed(context,RouteManager.sendNotificationForEachUser);
+                          Navigator.pushNamed(
+                            context,
+                            RouteManager.sendNotificationForEachUser,
+                          );
                         },
                       ),
                     ),
@@ -98,14 +105,16 @@ class _NotificationTypeCard extends StatelessWidget {
         width: double.infinity,
         padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
-          color: AppColor.card,
+          color: AppColor.cardLight,
           borderRadius: BorderRadius.circular(26),
-          border: Border.all(color: accent.withOpacity(.18)),
+          border: Border.all(
+            color: AppColor.divider,
+          ),
           boxShadow: [
             BoxShadow(
-              color: AppColor.black.withOpacity(.16),
-              blurRadius: 22,
-              offset: const Offset(0, 9),
+              color: AppColor.secondaryColor.withOpacity(.10),
+              blurRadius: 12,
+              offset: const Offset(0, 3),
             ),
           ],
         ),
@@ -120,9 +129,15 @@ class _NotificationTypeCard extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: accent.withOpacity(.10),
                     borderRadius: BorderRadius.circular(18),
-                    border: Border.all(color: accent.withOpacity(.18)),
+                    border: Border.all(
+                      color: accent.withOpacity(.18),
+                    ),
                   ),
-                  child: Icon(icon, color: accent, size: 28),
+                  child: Icon(
+                    icon,
+                    color: accent,
+                    size: 28,
+                  ),
                 ),
                 const SizedBox(width: 12),
                 Container(
@@ -138,7 +153,9 @@ class _NotificationTypeCard extends StatelessWidget {
                     label,
                     style: StyleManager.font12Weight500(
                       context,
-                    ).copyWith(color: accent),
+                    ).copyWith(
+                      color: accent,
+                    ),
                   ),
                 ),
                 const Spacer(),
@@ -146,11 +163,13 @@ class _NotificationTypeCard extends StatelessWidget {
                   width: 38,
                   height: 38,
                   decoration: BoxDecoration(
-                    color: AppColor.surface,
+                    color: AppColor.backgroundDark,
                     shape: BoxShape.circle,
-                    border: Border.all(color: AppColor.border.withOpacity(.14)),
+                    border: Border.all(
+                      color: AppColor.divider,
+                    ),
                   ),
-                  child: Icon(
+                  child: const Icon(
                     Icons.arrow_forward_ios_rounded,
                     color: AppColor.textSecondary,
                     size: 13,
@@ -172,14 +191,18 @@ class _NotificationTypeCard extends StatelessWidget {
               title,
               style: StyleManager.font18Weight700(
                 context,
-              ).copyWith(color: AppColor.white),
+              ).copyWith(
+                color: AppColor.textPrimary,
+              ),
             ),
             const SizedBox(height: 5),
             Text(
               subtitle,
               style: StyleManager.font12Weight500(
                 context,
-              ).copyWith(color: accent),
+              ).copyWith(
+                color: accent,
+              ),
             ),
             const SizedBox(height: 9),
             Text(
@@ -188,7 +211,10 @@ class _NotificationTypeCard extends StatelessWidget {
               overflow: TextOverflow.ellipsis,
               style: StyleManager.font11Weight400(
                 context,
-              ).copyWith(color: AppColor.textSecondary, height: 1.5),
+              ).copyWith(
+                color: AppColor.textSecondary,
+                height: 1.5,
+              ),
             ),
             const Spacer(),
             Row(
@@ -197,10 +223,16 @@ class _NotificationTypeCard extends StatelessWidget {
                   'عرض الإشعارات',
                   style: StyleManager.font12Weight500(
                     context,
-                  ).copyWith(color: AppColor.textPrimary),
+                  ).copyWith(
+                    color: AppColor.textPrimary,
+                  ),
                 ),
                 const SizedBox(width: 7),
-                Icon(Icons.arrow_forward_rounded, color: accent, size: 16),
+                Icon(
+                  Icons.arrow_forward_rounded,
+                  color: accent,
+                  size: 16,
+                ),
               ],
             ),
           ],

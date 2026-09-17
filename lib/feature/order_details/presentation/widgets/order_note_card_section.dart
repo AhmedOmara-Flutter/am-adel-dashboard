@@ -19,10 +19,10 @@ class OrderNoteCardSection extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(14),
       decoration: BoxDecoration(
-        color: AppColor.card,
+        color: AppColor.cardLight,
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
-          color: AppColor.border,
+          color: AppColor.divider,
         ),
       ),
       child: Row(
@@ -32,7 +32,7 @@ class OrderNoteCardSection extends StatelessWidget {
             width: 34,
             height: 34,
             decoration: BoxDecoration(
-              color: AppColor.mainColor.withOpacity(.12),
+              color: AppColor.backgroundDark,
               shape: BoxShape.circle,
             ),
             child: Icon(
@@ -51,7 +51,7 @@ class OrderNoteCardSection extends StatelessWidget {
                 Text(
                   'ملاحظات الطلب',
                   style: StyleManager.font13Weight600(context).copyWith(
-                    color: AppColor.white,
+                    color: AppColor.textPrimary,
                   ),
                 ),
 
@@ -59,7 +59,9 @@ class OrderNoteCardSection extends StatelessWidget {
 
                 Text(
                   note!,
-                  style: StyleManager.font12Weight500(context),
+                  style: StyleManager.font12Weight500(context).copyWith(
+                    color: AppColor.textSecondary,
+                  ),
                 ),
               ],
             ),

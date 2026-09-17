@@ -26,7 +26,7 @@ class BuildCopyRight extends StatelessWidget {
           const SizedBox(height: 10),
 
           Text(
-            'بيتزا سفيان',
+            'عم عادل',
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
               color: AppColor.textPrimary,
               fontSize: 13,

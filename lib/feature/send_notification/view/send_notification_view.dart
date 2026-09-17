@@ -91,36 +91,30 @@ class _SendNotificationViewState extends State<SendNotificationView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: AppColor.mainColor,
+        elevation: 0,
+        leading: Padding(
+          padding: const EdgeInsets.only(right: 10),
+          child: const CustomBackButton(),
+        ),
+        centerTitle: true,
+        title: Text(
+          'الاشعارات العامه',
+          style: Theme.of(context)
+              .textTheme
+              .displaySmall!
+              .copyWith(
+            color: AppColor.textOnDark,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(24),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const CustomBackButton(),
-                Row(
-                  children: [
-                    Icon(Icons.notification_important, color: AppColor.mainColor),
-                    const SizedBox(width: 8),
-                    Text(
-                      "الاشعارات العامه",
-                      style: Theme
-                          .of(context)
-                          .textTheme
-                          .labelLarge!
-                          .copyWith(
-                        color: AppColor.textPrimary,
-                      ),
-                    ),
-                  ],
-                ),
-
-                const SizedBox(width: 40),
-              ],
-            ),
-            SizedBox(height: 20,),
             _buildHeader(),
             const SizedBox(height: 24),
             LayoutBuilder(
@@ -184,11 +178,22 @@ class _SendNotificationViewState extends State<SendNotificationView> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('إرسال إشعار', style: StyleManager.font18Weight700(context)),
+              Text(
+                'إرسال إشعار',
+                style: StyleManager.font18Weight700(
+                  context,
+                ).copyWith(
+                  color: AppColor.textPrimary,
+                ),
+              ),
               const SizedBox(height: 5),
               Text(
                 'أرسل إشعارًا فوريًا لجميع مستخدمي التطبيق',
-                style: StyleManager.font12Weight500(context),
+                style: StyleManager.font12Weight500(
+                  context,
+                ).copyWith(
+                  color: AppColor.textSecondary,
+                ),
               ),
             ],
           ),
@@ -201,9 +206,18 @@ class _SendNotificationViewState extends State<SendNotificationView> {
     return Container(
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
-        color: AppColor.card,
+        color: AppColor.cardLight,
         borderRadius: BorderRadius.circular(18),
-        border: Border.all(color: AppColor.border),
+        border: Border.all(
+          color: AppColor.divider,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: AppColor.secondaryColor.withOpacity(.08),
+            blurRadius: 10,
+            offset: const Offset(0, 3),
+          ),
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -218,7 +232,11 @@ class _SendNotificationViewState extends State<SendNotificationView> {
               const SizedBox(width: 10),
               Text(
                 'بيانات الإشعار',
-                style: StyleManager.font19Weight700(context),
+                style: StyleManager.font19Weight700(
+                  context,
+                ).copyWith(
+                  color: AppColor.textPrimary,
+                ),
               ),
             ],
           ),
@@ -248,8 +266,8 @@ class _SendNotificationViewState extends State<SendNotificationView> {
               onPressed: isLoading ? null : sendNotification,
               style: ElevatedButton.styleFrom(
                 backgroundColor: AppColor.mainColor,
-                foregroundColor: AppColor.white,
-                disabledBackgroundColor: AppColor.border,
+                foregroundColor: AppColor.textOnDark,
+                disabledBackgroundColor: AppColor.backgroundDark,
                 disabledForegroundColor: AppColor.textSecondary,
                 elevation: 0,
                 shape: RoundedRectangleBorder(
@@ -258,19 +276,24 @@ class _SendNotificationViewState extends State<SendNotificationView> {
               ),
               icon: isLoading
                   ? const SizedBox(
-                      width: 20,
-                      height: 20,
-                      child: CircularProgressIndicator(
-                        strokeWidth: 2.5,
-                        color: AppColor.white,
-                      ),
-                    )
-                  : const Icon(Icons.send_rounded, size: 20),
+                width: 20,
+                height: 20,
+                child: CircularProgressIndicator(
+                  strokeWidth: 2.5,
+                  color: AppColor.textOnDark,
+                ),
+              )
+                  : const Icon(
+                Icons.send_rounded,
+                size: 20,
+              ),
               label: Text(
                 isLoading ? 'جاري الإرسال...' : 'إرسال الإشعار',
                 style: StyleManager.font16Weight600(
                   context,
-                ).copyWith(color: AppColor.white),
+                ).copyWith(
+                  color: AppColor.textOnDark,
+                ),
               ),
             ),
           ),
@@ -283,19 +306,30 @@ class _SendNotificationViewState extends State<SendNotificationView> {
     return Container(
       padding: const EdgeInsets.all(14),
       decoration: BoxDecoration(
-        color: AppColor.mainColor.withValues(alpha: 0.08),
+        color: AppColor.mainColor.withValues(alpha: 0.07),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: AppColor.mainColor.withValues(alpha: 0.18)),
+        border: Border.all(
+          color: AppColor.mainColor.withValues(alpha: 0.16),
+        ),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(Icons.info_outline_rounded, color: AppColor.mainColor, size: 20),
-          SizedBox(width: 10),
+          const Icon(
+            Icons.info_outline_rounded,
+            color: AppColor.mainColor,
+            size: 20,
+          ),
+          const SizedBox(width: 10),
           Expanded(
             child: Text(
               'سيتم إرسال هذا الإشعار لجميع المستخدمين المشتركين في التطبيق.',
-              style: StyleManager.font13Weight400(context),
+              style: StyleManager.font13Weight400(
+                context,
+              ).copyWith(
+                color: AppColor.textSecondary,
+                height: 1.5,
+              ),
             ),
           ),
         ],
@@ -307,9 +341,18 @@ class _SendNotificationViewState extends State<SendNotificationView> {
     return Container(
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
-        color: AppColor.card,
+        color: AppColor.cardLight,
         borderRadius: BorderRadius.circular(18),
-        border: Border.all(color: AppColor.border),
+        border: Border.all(
+          color: AppColor.divider,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: AppColor.secondaryColor.withOpacity(.08),
+            blurRadius: 10,
+            offset: const Offset(0, 3),
+          ),
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -324,7 +367,11 @@ class _SendNotificationViewState extends State<SendNotificationView> {
               const SizedBox(width: 10),
               Text(
                 'معاينة الإشعار',
-                style: StyleManager.font16Weight600(context),
+                style: StyleManager.font16Weight600(
+                  context,
+                ).copyWith(
+                  color: AppColor.textPrimary,
+                ),
               ),
             ],
           ),
@@ -341,7 +388,9 @@ class _SendNotificationViewState extends State<SendNotificationView> {
       decoration: BoxDecoration(
         color: AppColor.background,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: AppColor.border),
+        border: Border.all(
+          color: AppColor.divider,
+        ),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -355,14 +404,17 @@ class _SendNotificationViewState extends State<SendNotificationView> {
             ),
             child: const Icon(
               Icons.local_pizza_rounded,
-              color: AppColor.white,
+              color: AppColor.textOnDark,
               size: 23,
             ),
           ),
           const SizedBox(width: 12),
           Expanded(
             child: AnimatedBuilder(
-              animation: Listenable.merge([titleController, bodyController]),
+              animation: Listenable.merge([
+                titleController,
+                bodyController,
+              ]),
               builder: (context, _) {
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -373,7 +425,11 @@ class _SendNotificationViewState extends State<SendNotificationView> {
                           : titleController.text,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: StyleManager.font13Weight400(context),
+                      style: StyleManager.font13Weight400(
+                        context,
+                      ).copyWith(
+                        color: AppColor.textPrimary,
+                      ),
                     ),
                     const SizedBox(height: 5),
                     Text(
@@ -382,7 +438,12 @@ class _SendNotificationViewState extends State<SendNotificationView> {
                           : bodyController.text,
                       maxLines: 3,
                       overflow: TextOverflow.ellipsis,
-                      style: StyleManager.font12Weight500(context),
+                      style: StyleManager.font12Weight500(
+                        context,
+                      ).copyWith(
+                        color: AppColor.textSecondary,
+                        height: 1.4,
+                      ),
                     ),
                   ],
                 );

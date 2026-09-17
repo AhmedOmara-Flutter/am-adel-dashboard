@@ -12,6 +12,25 @@ class ProductReviewsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: AppColor.mainColor,
+        elevation: 0,
+        leading: Padding(
+          padding: const EdgeInsets.only(right: 10),
+          child: const CustomBackButton(),
+        ),
+        centerTitle: true,
+        title: Text(
+          'التعليقات',
+          style: Theme.of(context)
+              .textTheme
+              .displaySmall!
+              .copyWith(
+            color: AppColor.textOnDark,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
       body: ProductReviewsViewBody(product: product,),
     );
   }

@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+
 import '../utils/app_color.dart';
 
 class CustomSubImages extends StatefulWidget {
@@ -21,11 +22,13 @@ class CustomSubImages extends StatefulWidget {
 class _CustomSubImagesState extends State<CustomSubImages> {
   final List<File> newImages = [];
   late List<String> oldImages;
+
   @override
   void initState() {
     super.initState();
     oldImages = widget.initialImages ?? [];
   }
+
   int get totalCount => oldImages.length + newImages.length;
 
   Future<void> pickImages() async {
@@ -83,7 +86,7 @@ class _CustomSubImagesState extends State<CustomSubImages> {
           return GestureDetector(
             onTap: pickImages,
             child: DottedBorder(
-              color: AppColor.border,
+              color: AppColor.divider,
               strokeWidth: 2,
               dashPattern: const [8, 4],
               borderType: BorderType.RRect,
@@ -91,7 +94,7 @@ class _CustomSubImagesState extends State<CustomSubImages> {
               child: Container(
                 width: double.infinity,
                 decoration: BoxDecoration(
-                  color: AppColor.card ,
+                  color: AppColor.cardLight,
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Column(
@@ -105,7 +108,8 @@ class _CustomSubImagesState extends State<CustomSubImages> {
                     const SizedBox(height: 10),
                     Text(
                       'اضافه صورة',
-                      style: Theme.of(context)
+                      style: Theme
+                          .of(context)
                           .textTheme
                           .titleSmall!
                           .copyWith(
@@ -142,20 +146,19 @@ class _CustomSubImagesState extends State<CustomSubImages> {
                 ),
               ),
             ),
-
             Positioned(
               top: 6,
               right: 6,
               child: CircleAvatar(
                 radius: 14,
-                backgroundColor: Colors.white,
+                backgroundColor: AppColor.background,
                 child: IconButton(
                   padding: EdgeInsets.zero,
                   onPressed: () => removeImage(index),
                   icon: const Icon(
                     Icons.close,
                     size: 16,
-                    color: Colors.grey,
+                    color: AppColor.red,
                   ),
                 ),
               ),

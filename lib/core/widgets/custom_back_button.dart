@@ -13,7 +13,7 @@ class CustomBackButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () async{
+      onTap: () async {
         await Future.delayed(Duration(milliseconds: 200));
         Navigator.pop(context);
       },
@@ -25,24 +25,26 @@ class CustomBackButton extends StatelessWidget {
           bottom: 10,
         ),
         decoration: BoxDecoration(
-          color: AppColor.card,
+          color: AppColor.cardLight,
           shape: BoxShape.circle,
           boxShadow: [
             BoxShadow(
-              color: AppColor.mainColor.withOpacity(AppConstants.borderColor),
+              color: AppColor.secondaryColor.withOpacity(
+                AppConstants.borderColor,
+              ),
               spreadRadius: 1,
               blurRadius: 7,
               offset: const Offset(0, 1),
             ),
           ],
           border: Border(
-            bottom: BorderSide(color: AppColor.border),
+            bottom: BorderSide(color: AppColor.divider),
           ),
         ),
         child: Center(
           child: SvgPicture.asset(
             Assets.assets.images.arrowBack.path,
-            color: Colors.white,
+            color: AppColor.mainColor,
           ),
         ),
       ),

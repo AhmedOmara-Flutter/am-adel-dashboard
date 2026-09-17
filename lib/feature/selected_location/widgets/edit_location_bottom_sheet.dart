@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../../../core/entities/selected_location_entity.dart';
 import '../../../../core/helper_function/custom_show_snake_bar.dart';
 import '../../../../core/utils/app_color.dart';
@@ -29,6 +30,17 @@ class _EditLocationBottomSheetState
   late final TextEditingController _subTitleController;
   late final TextEditingController _costController;
 
+  bool get _isFormComplete {
+    final title = _titleController.text.trim();
+    final subTitle = _subTitleController.text.trim();
+    final cost = double.tryParse(_costController.text.trim());
+
+    return title.isNotEmpty &&
+        subTitle.isNotEmpty &&
+        cost != null &&
+        cost >= 0;
+  }
+
   @override
   void initState() {
     super.initState();
@@ -44,10 +56,22 @@ class _EditLocationBottomSheetState
     _costController = TextEditingController(
       text: widget.location.cost.toStringAsFixed(0),
     );
+
+    _titleController.addListener(_onFormChanged);
+    _subTitleController.addListener(_onFormChanged);
+    _costController.addListener(_onFormChanged);
+  }
+
+  void _onFormChanged() {
+    setState(() {});
   }
 
   @override
   void dispose() {
+    _titleController.removeListener(_onFormChanged);
+    _subTitleController.removeListener(_onFormChanged);
+    _costController.removeListener(_onFormChanged);
+
     _titleController.dispose();
     _subTitleController.dispose();
     _costController.dispose();
@@ -57,6 +81,10 @@ class _EditLocationBottomSheetState
 
   void _updateLocation() {
     FocusScope.of(context).unfocus();
+
+    if (!_isFormComplete) {
+      return;
+    }
 
     if (!_formKey.currentState!.validate()) {
       return;
@@ -114,6 +142,8 @@ class _EditLocationBottomSheetState
         final isLoading =
         state is SelectedLocationUpdateLoading;
 
+        final isFormComplete = _isFormComplete;
+
         return AnimatedPadding(
           duration: const Duration(milliseconds: 200),
           curve: Curves.easeOut,
@@ -134,7 +164,7 @@ class _EditLocationBottomSheetState
                         style: StyleManager.font23Weight700(
                           context,
                         ).copyWith(
-                          color: AppColor.white,
+                          color: AppColor.textPrimary,
                         ),
                       ),
                       const SizedBox(height: 6),
@@ -143,17 +173,17 @@ class _EditLocationBottomSheetState
                         style: StyleManager.font14Weight600(
                           context,
                         ).copyWith(
-                          color: AppColor.white.withOpacity(.55),
+                          color: AppColor.textSecondary,
                         ),
                       ),
                       const SizedBox(height: 24),
                       Container(
                         padding: const EdgeInsets.all(20),
                         decoration: BoxDecoration(
-                          color: AppColor.card,
+                          color: AppColor.cardLight,
                           borderRadius: BorderRadius.circular(20),
                           border: Border.all(
-                            color: AppColor.border,
+                            color: AppColor.divider,
                           ),
                         ),
                         child: Column(
@@ -230,14 +260,23 @@ class _EditLocationBottomSheetState
                       ),
                       const SizedBox(height: 24),
                       CustomButton(
-                        onPressed: isLoading
-                            ? null
-                            : _updateLocation,
-                        child: Text(
-                          'حفظ التعديلات',
-                          style: Theme.of(context)
-                              .textTheme
-                              .labelSmall,
+                        onPressed: isFormComplete && !isLoading
+                            ? _updateLocation
+                            : null,
+                        child: AnimatedOpacity(
+                          duration: const Duration(milliseconds: 200),
+                          opacity: isFormComplete && !isLoading
+                              ? 1
+                              : .45,
+                          child: Text(
+                            'حفظ التعديلات',
+                            style: Theme.of(context)
+                                .textTheme
+                                .labelSmall
+                                ?.copyWith(
+                              color: AppColor.textOnDark,
+                            ),
+                          ),
                         ),
                       ),
                     ],
@@ -249,7 +288,7 @@ class _EditLocationBottomSheetState
                   child: AbsorbPointer(
                     absorbing: true,
                     child: Container(
-                      color: Colors.black.withOpacity(.3),
+                      color: AppColor.black.withOpacity(.25),
                       child: const Center(
                         child: CircularProgressIndicator(
                           color: AppColor.mainColor,

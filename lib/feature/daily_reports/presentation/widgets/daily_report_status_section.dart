@@ -133,12 +133,12 @@ class _SectionContainer extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(18),
       decoration: BoxDecoration(
-        color: AppColor.card,
+        color: AppColor.cardLight,
         borderRadius: BorderRadius.circular(
           AppConstants.borderRadius,
         ),
         border: Border.all(
-          color: AppColor.border,
+          color: AppColor.divider,
         ),
       ),
       child: Column(
@@ -185,7 +185,7 @@ class _SectionDivider extends StatelessWidget {
         vertical: 11,
       ),
       child: Divider(
-        color: AppColor.border,
+        color: AppColor.divider,
         height: 1,
       ),
     );

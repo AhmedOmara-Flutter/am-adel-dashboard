@@ -10,7 +10,6 @@ import '../../../../core/utils/style_manager.dart';
 import '../../../../core/widgets/custom_button.dart';
 import '../../../../core/widgets/custom_image_picker.dart';
 import '../../../../core/widgets/custom_text_form_field.dart';
-import '../../../main/presentation/view_model/main_cubit.dart';
 import '../view_model/add_bundle_offer_cubit/add_bundle_offer_cubit.dart';
 
 class AddBundleOfferBottomSheet extends StatefulWidget {
@@ -32,8 +31,37 @@ class _AddBundleOfferBottomSheetState
 
   File? selectedImage;
 
+  bool get _isFormComplete {
+    final title = _titleController.text.trim();
+    final description = _descriptionController.text.trim();
+    final price = double.tryParse(_priceController.text.trim());
+
+    return selectedImage != null &&
+        title.isNotEmpty &&
+        description.isNotEmpty &&
+        price != null &&
+        price > 0;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    _titleController.addListener(_onFormChanged);
+    _descriptionController.addListener(_onFormChanged);
+    _priceController.addListener(_onFormChanged);
+  }
+
+  void _onFormChanged() {
+    setState(() {});
+  }
+
   @override
   void dispose() {
+    _titleController.removeListener(_onFormChanged);
+    _descriptionController.removeListener(_onFormChanged);
+    _priceController.removeListener(_onFormChanged);
+
     _titleController.dispose();
     _descriptionController.dispose();
     _priceController.dispose();
@@ -44,6 +72,10 @@ class _AddBundleOfferBottomSheetState
   void _addBundleOffer() {
     FocusScope.of(context).unfocus();
 
+    if (!_isFormComplete) {
+      return;
+    }
+
     if (!_formKey.currentState!.validate()) {
       return;
     }
@@ -51,7 +83,7 @@ class _AddBundleOfferBottomSheetState
     if (selectedImage == null) {
       customShowSnakeBar(
         context,
-        color: Colors.red,
+        color: AppColor.red,
         label: 'برجاء إدخال صورة للباكدج',
       );
       return;
@@ -64,7 +96,7 @@ class _AddBundleOfferBottomSheetState
     if (price == null) {
       customShowSnakeBar(
         context,
-        color: Colors.red,
+        color: AppColor.red,
         label: 'برجاء إدخال سعر صحيح',
       );
       return;
@@ -80,6 +112,7 @@ class _AddBundleOfferBottomSheetState
       ),
     );
   }
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AddBundleOfferCubit, AddBundleOfferState>(
@@ -87,7 +120,7 @@ class _AddBundleOfferBottomSheetState
         if (state is AddBundleOfferFailure) {
           customShowSnakeBar(
             context,
-            color: Colors.red,
+            color: AppColor.red,
             label: state.errMessage,
           );
         }
@@ -105,12 +138,15 @@ class _AddBundleOfferBottomSheetState
 
           customShowSnakeBar(
             context,
-            color: Colors.green,
+            color: AppColor.green,
             label: 'تم إضافة الباكدج بنجاح',
           );
         }
       },
       builder: (context, state) {
+        final isFormComplete = _isFormComplete;
+        final isLoading = state is AddBundleOfferLoading;
+
         return AnimatedPadding(
           duration: const Duration(milliseconds: 200),
           curve: Curves.easeOut,
@@ -132,7 +168,7 @@ class _AddBundleOfferBottomSheetState
                           style: StyleManager.font23Weight700(
                             context,
                           ).copyWith(
-                            color: Colors.white,
+                            color: AppColor.textPrimary,
                           ),
                         ),
                         const SizedBox(height: 6),
@@ -141,17 +177,17 @@ class _AddBundleOfferBottomSheetState
                           style: StyleManager.font14Weight600(
                             context,
                           ).copyWith(
-                            color: AppColor.white.withOpacity(.55),
+                            color: AppColor.textSecondary,
                           ),
                         ),
                         const SizedBox(height: 24),
                         Container(
                           padding: const EdgeInsets.all(24),
                           decoration: BoxDecoration(
-                            color: AppColor.card,
+                            color: AppColor.cardLight,
                             borderRadius: BorderRadius.circular(22),
                             border: Border.all(
-                              color: AppColor.border,
+                              color: AppColor.divider,
                             ),
                           ),
                           child: Column(
@@ -163,9 +199,9 @@ class _AddBundleOfferBottomSheetState
                                   });
                                 },
                               ),
-          
+
                               const SizedBox(height: 24),
-          
+
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -173,18 +209,21 @@ class _AddBundleOfferBottomSheetState
                                     'بيانات الباكدج',
                                     style: StyleManager.font16Weight700(
                                       context,
+                                    ).copyWith(
+                                      color: AppColor.textPrimary,
                                     ),
                                   ),
-          
+
                                   const SizedBox(height: 18),
-          
+
                                   Row(
                                     children: [
                                       Expanded(
                                         child: CustomTextFormField(
                                           keyboardType: TextInputType.text,
                                           autoValidateMode:
-                                          AutovalidateMode.onUserInteraction,
+                                          AutovalidateMode
+                                              .onUserInteraction,
                                           label: 'الاسم',
                                           controller: _titleController,
                                           hintText: 'مثال: وجبة العيلة',
@@ -193,22 +232,23 @@ class _AddBundleOfferBottomSheetState
                                                 value.trim().isEmpty) {
                                               return 'أدخل اسم الباكدج';
                                             }
-          
+
                                             return null;
                                           },
                                         ),
                                       ),
-          
+
                                       const SizedBox(width: 10),
-          
+
                                       Expanded(
                                         child: CustomTextFormField(
-                                          keyboardType: const TextInputType
-                                              .numberWithOptions(
+                                          keyboardType:
+                                          const TextInputType.numberWithOptions(
                                             decimal: true,
                                           ),
                                           autoValidateMode:
-                                          AutovalidateMode.onUserInteraction,
+                                          AutovalidateMode
+                                              .onUserInteraction,
                                           label: 'السعر',
                                           controller: _priceController,
                                           hintText: '0.00',
@@ -217,28 +257,28 @@ class _AddBundleOfferBottomSheetState
                                                 value.trim().isEmpty) {
                                               return 'أدخل سعر الباكدج';
                                             }
-          
+
                                             final price = double.tryParse(
                                               value.trim(),
                                             );
-          
+
                                             if (price == null) {
                                               return 'أدخل سعر صحيح';
                                             }
-          
+
                                             if (price <= 0) {
                                               return 'السعر يجب أن يكون أكبر من صفر';
                                             }
-          
+
                                             return null;
                                           },
                                         ),
                                       ),
                                     ],
                                   ),
-          
+
                                   const SizedBox(height: 18),
-          
+
                                   CustomTextFormField(
                                     keyboardType: TextInputType.text,
                                     autoValidateMode:
@@ -253,25 +293,39 @@ class _AddBundleOfferBottomSheetState
                                           value.trim().isEmpty) {
                                         return 'من فضلك أدخل وصف الباكدج';
                                       }
-          
+
                                       return null;
                                     },
                                   ),
-          
+
                                   const SizedBox(height: 18),
                                 ],
                               ),
                             ],
                           ),
                         ),
+
                         const SizedBox(height: 24),
+
                         CustomButton(
-                          onPressed: _addBundleOffer,
-                          child: Text(
-                            'إضافة باكدج',
-                            style: Theme.of(context)
-                                .textTheme
-                                .labelSmall,
+                          onPressed: isFormComplete && !isLoading
+                              ? _addBundleOffer
+                              : null,
+                          child: AnimatedOpacity(
+                            duration: const Duration(milliseconds: 200),
+                            opacity: isFormComplete && !isLoading
+                                ? 1
+                                : .45,
+                            child: Text(
+                              'إضافة باكدج',
+                              style: Theme
+                                  .of(context)
+                                  .textTheme
+                                  .labelSmall
+                                  ?.copyWith(
+                                color: AppColor.textOnDark,
+                              ),
+                            ),
                           ),
                         ),
                       ],
@@ -279,13 +333,13 @@ class _AddBundleOfferBottomSheetState
                   ),
                 ),
               ),
-          
+
               if (state is AddBundleOfferLoading)
                 Positioned.fill(
                   child: AbsorbPointer(
                     absorbing: true,
                     child: Container(
-                      color: Colors.black.withOpacity(0.3),
+                      color: AppColor.black.withOpacity(0.25),
                       child: const Center(
                         child: CircularProgressIndicator(
                           color: AppColor.mainColor,

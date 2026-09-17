@@ -14,9 +14,9 @@ class OrderPrintSection extends StatelessWidget {
       width: double.infinity,
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: AppColor.card,
+        color: AppColor.cardLight,
         borderRadius: BorderRadius.circular(14),
-        border: Border.all(color: AppColor.border),
+        border: Border.all(color: AppColor.divider),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -27,12 +27,12 @@ class OrderPrintSection extends StatelessWidget {
                 width: 45,
                 height: 45,
                 decoration: BoxDecoration(
-                  color: AppColor.accentColor.withOpacity(.10),
+                  color: AppColor.backgroundDark,
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Icon(
                   Icons.print_rounded,
-                  color: AppColor.accentColor,
+                  color: AppColor.mainColor,
                   size: 23,
                 ),
               ),
@@ -47,7 +47,9 @@ class OrderPrintSection extends StatelessWidget {
                       'طباعة الطلب',
                       style: StyleManager.font14Weight600(
                         context,
-                      ).copyWith(color: Colors.white),
+                      ).copyWith(
+                        color: AppColor.textPrimary,
+                      ),
                     ),
                     const SizedBox(height: 5),
 
@@ -71,14 +73,19 @@ class OrderPrintSection extends StatelessWidget {
             width: double.infinity,
             child: ElevatedButton.icon(
               onPressed: onPressed,
-              icon: const Icon(Icons.print_rounded, size: 19),
+              icon: const Icon(
+                Icons.print_rounded,
+                size: 19,
+              ),
               label: Text(
                 'طباعة الطلب',
-                style: Theme.of(context).textTheme.labelSmall,
+                style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                  color: AppColor.textOnDark,
+                ),
               ),
               style: ElevatedButton.styleFrom(
                 backgroundColor: AppColor.mainColor,
-                foregroundColor: Colors.white,
+                foregroundColor: AppColor.textOnDark,
                 elevation: 0,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),

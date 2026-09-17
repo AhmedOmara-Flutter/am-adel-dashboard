@@ -26,18 +26,11 @@ class OrderStatusButton extends StatelessWidget {
           height: 48,
           padding: const EdgeInsets.symmetric(horizontal: 18),
           decoration: BoxDecoration(
-            color: color.withOpacity(.08),
+            color: color.withOpacity(.06),
             borderRadius: BorderRadius.circular(14),
             border: Border.all(
-              color: color.withOpacity(.35),
+              color: color.withOpacity(.30),
             ),
-            boxShadow: [
-              BoxShadow(
-                color: color.withOpacity(.12),
-                blurRadius: 12,
-                offset: const Offset(0, 4),
-              ),
-            ],
           ),
           child: Row(
             mainAxisSize: MainAxisSize.min,
@@ -46,7 +39,7 @@ class OrderStatusButton extends StatelessWidget {
                 width: 32,
                 height: 32,
                 decoration: BoxDecoration(
-                  color: color.withOpacity(.18),
+                  color: color.withOpacity(.12),
                   shape: BoxShape.circle,
                 ),
                 child: Icon(

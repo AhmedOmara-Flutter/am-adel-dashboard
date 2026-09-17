@@ -46,7 +46,7 @@ class RecentOrdersListView extends StatelessWidget {
             final order = recentOrders[index];
             return GestureDetector(
               onTap: (){
-                context.read<MainCubit>().changeIndex(4);
+                context.read<MainCubit>().changeIndex(5);
               },
               child: OrderItem(
                 amount: order.cartEntity.getTotalPrice(),

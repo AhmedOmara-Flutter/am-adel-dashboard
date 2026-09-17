@@ -126,7 +126,7 @@ class RecentOrdersCard extends StatelessWidget {
                   onTap: () {
                     context
                         .read<MainCubit>()
-                        .changeIndex(4);
+                        .changeIndex(5);
                   },
 
                   child: Container(

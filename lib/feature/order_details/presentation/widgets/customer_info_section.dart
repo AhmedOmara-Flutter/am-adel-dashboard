@@ -21,10 +21,10 @@ class CustomerInfoSection extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(14),
       decoration: BoxDecoration(
-        color: AppColor.card,
+        color: AppColor.cardLight,
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
-          color: AppColor.border,
+          color: AppColor.divider,
         ),
       ),
       child: Column(
@@ -33,7 +33,7 @@ class CustomerInfoSection extends StatelessWidget {
           Text(
             'بيانات العميل',
             style: StyleManager.font13Weight600(context).copyWith(
-              color: AppColor.white,
+              color: AppColor.textPrimary,
             ),
           ),
 
@@ -43,7 +43,7 @@ class CustomerInfoSection extends StatelessWidget {
             children: [
               CircleAvatar(
                 radius: 24,
-                backgroundColor: AppColor.card,
+                backgroundColor: AppColor.backgroundDark,
                 backgroundImage: AssetImage(
                   Assets.assets.images.customer.path,
                 ),
@@ -57,14 +57,18 @@ class CustomerInfoSection extends StatelessWidget {
                   children: [
                     Text(
                       makeFullName(user.userName),
-                      style: StyleManager.font15Weight700(context),
+                      style: StyleManager.font15Weight700(context).copyWith(
+                        color: AppColor.textPrimary,
+                      ),
                     ),
 
                     SizedBox(height: 2),
 
                     Text(
                       user.email,
-                      style: StyleManager.font12Weight500(context),
+                      style: StyleManager.font12Weight500(context).copyWith(
+                        color: AppColor.textSecondary,
+                      ),
                     ),
                   ],
                 ),
@@ -118,10 +122,10 @@ class _InfoTile extends StatelessWidget {
           vertical: 10,
         ),
         decoration: BoxDecoration(
-          color: AppColor.card,
+          color: AppColor.cardLight,
           borderRadius: BorderRadius.circular(12),
           border: Border.all(
-            color: AppColor.border,
+            color: AppColor.divider,
           ),
         ),
         child: Row(
@@ -130,7 +134,7 @@ class _InfoTile extends StatelessWidget {
               width: 34,
               height: 34,
               decoration: BoxDecoration(
-                color: AppColor.mainColor.withOpacity(.15),
+                color: AppColor.backgroundDark,
                 shape: BoxShape.circle,
               ),
               child: Icon(
@@ -148,7 +152,9 @@ class _InfoTile extends StatelessWidget {
                 children: [
                   Text(
                     title,
-                    style: StyleManager.font11Weight400(context),
+                    style: StyleManager.font11Weight400(context).copyWith(
+                      color: AppColor.textSecondary,
+                    ),
                   ),
 
                   SizedBox(height: 2),
@@ -156,7 +162,7 @@ class _InfoTile extends StatelessWidget {
                   Text(
                     value,
                     style: StyleManager.font13Weight600(context).copyWith(
-                      color: AppColor.white,
+                      color: AppColor.textPrimary,
                     ),
                   ),
                 ],

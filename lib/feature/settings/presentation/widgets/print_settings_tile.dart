@@ -45,9 +45,9 @@ class _PrintSettingsTileState extends State<PrintSettingsTile> {
       width: double.infinity,
       padding: const EdgeInsets.all(15),
       decoration: BoxDecoration(
-        color: AppColor.card,
+        color: AppColor.cardLight,
         borderRadius: BorderRadius.circular(22),
-        border: Border.all(color: AppColor.border.withOpacity(.55)),
+        border: Border.all(color: AppColor.divider.withOpacity(.55)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -117,7 +117,7 @@ class _PrintSettingsTileState extends State<PrintSettingsTile> {
                     const SizedBox(height: 5),
                     Text(
                       'اختر عدد الأوراق التي سيتم طباعة الطلب بها',
-                      style: StyleManager.font13Weight600(context),
+                      style: StyleManager.font13Weight600(context).copyWith(color: AppColor.card),
                     ),
                   ],
                 ),
@@ -201,20 +201,20 @@ class _PrintOption extends StatelessWidget {
         decoration: BoxDecoration(
           color: selected
               ? AppColor.mainColor.withOpacity(.08)
-              : AppColor.surface,
+              : AppColor.background,
           borderRadius: BorderRadius.circular(17),
           border: Border.all(
-            color: selected ? AppColor.mainColor : AppColor.border,
+            color: selected ? AppColor.mainColor : AppColor.divider,
             width: selected ? 1.4 : 1,
           ),
           boxShadow: selected
               ? [
-                  BoxShadow(
-                    color: AppColor.mainColor.withOpacity(.10),
-                    blurRadius: 18,
-                    spreadRadius: 1,
-                  ),
-                ]
+            BoxShadow(
+              color: AppColor.mainColor.withOpacity(.10),
+              blurRadius: 18,
+              spreadRadius: 1,
+            ),
+          ]
               : null,
         ),
         child: Row(
@@ -226,7 +226,7 @@ class _PrintOption extends StatelessWidget {
               decoration: BoxDecoration(
                 color: selected
                     ? AppColor.mainColor.withOpacity(.14)
-                    : AppColor.background,
+                    : AppColor.backgroundDark,
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Icon(
@@ -275,16 +275,16 @@ class _PrintOption extends StatelessWidget {
                 shape: BoxShape.circle,
                 color: selected ? AppColor.mainColor : Colors.transparent,
                 border: Border.all(
-                  color: selected ? AppColor.mainColor : AppColor.border,
+                  color: selected ? AppColor.mainColor : AppColor.divider,
                   width: 1.5,
                 ),
               ),
               child: selected
                   ? const Icon(
-                      Icons.check_rounded,
-                      color: Colors.white,
-                      size: 14,
-                    )
+                Icons.check_rounded,
+                color: AppColor.textOnDark,
+                size: 14,
+              )
                   : null,
             ),
           ],

@@ -60,11 +60,11 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
         Container(
           margin: const EdgeInsets.only(top: 20),
           decoration: BoxDecoration(
-            color: AppColor.black,
+            color: AppColor.cardLight,
             shape: BoxShape.circle,
             boxShadow: [
               BoxShadow(
-                color: AppColor.mainColor.withOpacity(
+                color: AppColor.secondaryColor.withOpacity(
                   AppConstants.borderColor,
                 ),
                 spreadRadius: 1,
@@ -74,7 +74,7 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
             ],
             border: Border(
               bottom: BorderSide(
-                color: AppColor.border,
+                color: AppColor.divider,
               ),
             ),
           ),
@@ -89,7 +89,7 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
         const SizedBox(height: 50),
         const ManagerInfoCard(
           name: 'عم عادل',
-          phone: '011111111111',
+          phone: '01000000000',
         ),
         const SizedBox(height: 15),
         const RestaurantStatusCard(),
@@ -125,13 +125,13 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
     return Column(
       children: [
         const ManagerInfoCard(
-          name: 'سفيان محمد',
-          phone: '01150279072',
+          name: 'عم عادل',
+          phone: '0100000000',
         ),
         const SizedBox(height: 15),
         const RestaurantStatusCard(),
-        // const SizedBox(height: 15),
-        // const PrintSettingsTile(),
+        const SizedBox(height: 15),
+        const PrintSettingsTile(),
         const SizedBox(height: 15),
         Column(
           children: [

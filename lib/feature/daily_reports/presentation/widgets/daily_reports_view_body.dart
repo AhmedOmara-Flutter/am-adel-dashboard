@@ -32,7 +32,9 @@ class _DailyReportsViewBodyState extends State<DailyReportsViewBody> {
       builder: (context, state) {
         if (state is DailyReportsLoading) {
           return const Center(
-            child: CircularProgressIndicator(),
+            child: CircularProgressIndicator(
+              color: AppColor.mainColor,
+            ),
           );
         }
 
@@ -89,7 +91,7 @@ class _DailyReportsViewBodyState extends State<DailyReportsViewBody> {
             if (state is DailyReportsClosing)
               Positioned.fill(
                 child: Container(
-                  color: Colors.black.withOpacity(0.55),
+                  color: AppColor.black.withOpacity(0.25),
                   child: const Center(
                     child: CircularProgressIndicator(
                       color: AppColor.mainColor,

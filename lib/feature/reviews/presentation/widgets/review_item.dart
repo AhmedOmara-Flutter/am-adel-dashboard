@@ -1,8 +1,8 @@
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/material.dart';
 import 'package:am_adel_dashboard/core/entities/product_entity.dart';
 import 'package:am_adel_dashboard/core/utils/app_color.dart';
 import 'package:am_adel_dashboard/core/utils/route_manager.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/material.dart';
 
 import '../../../../core/utils/app_constants.dart';
 import '../../../../core/utils/config_size.dart';
@@ -18,30 +18,37 @@ class ReviewItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: MediaQuery.sizeOf(context).width > ConfigSize.phone?EdgeInsets.only(
+      margin: MediaQuery
+          .sizeOf(context)
+          .width > ConfigSize.phone
+          ? EdgeInsets.only(
         top: 2,
         bottom: 10,
         left: 10,
-      ):EdgeInsets.only(
-        right: 10
+      )
+          : EdgeInsets.only(
+        right: 10,
       ),
       decoration: BoxDecoration(
-        color: AppColor.card,
+        color: AppColor.cardLight,
         borderRadius: BorderRadius.circular(AppConstants.borderRadius),
         boxShadow: [
           BoxShadow(
-            color: AppColor.mainColor.withOpacity(AppConstants.borderColor),
+            color: AppColor.secondaryColor.withOpacity(
+              AppConstants.borderColor,
+            ),
             spreadRadius: 1,
             blurRadius: 7,
             offset: const Offset(0, 1),
           ),
         ],
         border: Border(
-          bottom: BorderSide(color: AppColor.border),
+          bottom: BorderSide(
+            color: AppColor.divider,
+          ),
         ),
       ),
       clipBehavior: Clip.antiAliasWithSaveLayer,
-
       child: Column(
         children: [
           Row(
@@ -58,7 +65,7 @@ class ReviewItem extends StatelessWidget {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(4),
                       border: Border.all(
-                        color: AppColor.border,
+                        color: AppColor.divider,
                       ),
                     ),
                     child: Row(
@@ -69,7 +76,9 @@ class ReviewItem extends StatelessWidget {
                               .of(context)
                               .textTheme
                               .titleMedium!
-                              .copyWith(color: AppColor.white),
+                              .copyWith(
+                            color: AppColor.textPrimary,
+                          ),
                         ),
                         SizedBox(width: 5),
                         Icon(
@@ -82,28 +91,6 @@ class ReviewItem extends StatelessWidget {
                   ),
                 ],
               ),
-              // IconButton(
-              //     onPressed: () {
-              //       CustomShowDialog.show(
-              //         context,
-              //         title: "حذف جميع التعليقات",
-              //         content: const Text(
-              //           "هل أنت متأكد من حذف جميع التعليقات؟",
-              //           textAlign: TextAlign.center,
-              //         ),
-              //         cancel: () => Navigator.pop(context),
-              //         accept: () {
-              //           context.read<GetReviewsCubit>().deleteAllReviews(product.id!);
-              //           Navigator.pop(context);
-              //         },
-              //         color: AppColor.red,
-              //         flag: Icons.warning_amber_rounded,
-              //       );
-              //     },
-              //     icon: Icon(Icons.delete_outline,
-              //       color: AppColor.red,
-              //       size: 18.sp,)
-              // ),
             ],
           ),
           SizedBox(height: 5),
@@ -116,21 +103,23 @@ class ReviewItem extends StatelessWidget {
                   imageUrl: product.image ?? '',
                   fit: BoxFit.contain,
                   fadeInDuration: const Duration(milliseconds: 250),
-                  placeholder: (context, url) => Center(
-                    child: SizedBox(
-                      width: 100,
-                      height: 100,
-                      child: const CircularProgressIndicator(
-                        strokeWidth: 2,
-                        color: AppColor.mainColor,
+                  placeholder: (context, url) =>
+                      Center(
+                        child: SizedBox(
+                          width: 100,
+                          height: 100,
+                          child: const CircularProgressIndicator(
+                            strokeWidth: 2,
+                            color: AppColor.accentColor,
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                  errorWidget: (context, url, error) => Icon(
-                    Icons.image_not_supported_outlined,
-                    size: 42,
-                    color: AppColor.textSecondary,
-                  ),
+                  errorWidget: (context, url, error) =>
+                      Icon(
+                        Icons.image_not_supported_outlined,
+                        size: 42,
+                        color: AppColor.textSecondary,
+                      ),
                 ),
               ),
               SizedBox(height: 10),
@@ -139,8 +128,12 @@ class ReviewItem extends StatelessWidget {
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                  color: AppColor.white
+                style: Theme
+                    .of(context)
+                    .textTheme
+                    .labelLarge!
+                    .copyWith(
+                  color: AppColor.textPrimary,
                 ),
               ),
               SizedBox(height: 10),
@@ -149,14 +142,18 @@ class ReviewItem extends StatelessWidget {
                 children: [
                   Icon(
                     Icons.star_rounded,
-                    color: AppColor.mainColor,
+                    color: AppColor.accentColor,
                     size: 16,
                   ),
                   SizedBox(width: 5),
                   Text(
                     product.averageRating.toStringAsFixed(2),
-                    style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                      color: AppColor.mainColor,
+                    style: Theme
+                        .of(context)
+                        .textTheme
+                        .labelSmall
+                        ?.copyWith(
+                      color: AppColor.textGold,
                     ),
                   ),
                 ],
@@ -187,7 +184,8 @@ class ReviewItem extends StatelessWidget {
                       ),
                       child: Text(
                         'عرض جميع التعليقات',
-                        style: Theme.of(context)
+                        style: Theme
+                            .of(context)
                             .textTheme
                             .titleSmall
                             ?.copyWith(

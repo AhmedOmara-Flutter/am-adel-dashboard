@@ -1,14 +1,17 @@
 import 'dart:io';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:am_adel_dashboard/core/entities/product_entity.dart';
 import 'package:am_adel_dashboard/core/helper_function/custom_show_snake_bar.dart';
 import 'package:am_adel_dashboard/core/utils/app_color.dart';
+import 'package:am_adel_dashboard/core/utils/style_manager.dart';
 import 'package:am_adel_dashboard/core/widgets/custom_button.dart';
 import 'package:am_adel_dashboard/core/widgets/custom_image_picker.dart';
 import 'package:am_adel_dashboard/core/widgets/custom_text_form_field.dart';
 import 'package:am_adel_dashboard/feature/add_product/presentation/widgets/background_card.dart';
 import 'package:am_adel_dashboard/feature/add_product/presentation/widgets/custom_is_featured.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../../../../core/widgets/custom_sub_images.dart';
 import '../../../category/domain/entities/category_entity.dart';
 import '../../../category/presentation/view_model/category_cubit.dart';
@@ -185,9 +188,7 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
                   const SizedBox(height: 8),
                   BlocBuilder<CategoryCubit, CategoryState>(
                     builder: (context, categoryState) {
-                      final categoryCubit =
-                      context.watch<CategoryCubit>();
-
+                      final categoryCubit = context.watch<CategoryCubit>();
                       final categories = categoryCubit.categories;
 
                       if (categoryState is CategoryGetLoading &&
@@ -195,10 +196,10 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
                         return Container(
                           height: 55,
                           decoration: BoxDecoration(
-                            color: AppColor.card,
+                            color: AppColor.cardLight,
                             borderRadius: BorderRadius.circular(12),
                             border: Border.all(
-                              color: AppColor.border,
+                              color: AppColor.divider,
                             ),
                           ),
                           child: const Center(
@@ -207,7 +208,7 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
                               height: 22,
                               child: CircularProgressIndicator(
                                 strokeWidth: 2,
-                                color: AppColor.mainColor,
+                                color: AppColor.accentColor,
                               ),
                             ),
                           ),
@@ -219,10 +220,10 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
                           width: double.infinity,
                           padding: const EdgeInsets.all(16),
                           decoration: BoxDecoration(
-                            color: AppColor.card,
+                            color: AppColor.cardLight,
                             borderRadius: BorderRadius.circular(12),
                             border: Border.all(
-                              color: AppColor.border,
+                              color: AppColor.divider,
                             ),
                           ),
                           child: Text(
@@ -241,8 +242,7 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
 
                       return DropdownButtonFormField<String>(
                         initialValue: categories.any(
-                              (category) =>
-                          category.id == selectedCategory,
+                              (category) => category.id == selectedCategory,
                         )
                             ? selectedCategory
                             : null,
@@ -259,10 +259,15 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
                         items: categories.map((category) {
                           return DropdownMenuItem<String>(
                             value: category.id,
-                            child: Text(category.name),
+                            child: Text(
+                              category.name,
+                              style: const TextStyle(
+                                color: AppColor.textPrimary,
+                              ),
+                            ),
                           );
                         }).toList(),
-                        dropdownColor: AppColor.card,
+                        dropdownColor: AppColor.cardLight,
                         style: Theme
                             .of(context)
                             .textTheme
@@ -270,19 +275,28 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
                             .copyWith(
                           color: AppColor.textPrimary,
                         ),
+                        icon: const Icon(
+                          Icons.keyboard_arrow_down_rounded,
+                          color: AppColor.textSecondary,
+                        ),
                         decoration: InputDecoration(
                           filled: true,
-                          fillColor: AppColor.card,
+                          fillColor: AppColor.cardLight,
+                          contentPadding: const EdgeInsets.symmetric(
+                            horizontal: 14,
+                            vertical: 14,
+                          ),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12),
                             borderSide: const BorderSide(
-                              color: AppColor.border,
+                              color: AppColor.divider,
                             ),
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12),
                             borderSide: const BorderSide(
-                              color: AppColor.mainColor,
+                              color: AppColor.accentColor,
+                              width: 1.5,
                             ),
                           ),
                           errorBorder: OutlineInputBorder(
@@ -295,6 +309,7 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
                             borderRadius: BorderRadius.circular(12),
                             borderSide: const BorderSide(
                               color: AppColor.red,
+                              width: 1.5,
                             ),
                           ),
                         ),
@@ -317,10 +332,13 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
                       );
                     },
                   ),
+
                   const SizedBox(height: 10),
+
                   if (currentCategory != null &&
                       currentCategory!.sizes.isNotEmpty) ...[
                     const SizedBox(height: 16),
+
                     Row(
                       children: [
                         Text(
@@ -341,10 +359,12 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
                         ),
                       ],
                     ),
+
                     const SizedBox(height: 8),
+
                     DropdownButtonFormField<String>(
-                      initialValue:
-                      currentCategory!.sizes.contains(selectedSize)
+                      initialValue: currentCategory!.sizes.contains(
+                          selectedSize)
                           ? selectedSize
                           : null,
                       hint: Text(
@@ -360,10 +380,15 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
                       items: currentCategory!.sizes.map((size) {
                         return DropdownMenuItem<String>(
                           value: size,
-                          child: Text(size),
+                          child: Text(
+                            size,
+                            style: const TextStyle(
+                              color: AppColor.textPrimary,
+                            ),
+                          ),
                         );
                       }).toList(),
-                      dropdownColor: AppColor.card,
+                      dropdownColor: AppColor.cardLight,
                       style: Theme
                           .of(context)
                           .textTheme
@@ -371,19 +396,28 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
                           .copyWith(
                         color: AppColor.textPrimary,
                       ),
+                      icon: const Icon(
+                        Icons.keyboard_arrow_down_rounded,
+                        color: AppColor.textSecondary,
+                      ),
                       decoration: InputDecoration(
                         filled: true,
-                        fillColor: AppColor.card,
+                        fillColor: AppColor.cardLight,
+                        contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 14,
+                          vertical: 14,
+                        ),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
                           borderSide: const BorderSide(
-                            color: AppColor.border,
+                            color: AppColor.divider,
                           ),
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
                           borderSide: const BorderSide(
-                            color: AppColor.mainColor,
+                            color: AppColor.accentColor,
+                            width: 1.5,
                           ),
                         ),
                         errorBorder: OutlineInputBorder(
@@ -396,6 +430,7 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
                           borderRadius: BorderRadius.circular(12),
                           borderSide: const BorderSide(
                             color: AppColor.red,
+                            width: 1.5,
                           ),
                         ),
                       ),
@@ -413,6 +448,7 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
                       },
                     ),
                   ],
+
                 ],
               ),
             ),
@@ -574,10 +610,8 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
             },
             child: Text(
               'اضافه المنتج',
-              style: Theme
-                  .of(context)
-                  .textTheme
-                  .labelSmall,
+              style: StyleManager.font15Weight800(context).copyWith(
+                  color: AppColor.white),
             ),
           ),
           const SizedBox(height: 15),

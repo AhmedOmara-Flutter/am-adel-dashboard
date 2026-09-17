@@ -44,31 +44,30 @@ class _BuildOrderCardState extends State<BuildOrderCard> {
     final orderNumberText = _orderNumber.toString().padLeft(2, '0');
 
     return GestureDetector(
-        onTap: () {
-          Navigator.pushNamed(
-            context,
-            RouteManager.orderDetails,
-            arguments: {
-              'order': widget.order,
-              'orderNumber': _orderNumber,
-            },
-          );
-        },
+      onTap: () {
+        Navigator.pushNamed(
+          context,
+          RouteManager.orderDetails,
+          arguments: {
+            'order': widget.order,
+            'orderNumber': _orderNumber,
+          },
+        );
+      },
       child: Container(
-        margin: const EdgeInsets.symmetric(vertical: 6, horizontal: 10),
+        margin: const EdgeInsets.symmetric(
+          vertical: 6,
+          horizontal: 10,
+        ),
         padding: const EdgeInsets.all(14),
         decoration: BoxDecoration(
-          color: AppColor.card,
-          borderRadius: BorderRadius.circular(AppConstants.borderRadius),
-          boxShadow: [
-            BoxShadow(
-              color: AppColor.mainColor.withOpacity(AppConstants.borderColor),
-              spreadRadius: 1,
-              blurRadius: 7,
-              offset: const Offset(0, 1),
-            ),
-          ],
-          border: Border(bottom: BorderSide(color: AppColor.border)),
+          color: AppColor.cardLight,
+          borderRadius: BorderRadius.circular(
+            AppConstants.borderRadius,
+          ),
+          border: Border.all(
+            color: AppColor.divider.withOpacity(0.5)
+          ),
         ),
         clipBehavior: Clip.antiAliasWithSaveLayer,
         child: Stack(
@@ -79,7 +78,9 @@ class _BuildOrderCardState extends State<BuildOrderCard> {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    OrderUserImage(order: widget.order),
+                    OrderUserImage(
+                      order: widget.order,
+                    ),
                     const SizedBox(width: 12),
                     Expanded(
                       child: OrderCustomerInfo(
@@ -87,23 +88,22 @@ class _BuildOrderCardState extends State<BuildOrderCard> {
                           widget.order.userEntity!.userName,
                         ),
                         phone: widget.order.userEntity!.phone,
-
-                        // نفس رقم الأوردر الظاهر على الشاشة
                         orderId: orderNumberText,
-
                         address: widget.order.getFullAddress(),
-
-                        location: widget.order.selectedLocationEntity!.title,
-
+                        location: widget
+                            .order
+                            .selectedLocationEntity!
+                            .title,
                         products: widget.order.cartEntity.cartItems
                             .map(
                               (item) =>
-                                  '${item.product.name} × ${item.quantity}',
-                            )
+                          '${item.product.name} × ${item.quantity}',
+                        )
                             .join('\n'),
-
                         price: widget.order.cartEntity.cartItems
-                            .map((item) => '${item.unitPrice} ج.م')
+                            .map(
+                              (item) => '${item.unitPrice} ج.م',
+                        )
                             .join('\n'),
                       ),
                     ),
@@ -114,17 +114,17 @@ class _BuildOrderCardState extends State<BuildOrderCard> {
                 const SizedBox(height: 12),
 
                 OrderSummarySection(
-                  time: getTimeOnly(widget.order.createdAt.toString()),
-                  deliveryCost: widget.order.selectedLocationEntity!.cost,
-                  totalPrice: widget.order.cartEntity.getTotalPrice(),
+                  time: getTimeOnly(
+                    widget.order.createdAt.toString(),
+                  ),
+                  deliveryCost:
+                  widget.order.selectedLocationEntity!.cost,
+                  totalPrice:
+                  widget.order.cartEntity.getTotalPrice(),
                 ),
 
-                // =========================
-                // Pending
-                // =========================
                 if (widget.order.status == OrderStatus.pending) ...[
                   const SizedBox(height: 14),
-
                   Row(
                     children: [
                       Expanded(
@@ -142,22 +142,19 @@ class _BuildOrderCardState extends State<BuildOrderCard> {
                             final order = widget.order;
 
                             try {
-                              // تأكيد الطلب
                               await context
                                   .read<OrdersCubit>()
                                   .updateOrderStatus(
-                                    orderId: order.id ?? '',
-                                    status: OrderStatus.confirmed,
-                                  );
+                                orderId: order.id ?? '',
+                                status: OrderStatus.confirmed,
+                              );
                             } finally {
                               _printing = false;
                             }
                           },
                         ),
                       ),
-
                       const SizedBox(width: 10),
-
                       Expanded(
                         child: OrderStatusButton(
                           title: 'إلغاء الطلب',
@@ -175,12 +172,8 @@ class _BuildOrderCardState extends State<BuildOrderCard> {
                   ),
                 ],
 
-                // =========================
-                // Confirmed
-                // =========================
                 if (widget.order.status == OrderStatus.confirmed) ...[
                   const SizedBox(height: 14),
-
                   Row(
                     children: [
                       Expanded(
@@ -189,7 +182,9 @@ class _BuildOrderCardState extends State<BuildOrderCard> {
                           icon: Icons.done_all,
                           color: OrderStatus.delivered.color,
                           onTap: () async {
-                            await context.read<OrdersCubit>().updateOrderStatus(
+                            await context
+                                .read<OrdersCubit>()
+                                .updateOrderStatus(
                               orderId: widget.order.id ?? '',
                               status: OrderStatus.delivered,
                             );
@@ -200,12 +195,8 @@ class _BuildOrderCardState extends State<BuildOrderCard> {
                   ),
                 ],
 
-                // =========================
-                // Delivered
-                // =========================
                 if (widget.order.status == OrderStatus.delivered) ...[
                   const SizedBox(height: 14),
-
                   Row(
                     children: [
                       Expanded(
@@ -214,7 +205,9 @@ class _BuildOrderCardState extends State<BuildOrderCard> {
                           icon: Icons.payments_outlined,
                           color: OrderStatus.paid.color,
                           onTap: () async {
-                            await context.read<OrdersCubit>().updateOrderStatus(
+                            await context
+                                .read<OrdersCubit>()
+                                .updateOrderStatus(
                               orderId: widget.order.id ?? '',
                               status: OrderStatus.paid,
                             );

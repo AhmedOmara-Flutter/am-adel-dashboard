@@ -21,10 +21,10 @@ class OrderSummarySection extends StatelessWidget {
         vertical: 10,
       ),
       decoration: BoxDecoration(
-        color: AppColor.card,
+        color: AppColor.cardLight,
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
-          color: AppColor.border,
+          color: AppColor.divider,
         ),
       ),
       child: Row(
@@ -32,7 +32,7 @@ class OrderSummarySection extends StatelessWidget {
           Container(
             padding: EdgeInsets.all(7),
             decoration: BoxDecoration(
-              color: AppColor.mainColor.withOpacity(.15),
+              color: AppColor.backgroundDark,
               shape: BoxShape.circle,
             ),
             child: Icon(
@@ -80,7 +80,7 @@ class OrderSummarySection extends StatelessWidget {
                 margin: EdgeInsets.symmetric(vertical: 4),
                 width: 60,
                 height: 1,
-                color: AppColor.border,
+                color: AppColor.divider,
               ),
 
               Text(

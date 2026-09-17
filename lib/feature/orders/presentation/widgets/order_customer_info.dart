@@ -23,7 +23,6 @@ class OrderCustomerInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -36,16 +35,16 @@ class OrderCustomerInfo extends StatelessWidget {
           ),
         ),
 
-        SizedBox(height: 4),
+        const SizedBox(height: 4),
 
         Text(
           '#اوردر - $orderId',
           style: Theme.of(context).textTheme.labelSmall!.copyWith(
-            color: AppColor.textSecondary,
+            color: AppColor.textGold,
           ),
         ),
 
-        SizedBox(height: 6),
+        const SizedBox(height: 6),
 
         Row(
           children: [
@@ -54,7 +53,7 @@ class OrderCustomerInfo extends StatelessWidget {
               color: AppColor.mainColor,
               size: 16,
             ),
-            SizedBox(width: 4),
+            const SizedBox(width: 4),
             Expanded(
               child: Text(
                 phone,
@@ -66,7 +65,7 @@ class OrderCustomerInfo extends StatelessWidget {
           ],
         ),
 
-        SizedBox(height: 4),
+        const SizedBox(height: 4),
 
         Row(
           children: [
@@ -75,7 +74,7 @@ class OrderCustomerInfo extends StatelessWidget {
               color: AppColor.mainColor,
               size: 16,
             ),
-            SizedBox(width: 4),
+            const SizedBox(width: 4),
             Expanded(
               child: Text(
                 location,
@@ -87,7 +86,7 @@ class OrderCustomerInfo extends StatelessWidget {
           ],
         ),
 
-        SizedBox(height: 4),
+        const SizedBox(height: 4),
 
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -97,7 +96,7 @@ class OrderCustomerInfo extends StatelessWidget {
               color: AppColor.mainColor,
               size: 16,
             ),
-            SizedBox(width: 4),
+            const SizedBox(width: 4),
             Expanded(
               child: Text(
                 address,
@@ -109,7 +108,7 @@ class OrderCustomerInfo extends StatelessWidget {
           ],
         ),
 
-        SizedBox(height: 6),
+        const SizedBox(height: 6),
 
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -123,12 +122,12 @@ class OrderCustomerInfo extends StatelessWidget {
               ),
             ),
 
-            SizedBox(width: 8),
+            const SizedBox(width: 8),
 
             Text(
               price,
               style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                color: AppColor.mainColor,
+                color: AppColor.textGold,
                 fontWeight: FontWeight.bold,
               ),
             ),

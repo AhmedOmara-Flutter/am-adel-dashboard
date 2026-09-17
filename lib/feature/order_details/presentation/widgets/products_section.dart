@@ -19,10 +19,10 @@ class ProductsSection extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(14),
       decoration: BoxDecoration(
-        color: AppColor.card,
+        color: AppColor.cardLight,
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
-          color: AppColor.border,
+          color: AppColor.divider,
         ),
       ),
       child: Column(
@@ -31,7 +31,7 @@ class ProductsSection extends StatelessWidget {
           Text(
             'المنتجات',
             style: StyleManager.font13Weight600(context).copyWith(
-              color: AppColor.white,
+              color: AppColor.textPrimary,
             ),
           ),
 

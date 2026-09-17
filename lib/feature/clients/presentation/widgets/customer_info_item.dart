@@ -22,10 +22,10 @@ class CustomerInfoItem extends StatelessWidget {
         vertical: 10,
       ),
       decoration: BoxDecoration(
-        color: AppColor.card,
+        color: AppColor.cardLight,
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
-          color: AppColor.border,
+          color: AppColor.divider,
         ),
       ),
       child: Row(
@@ -34,7 +34,7 @@ class CustomerInfoItem extends StatelessWidget {
             width: 38,
             height: 38,
             decoration: BoxDecoration(
-              color: AppColor.mainColor.withOpacity(.15),
+              color: AppColor.backgroundDark,
               shape: BoxShape.circle,
             ),
             child: Icon(
@@ -55,7 +55,7 @@ class CustomerInfoItem extends StatelessWidget {
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: StyleManager.font13Weight600(context).copyWith(
-                    color: AppColor.white,
+                    color: AppColor.textPrimary,
                   ),
                 ),
 

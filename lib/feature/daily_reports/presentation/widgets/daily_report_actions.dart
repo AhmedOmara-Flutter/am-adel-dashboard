@@ -38,19 +38,19 @@ class DailyReportActions extends StatelessWidget {
                 height: 1.6,
               ),
             ),
-              accept: () async {
-            Navigator.pop(context);
-
-            final cubit = context.read<DailyReportsCubit>();
-
-            await cubit.closeToday();
-
-            if (!context.mounted) return;
-
-            if (cubit.state is DailyReportsClosed) {
+            accept: () async {
               Navigator.pop(context);
-            }
-          },
+
+              final cubit = context.read<DailyReportsCubit>();
+
+              await cubit.closeToday();
+
+              if (!context.mounted) return;
+
+              if (cubit.state is DailyReportsClosed) {
+                Navigator.pop(context);
+              }
+            },
           );
         },
         icon: const Icon(
@@ -65,7 +65,7 @@ class DailyReportActions extends StatelessWidget {
         ),
         style: ElevatedButton.styleFrom(
           backgroundColor: AppColor.mainColor,
-          foregroundColor: AppColor.textPrimary,
+          foregroundColor: AppColor.textOnDark,
           elevation: 0,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(

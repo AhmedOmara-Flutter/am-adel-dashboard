@@ -25,16 +25,49 @@ class _AddLocationBottomSheetState extends State<AddLocationBottomSheet> {
 
   final TextEditingController _costController = TextEditingController();
 
+  bool get _isFormComplete {
+    final title = _titleController.text.trim();
+    final subTitle = _subTitleController.text.trim();
+    final cost = double.tryParse(_costController.text.trim());
+
+    return title.isNotEmpty &&
+        subTitle.isNotEmpty &&
+        cost != null &&
+        cost >= 0;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    _titleController.addListener(_onFormChanged);
+    _subTitleController.addListener(_onFormChanged);
+    _costController.addListener(_onFormChanged);
+  }
+
+  void _onFormChanged() {
+    setState(() {});
+  }
+
   @override
   void dispose() {
+    _titleController.removeListener(_onFormChanged);
+    _subTitleController.removeListener(_onFormChanged);
+    _costController.removeListener(_onFormChanged);
+
     _titleController.dispose();
     _subTitleController.dispose();
     _costController.dispose();
+
     super.dispose();
   }
 
   void _addLocation() {
     FocusScope.of(context).unfocus();
+
+    if (!_isFormComplete) {
+      return;
+    }
 
     if (!_formKey.currentState!.validate()) {
       return;
@@ -89,6 +122,9 @@ class _AddLocationBottomSheetState extends State<AddLocationBottomSheet> {
         }
       },
       builder: (context, state) {
+        final isFormComplete = _isFormComplete;
+        final isLoading = state is SelectedLocationAddLoading;
+
         return AnimatedPadding(
           duration: const Duration(milliseconds: 200),
           curve: Curves.easeOut,
@@ -109,29 +145,39 @@ class _AddLocationBottomSheetState extends State<AddLocationBottomSheet> {
                           'إضافة مكان توصيل',
                           style: StyleManager.font23Weight700(
                             context,
-                          ).copyWith(color: AppColor.white),
+                          ).copyWith(
+                            color: AppColor.textPrimary,
+                          ),
                         ),
                         const SizedBox(height: 6),
                         Text(
                           'أضف اسم المنطقة ووصفها وسعر التوصيل.',
                           style: StyleManager.font14Weight600(
                             context,
-                          ).copyWith(color: AppColor.white.withOpacity(.55)),
+                          ).copyWith(
+                            color: AppColor.textSecondary,
+                          ),
                         ),
                         const SizedBox(height: 24),
                         Container(
                           padding: const EdgeInsets.all(24),
                           decoration: BoxDecoration(
-                            color: AppColor.card,
+                            color: AppColor.cardLight,
                             borderRadius: BorderRadius.circular(22),
-                            border: Border.all(color: AppColor.border),
+                            border: Border.all(
+                              color: AppColor.divider,
+                            ),
                           ),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
                                 'بيانات المكان',
-                                style: StyleManager.font16Weight700(context),
+                                style: StyleManager.font16Weight700(
+                                  context,
+                                ).copyWith(
+                                  color: AppColor.textPrimary,
+                                ),
                               ),
                               const SizedBox(height: 18),
                               Row(
@@ -140,7 +186,7 @@ class _AddLocationBottomSheetState extends State<AddLocationBottomSheet> {
                                     child: CustomTextFormField(
                                       keyboardType: TextInputType.text,
                                       autoValidateMode:
-                                          AutovalidateMode.onUserInteraction,
+                                      AutovalidateMode.onUserInteraction,
                                       label: 'اسم المكان',
                                       controller: _titleController,
                                       hintText: 'مثال: القاهره',
@@ -158,11 +204,11 @@ class _AddLocationBottomSheetState extends State<AddLocationBottomSheet> {
                                   Expanded(
                                     child: CustomTextFormField(
                                       keyboardType:
-                                          const TextInputType.numberWithOptions(
-                                            decimal: true,
-                                          ),
+                                      const TextInputType.numberWithOptions(
+                                        decimal: true,
+                                      ),
                                       autoValidateMode:
-                                          AutovalidateMode.onUserInteraction,
+                                      AutovalidateMode.onUserInteraction,
                                       label: 'سعر التوصيل',
                                       controller: _costController,
                                       hintText: '0.00',
@@ -194,13 +240,14 @@ class _AddLocationBottomSheetState extends State<AddLocationBottomSheet> {
                               CustomTextFormField(
                                 keyboardType: TextInputType.text,
                                 autoValidateMode:
-                                    AutovalidateMode.onUserInteraction,
+                                AutovalidateMode.onUserInteraction,
                                 label: 'الوصف',
                                 controller: _subTitleController,
                                 maxLines: 4,
                                 hintText: 'مثال: اختر عنوانك داخل القاهره',
                                 validator: (value) {
-                                  if (value == null || value.trim().isEmpty) {
+                                  if (value == null ||
+                                      value.trim().isEmpty) {
                                     return 'من فضلك أدخل وصف المكان';
                                   }
 
@@ -212,10 +259,21 @@ class _AddLocationBottomSheetState extends State<AddLocationBottomSheet> {
                         ),
                         const SizedBox(height: 24),
                         CustomButton(
-                          onPressed: _addLocation,
-                          child: Text(
-                            'إضافة المكان',
-                            style: Theme.of(context).textTheme.labelSmall,
+                          onPressed: isFormComplete && !isLoading
+                              ? _addLocation
+                              : null,
+                          child: AnimatedOpacity(
+                            duration: const Duration(milliseconds: 200),
+                            opacity: isFormComplete && !isLoading ? 1 : .45,
+                            child: Text(
+                              'إضافة المكان',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .labelSmall
+                                  ?.copyWith(
+                                color: AppColor.textOnDark,
+                              ),
+                            ),
                           ),
                         ),
                       ],
@@ -228,7 +286,7 @@ class _AddLocationBottomSheetState extends State<AddLocationBottomSheet> {
                   child: AbsorbPointer(
                     absorbing: true,
                     child: Container(
-                      color: Colors.black.withOpacity(0.3),
+                      color: AppColor.black.withOpacity(0.25),
                       child: const Center(
                         child: CircularProgressIndicator(
                           color: AppColor.mainColor,

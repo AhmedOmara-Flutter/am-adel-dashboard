@@ -27,29 +27,40 @@ class DisplayProductItem extends StatelessWidget {
       child: Row(
         children: [
           ClipRRect(
-            borderRadius: BorderRadius.circular(10),
-            child: CachedNetworkImage(
-              imageUrl: item.product.image ?? '',
+            borderRadius: BorderRadius.circular(12),
+            child: Container(
               width: 58,
               height: 58,
-              fit: BoxFit.cover,
-              placeholder: (_, __) => Container(
-                width: 58,
-                height: 58,
-                color: AppColor.card,
+              decoration: BoxDecoration(
+                color: AppColor.backgroundDark,
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(
+                  color: AppColor.divider,
+                ),
               ),
-              errorWidget: (_, __, ___) => Container(
+              child: CachedNetworkImage(
+                imageUrl: item.product.image ?? '',
                 width: 58,
                 height: 58,
-                color: AppColor.card,
-                child: Icon(
+                fit: BoxFit.contain,
+                placeholder: (_, __) => Center(
+                  child: SizedBox(
+                    width: 18,
+                    height: 18,
+                    child: CircularProgressIndicator(
+                      strokeWidth: 2,
+                      color: AppColor.accentColor,
+                    ),
+                  ),
+                ),
+                errorWidget: (_, __, ___) => const Icon(
                   Icons.image_not_supported_outlined,
                   color: AppColor.textSecondary,
+                  size: 22,
                 ),
               ),
             ),
           ),
-
           SizedBox(width: 12),
 
           Expanded(

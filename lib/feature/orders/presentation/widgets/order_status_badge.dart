@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 class OrderStatusBadge extends StatelessWidget {
   const OrderStatusBadge({
     super.key,
-    required this.title, required this.color,
+    required this.title,
+    required this.color,
   });
 
   final String title;
   final Color color;
-
 
   @override
   Widget build(BuildContext context) {
@@ -18,13 +18,17 @@ class OrderStatusBadge extends StatelessWidget {
         vertical: 4,
       ),
       decoration: BoxDecoration(
-        color: color.withOpacity(.12),
+        color: color.withOpacity(.10),
         borderRadius: BorderRadius.circular(20),
+        border: Border.all(
+          color: color.withOpacity(.25),
+        ),
       ),
       child: Text(
         title,
         style: Theme.of(context).textTheme.titleSmall!.copyWith(
-          color: color.withOpacity(0.9),
+          color: color,
+          fontWeight: FontWeight.w700,
         ),
       ),
     );

@@ -23,7 +23,7 @@ class RestaurantStatusCard extends StatelessWidget {
           width: double.infinity,
           padding: const EdgeInsets.all(20),
           decoration: BoxDecoration(
-            color: AppColor.card,
+            color: AppColor.cardLight,
             borderRadius: BorderRadius.circular(24),
             border: Border.all(
               color: isOpen
@@ -32,7 +32,7 @@ class RestaurantStatusCard extends StatelessWidget {
             ),
             boxShadow: [
               BoxShadow(
-                color: AppColor.black.withOpacity(.04),
+                color: AppColor.secondaryColor.withOpacity(.08),
                 blurRadius: 20,
                 offset: const Offset(0, 8),
               ),
@@ -132,7 +132,12 @@ class RestaurantStatusCard extends StatelessWidget {
                           if (cartState.areAllCartsEmpty) {
                             await settingsCubit.toggleRestaurantStatus();
                           } else {
-                            customShowSnakeBar(context,color: AppColor.red, label: 'برجاء مسح جميع السله أولاً قبل إغلاق المطعم');
+                            customShowSnakeBar(
+                              context,
+                              color: AppColor.red,
+                              label:
+                              'برجاء مسح جميع السله أولاً قبل إغلاق المطعم',
+                            );
                           }
                         } else if (cartState is CartStatusError) {
                           ScaffoldMessenger.of(context).showSnackBar(
@@ -154,7 +159,9 @@ class RestaurantStatusCard extends StatelessWidget {
                           isOpen
                               ? Icons.lock_rounded
                               : Icons.lock_open_rounded,
-                          color: isOpen ? Colors.green : Colors.red,
+                          color: isOpen
+                              ? AppColor.green
+                              : AppColor.red,
                           size: 21,
                         ),
 

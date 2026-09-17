@@ -1,111 +1,184 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:am_adel_dashboard/core/utils/app_color.dart';
+import 'package:am_adel_dashboard/core/utils/app_constants.dart';
+
 import 'package:am_adel_dashboard/feature/admin/presentation/widgets/recent_orders_list_view.dart';
 import 'package:am_adel_dashboard/feature/main/presentation/view_model/main_cubit.dart';
+
 import '../../../../core/cubit/orders_cubit/orders_cubit.dart';
-import '../../../../core/utils/app_constants.dart';
 
 class RecentOrdersCard extends StatelessWidget {
   const RecentOrdersCard({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final hasOrders =
+        context.watch<OrdersCubit>().allOrders.isNotEmpty;
+
     return Container(
-      margin: EdgeInsets.only(
-          top: 10,
-          bottom: 10,
-          left: 10,
-          right: 10
-      ),
+      margin: const EdgeInsets.all(10),
+
       decoration: BoxDecoration(
-        color: AppColor.card,
-        borderRadius: BorderRadius.circular(AppConstants.borderRadius),
+        // Light Cream
+        color: AppColor.cardLight,
+
+        borderRadius: BorderRadius.circular(
+          AppConstants.borderRadius,
+        ),
+
+        border: Border.all(
+          color: AppColor.border.withOpacity(.45),
+          width: 1,
+        ),
         boxShadow: [
           BoxShadow(
-            color: AppColor.mainColor.withOpacity(AppConstants.borderColor),
+            color: AppColor.mainColor.withOpacity(.07),
+            blurRadius: 12,
             spreadRadius: 1,
-            blurRadius: 7,
-            offset: const Offset(0, 1),
+            offset: const Offset(0, 4),
           ),
         ],
-        border: Border(
-          bottom: BorderSide(color: AppColor.border),
-        ),
       ),
-      clipBehavior: Clip.antiAliasWithSaveLayer,
+      clipBehavior: Clip.antiAlias,
+
       child: Column(
         children: [
-          Container(
-            padding: EdgeInsets.only(
-              top: 12,
+
+          // ==========================================
+          // Header
+          // ==========================================
+
+          Padding(
+            padding: const EdgeInsets.only(
+              top: 16,
               left: 15,
               right: 15,
             ),
+
             child: Row(
               children: [
-                Icon(
-                  Icons.receipt_long_rounded,
-                  color: AppColor.mainColor,
-                  size: 30,
+
+                // Icon Container
+                Container(
+                  width: 42,
+                  height: 42,
+
+                  decoration: BoxDecoration(
+                    color: AppColor.accentColor.withOpacity(.12),
+                    shape: BoxShape.circle,
+                  ),
+
+                  child: const Icon(
+                    Icons.receipt_long_rounded,
+                    color: AppColor.accentColor,
+                    size: 22,
+                  ),
                 ),
-                SizedBox(width: 8),
+
+                const SizedBox(width: 10),
+
                 Text(
-                  'الطلبات الحديثه',
-                  style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                  'الطلبات الحديثة',
+
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleMedium!
+                      .copyWith(
                     color: AppColor.textPrimary,
+                    fontWeight: FontWeight.w700,
                   ),
                 ),
               ],
             ),
           ),
-          SizedBox(height: 20),
+
+          const SizedBox(height: 20),
+
+          // ==========================================
+          // Orders
+          // ==========================================
+
           const RecentOrdersListView(),
-          if (context.watch<OrdersCubit>().allOrders.isNotEmpty)
-            ClipRRect(
-              borderRadius: BorderRadius.circular(AppConstants.borderRadius),
+
+          // ==========================================
+          // View All Orders
+          // ==========================================
+
+          if (hasOrders)
+            Padding(
+              padding: const EdgeInsets.fromLTRB(
+                15,
+                10,
+                15,
+                15,
+              ),
+
               child: Material(
                 color: Colors.transparent,
-                child: GestureDetector(
+
+                child: InkWell(
+                  borderRadius: BorderRadius.circular(
+                    AppConstants.borderRadius,
+                  ),
+
                   onTap: () {
-                    context.read<MainCubit>().changeIndex(5);
+                    context
+                        .read<MainCubit>()
+                        .changeIndex(4);
                   },
+
                   child: Container(
-                    margin: EdgeInsets.symmetric(
-                      horizontal: 15,
-                      vertical: 10,
-                    ),
-                    padding: EdgeInsets.symmetric(
+                    padding: const EdgeInsets.symmetric(
                       vertical: 12,
-                      horizontal: 25,
+                      horizontal: 18,
                     ),
+
                     decoration: BoxDecoration(
+                      color: AppColor.mainColor.withOpacity(.06),
+
                       border: Border.all(
-                        color: AppColor.border,
+                        color: AppColor.accentColor.withOpacity(.45),
                       ),
-                      borderRadius: BorderRadius.circular(AppConstants.borderRadius),
+
+                      borderRadius: BorderRadius.circular(
+                        AppConstants.borderRadius,
+                      ),
                     ),
+
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Icon(
+
+                        // Left Icon
+                        const Icon(
                           Icons.grid_view_rounded,
-                          size: 16,
-                          color: AppColor.textPrimary,
+                          size: 18,
+                          color: AppColor.mainColor,
                         ),
-                        Text(
-                          'عرض جميع الطلبات',
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleSmall!
-                              .copyWith(
-                            color: AppColor.textPrimary,
+
+                        const SizedBox(width: 10),
+
+                        // Text
+                        Expanded(
+                          child: Text(
+                            'عرض جميع الطلبات',
+
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleSmall!
+                                .copyWith(
+                              color: AppColor.mainColor,
+                              fontWeight: FontWeight.w600,
+                            ),
                           ),
                         ),
-                        Icon(
-                          Icons.arrow_forward_ios_outlined,
-                          size: 18,
-                          color: AppColor.textPrimary,
+
+                        // Arrow
+                        const Icon(
+                          Icons.arrow_forward_ios_rounded,
+                          size: 15,
+                          color: AppColor.accentColor,
                         ),
                       ],
                     ),

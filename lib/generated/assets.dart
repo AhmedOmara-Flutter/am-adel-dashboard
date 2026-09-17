@@ -24,8 +24,8 @@ class $AssetsAssetsGen {
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
-  final AssetGenImage appLogo2 = const AssetGenImage(
-    'assets/images/app_logo2.png',
+  final AssetGenImage amAdelLogo = const AssetGenImage(
+    'assets/images/am_adel_logo.png',
   );
   final SvgGenImage arrowBack = const SvgGenImage(
     'assets/images/arrow back.svg',
@@ -37,7 +37,6 @@ class $AssetsImagesGen {
     'assets/images/gallery.png',
   );
   final AssetGenImage img = const AssetGenImage('assets/images/img.png');
-  final AssetGenImage img2 = const AssetGenImage('assets/images/img_2.png');
   final AssetGenImage left = const AssetGenImage('assets/images/left.png');
   final AssetGenImage medal = const AssetGenImage('assets/images/medal.png');
   final AssetGenImage medal1 = const AssetGenImage(

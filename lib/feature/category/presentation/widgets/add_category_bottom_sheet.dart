@@ -13,8 +13,7 @@ class AddCategoryBottomSheet extends StatefulWidget {
   const AddCategoryBottomSheet({super.key});
 
   @override
-  State<AddCategoryBottomSheet> createState() =>
-      _AddCategoryBottomSheetState();
+  State<AddCategoryBottomSheet> createState() => _AddCategoryBottomSheetState();
 }
 
 class _AddCategoryBottomSheetState extends State<AddCategoryBottomSheet> {
@@ -25,10 +24,6 @@ class _AddCategoryBottomSheetState extends State<AddCategoryBottomSheet> {
 
   final List<String> _sizes = [];
 
-  // ============================================================
-  // CHECK SIZE BUTTON
-  // ============================================================
-
   bool get _canAddSize {
     final size = _sizeController.text.trim();
 
@@ -37,43 +32,31 @@ class _AddCategoryBottomSheetState extends State<AddCategoryBottomSheet> {
     }
 
     final isDuplicate = _sizes.any(
-          (item) => item.trim().toLowerCase() == size.toLowerCase(),
+      (item) => item.trim().toLowerCase() == size.toLowerCase(),
     );
 
     return !isDuplicate;
   }
 
-  // ============================================================
-  // CHECK CATEGORY BUTTON
-  // ============================================================
-
   bool get _canAddCategory {
     final name = _nameController.text.trim();
 
-    // الاسم لازم يكون على الأقل حرفين
     if (name.length < 2) {
       return false;
     }
 
-    // لازم يكون فيه مقاس واحد على الأقل
     if (_sizes.isEmpty) {
       return false;
     }
 
     final categories = context.read<CategoryCubit>().categories;
 
-    // التحقق من وجود تصنيف بنفس الاسم
     final isDuplicate = categories.any(
-          (category) =>
-      category.name.trim().toLowerCase() == name.toLowerCase(),
+      (category) => category.name.trim().toLowerCase() == name.toLowerCase(),
     );
 
     return !isDuplicate;
   }
-
-  // ============================================================
-  // ADD SIZE
-  // ============================================================
 
   void _addSize() {
     final cubit = context.read<CategoryCubit>();
@@ -94,7 +77,7 @@ class _AddCategoryBottomSheetState extends State<AddCategoryBottomSheet> {
     }
 
     final isDuplicate = _sizes.any(
-          (item) => item.trim().toLowerCase() == size.toLowerCase(),
+      (item) => item.trim().toLowerCase() == size.toLowerCase(),
     );
 
     if (isDuplicate) {
@@ -112,10 +95,6 @@ class _AddCategoryBottomSheetState extends State<AddCategoryBottomSheet> {
     });
   }
 
-  // ============================================================
-  // REMOVE SIZE
-  // ============================================================
-
   void _removeSize(String size) {
     final cubit = context.read<CategoryCubit>();
 
@@ -128,26 +107,19 @@ class _AddCategoryBottomSheetState extends State<AddCategoryBottomSheet> {
     });
   }
 
-  // ============================================================
-  // ADD CATEGORY
-  // ============================================================
-
   void _addCategory() {
     FocusScope.of(context).unfocus();
 
     final cubit = context.read<CategoryCubit>();
 
-    // منع الضغط أثناء التحميل
     if (cubit.state is CategoryAddLoading) {
       return;
     }
 
-    // التحقق من الـ Form
     if (!_formKey.currentState!.validate()) {
       return;
     }
 
-    // لازم يكون فيه مقاس
     if (_sizes.isEmpty) {
       customShowSnakeBar(
         context,
@@ -159,16 +131,11 @@ class _AddCategoryBottomSheetState extends State<AddCategoryBottomSheet> {
 
     final categoryName = _nameController.text.trim();
 
-    // ============================================================
-    // CHECK DUPLICATE CATEGORY
-    // ============================================================
-
     final categories = cubit.categories;
 
     final isDuplicateCategory = categories.any(
-          (category) =>
-      category.name.trim().toLowerCase() ==
-          categoryName.toLowerCase(),
+      (category) =>
+          category.name.trim().toLowerCase() == categoryName.toLowerCase(),
     );
 
     if (isDuplicateCategory) {
@@ -179,10 +146,6 @@ class _AddCategoryBottomSheetState extends State<AddCategoryBottomSheet> {
       );
       return;
     }
-
-    // ============================================================
-    // CREATE CATEGORY
-    // ============================================================
 
     final category = CategoryEntity(
       id: '',
@@ -207,10 +170,6 @@ class _AddCategoryBottomSheetState extends State<AddCategoryBottomSheet> {
   Widget build(BuildContext context) {
     return BlocConsumer<CategoryCubit, CategoryState>(
       listener: (context, state) {
-        // ========================================================
-        // ERROR
-        // ========================================================
-
         if (state is CategoryAddError) {
           customShowSnakeBar(
             context,
@@ -221,20 +180,14 @@ class _AddCategoryBottomSheetState extends State<AddCategoryBottomSheet> {
           return;
         }
 
-        // ========================================================
-        // SUCCESS
-        // ========================================================
-
         if (state is CategoryAddSuccess) {
           Navigator.pop(context, true);
         }
       },
-
       builder: (context, state) {
         final bool isLoading = state is CategoryAddLoading;
 
         final bool canAddSize = _canAddSize && !isLoading;
-
         final bool canAddCategory = _canAddCategory && !isLoading;
 
         return AnimatedPadding(
@@ -245,10 +198,6 @@ class _AddCategoryBottomSheetState extends State<AddCategoryBottomSheet> {
           ),
           child: Stack(
             children: [
-              // ==================================================
-              // FORM
-              // ==================================================
-
               Form(
                 key: _formKey,
                 child: SingleChildScrollView(
@@ -256,17 +205,11 @@ class _AddCategoryBottomSheetState extends State<AddCategoryBottomSheet> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // ==================================================
-                      // TITLE
-                      // ==================================================
-
                       Text(
                         'إضافة تصنيف',
                         style: StyleManager.font23Weight700(
                           context,
-                        ).copyWith(
-                          color: AppColor.white,
-                        ),
+                        ).copyWith(color: AppColor.textPrimary),
                       ),
 
                       const SizedBox(height: 6),
@@ -275,58 +218,41 @@ class _AddCategoryBottomSheetState extends State<AddCategoryBottomSheet> {
                         'أضف اسم التصنيف والأحجام المتاحة للمنتجات.',
                         style: StyleManager.font14Weight600(
                           context,
-                        ).copyWith(
-                          color: AppColor.white.withOpacity(.55),
-                        ),
+                        ).copyWith(color: AppColor.textSecondary),
                       ),
 
                       const SizedBox(height: 24),
-
-                      // ==================================================
-                      // CARD
-                      // ==================================================
 
                       Container(
                         width: double.infinity,
                         padding: const EdgeInsets.all(20),
                         decoration: BoxDecoration(
-                          color: AppColor.card,
+                          color: AppColor.cardLight,
                           borderRadius: BorderRadius.circular(22),
-                          border: Border.all(
-                            color: AppColor.border,
-                          ),
+                          border: Border.all(color: AppColor.divider),
                         ),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            // ==================================================
-                            // CARD TITLE
-                            // ==================================================
-
                             Text(
                               'بيانات التصنيف',
                               style: StyleManager.font16Weight700(
                                 context,
-                              ),
+                              ).copyWith(color: AppColor.textPrimary),
                             ),
 
                             const SizedBox(height: 18),
 
-                            // ==================================================
-                            // CATEGORY NAME
-                            // ==================================================
-
                             CustomTextFormField(
                               keyboardType: TextInputType.text,
-                              autoValidateMode: AutovalidateMode.onUserInteraction,
+                              autoValidateMode:
+                                  AutovalidateMode.onUserInteraction,
                               label: 'اسم التصنيف',
                               controller: _nameController,
                               hintText: 'مثال: بيتزا',
-
                               onChanged: (_) {
                                 setState(() {});
                               },
-
                               validator: (value) {
                                 if (value == null || value.trim().isEmpty) {
                                   return 'أدخل اسم التصنيف';
@@ -338,12 +264,13 @@ class _AddCategoryBottomSheetState extends State<AddCategoryBottomSheet> {
                                   return 'اسم التصنيف قصير جدًا';
                                 }
 
-                                final categories =
-                                    context.read<CategoryCubit>().categories;
+                                final categories = context
+                                    .read<CategoryCubit>()
+                                    .categories;
 
                                 final isDuplicate = categories.any(
-                                      (category) =>
-                                  category.name.trim().toLowerCase() ==
+                                  (category) =>
+                                      category.name.trim().toLowerCase() ==
                                       name.toLowerCase(),
                                 );
 
@@ -354,6 +281,7 @@ class _AddCategoryBottomSheetState extends State<AddCategoryBottomSheet> {
                                 return null;
                               },
                             ),
+
                             const SizedBox(height: 24),
 
                             Row(
@@ -363,7 +291,7 @@ class _AddCategoryBottomSheetState extends State<AddCategoryBottomSheet> {
                                   'المقاسات',
                                   style: StyleManager.font14Weight600(
                                     context,
-                                  ),
+                                  ).copyWith(color: AppColor.textPrimary),
                                 ),
                                 const SizedBox(width: 6),
                                 const Text(
@@ -375,7 +303,9 @@ class _AddCategoryBottomSheetState extends State<AddCategoryBottomSheet> {
                                 ),
                               ],
                             ),
+
                             const SizedBox(height: 10),
+
                             Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -385,11 +315,9 @@ class _AddCategoryBottomSheetState extends State<AddCategoryBottomSheet> {
                                     autoValidateMode: AutovalidateMode.disabled,
                                     controller: _sizeController,
                                     hintText: 'مثال: وسط',
-
                                     onChanged: (_) {
                                       setState(() {});
                                     },
-
                                     onFieldSubmitted: (_) {
                                       if (canAddSize) {
                                         _addSize();
@@ -400,42 +328,29 @@ class _AddCategoryBottomSheetState extends State<AddCategoryBottomSheet> {
 
                                 const SizedBox(width: 10),
 
-                                // ==================================================
-                                // ADD SIZE BUTTON
-                                // ==================================================
-
                                 SizedBox(
                                   width: 52,
                                   height: 52,
                                   child: ElevatedButton(
-                                    onPressed: canAddSize
-                                        ? _addSize
-                                        : null,
+                                    onPressed: canAddSize ? _addSize : null,
                                     style: ElevatedButton.styleFrom(
                                       padding: EdgeInsets.zero,
-
-                                      // Enabled
                                       backgroundColor: canAddSize
                                           ? AppColor.mainColor
-                                          : AppColor.border,
-
-                                      // Icon / text color
+                                          : AppColor.backgroundDark,
                                       foregroundColor: AppColor.white,
-
-                                      // Disabled
                                       disabledBackgroundColor:
-                                      AppColor.border,
-
+                                          AppColor.backgroundDark,
                                       disabledForegroundColor:
-                                      AppColor.white,
-
+                                          AppColor.textSecondary,
                                       elevation: canAddSize ? 2 : 0,
-
                                       shape: const CircleBorder(),
                                     ),
-                                    child: const Icon(
+                                    child: Icon(
                                       Icons.add_rounded,
-                                      color: AppColor.white,
+                                      color: canAddSize
+                                          ? AppColor.white
+                                          : AppColor.textSecondary,
                                       size: 24,
                                     ),
                                   ),
@@ -444,10 +359,6 @@ class _AddCategoryBottomSheetState extends State<AddCategoryBottomSheet> {
                             ),
 
                             const SizedBox(height: 18),
-
-                            // ==================================================
-                            // SIZES LIST
-                            // ==================================================
 
                             if (_sizes.isNotEmpty)
                               Wrap(
@@ -460,13 +371,14 @@ class _AddCategoryBottomSheetState extends State<AddCategoryBottomSheet> {
                                       vertical: 9,
                                     ),
                                     decoration: BoxDecoration(
-                                      color: AppColor.mainColor
-                                          .withOpacity(.10),
-                                      borderRadius:
-                                      BorderRadius.circular(10),
+                                      color: AppColor.goldLight.withOpacity(
+                                        .22,
+                                      ),
+                                      borderRadius: BorderRadius.circular(10),
                                       border: Border.all(
-                                        color: AppColor.mainColor
-                                            .withOpacity(.35),
+                                        color: AppColor.accentColor.withOpacity(
+                                          .55,
+                                        ),
                                       ),
                                     ),
                                     child: Row(
@@ -474,12 +386,9 @@ class _AddCategoryBottomSheetState extends State<AddCategoryBottomSheet> {
                                       children: [
                                         Text(
                                           size,
-                                          style: StyleManager
-                                              .font13Weight600(
+                                          style: StyleManager.font13Weight600(
                                             context,
-                                          ).copyWith(
-                                            color: AppColor.mainColor,
-                                          ),
+                                          ).copyWith(color: AppColor.mainColor),
                                         ),
 
                                         const SizedBox(width: 6),
@@ -488,10 +397,11 @@ class _AddCategoryBottomSheetState extends State<AddCategoryBottomSheet> {
                                           onTap: isLoading
                                               ? null
                                               : () {
-                                            _removeSize(size);
-                                          },
-                                          borderRadius:
-                                          BorderRadius.circular(20),
+                                                  _removeSize(size);
+                                                },
+                                          borderRadius: BorderRadius.circular(
+                                            20,
+                                          ),
                                           child: const Icon(
                                             Icons.close_rounded,
                                             size: 16,
@@ -504,10 +414,6 @@ class _AddCategoryBottomSheetState extends State<AddCategoryBottomSheet> {
                                 }).toList(),
                               )
                             else
-                            // ==================================================
-                            // EMPTY SIZES
-                            // ==================================================
-
                               Container(
                                 width: double.infinity,
                                 padding: const EdgeInsets.symmetric(
@@ -515,39 +421,26 @@ class _AddCategoryBottomSheetState extends State<AddCategoryBottomSheet> {
                                   horizontal: 12,
                                 ),
                                 decoration: BoxDecoration(
-                                  color: AppColor.background
-                                      .withOpacity(.4),
-                                  borderRadius:
-                                  BorderRadius.circular(10),
-                                  border: Border.all(
-                                    color: AppColor.border,
-                                  ),
+                                  color: AppColor.background,
+                                  borderRadius: BorderRadius.circular(10),
+                                  border: Border.all(color: AppColor.divider),
                                 ),
                                 child: Text(
                                   'لم تتم إضافة أي مقاسات بعد',
                                   textAlign: TextAlign.center,
                                   style: StyleManager.font12Weight500(
                                     context,
-                                  ).copyWith(
-                                    color: AppColor.textSecondary,
-                                  ),
+                                  ).copyWith(color: AppColor.textSecondary),
                                 ),
                               ),
 
-                            // ==================================================
-                            // SIZE COUNT
-                            // ==================================================
-
                             if (_sizes.isNotEmpty) ...[
                               const SizedBox(height: 12),
-
                               Text(
                                 'تم إضافة ${_sizes.length} مقاس',
                                 style: StyleManager.font12Weight500(
                                   context,
-                                ).copyWith(
-                                  color: AppColor.textSecondary,
-                                ),
+                                ).copyWith(color: AppColor.textSecondary),
                               ),
                             ],
                           ],
@@ -556,19 +449,13 @@ class _AddCategoryBottomSheetState extends State<AddCategoryBottomSheet> {
 
                       const SizedBox(height: 24),
 
-                      // ==================================================
-                      // ADD CATEGORY BUTTON
-                      // ==================================================
-
                       CustomButton(
-                        onPressed: canAddCategory
-                            ? _addCategory
-                            : null,
+                        onPressed: canAddCategory ? _addCategory : null,
                         child: Text(
                           'إضافة التصنيف',
-                          style: Theme.of(context)
-                              .textTheme
-                              .labelSmall,
+                          style: StyleManager.font15Weight800(context).copyWith(
+                            color: AppColor.white
+                          ),
                         ),
                       ),
                     ],
@@ -576,16 +463,12 @@ class _AddCategoryBottomSheetState extends State<AddCategoryBottomSheet> {
                 ),
               ),
 
-              // ==================================================
-              // LOADING OVERLAY
-              // ==================================================
-
               if (isLoading)
                 Positioned.fill(
                   child: AbsorbPointer(
                     absorbing: true,
                     child: Container(
-                      color: Colors.black.withOpacity(.3),
+                      color: AppColor.black.withOpacity(.25),
                       child: const Center(
                         child: CircularProgressIndicator(
                           color: AppColor.mainColor,

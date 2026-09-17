@@ -1,7 +1,8 @@
-import 'package:flutter/material.dart';
 import 'package:am_adel_dashboard/core/utils/app_color.dart';
 import 'package:am_adel_dashboard/core/utils/app_constants.dart';
 import 'package:am_adel_dashboard/core/utils/style_manager.dart';
+import 'package:flutter/material.dart';
+
 import '../../../../core/utils/config_size.dart';
 import '../../../../generated/assets.dart';
 import '../../../orders/presentation/widgets/order_status_badge.dart';
@@ -30,19 +31,26 @@ class OrderItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.symmetric(
-        vertical:6,
-        horizontal: 10
+        vertical: MediaQuery
+            .sizeOf(context)
+            .width > ConfigSize.phone
+            ? 6
+            : 0,
+        horizontal: 10,
       ),
-      padding: EdgeInsets.all(14),
+      padding: const EdgeInsets.all(14),
       decoration: BoxDecoration(
-        color: AppColor.card,
-        borderRadius: BorderRadius.circular(AppConstants.borderRadius),
+        color: AppColor.cardLight,
+        borderRadius: BorderRadius.circular(
+          AppConstants.borderRadius,
+        ),
         border: Border.all(
-          color: AppColor.border,
+          color: AppColor.divider.withOpacity(.55),
+          width: 1,
         ),
         boxShadow: [
           BoxShadow(
-            color: AppColor.mainColor.withOpacity(.05),
+            color: AppColor.mainColor.withOpacity(.06),
             spreadRadius: 1,
             blurRadius: 7,
             offset: const Offset(0, 1),
@@ -60,7 +68,7 @@ class OrderItem extends StatelessWidget {
               fit: BoxFit.cover,
             ),
           ),
-          SizedBox(width: 12),
+          const SizedBox(width: 12),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -71,16 +79,18 @@ class OrderItem extends StatelessWidget {
                     color: AppColor.mainColor,
                   ),
                 ),
-
-                SizedBox(height: 6),
-
+                const SizedBox(height: 6),
                 Text(
                   products,
-                  style: Theme.of(context).textTheme.titleSmall,
+                  style: Theme
+                      .of(context)
+                      .textTheme
+                      .titleSmall!
+                      .copyWith(
+                    color: AppColor.textPrimary,
+                  ),
                 ),
-
-                SizedBox(height: 8),
-
+                const SizedBox(height: 8),
                 Row(
                   children: [
                     Icon(
@@ -88,31 +98,40 @@ class OrderItem extends StatelessWidget {
                       size: 14,
                       color: AppColor.textSecondary,
                     ),
-                    SizedBox(width: 4),
+                    const SizedBox(width: 4),
                     Text(
                       time,
-                      style: Theme.of(context).textTheme.titleMedium,
+                      style: Theme
+                          .of(context)
+                          .textTheme
+                          .titleMedium!
+                          .copyWith(
+                        color: AppColor.textSecondary,
+                      ),
                     ),
                   ],
                 ),
               ],
             ),
           ),
-          SizedBox(width: 10),
+          const SizedBox(width: 10),
           Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-    OrderStatusBadge(
-    color: statusColor,
-    title: status,
-    ),
-
-              SizedBox(height: 12),
-
+              OrderStatusBadge(
+                color: statusColor,
+                title: status,
+              ),
+              const SizedBox(height: 12),
               Text(
                 '${(amount + deliveryCost).toStringAsFixed(2)} ج.م',
-                style: Theme.of(context).textTheme.labelSmall!.copyWith(
+                style: Theme
+                    .of(context)
+                    .textTheme
+                    .labelSmall!
+                    .copyWith(
                   color: AppColor.mainColor,
+                  fontWeight: FontWeight.w700,
                 ),
               ),
             ],

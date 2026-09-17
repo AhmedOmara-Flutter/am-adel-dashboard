@@ -46,7 +46,7 @@ Widget buildBundleOffersDangerCard(BuildContext context) {
     description: "حذف جميع الباكدج نهائيًا.",
     buttonText: "حذف جميع الباكدج",
     icon: Icons.inventory_2_outlined,
-    color: AppColor.purple,
+    color: AppColor.goldLight,
     dialogTitle: "تأكيد حذف جميع الباكدج",
     dialogContent: "هل أنت متأكد أنك تريد حذف جميع الباكدج؟",
     dialogIcon: Icons.inventory_2_outlined,

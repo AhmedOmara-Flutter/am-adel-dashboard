@@ -30,7 +30,6 @@ class CategoryView extends StatelessWidget {
                 heroTag: null,
                 backgroundColor: AppColor.mainColor,
                 shape: const CircleBorder(),
-
                 onPressed: () {
                   showModalBottomSheet(
                     context: context,

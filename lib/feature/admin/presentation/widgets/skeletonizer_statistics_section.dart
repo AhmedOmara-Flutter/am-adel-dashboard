@@ -50,7 +50,7 @@ class SkeletonizerStatisticsSection extends StatelessWidget {
                     title: 'اجمالي المنتجات',
                     subTitleNumber:
                     'clients',
-      
+
                     subTitleText: 'المنتجات المتاحة',
                   ),
                 ),
@@ -75,3 +75,4 @@ class SkeletonizerStatisticsSection extends StatelessWidget {
     );
   }
 }
+

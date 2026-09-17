@@ -18,21 +18,22 @@ class CustomDrawer extends StatelessWidget {
           right: 10
       ),
       decoration: BoxDecoration(
-        color: AppColor.card,
+        color: AppColor.cardLight,
         borderRadius: BorderRadius.circular(AppConstants.borderRadius),
         boxShadow: [
           BoxShadow(
-            color: AppColor.mainColor.withOpacity(AppConstants.borderColor),
+            color: AppColor.mainColor.withOpacity(.07),
+            blurRadius: 12,
             spreadRadius: 1,
-            blurRadius: 7,
-            offset: const Offset(0, 1),
+            offset: const Offset(0, 4),
           ),
         ],
-        border: Border(
-          bottom: BorderSide(color: AppColor.border),
+        border: Border.all(
+          color: AppColor.border.withOpacity(.45),
+          width: 1,
         ),
       ),
-      clipBehavior: Clip.antiAliasWithSaveLayer,
+      clipBehavior: Clip.antiAlias,
       child: Column(
         children: const [
           CustomDrawerHeader(),

@@ -19,33 +19,33 @@ class BuildDatePickerTile extends StatelessWidget {
       onTap: onTap,
       borderRadius: BorderRadius.circular(12),
       child: Container(
-        padding: EdgeInsets.symmetric(
+        padding: const EdgeInsets.symmetric(
           horizontal: 14,
           vertical: 14,
         ),
         decoration: BoxDecoration(
-          color: AppColor.card,
+          color: AppColor.cardLight,
           borderRadius: BorderRadius.circular(12),
           border: Border.all(
-            color: AppColor.border,
+            color: AppColor.divider,
           ),
         ),
         child: Row(
           children: [
             Container(
-              padding: EdgeInsets.all(10),
+              padding: const EdgeInsets.all(10),
               decoration: BoxDecoration(
-                color: AppColor.mainColor.withOpacity(.12),
+                color: AppColor.goldLight.withOpacity(.25),
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: Icon(
+              child: const Icon(
                 Icons.calendar_month_rounded,
                 color: AppColor.mainColor,
                 size: 22,
               ),
             ),
 
-            SizedBox(width: 12),
+            const SizedBox(width: 12),
 
             Expanded(
               child: Column(
@@ -53,19 +53,29 @@ class BuildDatePickerTile extends StatelessWidget {
                 children: [
                   Text(
                     title,
-                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    style: Theme
+                        .of(context)
+                        .textTheme
+                        .bodySmall
+                        ?.copyWith(
                       color: AppColor.textSecondary,
                     ),
                   ),
 
-                  SizedBox(height: 4),
+                  const SizedBox(height: 4),
 
                   Text(
                     date == null
                         ? 'اختر التاريخ'
                         : '${date!.day}/${date!.month}/${date!.year}',
-                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                      color: AppColor.textPrimary,
+                    style: Theme
+                        .of(context)
+                        .textTheme
+                        .titleMedium
+                        ?.copyWith(
+                      color: date == null
+                          ? AppColor.textSecondary
+                          : AppColor.textPrimary,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
@@ -73,7 +83,7 @@ class BuildDatePickerTile extends StatelessWidget {
               ),
             ),
 
-            Icon(
+            const Icon(
               Icons.arrow_forward_ios_rounded,
               color: AppColor.textSecondary,
               size: 16,

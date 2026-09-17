@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:am_adel_dashboard/core/utils/app_color.dart';
 import 'package:am_adel_dashboard/feature/my_products/presentation/widgets/tap_bar_view_body.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/cubit/products_cubit/products_cubit.dart';
 import '../../../../core/utils/app_constants.dart';
@@ -184,6 +184,7 @@ class _CategoryTabsState extends State<CategoryTabs>
     return Column(
       children: [
         const SizedBox(height: 2),
+
         Container(
           height: 70,
           margin: const EdgeInsets.only(
@@ -192,19 +193,29 @@ class _CategoryTabsState extends State<CategoryTabs>
             left: 10,
             right: 10,
           ),
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+          padding: const EdgeInsets.symmetric(
+            horizontal: 10,
+            vertical: 15,
+          ),
           decoration: BoxDecoration(
-            color: AppColor.card,
-            borderRadius: BorderRadius.circular(AppConstants.borderRadius),
+            color: AppColor.cardLight,
+            borderRadius: BorderRadius.circular(
+              AppConstants.borderRadius,
+            ),
             boxShadow: [
               BoxShadow(
-                color: AppColor.mainColor.withOpacity(AppConstants.borderColor),
+                color: AppColor.mainColor.withOpacity(.10),
                 spreadRadius: 1,
                 blurRadius: 7,
                 offset: const Offset(0, 1),
               ),
             ],
-            border: Border(bottom: BorderSide(color: AppColor.border)),
+            border: const Border(
+              bottom: BorderSide(
+                color: AppColor.divider,
+                width: 1,
+              ),
+            ),
           ),
           clipBehavior: Clip.antiAliasWithSaveLayer,
 
@@ -224,7 +235,7 @@ class _CategoryTabsState extends State<CategoryTabs>
 
             indicatorSize: TabBarIndicatorSize.tab,
 
-            labelColor: Colors.white,
+            labelColor: AppColor.white,
 
             unselectedLabelColor: AppColor.textSecondary,
 
@@ -238,9 +249,11 @@ class _CategoryTabsState extends State<CategoryTabs>
               fontSize: 12,
             ),
 
-            dividerColor: Colors.transparent,
+            dividerColor: AppColor.transparent,
 
-            overlayColor: WidgetStateProperty.all(Colors.transparent),
+            overlayColor: WidgetStateProperty.all(
+              AppColor.transparent,
+            ),
 
             splashBorderRadius: BorderRadius.circular(25),
 
@@ -257,7 +270,9 @@ class _CategoryTabsState extends State<CategoryTabs>
             }).toList(),
           ),
         ),
+
         _buildSizes(category),
+
         Expanded(
           child: TabBarView(
             controller: controller,
@@ -318,20 +333,37 @@ class _CategoryTabsState extends State<CategoryTabs>
                   alignment: Alignment.center,
 
                   decoration: BoxDecoration(
-                    color: isSelected ? AppColor.mainColor : AppColor.card,
+                    color: isSelected
+                        ? AppColor.mainColor
+                        : AppColor.cardLight,
 
                     borderRadius: BorderRadius.circular(20),
 
                     border: Border.all(
-                      color: isSelected ? AppColor.mainColor : AppColor.border,
+                      color: isSelected
+                          ? AppColor.mainColor
+                          : AppColor.divider,
+                      width: 1,
                     ),
+
+                    boxShadow: isSelected
+                        ? [
+                      BoxShadow(
+                        color: AppColor.mainColor.withOpacity(.12),
+                        blurRadius: 6,
+                        offset: const Offset(0, 2),
+                      ),
+                    ]
+                        : null,
                   ),
 
                   child: Text(
                     size,
 
                     style: TextStyle(
-                      color: isSelected ? Colors.white : AppColor.textSecondary,
+                      color: isSelected
+                          ? AppColor.white
+                          : AppColor.textSecondary,
 
                       fontWeight: isSelected
                           ? FontWeight.w700

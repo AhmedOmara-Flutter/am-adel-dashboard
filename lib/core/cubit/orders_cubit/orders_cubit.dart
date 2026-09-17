@@ -66,17 +66,6 @@ class OrdersCubit extends Cubit<OrdersState> {
           }
 
           _applyFilter();
-          // totalSales = allOrders
-          //     .where((order) => order.status != OrderStatus.cancelled)
-          //     .fold(
-          //       0.0,
-          //       (sum, order) =>
-          //           sum +
-          //           order.cartEntity.cartItems.fold(
-          //             0.0,
-          //             (cartSum, item) => cartSum + item.totalPrice,
-          //           ),
-          //     );
           totalSales = allOrders
               .where((order) => order.status == OrderStatus.paid)
               .fold(
@@ -153,17 +142,7 @@ class OrdersCubit extends Cubit<OrdersState> {
           final order = allOrders[index];
 
           allOrders[index] = order.copyWith(status: status);
-          // totalSales = allOrders
-          //     .where((order) => order.status != OrderStatus.cancelled)
-          //     .fold(
-          //       0.0,
-          //       (sum, order) =>
-          //           sum +
-          //           order.cartEntity.cartItems.fold(
-          //             0.0,
-          //             (cartSum, item) => cartSum + item.totalPrice,
-          //           ),
-          //     );
+
           totalSales = allOrders
               .where((order) => order.status == OrderStatus.paid)
               .fold(
@@ -222,7 +201,7 @@ class OrdersCubit extends Cubit<OrdersState> {
 
         case OrderStatus.delivered:
           title = 'تم الانتهاء من طلبك 🎉';
-          body = 'شكرًا لاختيارك بيتزا سفيان ❤️';
+          body = 'شكرًا لاختيارك عم عادل ❤️';
 
           break;
 
@@ -265,14 +244,6 @@ class OrdersCubit extends Cubit<OrdersState> {
     }
   }
 
-  // double get totalDeliveryCost {
-  //   return allOrders
-  //       .where((order) => order.status != OrderStatus.cancelled)
-  //       .fold(
-  //     0.0,
-  //         (sum, order) => sum + (order.selectedLocationEntity?.cost ?? 0),
-  //   );
-  // }
   double get totalDeliveryCost {
     return allOrders
         .where((order) => order.status == OrderStatus.paid)

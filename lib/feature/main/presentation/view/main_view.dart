@@ -21,63 +21,71 @@ class _MainViewState extends State<MainView> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<MainCubit,MainState>(
-  builder: (context, state) {
-    final cubit=context.read<MainCubit>();
-    return Scaffold(
-      key: _scaffoldKey,
-      drawer: SizedBox(width:250,child: CustomDrawer()),
-      appBar: MediaQuery.sizeOf(context).width <= ConfigSize.phone? AppBar(
-        title: Text(
-          cubit.drawerItems[cubit.selectedIndex].title,
-          style: Theme
-              .of(context)
-              .textTheme
-              .displaySmall!
-              .copyWith(
-              color: Colors.white
-          ),
-        ),
-       centerTitle: true,
-        leading: IconButton(
-          onPressed: () {
-            _scaffoldKey.currentState!.openDrawer();
-          },
-          icon: Icon(Icons.menu,color: Colors.white,),
-        ),
-        automaticallyImplyLeading: false,
-        backgroundColor:AppColor.background,
-      ):null,
+      builder: (context, state) {
+        final cubit=context.read<MainCubit>();
+        return Scaffold(
+          key: _scaffoldKey,
+          drawer: SizedBox(width:250,child: CustomDrawer()),
+          appBar: MediaQuery.sizeOf(context).width <= ConfigSize.phone
+              ? AppBar(
+            backgroundColor: AppColor.mainColor,
+            elevation: 0,
+            centerTitle: true,
+            automaticallyImplyLeading: false,
 
-    body: PopScope(
-          canPop: false,
-          onPopInvoked: (didPop) {
-            final cubit = context.read<MainCubit>();
-            if (cubit.selectedIndex != 0) {
-              cubit.changeIndex(0);
-            } else {
-              SystemNavigator.pop();
-            }
-          },
-        child:MediaQuery.sizeOf(context).width >ConfigSize.phone? Row(
-          children: [
-            const SizedBox(
-              width: 280,
-              child: CustomDrawer(),
-            ),
-            Expanded(
-              child: IndexedStack(
-                index: cubit.selectedIndex,
-                children: cubit.screens,
+            title: Text(
+              cubit.drawerItems[cubit.selectedIndex].title,
+              style: Theme.of(context)
+                  .textTheme
+                  .displaySmall!
+                  .copyWith(
+                color: AppColor.textOnDark,
+                fontWeight: FontWeight.bold,
               ),
             ),
-          ],
-        ): IndexedStack(
-          index: cubit.selectedIndex,
-          children: cubit.screens,
-        ),
-      ),
+
+            leading: IconButton(
+              onPressed: () {
+                _scaffoldKey.currentState!.openDrawer();
+              },
+              icon: const Icon(
+                Icons.menu_rounded,
+                color: AppColor.accentColor,
+              ),
+            ),
+          )
+              : null,
+          body: PopScope(
+            canPop: false,
+            onPopInvoked: (didPop) {
+              final cubit = context.read<MainCubit>();
+              if (cubit.selectedIndex != 0) {
+                cubit.changeIndex(0);
+              } else {
+                SystemNavigator.pop();
+              }
+            },
+            child:MediaQuery.sizeOf(context).width >ConfigSize.phone? Row(
+              children: [
+                const SizedBox(
+                  width: 280,
+                  child: CustomDrawer(),
+                ),
+                Expanded(
+                  child: IndexedStack(
+                    index: cubit.selectedIndex,
+                    children: cubit.screens,
+                  ),
+                ),
+              ],
+            ): IndexedStack(
+              index: cubit.selectedIndex,
+              children: cubit.screens,
+            ),
+          ),
+        );
+      },
     );
-  },
-);
   }
 }
+

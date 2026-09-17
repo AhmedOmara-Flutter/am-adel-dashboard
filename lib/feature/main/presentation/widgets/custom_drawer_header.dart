@@ -1,5 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:am_adel_dashboard/core/utils/style_manager.dart';
+import 'package:flutter/material.dart';
+
 import '../../../../core/utils/app_color.dart';
 import '../../../../core/utils/config_size.dart';
 import '../../../../generated/assets.dart';
@@ -10,26 +11,28 @@ class CustomDrawerHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(
+      padding: const EdgeInsets.symmetric(
         horizontal: 10,
         vertical: 18,
       ),
       decoration: BoxDecoration(
-        color: AppColor.card,
+        color: AppColor.cardLight,
         border: Border(
-          bottom: BorderSide(color: AppColor.border),
+          bottom: BorderSide(
+            color: AppColor.divider.withOpacity(.65),
+          ),
         ),
       ),
       child: Row(
         children: [
           CircleAvatar(
             radius: 30,
-            backgroundColor: AppColor.border,
+            backgroundColor: AppColor.backgroundDark,
             backgroundImage: AssetImage(
-              Assets.assets.images.img2.path,
+              Assets.assets.images.amAdelLogo.path,
             ),
           ),
-          SizedBox(width: 5),
+          const SizedBox(width: 5),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -38,25 +41,43 @@ class CustomDrawerHeader extends StatelessWidget {
                 Text(
                   'صباح الخير 👋',
                   overflow: TextOverflow.ellipsis,
-                  style: Theme.of(context).textTheme.labelSmall!.copyWith(
+                  style: Theme
+                      .of(context)
+                      .textTheme
+                      .labelSmall!
+                      .copyWith(
                     color: AppColor.textSecondary,
-                    fontSize:
-                    responsiveFontSize(context, fontSize:  MediaQuery
-                        .sizeOf(context)
-                        .width > ConfigSize.phone?10:12),
+                    fontSize: responsiveFontSize(
+                      context,
+                      fontSize: MediaQuery
+                          .sizeOf(context)
+                          .width >
+                          ConfigSize.phone
+                          ? 10
+                          : 12,
+                    ),
                   ),
                 ),
-                SizedBox(height: 4),
+                const SizedBox(height: 4),
                 Text(
-                  'سفيان محمد',
+                  'عم عادل',
                   overflow: TextOverflow.ellipsis,
-                  style: Theme.of(context).textTheme.labelMedium!.copyWith(
+                  style: Theme
+                      .of(context)
+                      .textTheme
+                      .labelMedium!
+                      .copyWith(
                     color: AppColor.textPrimary,
                     fontWeight: FontWeight.w600,
-                    fontSize:
-                    responsiveFontSize(context, fontSize:  MediaQuery
-                        .sizeOf(context)
-                        .width > ConfigSize.phone?12:14),
+                    fontSize: responsiveFontSize(
+                      context,
+                      fontSize: MediaQuery
+                          .sizeOf(context)
+                          .width >
+                          ConfigSize.phone
+                          ? 12
+                          : 14,
+                    ),
                   ),
                 ),
               ],

@@ -20,16 +20,17 @@ class EditCategoryBottomSheet extends StatefulWidget {
 
 class _EditCategoryBottomSheetState extends State<EditCategoryBottomSheet> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   late final TextEditingController _nameController;
   late final TextEditingController _sizeController;
   late List<String> _sizes;
 
   @override
-  @override
   void initState() {
     super.initState();
 
     _nameController = TextEditingController(text: widget.category.name);
+
     _sizeController = TextEditingController();
 
     _sizeController.addListener(_onSizeChanged);
@@ -40,6 +41,7 @@ class _EditCategoryBottomSheetState extends State<EditCategoryBottomSheet> {
   void _onSizeChanged() {
     setState(() {});
   }
+
   @override
   void dispose() {
     _sizeController.removeListener(_onSizeChanged);
@@ -127,6 +129,7 @@ class _EditCategoryBottomSheetState extends State<EditCategoryBottomSheet> {
     if (name.length < 2) {
       return 'اسم التصنيف قصير جدًا';
     }
+
     return null;
   }
 
@@ -187,10 +190,8 @@ class _EditCategoryBottomSheetState extends State<EditCategoryBottomSheet> {
           );
         }
       },
-
       builder: (context, state) {
         final bool isLoading = state is CategoryUpdateLoading;
-
         final bool canAddSize = _canAddSize && !isLoading;
 
         return AbsorbPointer(
@@ -198,23 +199,17 @@ class _EditCategoryBottomSheetState extends State<EditCategoryBottomSheet> {
           child: AnimatedPadding(
             duration: const Duration(milliseconds: 200),
             curve: Curves.easeOut,
-
             padding: EdgeInsets.only(
               bottom: MediaQuery.of(context).viewInsets.bottom,
             ),
-
             child: SafeArea(
               top: false,
-
               child: SingleChildScrollView(
                 padding: const EdgeInsets.all(20),
-
                 child: Form(
                   key: _formKey,
-
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-
                     children: [
                       Row(
                         children: [
@@ -222,7 +217,7 @@ class _EditCategoryBottomSheetState extends State<EditCategoryBottomSheet> {
                             width: 42,
                             height: 42,
                             decoration: BoxDecoration(
-                              color: AppColor.mainColor.withOpacity(.10),
+                              color: AppColor.goldLight.withOpacity(.25),
                               borderRadius: BorderRadius.circular(12),
                             ),
                             child: const Icon(
@@ -242,7 +237,7 @@ class _EditCategoryBottomSheetState extends State<EditCategoryBottomSheet> {
                                   'تعديل التصنيف',
                                   style: StyleManager.font19Weight700(
                                     context,
-                                  ).copyWith(color: AppColor.white),
+                                  ).copyWith(color: AppColor.textPrimary),
                                 ),
 
                                 const SizedBox(height: 3),
@@ -257,20 +252,16 @@ class _EditCategoryBottomSheetState extends State<EditCategoryBottomSheet> {
                             ),
                           ),
 
-                          // Close
                           Material(
-                            color: AppColor.card,
+                            color: AppColor.background,
                             borderRadius: BorderRadius.circular(10),
-
                             child: InkWell(
                               onTap: isLoading
                                   ? null
                                   : () {
                                       Navigator.pop(context);
                                     },
-
                               borderRadius: BorderRadius.circular(10),
-
                               child: const SizedBox(
                                 width: 36,
                                 height: 36,
@@ -289,38 +280,31 @@ class _EditCategoryBottomSheetState extends State<EditCategoryBottomSheet> {
 
                       Container(
                         width: double.infinity,
-
                         padding: const EdgeInsets.all(16),
-
                         decoration: BoxDecoration(
-                          color: AppColor.card,
+                          color: AppColor.cardLight,
                           borderRadius: BorderRadius.circular(18),
-                          border: Border.all(color: AppColor.border),
+                          border: Border.all(color: AppColor.divider),
                         ),
-
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-
                           children: [
                             Text(
                               'اسم التصنيف',
-                              style: StyleManager.font13Weight600(context),
+                              style: StyleManager.font13Weight600(
+                                context,
+                              ).copyWith(color: AppColor.textPrimary),
                             ),
 
                             const SizedBox(height: 8),
 
                             CustomTextFormField(
                               controller: _nameController,
-
                               keyboardType: TextInputType.text,
-
                               hintText: 'مثال: بيتزا',
-
                               autoValidateMode:
                                   AutovalidateMode.onUserInteraction,
-
                               validator: _validateCategoryName,
-
                               onFieldSubmitted: (_) {
                                 FocusScope.of(context).unfocus();
                               },
@@ -332,7 +316,9 @@ class _EditCategoryBottomSheetState extends State<EditCategoryBottomSheet> {
                               children: [
                                 Text(
                                   'المقاسات',
-                                  style: StyleManager.font13Weight600(context),
+                                  style: StyleManager.font13Weight600(
+                                    context,
+                                  ).copyWith(color: AppColor.textPrimary),
                                 ),
 
                                 const SizedBox(width: 5),
@@ -361,18 +347,13 @@ class _EditCategoryBottomSheetState extends State<EditCategoryBottomSheet> {
 
                             Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
-
                               children: [
                                 Expanded(
                                   child: CustomTextFormField(
                                     controller: _sizeController,
-
                                     keyboardType: TextInputType.text,
-
                                     hintText: 'مثال: وسط',
-
                                     autoValidateMode: AutovalidateMode.disabled,
-
                                     onFieldSubmitted: (_) {
                                       if (canAddSize) {
                                         _addSize();
@@ -386,26 +367,21 @@ class _EditCategoryBottomSheetState extends State<EditCategoryBottomSheet> {
                                 SizedBox(
                                   width: 48,
                                   height: 48,
-
                                   child: ElevatedButton(
                                     onPressed: canAddSize ? _addSize : null,
-
                                     style: ElevatedButton.styleFrom(
                                       padding: EdgeInsets.zero,
-
                                       backgroundColor: AppColor.mainColor,
-
-                                      disabledBackgroundColor: AppColor.border,
-
+                                      disabledBackgroundColor:
+                                          AppColor.backgroundDark,
+                                      disabledForegroundColor:
+                                          AppColor.textSecondary,
                                       foregroundColor: AppColor.white,
-
                                       elevation: 0,
-
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(11),
                                       ),
                                     ),
-
                                     child: const Icon(
                                       Icons.add_rounded,
                                       size: 21,
@@ -421,31 +397,25 @@ class _EditCategoryBottomSheetState extends State<EditCategoryBottomSheet> {
                               Wrap(
                                 spacing: 7,
                                 runSpacing: 7,
-
                                 children: _sizes.map((size) {
                                   return Container(
                                     padding: const EdgeInsets.symmetric(
                                       horizontal: 10,
                                       vertical: 7,
                                     ),
-
                                     decoration: BoxDecoration(
-                                      color: AppColor.mainColor.withOpacity(
-                                        .08,
+                                      color: AppColor.goldLight.withOpacity(
+                                        .22,
                                       ),
-
                                       borderRadius: BorderRadius.circular(9),
-
                                       border: Border.all(
-                                        color: AppColor.mainColor.withOpacity(
-                                          .20,
+                                        color: AppColor.accentColor.withOpacity(
+                                          .45,
                                         ),
                                       ),
                                     ),
-
                                     child: Row(
                                       mainAxisSize: MainAxisSize.min,
-
                                       children: [
                                         Text(
                                           size,
@@ -462,7 +432,6 @@ class _EditCategoryBottomSheetState extends State<EditCategoryBottomSheet> {
                                               : () {
                                                   _removeSize(size);
                                                 },
-
                                           child: const Icon(
                                             Icons.close_rounded,
                                             color: AppColor.red,
@@ -477,23 +446,17 @@ class _EditCategoryBottomSheetState extends State<EditCategoryBottomSheet> {
                             else
                               Container(
                                 width: double.infinity,
-
                                 padding: const EdgeInsets.symmetric(
                                   vertical: 12,
                                 ),
-
                                 decoration: BoxDecoration(
-                                  color: AppColor.background.withOpacity(.35),
-
+                                  color: AppColor.background,
                                   borderRadius: BorderRadius.circular(9),
-
-                                  border: Border.all(color: AppColor.border),
+                                  border: Border.all(color: AppColor.divider),
                                 ),
-
                                 child: Text(
                                   'لم تتم إضافة أي مقاسات',
                                   textAlign: TextAlign.center,
-
                                   style: StyleManager.font12Weight500(
                                     context,
                                   ).copyWith(color: AppColor.textSecondary),
@@ -504,11 +467,11 @@ class _EditCategoryBottomSheetState extends State<EditCategoryBottomSheet> {
                       ),
 
                       const SizedBox(height: 18),
+
                       SizedBox(
                         width: double.infinity,
                         child: CustomButton(
                           onPressed: isLoading ? null : _updateCategory,
-
                           child: isLoading
                               ? const SizedBox(
                                   width: 20,
@@ -520,7 +483,9 @@ class _EditCategoryBottomSheetState extends State<EditCategoryBottomSheet> {
                                 )
                               : Text(
                                   'حفظ التعديلات',
-                                  style: Theme.of(context).textTheme.labelSmall,
+                            style: StyleManager.font15Weight800(context).copyWith(
+                                color: AppColor.white
+                            ),
                                 ),
                         ),
                       ),

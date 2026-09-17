@@ -80,7 +80,7 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
           ),
           clipBehavior: Clip.antiAliasWithSaveLayer,
           child: Image.asset(
-            Assets.assets.images.appLogo2.path,
+            Assets.assets.images.amAdelLogo.path,
             height: 220,
             width: double.infinity,
             fit: BoxFit.contain,
@@ -88,8 +88,8 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
         ),
         const SizedBox(height: 50),
         const ManagerInfoCard(
-          name: 'سفيان محمد',
-          phone: '01150279072',
+          name: 'عم عادل',
+          phone: '011111111111',
         ),
         const SizedBox(height: 15),
         const RestaurantStatusCard(),

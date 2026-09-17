@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
+
 import '../../../../../core/helper_function/custom_show_dialog.dart';
 import '../../../../../core/utils/app_color.dart';
 import '../../../../../core/utils/style_manager.dart';
@@ -30,22 +31,15 @@ class CategoryViewBody extends StatelessWidget {
           return Center(
             child: Text(
               state.message,
-              style: const TextStyle(
-                color: AppColor.red,
-              ),
+              style: const TextStyle(color: AppColor.red),
             ),
           );
         }
 
-        final categories =
-            context.read<CategoryCubit>().categories;
+        final categories = context.read<CategoryCubit>().categories;
 
         if (categories.isEmpty) {
-          return Center(
-            child: Lottie.asset(
-              Assets.assets.json.empty,
-            ),
-          );
+          return Center(child: Lottie.asset(Assets.assets.json.empty));
         }
 
         return ReorderableListView.builder(
@@ -57,26 +51,18 @@ class CategoryViewBody extends StatelessWidget {
               newIndex -= 1;
             }
 
-            final reorderedCategories =
-            List<CategoryEntity>.from(categories);
+            final reorderedCategories = List<CategoryEntity>.from(categories);
 
-            final category =
-            reorderedCategories.removeAt(oldIndex);
+            final category = reorderedCategories.removeAt(oldIndex);
 
-            reorderedCategories.insert(
-              newIndex,
-              category,
-            );
+            reorderedCategories.insert(newIndex, category);
 
-            await context
-                .read<CategoryCubit>()
-                .updateCategoriesOrder(
+            await context.read<CategoryCubit>().updateCategoriesOrder(
               reorderedCategories,
             );
           },
           itemBuilder: (context, index) {
             final category = categories[index];
-
             return Container(
               key: ValueKey(category.id),
               margin: const EdgeInsets.only(bottom: 14),
@@ -92,7 +78,8 @@ class CategoryViewBody extends StatelessWidget {
                       size: 20,
                     ),
                   ),
-                ),                onEdit: () {
+                ),
+                onEdit: () {
                   showModalBottomSheet(
                     context: context,
                     isScrollControlled: true,
@@ -100,9 +87,7 @@ class CategoryViewBody extends StatelessWidget {
                     builder: (_) {
                       return BlocProvider.value(
                         value: context.read<CategoryCubit>(),
-                        child: EditCategoryBottomSheet(
-                          category: category,
-                        ),
+                        child: EditCategoryBottomSheet(category: category),
                       );
                     },
                   );
@@ -122,9 +107,7 @@ class CategoryViewBody extends StatelessWidget {
                     accept: () async {
                       Navigator.pop(context);
 
-                      await context
-                          .read<CategoryCubit>()
-                          .deleteCategory(
+                      await context.read<CategoryCubit>().deleteCategory(
                         category.id,
                       );
                     },

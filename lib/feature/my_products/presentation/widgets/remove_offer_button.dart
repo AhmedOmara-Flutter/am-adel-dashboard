@@ -1,8 +1,8 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:am_adel_dashboard/core/entities/product_entity.dart';
 import 'package:am_adel_dashboard/core/helper_function/custom_show_dialog.dart';
 import 'package:am_adel_dashboard/core/utils/app_color.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/cubit/offers_cubit/offers_cubit.dart';
 import '../../../../core/entities/offer_entity.dart';
@@ -40,12 +40,17 @@ class RemoveOfferButton extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 10),
           decoration: BoxDecoration(
             color: hasOffer
-                ? AppColor.mainColor.withOpacity(0.8)
-                : AppColor.card,
-            borderRadius: BorderRadius.circular(5),
-            border: Border.all(color: AppColor.border),
+                ? AppColor.red.withOpacity(.10)
+                : AppColor.cardLight.withOpacity(.22),
+            borderRadius: BorderRadius.circular(8),
+            border: Border.all(
+              color: hasOffer
+                  ? AppColor.red.withOpacity(.35)
+                  : AppColor.accentColor.withOpacity(.45),
+            ),
           ),
           child: InkWell(
+            borderRadius: BorderRadius.circular(8),
             onTap: () async {
               if (hasOffer) {
                 CustomShowDialog.show(
@@ -54,13 +59,20 @@ class RemoveOfferButton extends StatelessWidget {
                   content: Text(
                     'هل أنت متأكد أنك تريد حذف هذا العرض؟',
                     textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                    style: Theme
+                        .of(context)
+                        .textTheme
+                        .titleMedium!
+                        .copyWith(
                       color: AppColor.textSecondary,
                     ),
                   ),
                   cancel: () => Navigator.pop(context),
                   accept: () {
-                    context.read<OffersCubit>().deleteOffer(offer!);
+                    context
+                        .read<OffersCubit>()
+                        .deleteOffer(offer!);
+
                     Navigator.pop(context);
                   },
                   flag: Icons.local_offer_outlined,
@@ -70,41 +82,56 @@ class RemoveOfferButton extends StatelessWidget {
                 return;
               }
 
-              final cartStatusCubit = context.read<CartStatusCubit>();
+              final cartStatusCubit =
+              context.read<CartStatusCubit>();
 
               await cartStatusCubit.checkCartsStatus();
 
               final cartState = cartStatusCubit.state;
+
               if (cartState is CartStatusLoaded) {
                 if (!cartState.areAllCartsEmpty) {
                   customShowSnakeBar(
                     context,
                     color: AppColor.red,
-                    label: 'برجاء مسح جميع السله أولاً قبل إضافة العرض',
+                    label:
+                    'برجاء مسح جميع السله أولاً قبل إضافة العرض',
                   );
 
                   return;
                 }
+
                 showModalBottomSheet(
                   context: context,
                   isScrollControlled: true,
                   backgroundColor: AppColor.background,
-                  builder: (_) => AddOfferBottomSheet(product: product),
+                  builder: (_) =>
+                      AddOfferBottomSheet(
+                        product: product,
+                      ),
                 );
               } else if (cartState is CartStatusError) {
                 customShowSnakeBar(
                   context,
                   color: AppColor.red,
-                  label: 'حدث خطأ أثناء التحقق من السلال، حاول مرة أخرى',
+                  label:
+                  'حدث خطأ أثناء التحقق من السلال، حاول مرة أخرى',
                 );
               }
             },
             child: Text(
               hasOffer ? 'حذف عرض' : 'إضافة عرض',
               textAlign: TextAlign.center,
-              style: Theme.of(
-                context,
-              ).textTheme.titleSmall!.copyWith(color: AppColor.white),
+              style: Theme
+                  .of(context)
+                  .textTheme
+                  .titleSmall!
+                  .copyWith(
+                color: hasOffer
+                    ? AppColor.red
+                    : AppColor.mainColor,
+                fontWeight: FontWeight.w700,
+              ),
             ),
           ),
         ),

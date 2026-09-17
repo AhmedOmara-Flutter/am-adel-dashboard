@@ -19,15 +19,15 @@ class RecentOrdersListView extends StatelessWidget {
         final cubit = context.watch<OrdersCubit>();
         final recentOrders = cubit.recentOrders;
         final isLoading = state is GetOrdersLoadingState;
-          if (isLoading) {
+        if (isLoading) {
           return ListView.builder(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             itemCount: 4,
             itemBuilder: (context, index) =>
-             SkeletonizerOrderItem(),
+                SkeletonizerOrderItem(),
           );
-          }
+        }
 
         if (recentOrders.isEmpty) {
           return Container(margin: EdgeInsets.only(bottom: 20),
@@ -37,7 +37,8 @@ class RecentOrdersListView extends StatelessWidget {
                   .labelLarge,));
         }
 
-        return ListView.builder(
+        return ListView.separated(
+          separatorBuilder: (context, index) => SizedBox(height: 10),
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
           itemCount: recentOrders.length,
@@ -45,7 +46,7 @@ class RecentOrdersListView extends StatelessWidget {
             final order = recentOrders[index];
             return GestureDetector(
               onTap: (){
-                context.read<MainCubit>().changeIndex(5);
+                context.read<MainCubit>().changeIndex(4);
               },
               child: OrderItem(
                 amount: order.cartEntity.getTotalPrice(),

@@ -3,8 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:am_adel_dashboard/feature/clients/presentation/view_model/clients_cubit.dart';
 import '../../../../core/cubit/offers_cubit/offers_cubit.dart';
 import '../../../../core/cubit/orders_cubit/orders_cubit.dart';
-import '../../../../core/utils/app_color.dart';
-import '../../../../core/utils/app_constants.dart';
 import '../../../../core/utils/config_size.dart';
 import '../../../clients/presentation/widgets/statistics_card.dart';
 import '../../../main/presentation/view_model/main_cubit.dart';

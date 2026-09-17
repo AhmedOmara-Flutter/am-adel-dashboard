@@ -44,8 +44,12 @@ class CustomTextFormField extends StatelessWidget {
                 padding: const EdgeInsets.only(right: 5),
                 child: Text(
                   label!,
-                  style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                    color: AppColor.mainColor,
+                  style: Theme
+                      .of(context)
+                      .textTheme
+                      .titleMedium!
+                      .copyWith(
+                    color: AppColor.textPrimary,
                     fontWeight: FontWeight.w700,
                   ),
                 ),
@@ -71,9 +75,15 @@ class CustomTextFormField extends StatelessWidget {
           autovalidateMode: autoValidateMode,
           validator: validator,
 
-          style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+          style: Theme
+              .of(context)
+              .textTheme
+              .bodyMedium!
+              .copyWith(
             color: AppColor.textPrimary,
           ),
+
+          cursorColor: AppColor.mainColor,
 
           decoration: InputDecoration(
             hintText: hintText,
@@ -89,20 +99,33 @@ class CustomTextFormField extends StatelessWidget {
               fontSize: 14,
             ),
 
+            floatingLabelStyle: const TextStyle(
+              color: AppColor.mainColor,
+              fontSize: 14,
+              fontWeight: FontWeight.w600,
+            ),
+
             filled: true,
-            fillColor: AppColor.card,
+            fillColor: AppColor.cardLight,
+
+            contentPadding: const EdgeInsets.symmetric(
+              horizontal: 16,
+              vertical: 15,
+            ),
 
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
               borderSide: const BorderSide(
-                color: AppColor.border,
+                color: AppColor.divider,
+                width: 1,
               ),
             ),
 
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
               borderSide: const BorderSide(
-                color: AppColor.mainColor,
+                color: AppColor.accentColor,
+                width: 1.5,
               ),
             ),
 
@@ -110,6 +133,7 @@ class CustomTextFormField extends StatelessWidget {
               borderRadius: BorderRadius.circular(12),
               borderSide: const BorderSide(
                 color: AppColor.red,
+                width: 1,
               ),
             ),
 
@@ -117,6 +141,14 @@ class CustomTextFormField extends StatelessWidget {
               borderRadius: BorderRadius.circular(12),
               borderSide: const BorderSide(
                 color: AppColor.red,
+                width: 1.5,
+              ),
+            ),
+
+            disabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12),
+              borderSide: const BorderSide(
+                color: AppColor.backgroundDark,
               ),
             ),
           ),

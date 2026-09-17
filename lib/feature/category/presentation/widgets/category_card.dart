@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../../../../../core/utils/app_color.dart';
 import '../../../../../core/utils/style_manager.dart';
 import '../../domain/entities/category_entity.dart';
@@ -23,14 +22,14 @@ class CategoryCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
-        color: AppColor.card,
+        color: AppColor.cardLight,
         borderRadius: BorderRadius.circular(18),
-        border: Border.all(color: AppColor.border),
+        border: Border.all(color: AppColor.border.withOpacity(.8)),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(.08),
-            blurRadius: 12,
-            offset: const Offset(0, 4),
+            color: Colors.black.withOpacity(.10),
+            blurRadius: 14,
+            offset: const Offset(0, 5),
           ),
         ],
       ),
@@ -43,10 +42,10 @@ class CategoryCard extends StatelessWidget {
                 width: 46,
                 height: 46,
                 decoration: BoxDecoration(
-                  color: AppColor.mainColor.withOpacity(.10),
+                  color: AppColor.mainColor.withOpacity(.12),
                   borderRadius: BorderRadius.circular(13),
                   border: Border.all(
-                    color: AppColor.mainColor.withOpacity(.15),
+                    color: AppColor.mainColor.withOpacity(.18),
                   ),
                 ),
                 child: const Icon(
@@ -55,7 +54,9 @@ class CategoryCard extends StatelessWidget {
                   size: 23,
                 ),
               ),
+
               const SizedBox(width: 12),
+
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -75,15 +76,17 @@ class CategoryCard extends StatelessWidget {
 
                         if (category.sizes.isNotEmpty) ...[
                           const SizedBox(width: 8),
-
                           Container(
                             padding: const EdgeInsets.symmetric(
-                              horizontal: 7,
+                              horizontal: 8,
                               vertical: 3,
                             ),
                             decoration: BoxDecoration(
-                              color: AppColor.mainColor.withOpacity(.10),
+                              color: AppColor.mainColor.withOpacity(.12),
                               borderRadius: BorderRadius.circular(20),
+                              border: Border.all(
+                                color: AppColor.mainColor.withOpacity(.16),
+                              ),
                             ),
                             child: Text(
                               '${category.sizes.length}',
@@ -109,10 +112,10 @@ class CategoryCard extends StatelessWidget {
                               vertical: 5,
                             ),
                             decoration: BoxDecoration(
-                              color: AppColor.accentColor.withOpacity(.08),
+                              color: AppColor.accentColor.withOpacity(.09),
                               borderRadius: BorderRadius.circular(8),
                               border: Border.all(
-                                color: AppColor.accentColor.withOpacity(.12),
+                                color: AppColor.accentColor.withOpacity(.16),
                               ),
                             ),
                             child: Text(
@@ -131,8 +134,11 @@ class CategoryCard extends StatelessWidget {
                           vertical: 5,
                         ),
                         decoration: BoxDecoration(
-                          color: AppColor.background.withOpacity(.5),
+                          color: AppColor.background.withOpacity(.55),
                           borderRadius: BorderRadius.circular(8),
+                          border: Border.all(
+                            color: AppColor.border.withOpacity(.7),
+                          ),
                         ),
                         child: Text(
                           'لا توجد مقاسات',
@@ -144,7 +150,9 @@ class CategoryCard extends StatelessWidget {
                   ],
                 ),
               ),
+
               const SizedBox(width: 10),
+
               Material(
                 color: AppColor.mainColor.withOpacity(.08),
                 borderRadius: BorderRadius.circular(10),
@@ -155,7 +163,9 @@ class CategoryCard extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(height: 10),
+
+          const SizedBox(height: 10),
+
           Row(
             children: [
               Expanded(
@@ -205,9 +215,8 @@ class _ActionButton extends StatelessWidget {
         splashColor: color.withOpacity(.15),
         highlightColor: color.withOpacity(.06),
         child: SizedBox(
-          width: 35,
           height: 35,
-          child: Icon(icon, color: color, size: 18),
+          child: Center(child: Icon(icon, color: color, size: 18)),
         ),
       ),
     );

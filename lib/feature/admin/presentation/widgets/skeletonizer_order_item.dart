@@ -20,8 +20,8 @@ class SkeletonizerOrderItem extends StatelessWidget {
       ),
       child: Container(
         margin: EdgeInsets.symmetric(
-          vertical: 6,
-          horizontal: 10
+            vertical: 6,
+            horizontal: 10
         ),
         padding: EdgeInsets.all(14),
         decoration: BoxDecoration(

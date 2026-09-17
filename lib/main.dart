@@ -13,10 +13,11 @@ void main() async {
   Bloc.observer = BlocObserverReader();
 
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-   await Supabase.initialize(
-    url: 'https://cvjjkzcisgbwgxvyiikx.supabase.co',
-    anonKey: 'sb_publishable_EpubB_aTdpc4UY7EjRvTEg_ujLCSIJd',
+  await Supabase.initialize(
+    url:    'https://iwpajzhxqoniotvcwdwc.supabase.co',
+    anonKey: 'sb_publishable_H-Yl3IPOSuUp3krL4tOOPA_uG8OIx_A',
   );
+
   runApp(
     // DevicePreview(
     //   enabled: !kReleaseMode,

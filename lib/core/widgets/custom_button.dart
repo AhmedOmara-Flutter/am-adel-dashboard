@@ -25,19 +25,24 @@ class CustomButton extends StatelessWidget {
           onPressed: onPressed,
           style: ElevatedButton.styleFrom(
             backgroundColor: isDisabled
-                ? AppColor.card
+                ? AppColor.backgroundDark
                 : AppColor.mainColor,
 
             foregroundColor: isDisabled
                 ? AppColor.textSecondary
                 : AppColor.white,
 
-            disabledBackgroundColor: AppColor.card,
+            disabledBackgroundColor: AppColor.backgroundDark,
             disabledForegroundColor: AppColor.textSecondary,
 
             elevation: isDisabled ? 0 : 2,
 
-            side: BorderSide.none,
+            side: isDisabled
+                ? const BorderSide(
+              color: AppColor.divider,
+              width: 1,
+            )
+                : BorderSide.none,
 
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),

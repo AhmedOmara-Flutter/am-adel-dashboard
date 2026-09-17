@@ -19,9 +19,9 @@ class SkeletonizerProductItem extends StatelessWidget {
       ),
       child: Container(
         margin: EdgeInsets.only(
-          left: 10,
-          right: 10,
-          bottom: 10
+            left: 10,
+            right: 10,
+            bottom: 10
         ),
         padding: EdgeInsets.all(14),
         decoration: BoxDecoration(
@@ -110,7 +110,7 @@ class SkeletonizerProductItem extends StatelessWidget {
                       ),
                       SizedBox(width: 4),
                       Image.asset(
-                        Assets.assets.images.customer.path,
+                        Assets.assets.images.amAdelLogo.path,
                         height: 10,
                         width: 10,
                         color: AppColor.mainColor,

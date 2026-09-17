@@ -1,18 +1,22 @@
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:am_adel_dashboard/core/entities/offer_entity.dart';
 import 'package:am_adel_dashboard/core/entities/product_entity.dart';
 import 'package:am_adel_dashboard/core/utils/app_color.dart';
 import 'package:am_adel_dashboard/feature/my_products/presentation/widgets/product_actions_section.dart';
 import 'package:am_adel_dashboard/feature/my_products/presentation/widgets/product_option_button.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/material.dart';
+
 import '../../../../core/utils/app_constants.dart';
 
 class ProductCard extends StatelessWidget {
   final ProductEntity product;
   final OfferEntity? offer;
 
-  const ProductCard({super.key, required this.product, this.offer});
+  const ProductCard({
+    super.key,
+    required this.product,
+    this.offer,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -22,20 +26,30 @@ class ProductCard extends StatelessWidget {
     final newPrice = offer?.priceAfterDiscount ?? product.price;
 
     return Container(
-      padding: EdgeInsets.all(16),
-      margin: EdgeInsets.only(top: 10, bottom: 10, left: 10),
+      padding: const EdgeInsets.all(16),
+      margin: const EdgeInsets.only(
+        top: 10,
+        bottom: 10,
+        left: 10,
+      ),
       decoration: BoxDecoration(
-        color: AppColor.card,
-        borderRadius: BorderRadius.circular(AppConstants.borderRadius),
+        color: AppColor.cardLight,
+        borderRadius: BorderRadius.circular(
+          AppConstants.borderRadius,
+        ),
         boxShadow: [
           BoxShadow(
-            color: AppColor.mainColor.withOpacity(AppConstants.borderColor),
+            color: AppColor.mainColor.withOpacity(.10),
             spreadRadius: 1,
             blurRadius: 7,
             offset: const Offset(0, 1),
           ),
         ],
-        border: Border(bottom: BorderSide(color: AppColor.border)),
+        border: const Border(
+          bottom: BorderSide(
+            color: AppColor.divider,
+          ),
+        ),
       ),
       clipBehavior: Clip.antiAliasWithSaveLayer,
       child: Stack(
@@ -50,38 +64,43 @@ class ProductCard extends StatelessWidget {
                       Container(
                         width: 95,
                         height: 95,
-                        padding: EdgeInsets.all(8),
+                        padding: const EdgeInsets.all(8),
                         decoration: BoxDecoration(
-                          color: AppColor.transparent,
+                          color: AppColor.background,
                           borderRadius: BorderRadius.circular(14),
-                          border: Border.all(color: AppColor.border),
+                          border: Border.all(
+                            color: AppColor.divider,
+                          ),
                         ),
                         child: CachedNetworkImage(
                           imageUrl: product.image ?? '',
                           fit: BoxFit.contain,
-                          placeholder: (context, url) => Center(
+                          placeholder: (context, url) =>
+                          const Center(
                             child: SizedBox(
                               width: 22,
                               height: 22,
-                              child: const CircularProgressIndicator(
+                              child: CircularProgressIndicator(
                                 strokeWidth: 2,
                                 color: AppColor.mainColor,
                               ),
                             ),
                           ),
-                          errorWidget: (context, url, error) => Icon(
+                          errorWidget: (context, url, error) =>
+                          const Icon(
                             Icons.image_not_supported,
                             color: AppColor.textSecondary,
                             size: 32,
                           ),
                         ),
                       ),
+
                       if (hasOffer)
                         Positioned(
                           top: 6,
                           right: 6,
                           child: Container(
-                            padding: EdgeInsets.symmetric(
+                            padding: const EdgeInsets.symmetric(
                               horizontal: 8,
                               vertical: 4,
                             ),
@@ -91,7 +110,7 @@ class ProductCard extends StatelessWidget {
                             ),
                             child: Text(
                               '-${discount.toInt()}%',
-                              style: TextStyle(
+                              style: const TextStyle(
                                 color: AppColor.white,
                                 fontSize: 11,
                                 fontWeight: FontWeight.bold,
@@ -101,7 +120,9 @@ class ProductCard extends StatelessWidget {
                         ),
                     ],
                   ),
-                  SizedBox(width: 16),
+
+                  const SizedBox(width: 16),
+
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -110,23 +131,32 @@ class ProductCard extends StatelessWidget {
                           product.name,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
-                          style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                          style: Theme
+                              .of(context)
+                              .textTheme
+                              .labelLarge!
+                              .copyWith(
                             color: AppColor.textPrimary,
+                            fontWeight: FontWeight.w700,
                           ),
                         ),
 
-                        SizedBox(height: 6),
+                        const SizedBox(height: 6),
 
                         Text(
                           product.description,
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
-                          style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                          style: Theme
+                              .of(context)
+                              .textTheme
+                              .titleSmall!
+                              .copyWith(
                             color: AppColor.textSecondary,
                           ),
                         ),
 
-                        SizedBox(height: 10),
+                        const SizedBox(height: 10),
 
                         hasOffer
                             ? Row(
@@ -134,51 +164,82 @@ class ProductCard extends StatelessWidget {
                             Flexible(
                               child: Text(
                                 '$oldPrice ج',
-                                style: Theme.of(context).textTheme.titleSmall!
+                                style: Theme
+                                    .of(context)
+                                    .textTheme
+                                    .titleSmall!
                                     .copyWith(
-                                  color: AppColor.textSecondary,
-                                  decoration: TextDecoration.lineThrough,
+                                  color:
+                                  AppColor.textSecondary,
+                                  decoration:
+                                  TextDecoration.lineThrough,
                                 ),
                               ),
                             ),
-                            SizedBox(width: 8),
+
+                            const SizedBox(width: 8),
+
                             Flexible(
                               child: Text(
                                 '$newPrice ج',
-                                style: Theme.of(context).textTheme.labelLarge!
-                                    .copyWith(color: AppColor.red),
+                                style: Theme
+                                    .of(context)
+                                    .textTheme
+                                    .labelLarge!
+                                    .copyWith(
+                                  color: AppColor.red,
+                                  fontWeight: FontWeight.w700,
+                                ),
                               ),
                             ),
                           ],
                         )
                             : Text(
                           '${product.price} ج',
-                          style: Theme.of(context).textTheme.labelLarge!
-                              .copyWith(color: AppColor.mainColor),
+                          style: Theme
+                              .of(context)
+                              .textTheme
+                              .labelLarge!
+                              .copyWith(
+                            color: AppColor.mainColor,
+                            fontWeight: FontWeight.w700,
+                          ),
                         ),
                       ],
                     ),
                   ),
                 ],
               ),
-              SizedBox(height: 10),
+
+              const SizedBox(height: 10),
+
               if (hasOffer)
                 Container(
                   width: double.infinity,
-                  padding: EdgeInsets.all(12),
+                  padding: const EdgeInsets.all(12),
                   decoration: BoxDecoration(
-                    color: AppColor.mainColor.withOpacity(.08),
+                    color: AppColor.goldLight.withOpacity(.20),
                     borderRadius: BorderRadius.circular(12),
-                    border: Border.all(color: AppColor.mainColor.withOpacity(.2)),
+                    border: Border.all(
+                      color: AppColor.accentColor.withOpacity(.35),
+                    ),
                   ),
                   child: Text(
-                    '📅 من ${_formatDate(offer!.startDate)} ← إلى ${_formatDate(offer!.endDate)}',
-                    style: Theme.of(
-                      context,
-                    ).textTheme.titleSmall!.copyWith(color: AppColor.textPrimary),
+                    '📅 من ${_formatDate(offer!.startDate)} ← إلى ${_formatDate(
+                        offer!.endDate)}',
+                    style: Theme
+                        .of(context)
+                        .textTheme
+                        .titleSmall!
+                        .copyWith(
+                      color: AppColor.textPrimary,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 ),
-              SizedBox(height: 10),
+
+              const SizedBox(height: 10),
+
               ProductActionsSection(
                 product: product,
                 hasOffer: hasOffer,
@@ -186,10 +247,10 @@ class ProductCard extends StatelessWidget {
               ),
             ],
           ),
+
           ProductOptionButton(
             product: product,
           ),
-
         ],
       ),
     );

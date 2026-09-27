@@ -61,12 +61,12 @@ class _BuildOrderCardState extends State<BuildOrderCard> {
         ),
         padding: const EdgeInsets.all(14),
         decoration: BoxDecoration(
-          color: AppColor.cardLight,
+          color: AppColor.card,
           borderRadius: BorderRadius.circular(
             AppConstants.borderRadius,
           ),
           border: Border.all(
-            color: AppColor.divider.withOpacity(0.5)
+              color: AppColor.border
           ),
         ),
         clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -113,18 +113,14 @@ class _BuildOrderCardState extends State<BuildOrderCard> {
 
                 const SizedBox(height: 12),
 
-          OrderSummarySection(
-            time: getTimeOnly(
-              widget.order.createdAt.toString(),
-            ),
-            deliveryCost:
-            widget.order.selectedLocationEntity!.cost,
-            totalPrice:
-            widget.order.totalPrice,
-            couponDiscount:
-            widget.order.couponDiscount,
-          ),
-
+                OrderSummarySection(
+                  time: getTimeOnly(
+                    widget.order.createdAt.toString(),
+                  ),
+                  subTotal: widget.order.cartEntity.getTotalPrice(),
+                  deliveryCost: widget.order.selectedLocationEntity?.cost ?? 0,
+                  couponDiscount: widget.order.couponDiscount,
+                ),
 
                 if (widget.order.status == OrderStatus.pending) ...[
                   const SizedBox(height: 14),

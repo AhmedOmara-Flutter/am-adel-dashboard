@@ -70,8 +70,8 @@ class SkeletonizerBuildOrderCard extends StatelessWidget {
 
             OrderSummarySection(
               time: '{getTimeOnly} ص',
-              totalPrice: 1500,
               deliveryCost: 0.0,
+              subTotal: 0.0,
             ),
             const SizedBox(height: 14),
             Row(

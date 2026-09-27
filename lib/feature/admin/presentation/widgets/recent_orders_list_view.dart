@@ -1,8 +1,8 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:am_adel_dashboard/core/enums/order_enum.dart';
 import 'package:am_adel_dashboard/core/helper_function/make_full_name.dart';
 import 'package:am_adel_dashboard/feature/admin/presentation/widgets/skeletonizer_order_item.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/cubit/orders_cubit/orders_cubit.dart';
 import '../../../../core/helper_function/get_date_formate.dart';
@@ -36,28 +36,32 @@ class RecentOrdersListView extends StatelessWidget {
                   .labelLarge,));
         }
 
-        return ListView.separated(
-          separatorBuilder: (context, index) => SizedBox(height: 10),
+        return ListView.builder(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
           itemCount: recentOrders.length,
           itemBuilder: (context, index) {
             final order = recentOrders[index];
+
+            final totalPrice =
+                order.cartEntity.getTotalPrice() -
+                    order.couponDiscount +
+                    (order.selectedLocationEntity?.cost ?? 0);
+
             return GestureDetector(
-              onTap: (){
+              onTap: () {
                 context.read<MainCubit>().changeIndex(5);
               },
               child: OrderItem(
-                amount: order.cartEntity.getTotalPrice(),
+                amount: totalPrice,
                 status: order.status.ar,
                 statusColor: order.status.color,
                 customerName: makeFullName(order.userEntity!.userName),
                 time: getTimeOnly(order.createdAt.toString()),
                 products: order.cartEntity.cartItems
-                    .map((item) =>
-                '${item.product.name} × ${item.quantity}')
+                    .map((item) => '${item.product.name} × ${item.quantity}')
                     .join('\n'),
-                deliveryCost: order.selectedLocationEntity!.cost,
+                deliveryCost: order.selectedLocationEntity?.cost ?? 0,
               ),
             );
           },

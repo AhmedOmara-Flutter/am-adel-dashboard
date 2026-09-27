@@ -1,3 +1,6 @@
+
+import '../../feature/coupon/domain/entities/coupon_entity.dart';
+
 class UserEntity {
   final String userName;
   final String email;
@@ -5,6 +8,7 @@ class UserEntity {
   final String phone;
   final String password;
   final DateTime createdAt;
+  final List<CouponEntity> coupons;
 
   UserEntity({
     required this.userName,
@@ -13,5 +17,6 @@ class UserEntity {
     required this.phone,
     required this.password,
     required this.createdAt,
+    this.coupons = const [],
   });
 }

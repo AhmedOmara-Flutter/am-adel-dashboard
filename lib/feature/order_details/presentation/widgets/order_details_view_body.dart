@@ -23,9 +23,6 @@ class OrderDetailsViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final orderNumberText =
-    orderNumber.toString().padLeft(2, '0');
-
     return SingleChildScrollView(
       padding: EdgeInsets.only(
         left: 10,
@@ -65,10 +62,10 @@ class OrderDetailsViewBody extends StatelessWidget {
           ),
 
           OrderSummaryCardSection(
-            subTotal:
-            order.cartEntity.getTotalPrice(),
-            deliveryCost:
-            order.selectedLocationEntity!.cost,
+            subTotal: order.cartEntity.getTotalPrice(),
+            deliveryCost: order.selectedLocationEntity!.cost,
+            couponDiscount: order.couponDiscount,
+            totalPrice: order.totalPrice,
           ),
 
           OrderPrintSection(

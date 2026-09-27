@@ -1,4 +1,5 @@
 import 'package:am_adel_dashboard/core/entities/user_entity.dart';
+import '../../feature/coupon/data/models/coupon_model.dart';
 
 class UserModel extends UserEntity {
   UserModel({
@@ -7,10 +8,13 @@ class UserModel extends UserEntity {
     required super.uId,
     required super.phone,
     required super.password,
-    required super.createdAt
+    required super.createdAt,
+    super.coupons,
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
+    final couponsData = json['coupons'] as List? ?? [];
+
     return UserModel(
       userName: json['userName'] ?? '',
       email: json['email'] ?? '',
@@ -18,6 +22,13 @@ class UserModel extends UserEntity {
       phone: json['phone'] ?? '',
       password: json['password'] ?? '',
       createdAt: DateTime.parse(json['createdAt']),
+      coupons: couponsData
+          .map(
+            (coupon) => CouponModel.fromJson(
+          Map<String, dynamic>.from(coupon),
+        ).toEntity(),
+      )
+          .toList(),
     );
   }
 
@@ -29,6 +40,7 @@ class UserModel extends UserEntity {
       phone: user.phone,
       password: user.password,
       createdAt: user.createdAt,
+      coupons: user.coupons,
     );
   }
 
@@ -40,6 +52,7 @@ class UserModel extends UserEntity {
       phone: phone,
       password: password,
       createdAt: createdAt,
+      coupons: coupons,
     );
   }
 
@@ -51,6 +64,11 @@ class UserModel extends UserEntity {
       'phone': phone,
       'password': password,
       'createdAt': createdAt.toIso8601String(),
+      'coupons': coupons
+          .map(
+            (coupon) => CouponModel.fromEntity(coupon).toJson(),
+      )
+          .toList(),
     };
   }
 }

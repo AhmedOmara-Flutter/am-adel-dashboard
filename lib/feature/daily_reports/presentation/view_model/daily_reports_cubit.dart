@@ -3,7 +3,7 @@
 // import 'package:meta/meta.dart';
 // import '../../../../../core/cubit/orders_cubit/orders_cubit.dart';
 // import '../../../../../core/enums/order_enum.dart';
-// import '../../data/repos/daily_report_repo.dart';
+// import '../../repos/repos/daily_report_repo.dart';
 // import '../../domain/entities/daily_reports_entity.dart';
 //
 // part 'daily_reports_state.dart';

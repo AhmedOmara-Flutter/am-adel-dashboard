@@ -1,26 +1,24 @@
 import 'package:am_adel_dashboard/core/entities/address_entity.dart';
-import 'package:am_adel_dashboard/feature/cart_status/domain/entities/cart_entity.dart';
 import 'package:am_adel_dashboard/core/entities/selected_location_entity.dart';
 import 'package:am_adel_dashboard/core/entities/user_entity.dart';
+import 'package:am_adel_dashboard/feature/cart_status/domain/entities/cart_entity.dart';
 
 import '../enums/order_enum.dart';
 
 class OrderEntity {
   final String uId;
-   String ?id;
+  String? id;
   final DateTime? createdAt;
   final CartEntity cartEntity;
   bool? isCashOnDelivery;
   AddressEntity? addressEntity;
-  UserEntity?userEntity;
+  UserEntity? userEntity;
   final OrderStatus status;
-  SelectedLocationEntity ?selectedLocationEntity;
+  SelectedLocationEntity? selectedLocationEntity;
   String? orderNote;
   String? paymentImage;
-
-
-
-
+  double totalPrice;
+  double couponDiscount;
 
   OrderEntity({
     required this.cartEntity,
@@ -28,11 +26,14 @@ class OrderEntity {
     this.addressEntity,
     required this.uId,
     this.createdAt,
-    this.userEntity,required this.status,
-     this.id,
+    this.userEntity,
+    required this.status,
+    this.id,
     this.selectedLocationEntity,
     this.orderNote,
     this.paymentImage,
+    this.totalPrice = 0,
+    this.couponDiscount = 0,
   });
 
   OrderEntity copyWith({
@@ -47,6 +48,8 @@ class OrderEntity {
     SelectedLocationEntity? selectedLocationEntity,
     String? orderNote,
     String? paymentImage,
+    double? totalPrice,
+    double? couponDiscount,
   }) {
     return OrderEntity(
       uId: uId ?? this.uId,
@@ -58,13 +61,14 @@ class OrderEntity {
       userEntity: userEntity ?? this.userEntity,
       status: status ?? this.status,
       selectedLocationEntity:
-      selectedLocationEntity ?? this.selectedLocationEntity,
+          selectedLocationEntity ?? this.selectedLocationEntity,
       orderNote: orderNote ?? this.orderNote,
       paymentImage: paymentImage ?? this.paymentImage,
-
-
+      totalPrice: totalPrice ?? this.totalPrice,
+      couponDiscount: couponDiscount ?? this.couponDiscount,
     );
   }
+
   String getFullAddress() {
     return '${addressEntity!.address}';
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../../../../core/utils/app_color.dart';
 
 class OrderSummarySection extends StatelessWidget {
@@ -7,42 +8,41 @@ class OrderSummarySection extends StatelessWidget {
     required this.time,
     required this.totalPrice,
     required this.deliveryCost,
+    this.couponDiscount = 0,
   });
 
   final String time;
   final double totalPrice;
   final double deliveryCost;
+  final double couponDiscount;
 
   @override
   Widget build(BuildContext context) {
+    final hasCoupon = couponDiscount > 0;
+
     return Container(
-      padding: EdgeInsets.symmetric(
-        horizontal: 12,
-        vertical: 10,
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 9),
       decoration: BoxDecoration(
         color: AppColor.cardLight,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(
-          color: AppColor.divider,
-        ),
+        border: Border.all(color: AppColor.divider),
       ),
       child: Row(
         children: [
           Container(
-            padding: EdgeInsets.all(7),
+            padding: const EdgeInsets.all(6),
             decoration: BoxDecoration(
               color: AppColor.backgroundDark,
               shape: BoxShape.circle,
             ),
             child: Icon(
               Icons.access_time_rounded,
-              size: 16,
+              size: 15,
               color: AppColor.mainColor,
             ),
           ),
 
-          SizedBox(width: 10),
+          const SizedBox(width: 8),
 
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -51,19 +51,52 @@ class OrderSummarySection extends StatelessWidget {
                 'وقت الطلب',
                 style: Theme.of(context).textTheme.labelSmall!.copyWith(
                   color: AppColor.textSecondary,
+                  fontSize: 10,
                 ),
               ),
-              SizedBox(height: 2),
+              const SizedBox(height: 1),
               Text(
                 time,
                 style: Theme.of(context).textTheme.titleSmall!.copyWith(
                   color: AppColor.textPrimary,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
             ],
           ),
 
           const Spacer(),
+
+          if (hasCoupon) ...[
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 4),
+              decoration: BoxDecoration(
+                color: AppColor.green.withOpacity(0.10),
+                borderRadius: BorderRadius.circular(7),
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(
+                    Icons.local_offer_rounded,
+                    size: 12,
+                    color: AppColor.green,
+                  ),
+                  const SizedBox(width: 3),
+                  Text(
+                    '-${couponDiscount.toStringAsFixed(2)}',
+                    style: Theme.of(context).textTheme.labelSmall!.copyWith(
+                      color: AppColor.green,
+                      fontSize: 10,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(width: 8),
+          ],
 
           Column(
             crossAxisAlignment: CrossAxisAlignment.end,
@@ -72,21 +105,15 @@ class OrderSummarySection extends StatelessWidget {
                 'الإجمالي',
                 style: Theme.of(context).textTheme.labelSmall!.copyWith(
                   color: AppColor.textSecondary,
+                  fontSize: 10,
                 ),
               ),
-
-              SizedBox(height: 4),
-              Container(
-                margin: EdgeInsets.symmetric(vertical: 4),
-                width: 60,
-                height: 1,
-                color: AppColor.divider,
-              ),
-
+              const SizedBox(height: 1),
               Text(
-                '${(totalPrice + deliveryCost).toStringAsFixed(2)} ج.م',
+                '${totalPrice.toStringAsFixed(2)} ج.م',
                 style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                   color: AppColor.mainColor,
+                  fontSize: 13,
                   fontWeight: FontWeight.bold,
                 ),
               ),

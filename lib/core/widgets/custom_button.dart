@@ -24,28 +24,19 @@ class CustomButton extends StatelessWidget {
         child: ElevatedButton(
           onPressed: onPressed,
           style: ElevatedButton.styleFrom(
-            backgroundColor: isDisabled
-                ? AppColor.backgroundDark
-                : AppColor.mainColor,
+            backgroundColor: AppColor.mainColor,
+            foregroundColor: AppColor.white,
 
-            foregroundColor: isDisabled
-                ? AppColor.textSecondary
-                : AppColor.white,
+            disabledBackgroundColor:
+            AppColor.mainColor.withOpacity(.5),
 
-            disabledBackgroundColor: AppColor.backgroundDark,
-            disabledForegroundColor: AppColor.textSecondary,
+            disabledForegroundColor:
+            AppColor.white.withOpacity(.6),
 
-            elevation: isDisabled ? 0 : 2,
-
-            side: isDisabled
-                ? const BorderSide(
-              color: AppColor.divider,
-              width: 1,
-            )
-                : BorderSide.none,
+            elevation: 0,
 
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular(14),
             ),
           ),
           child: child,

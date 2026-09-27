@@ -5,6 +5,7 @@ import '../utils/app_color.dart';
 class CustomTextFormField extends StatelessWidget {
   final TextEditingController? controller;
   final TextInputType? keyboardType;
+  final TextCapitalization textCapitalization;
   final void Function(String?)? onSaved;
   final void Function(String)? onChanged;
   final void Function(String)? onFieldSubmitted;
@@ -15,11 +16,13 @@ class CustomTextFormField extends StatelessWidget {
   final int? maxLines;
   final String? label;
   final bool readOnly;
+  final IconData? prefixIcon;
 
   const CustomTextFormField({
     super.key,
     this.controller,
     this.keyboardType,
+    this.textCapitalization = TextCapitalization.none,
     this.hintText,
     this.validator,
     this.autoValidateMode = AutovalidateMode.onUserInteraction,
@@ -30,28 +33,24 @@ class CustomTextFormField extends StatelessWidget {
     this.labelText,
     this.label,
     this.readOnly = false,
+    this.prefixIcon,
   });
 
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         if (label != null)
           Row(
-            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
             children: [
-              Padding(
-                padding: const EdgeInsets.only(right: 5),
-                child: Text(
-                  label!,
-                  style: Theme
-                      .of(context)
-                      .textTheme
-                      .titleMedium!
-                      .copyWith(
-                    color: AppColor.textPrimary,
-                    fontWeight: FontWeight.w700,
-                  ),
+              Text(
+                label!,
+                style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                  color: AppColor.textPrimary,
+                  fontWeight: FontWeight.w700,
                 ),
               ),
               const SizedBox(width: 8),
@@ -68,30 +67,25 @@ class CustomTextFormField extends StatelessWidget {
           readOnly: readOnly,
           controller: controller,
           keyboardType: keyboardType,
+          textCapitalization: textCapitalization,
           maxLines: maxLines,
           onSaved: onSaved,
           onChanged: onChanged,
           onFieldSubmitted: onFieldSubmitted,
           autovalidateMode: autoValidateMode,
           validator: validator,
-
-          style: Theme
-              .of(context)
-              .textTheme
-              .bodyMedium!
-              .copyWith(
+          style: Theme.of(context).textTheme.bodyMedium!.copyWith(
             color: AppColor.textPrimary,
+            fontSize: 13,
           ),
-
           cursorColor: AppColor.mainColor,
-
           decoration: InputDecoration(
             hintText: hintText,
             labelText: labelText,
 
             hintStyle: const TextStyle(
               color: AppColor.textSecondary,
-              fontSize: 14,
+              fontSize: 12,
             ),
 
             labelStyle: const TextStyle(
@@ -105,12 +99,25 @@ class CustomTextFormField extends StatelessWidget {
               fontWeight: FontWeight.w600,
             ),
 
+            prefixIcon: prefixIcon != null
+                ? Icon(
+              prefixIcon,
+              color: AppColor.accentColor,
+              size: 20,
+            )
+                : null,
+
             filled: true,
             fillColor: AppColor.cardLight,
 
             contentPadding: const EdgeInsets.symmetric(
-              horizontal: 16,
+              horizontal: 14,
               vertical: 15,
+            ),
+
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12),
+              borderSide: BorderSide.none,
             ),
 
             enabledBorder: OutlineInputBorder(

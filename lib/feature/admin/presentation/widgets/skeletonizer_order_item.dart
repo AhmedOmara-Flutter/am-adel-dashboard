@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
 import 'package:am_adel_dashboard/core/utils/app_color.dart';
 import 'package:am_adel_dashboard/core/utils/style_manager.dart';
 import 'package:am_adel_dashboard/generated/assets.dart';
+import 'package:flutter/material.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 import '../../../../core/utils/app_constants.dart';
@@ -13,22 +13,23 @@ class SkeletonizerOrderItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Skeletonizer(
       enabled: true,
-      effect: const ShimmerEffect(
-        baseColor: Color(0xFF2A2A2A),
-        highlightColor: Color(0xFF3A3A3A),
-        duration: Duration(milliseconds: 1200),
+      effect: ShimmerEffect(
+        baseColor: AppColor.backgroundDark,
+        highlightColor: AppColor.cardLight,
+        duration: const Duration(milliseconds: 1200),
       ),
       child: Container(
-        margin: EdgeInsets.symmetric(
-            vertical: 6,
-            horizontal: 10
+        margin: const EdgeInsets.symmetric(
+          horizontal: 10,
         ),
-        padding: EdgeInsets.all(14),
+        padding: const EdgeInsets.all(14),
         decoration: BoxDecoration(
-          color: AppColor.card,
-          borderRadius: BorderRadius.circular(AppConstants.borderRadius),
+          color: AppColor.cardLight,
+          borderRadius: BorderRadius.circular(
+            AppConstants.borderRadius,
+          ),
           border: Border.all(
-            color: AppColor.border,
+            color: AppColor.border.withOpacity(0.3),
           ),
         ),
         child: Row(
@@ -43,7 +44,7 @@ class SkeletonizerOrderItem extends StatelessWidget {
               ),
             ),
 
-            SizedBox(width: 12),
+            const SizedBox(width: 12),
 
             Expanded(
               child: Column(
@@ -56,14 +57,17 @@ class SkeletonizerOrderItem extends StatelessWidget {
                     ),
                   ),
 
-                  SizedBox(height: 6),
+                  const SizedBox(height: 6),
 
                   Text(
                     'كريب سوبر + بيتزا رانش + ',
-                    style: Theme.of(context).textTheme.titleSmall,
+                    style: Theme
+                        .of(context)
+                        .textTheme
+                        .titleSmall,
                   ),
 
-                  SizedBox(height: 8),
+                  const SizedBox(height: 8),
 
                   Row(
                     children: [
@@ -72,10 +76,13 @@ class SkeletonizerOrderItem extends StatelessWidget {
                         size: 14,
                         color: AppColor.textSecondary,
                       ),
-                      SizedBox(width: 4),
+                      const SizedBox(width: 4),
                       Text(
                         'منذ 5 دقائق',
-                        style: Theme.of(context).textTheme.titleMedium,
+                        style: Theme
+                            .of(context)
+                            .textTheme
+                            .titleMedium,
                       ),
                     ],
                   ),
@@ -83,13 +90,13 @@ class SkeletonizerOrderItem extends StatelessWidget {
               ),
             ),
 
-            SizedBox(width: 10),
+            const SizedBox(width: 10),
 
             Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Container(
-                  padding: EdgeInsets.symmetric(
+                  padding: const EdgeInsets.symmetric(
                     horizontal: 10,
                     vertical: 5,
                   ),
@@ -101,16 +108,20 @@ class SkeletonizerOrderItem extends StatelessWidget {
                     style: TextStyle(
                       fontWeight: FontWeight.w600,
                       fontSize: 12,
-                      color: Colors.orange,
+                      color: AppColor.accentColor,
                     ),
                   ),
                 ),
 
-                SizedBox(height: 12),
+                const SizedBox(height: 12),
 
                 Text(
                   '250.00 ج.م',
-                  style: Theme.of(context).textTheme.labelSmall!.copyWith(
+                  style: Theme
+                      .of(context)
+                      .textTheme
+                      .labelSmall!
+                      .copyWith(
                     color: AppColor.mainColor,
                   ),
                 ),

@@ -34,7 +34,7 @@ class CategoryCubit extends Cubit<CategoryState> {
         _categoryRepo.getCategoriesStream().listen(
               (categories) {
             // مهم جدًا:
-            // ممكن الـ stream يرجع data بعد ما Cubit يتقفل
+            // ممكن الـ stream يرجع repos بعد ما Cubit يتقفل
             if (isClosed) return;
 
             this.categories = categories;

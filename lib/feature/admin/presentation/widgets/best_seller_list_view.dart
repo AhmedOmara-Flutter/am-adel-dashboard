@@ -20,7 +20,7 @@ class BestSellerListView extends StatelessWidget {
           return ListView.builder(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
-            itemCount: 5,
+            itemCount: 2,
             itemBuilder: (context, index) => SkeletonizerProductItem(),
           );
 

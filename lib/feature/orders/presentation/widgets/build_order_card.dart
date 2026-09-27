@@ -113,15 +113,18 @@ class _BuildOrderCardState extends State<BuildOrderCard> {
 
                 const SizedBox(height: 12),
 
-                OrderSummarySection(
-                  time: getTimeOnly(
-                    widget.order.createdAt.toString(),
-                  ),
-                  deliveryCost:
-                  widget.order.selectedLocationEntity!.cost,
-                  totalPrice:
-                  widget.order.cartEntity.getTotalPrice(),
-                ),
+          OrderSummarySection(
+            time: getTimeOnly(
+              widget.order.createdAt.toString(),
+            ),
+            deliveryCost:
+            widget.order.selectedLocationEntity!.cost,
+            totalPrice:
+            widget.order.totalPrice,
+            couponDiscount:
+            widget.order.couponDiscount,
+          ),
+
 
                 if (widget.order.status == OrderStatus.pending) ...[
                   const SizedBox(height: 14),

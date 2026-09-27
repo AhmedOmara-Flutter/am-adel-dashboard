@@ -17,12 +17,18 @@ part 'orders_state.dart';
 
 class OrdersCubit extends Cubit<OrdersState> {
   OrdersCubit(this._ordersRepo) : super(OrdersInitial());
+
   final OrdersRepo _ordersRepo;
+
   double totalSales = 0;
+
   StreamSubscription? _ordersSubscription;
+
   List<OrderEntity> allOrders = [];
   List<OrderEntity> filteredOrders = [];
+
   OrderStatus? currentFilter = OrderStatus.pending;
+
   final List medals = [
     Assets.assets.images.medal.path,
     Assets.assets.images.medal1.path,
@@ -30,6 +36,7 @@ class OrdersCubit extends Cubit<OrdersState> {
     Assets.assets.images.medal3.path,
     Assets.assets.images.medal3.path,
   ];
+
   final Set<String> _printedOrders = {};
 
   void getOrders() {
@@ -39,12 +46,14 @@ class OrdersCubit extends Cubit<OrdersState> {
 
     _ordersSubscription = _ordersRepo.getOrders().listen((res) {
       res.fold(
-        (failure) {
+            (failure) {
           emit(GetOrdersErrorState(failure.errMessage));
         },
             (data) async {
           allOrders = List.from(data)
-            ..sort((a, b) => b.createdAt!.compareTo(a.createdAt!));
+            ..sort(
+                  (a, b) => b.createdAt!.compareTo(a.createdAt!),
+            );
 
           for (int index = 0; index < allOrders.length; index++) {
             final order = allOrders[index];
@@ -58,7 +67,10 @@ class OrdersCubit extends Cubit<OrdersState> {
               try {
                 final orderNumber = allOrders.length - index;
 
-                await PrintService.printOrder(order, orderNumber);
+                await PrintService.printOrder(
+                  order,
+                  orderNumber,
+                );
               } catch (e) {
                 print('⚠️ Printer error: $e');
               }
@@ -66,16 +78,14 @@ class OrdersCubit extends Cubit<OrdersState> {
           }
 
           _applyFilter();
+
           totalSales = allOrders
-              .where((order) => order.status == OrderStatus.paid)
+              .where(
+                (order) => order.status == OrderStatus.paid,
+          )
               .fold(
             0.0,
-                (sum, order) =>
-            sum +
-                order.cartEntity.cartItems.fold(
-                  0.0,
-                      (cartSum, item) => cartSum + item.totalPrice,
-                ),
+                (sum, order) => sum + order.totalPrice,
           );
 
           emit(GetOrdersSuccessState());
@@ -86,17 +96,23 @@ class OrdersCubit extends Cubit<OrdersState> {
 
   void filterByStatus(OrderStatus status) {
     currentFilter = status;
+
     _applyFilter();
+
     emit(GetOrdersSuccessState());
   }
 
-  List<OrderEntity> get recentOrders => allOrders.take(3).toList();
+  List<OrderEntity> get recentOrders {
+    return allOrders.take(3).toList();
+  }
 
   List<TopProductModel> get topProducts {
     final Map<String, TopProductModel> products = {};
+
     for (var order in allOrders) {
       for (var item in order.cartEntity.cartItems) {
         final name = item.product.name;
+
         if (products.containsKey(name)) {
           products[name] = TopProductModel(
             name: name,
@@ -115,7 +131,9 @@ class OrdersCubit extends Cubit<OrdersState> {
 
     final result = products.values.toList();
 
-    result.sort((a, b) => b.totalOrders.compareTo(a.totalOrders));
+    result.sort(
+          (a, b) => b.totalOrders.compareTo(a.totalOrders),
+    );
 
     return result;
   }
@@ -133,30 +151,39 @@ class OrdersCubit extends Cubit<OrdersState> {
 
     await result.fold(
           (failure) async {
-        emit(UpdateOrderErrorState(failure.errMessage));
+        emit(
+          UpdateOrderErrorState(
+            failure.errMessage,
+          ),
+        );
       },
           (_) async {
-        final index = allOrders.indexWhere((e) => e.id == orderId);
+        final index = allOrders.indexWhere(
+              (e) => e.id == orderId,
+        );
 
         if (index != -1) {
           final order = allOrders[index];
 
-          allOrders[index] = order.copyWith(status: status);
-
-          totalSales = allOrders
-              .where((order) => order.status == OrderStatus.paid)
-              .fold(
-            0.0,
-                (sum, order) =>
-            sum +
-                order.cartEntity.cartItems.fold(
-                  0.0,
-                      (cartSum, item) => cartSum + item.totalPrice,
-                ),
+          allOrders[index] = order.copyWith(
+            status: status,
           );
 
-          if (status != OrderStatus.pending && status != OrderStatus.paid) {
-            await _sendOrderStatusNotification(order, status);
+          totalSales = allOrders
+              .where(
+                (order) => order.status == OrderStatus.paid,
+          )
+              .fold(
+            0.0,
+                (sum, order) => sum + order.totalPrice,
+          );
+
+          if (status != OrderStatus.pending &&
+              status != OrderStatus.paid) {
+            await _sendOrderStatusNotification(
+              order,
+              status,
+            );
           }
         }
 
@@ -164,7 +191,9 @@ class OrdersCubit extends Cubit<OrdersState> {
           filteredOrders = List.from(allOrders);
         } else {
           filteredOrders = allOrders
-              .where((o) => o.status == currentFilter)
+              .where(
+                (o) => o.status == currentFilter,
+          )
               .toList();
         }
 
@@ -174,8 +203,7 @@ class OrdersCubit extends Cubit<OrdersState> {
   }
 
   Future<void> _sendOrderStatusNotification(OrderEntity order,
-      OrderStatus status,) async
-  {
+      OrderStatus status,) async {
     try {
       final userData = await instance<DatabaseServices>().getData(
         path: 'users',
@@ -185,7 +213,9 @@ class OrdersCubit extends Cubit<OrdersState> {
       final String? fcmToken = userData['fcmToken'];
 
       if (fcmToken == null || fcmToken.isEmpty) {
-        print('⚠️ No FCM Token found for user: ${order.uId}');
+        print(
+          '⚠️ No FCM Token found for user: ${order.uId}',
+        );
         return;
       }
 
@@ -196,19 +226,16 @@ class OrdersCubit extends Cubit<OrdersState> {
         case OrderStatus.confirmed:
           title = 'تم تأكيد طلبك 🍕';
           body = 'طلبك قيد التحضير الآن';
-
           break;
 
         case OrderStatus.delivered:
           title = 'تم الانتهاء من طلبك 🎉';
           body = 'شكرًا لاختيارك عم عادل ❤️';
-
           break;
 
         case OrderStatus.cancelled:
           title = 'تم إلغاء طلبك ❌';
           body = 'تم إلغاء طلبك، نعتذر عن ذلك';
-
           break;
 
         case OrderStatus.pending:
@@ -224,13 +251,17 @@ class OrdersCubit extends Cubit<OrdersState> {
 
       print('✅ Order status notification sent');
     } catch (e) {
-      print('❌ Failed to send order notification: $e');
+      print(
+        '❌ Failed to send order notification: $e',
+      );
     }
   }
 
   void showAllOrders() {
     currentFilter = null;
+
     _applyFilter();
+
     emit(GetOrdersSuccessState());
   }
 
@@ -239,14 +270,18 @@ class OrdersCubit extends Cubit<OrdersState> {
       filteredOrders = List.from(allOrders);
     } else {
       filteredOrders = allOrders
-          .where((o) => o.status == currentFilter)
+          .where(
+            (o) => o.status == currentFilter,
+      )
           .toList();
     }
   }
 
   double get totalDeliveryCost {
     return allOrders
-        .where((order) => order.status == OrderStatus.paid)
+        .where(
+          (order) => order.status == OrderStatus.paid,
+    )
         .fold(
       0.0,
           (sum, order) =>
@@ -255,24 +290,31 @@ class OrdersCubit extends Cubit<OrdersState> {
   }
 
   double get totalPriceWithDelivery {
-    return totalSales + totalDeliveryCost;
+    return totalSales;
   }
 
   Future<void> deleteOrderCollection() async {
     emit(DeleteLoadingState());
 
     try {
-      await _ordersRepo.deleteCollection('orders');
+      await _ordersRepo.deleteCollection(
+        'orders',
+      );
 
       emit(DeleteSuccessState());
     } catch (e) {
-      emit(DeleteErrorState(e.toString()));
+      emit(
+        DeleteErrorState(
+          e.toString(),
+        ),
+      );
     }
   }
 
   @override
   Future<void> close() {
     _ordersSubscription?.cancel();
+
     return super.close();
   }
 }

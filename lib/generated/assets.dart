@@ -48,6 +48,9 @@ class $AssetsImagesGen {
   final AssetGenImage medal3 = const AssetGenImage(
     'assets/images/medal (3).png',
   );
+  final AssetGenImage onboardingLogo = const AssetGenImage(
+    'assets/images/onboarding_logo.png',
+  );
   final AssetGenImage printer = const AssetGenImage(
     'assets/images/printer.png',
   );

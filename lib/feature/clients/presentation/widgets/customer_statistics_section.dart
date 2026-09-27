@@ -80,7 +80,7 @@ class CustomerStatisticsSection extends StatelessWidget {
                   color: AppColor.accentColor,
                   icon: Icons.attach_money,
                   title: 'اجمالي المبيعات',
-                  subTitleNumber: '${totalPriceWithDelivery} جنيه',
+                  subTitleNumber: '${totalPriceWithDelivery.toStringAsFixed(2)}',
                   subTitleText: 'كل المبيعات',
                 ),
               ),

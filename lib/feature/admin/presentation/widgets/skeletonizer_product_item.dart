@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:skeletonizer/skeletonizer.dart';
+
 import '../../../../core/utils/app_color.dart';
 import '../../../../core/utils/app_constants.dart';
 import '../../../../core/utils/style_manager.dart';
@@ -12,34 +13,36 @@ class SkeletonizerProductItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Skeletonizer(
       enabled: true,
-      effect: const ShimmerEffect(
-        baseColor: Color(0xFF2A2A2A),
-        highlightColor: Color(0xFF3A3A3A),
-        duration: Duration(milliseconds: 1200),
+      effect: ShimmerEffect(
+        baseColor: AppColor.backgroundDark,
+        highlightColor: AppColor.cardLight,
+        duration: const Duration(milliseconds: 1200),
       ),
       child: Container(
-        margin: EdgeInsets.only(
-            left: 10,
-            right: 10,
-            bottom: 10
+        margin: const EdgeInsets.only(
+          left: 10,
+          right: 10,
+          bottom: 10,
         ),
-        padding: EdgeInsets.all(14),
+        padding: const EdgeInsets.all(14),
         decoration: BoxDecoration(
-          color: AppColor.card,
-          borderRadius: BorderRadius.circular(AppConstants.borderRadius),
+          color: AppColor.cardLight,
+          borderRadius: BorderRadius.circular(
+            AppConstants.borderRadius,
+          ),
           border: Border.all(
-            color: AppColor.border,
+            color: AppColor.border.withOpacity(0.3),
           ),
         ),
         child: Row(
           children: [
             Image.asset(
-              Assets.assets.images.customer.path, // غيرها باسم الميدالية عندك
+              Assets.assets.images.customer.path,
               height: 30,
               width: 30,
             ),
 
-            SizedBox(width: 12),
+            const SizedBox(width: 12),
 
             Container(
               width: 65,
@@ -47,20 +50,18 @@ class SkeletonizerProductItem extends StatelessWidget {
               decoration: BoxDecoration(
                 color: AppColor.background,
                 borderRadius: BorderRadius.circular(16),
-                border: Border.all(
-                  color: AppColor.border,
-                ),
+
               ),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(16),
                 child: Image.asset(
-                  Assets.assets.images.customer.path, // غيرها بصورة منتج عندك
+                  Assets.assets.images.customer.path,
                   fit: BoxFit.cover,
                 ),
               ),
             ),
 
-            SizedBox(width: 12),
+            const SizedBox(width: 12),
 
             Expanded(
               child: Column(
@@ -73,9 +74,7 @@ class SkeletonizerProductItem extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                     style: StyleManager.font15Weight700(context),
                   ),
-
-                  SizedBox(height: 6),
-
+                  const SizedBox(height: 6),
                   Text(
                     '125 طلب',
                     style: StyleManager.font13Weight400(context),
@@ -84,19 +83,16 @@ class SkeletonizerProductItem extends StatelessWidget {
               ),
             ),
 
-            SizedBox(width: 12),
+            const SizedBox(width: 12),
 
             Container(
-              padding: EdgeInsets.symmetric(
+              padding: const EdgeInsets.symmetric(
                 horizontal: 10,
                 vertical: 6,
               ),
               decoration: BoxDecoration(
                 color: AppColor.background.withOpacity(.12),
                 borderRadius: BorderRadius.circular(8),
-                border: Border.all(
-                  color: AppColor.border,
-                ),
               ),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -108,7 +104,7 @@ class SkeletonizerProductItem extends StatelessWidget {
                         '125',
                         style: StyleManager.font14Weight600(context),
                       ),
-                      SizedBox(width: 4),
+                      const SizedBox(width: 4),
                       Image.asset(
                         Assets.assets.images.amAdelLogo.path,
                         height: 10,
@@ -117,7 +113,7 @@ class SkeletonizerProductItem extends StatelessWidget {
                       ),
                     ],
                   ),
-                  SizedBox(height: 4),
+                  const SizedBox(height: 4),
                   Text(
                     'إجمالي الطلبات',
                     style: StyleManager.font11Weight400(context),

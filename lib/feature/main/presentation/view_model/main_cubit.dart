@@ -7,15 +7,13 @@ import 'package:am_adel_dashboard/feature/main/presentation/widgets/drawer_item.
 import 'package:am_adel_dashboard/feature/my_products/presentation/view/my_products_view.dart';
 import 'package:am_adel_dashboard/feature/orders/presentation/view/order_view.dart';
 import 'package:am_adel_dashboard/feature/send_notification/view/notification_hub_view.dart';
-
 import '../../../admin/presentation/view/admin_view.dart';
 import '../../../bundle_offer/presentation/view/bundle_offer_view.dart';
 import '../../../category/presentation/view/category_view.dart';
-import '../../../daily_reports/presentation/view/daily_reports_view.dart';
+import '../../../coupon/presentation/view/coupon_view.dart';
 import '../../../offers/presentation/view/offers_view.dart';
 import '../../../reviews/presentation/view/reviews_view.dart';
 import '../../../selected_location/view/selected_location_view.dart';
-import '../../../send_notification/view/send_notification_view.dart';
 import '../../../settings/presentation/view/settings_view.dart';
 
 part 'main_state.dart';
@@ -86,6 +84,11 @@ class MainCubit extends Cubit<MainState> {
       activeIcon: Icons.store_mall_directory,
     ),
     DrawerItemModel(
+      title: 'كوبونات',
+      inactiveIcon: Icons.store_mall_directory_outlined,
+      activeIcon: Icons.store_mall_directory,
+    ),
+    DrawerItemModel(
       title: 'الاعدادات',
       inactiveIcon: Icons.settings_outlined,
       activeIcon: Icons.settings,
@@ -105,6 +108,7 @@ class MainCubit extends Cubit<MainState> {
     SelectedLocationView(),
     NotificationsHubView(),
     ReportsView(),
+    CouponView(),
     SettingsView(),
   ];
 

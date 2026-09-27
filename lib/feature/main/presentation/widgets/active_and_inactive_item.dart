@@ -1,5 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:am_adel_dashboard/core/utils/style_manager.dart';
+import 'package:flutter/material.dart';
+
 import '../../../../core/utils/app_color.dart';
 import '../../../../core/utils/config_size.dart';
 import 'drawer_item.dart';
@@ -14,30 +15,50 @@ class InActiveDrawerItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 50,
-      margin: EdgeInsets.symmetric(horizontal: 10),
+    final double fontSize = MediaQuery
+        .sizeOf(context)
+        .width >
+        ConfigSize.phone
+        ? 13
+        : 15;
 
-      padding: EdgeInsets.symmetric(horizontal: 15),
-      alignment: Alignment.centerRight,
+    return Container(
+      height: 48,
+      margin: const EdgeInsets.symmetric(
+        horizontal: 12,
+        vertical: 3,
+      ),
+      padding: const EdgeInsets.symmetric(
+        horizontal: 14,
+      ),
       child: Row(
         children: [
           Icon(
             drawerItemModel.inactiveIcon,
-            color: AppColor.textSecondary,
-            size: responsiveFontSize(context, fontSize: 18),
+            size: responsiveFontSize(
+              context,
+              fontSize: 19,
+            ),
+            color: AppColor.textSecondary.withOpacity(.75),
           ),
-          SizedBox(width: 10),
+
+          const SizedBox(width: 13),
+
           Expanded(
             child: Text(
               drawerItemModel.title,
               overflow: TextOverflow.ellipsis,
-              style: Theme.of(context).textTheme.labelMedium!.copyWith(
+              style: Theme
+                  .of(context)
+                  .textTheme
+                  .labelMedium!
+                  .copyWith(
                 color: AppColor.textSecondary,
                 fontWeight: FontWeight.w500,
-                fontSize: responsiveFontSize(context, fontSize: MediaQuery
-                    .sizeOf(context)
-                    .width > ConfigSize.phone? 13:15),
+                fontSize: responsiveFontSize(
+                  context,
+                  fontSize: fontSize,
+                ),
               ),
             ),
           ),
@@ -57,33 +78,76 @@ class ActiveDrawerItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final double fontSize = MediaQuery
+        .sizeOf(context)
+        .width >
+        ConfigSize.phone
+        ? 13
+        : 15;
+
     return Container(
-      height: 50,
-      margin: EdgeInsets.symmetric(horizontal: 10),
-      padding: EdgeInsets.symmetric(horizontal: 15),
+      height: 48,
+      margin: const EdgeInsets.symmetric(
+        horizontal: 12,
+        vertical: 3,
+      ),
       decoration: BoxDecoration(
-        color: AppColor.mainColor,
+        color: AppColor.mainColor.withOpacity(.08),
         borderRadius: BorderRadius.circular(12),
       ),
-      alignment: Alignment.centerRight,
       child: Row(
         children: [
-          Icon(
-            drawerItemModel.activeIcon,
-            color: Colors.white,
-            size: responsiveFontSize(context, fontSize: 18),
+// Active Indicator
+          Container(
+            width: 4,
+            height: 28,
+            decoration: BoxDecoration(
+              color: AppColor.mainColor,
+              borderRadius: const BorderRadius.only(
+                topRight: Radius.circular(6),
+                bottomRight: Radius.circular(6),
+              ),
+            ),
           ),
-          SizedBox(width: 10),
+
+          const SizedBox(width: 11),
+
+// Icon
+          Container(
+            width: 30,
+            height: 30,
+            decoration: BoxDecoration(
+              color: AppColor.mainColor.withOpacity(.12),
+              borderRadius: BorderRadius.circular(9),
+            ),
+            child: Icon(
+              drawerItemModel.activeIcon,
+              size: responsiveFontSize(
+                context,
+                fontSize: 17,
+              ),
+              color: AppColor.mainColor,
+            ),
+          ),
+
+          const SizedBox(width: 10),
+
+// Title
           Expanded(
             child: Text(
               drawerItemModel.title,
               overflow: TextOverflow.ellipsis,
-              style: Theme.of(context).textTheme.labelMedium!.copyWith(
-                color: Colors.white,
-                fontSize: responsiveFontSize(context, fontSize:  MediaQuery
-                    .sizeOf(context)
-                    .width > ConfigSize.phone?13:15),
-                fontWeight: FontWeight.w600,
+              style: Theme
+                  .of(context)
+                  .textTheme
+                  .labelMedium!
+                  .copyWith(
+                color: AppColor.mainColor,
+                fontWeight: FontWeight.w700,
+                fontSize: responsiveFontSize(
+                  context,
+                  fontSize: fontSize,
+                ),
               ),
             ),
           ),

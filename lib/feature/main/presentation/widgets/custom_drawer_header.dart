@@ -10,7 +10,36 @@ class CustomDrawerHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return MediaQuery
+        .sizeOf(context)
+        .width > ConfigSize.phone?Container(
+      height: 75,
+      width: double.infinity,
+      decoration: BoxDecoration(
+        color: AppColor.cardLight,
+
+      ),
+      child: Center(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              height: 60,
+              child: Image.asset(
+                Assets.assets.images.amAdelPerson.path,
+                fit: BoxFit.cover,
+              ),
+            ),
+            Image.asset(
+              color: AppColor.mainColor,
+              Assets.assets.images.amAdel.path,
+              height: 95,
+              fit: BoxFit.cover,
+            ),
+          ],
+        ),
+      ),
+    ):Container(
       padding: const EdgeInsets.symmetric(
         horizontal: 10,
         vertical: 18,
@@ -60,7 +89,7 @@ class CustomDrawerHeader extends StatelessWidget {
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  'عم عادل',
+                  'مهندس احمد عماره',
                   overflow: TextOverflow.ellipsis,
                   style: Theme
                       .of(context)

@@ -24,9 +24,9 @@ class OrderSummaryCardSection extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(14),
       decoration: BoxDecoration(
-        color: AppColor.card,
+        color: AppColor.cardLight,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: AppColor.border),
+        border: Border.all(color: AppColor.divider),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -75,10 +75,10 @@ class OrderSummaryCardSection extends StatelessWidget {
               vertical: 10,
             ),
             decoration: BoxDecoration(
-              color: AppColor.surface,
+              color: AppColor.accentColor,
               borderRadius: BorderRadius.circular(12),
               border: Border.all(
-                color: AppColor.border,
+                color: AppColor.divider,
               ),
             ),
             child: Row(
@@ -126,9 +126,9 @@ class _SummaryRow extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
       decoration: BoxDecoration(
-        color: AppColor.card,
+        color: AppColor.cardLight,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: AppColor.border),
+        border: Border.all(color: AppColor.divider),
       ),
       child: Row(
         children: [

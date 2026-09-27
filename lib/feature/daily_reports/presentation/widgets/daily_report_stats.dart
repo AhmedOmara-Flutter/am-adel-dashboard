@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../../core/utils/app_color.dart';
 import '../../../../core/utils/app_constants.dart';
+import '../../../../core/utils/config_size.dart';
 import '../../domain/entities/daily_reports_entity.dart';
 
 class DailyReportStats extends StatelessWidget {
@@ -13,42 +14,63 @@ class DailyReportStats extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GridView.count(
-      crossAxisCount: 2,
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      crossAxisSpacing: 12,
-      mainAxisSpacing: 12,
-      childAspectRatio: 1.55,
-      children: [
-        DailyReportStatCard(
-          title: 'الطلبات المسددة',
-          value: '${report.ordersCount}',
-          subtitle: 'طلب',
-          icon: Icons.receipt_long_rounded,
-        ),
-        DailyReportStatCard(
-          title: 'الكاش',
-          value: _formatMoney(report.cashTotal),
-          subtitle: 'ج.م',
-          icon: Icons.payments_rounded,
-        ),
-        DailyReportStatCard(
-          title: 'اونلاين',
-          value: _formatMoney(report.onlineTotal),
-          subtitle: 'ج.م',
-          icon: Icons.credit_card_rounded,
-        ),
-        DailyReportStatCard(
-          title: 'إجمالي اليوم',
-          value: _formatMoney(report.total),
-          subtitle: 'ج.م',
-          icon: Icons.account_balance_wallet_rounded,
-        ),
-      ],
+    final cards = [
+      DailyReportStatCard(
+        title: 'الطلبات المسددة',
+        value: '${report.ordersCount}',
+        subtitle: 'طلب',
+        icon: Icons.receipt_long_rounded,
+      ),
+      DailyReportStatCard(
+        title: 'مسدد كاش',
+        value: _formatMoney(report.cashTotal),
+        subtitle: 'ج.م',
+        icon: Icons.payments_rounded,
+      ),
+      DailyReportStatCard(
+        title: 'مسدد أونلاين',
+        value: _formatMoney(report.onlineTotal),
+        subtitle: 'ج.م',
+        icon: Icons.credit_card_rounded,
+      ),
+      DailyReportStatCard(
+        title: 'إجمالي اليوم',
+        value: _formatMoney(report.total),
+        subtitle: 'ج.م',
+        icon: Icons.account_balance_wallet_rounded,
+      ),
+    ];
+
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        // Desktop
+        if (MediaQuery.sizeOf(context).width > ConfigSize.phone) {
+          return Row(
+            children: [
+              for (int i = 0; i < cards.length; i++) ...[
+                Expanded(
+                  child: cards[i],
+                ),
+                if (i != cards.length - 1)
+                  const SizedBox(width: 12),
+              ],
+            ],
+          );
+        }
+
+        // Mobile
+        return GridView.count(
+          crossAxisCount: 2,
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          crossAxisSpacing: 12,
+          mainAxisSpacing: 12,
+          childAspectRatio: 1.55,
+          children: cards,
+        );
+      },
     );
   }
-
   String _formatMoney(double value) {
     return value.toStringAsFixed(2);
   }

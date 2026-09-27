@@ -61,12 +61,12 @@ class _BuildOrderCardState extends State<BuildOrderCard> {
         ),
         padding: const EdgeInsets.all(14),
         decoration: BoxDecoration(
-          color: AppColor.card,
+          color: AppColor.cardLight,
           borderRadius: BorderRadius.circular(
             AppConstants.borderRadius,
           ),
           border: Border.all(
-              color: AppColor.border
+              color: AppColor.divider.withOpacity(0.5)
           ),
         ),
         clipBehavior: Clip.antiAliasWithSaveLayer,

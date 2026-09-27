@@ -1,9 +1,11 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:am_adel_dashboard/feature/admin/presentation/widgets/product_item.dart';
 import 'package:am_adel_dashboard/feature/admin/presentation/widgets/skeletonizer_product_item.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../../../../core/cubit/orders_cubit/orders_cubit.dart';
 import '../../../../core/utils/app_color.dart';
+import '../../../../core/utils/style_manager.dart';
 
 class BestSellerListView extends StatelessWidget {
   const BestSellerListView({super.key});
@@ -26,12 +28,13 @@ class BestSellerListView extends StatelessWidget {
 
         if (topProducts.isEmpty) {
           return Container(
-            margin: EdgeInsets.only(bottom: 20),
+            margin: EdgeInsets.only(bottom: 20, top: 15),
             child: Text(
               'لا يوجد حاليا اكثر منتجات مبيعا',
-              style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                color: AppColor.textSecondary,
+              style: StyleManager.font15Weight800(context).copyWith(
+                fontSize: 13
               ),
+
             ),
           );
         }

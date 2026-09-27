@@ -1,3 +1,4 @@
+import 'package:am_adel_dashboard/core/utils/style_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:am_adel_dashboard/core/enums/order_enum.dart';
@@ -24,16 +25,19 @@ class RecentOrdersListView extends StatelessWidget {
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             itemCount: 1,
-            itemBuilder: (context, index) =>
-                SkeletonizerOrderItem(),
+            itemBuilder: (context, index) => SkeletonizerOrderItem(),
           );
 
         if (recentOrders.isEmpty) {
-          return Container(margin: EdgeInsets.only(bottom: 20),
-              child: Text('لا يوجد حاليا طلبات حديثه', style: Theme
-                  .of(context)
-                  .textTheme
-                  .labelLarge,));
+          return Container(
+            margin: EdgeInsets.only(bottom: 20, top: 15),
+            child: Text(
+              'لا يوجد حاليا طلبات حديثه',
+              style: StyleManager.font15Weight800(context).copyWith(
+                  fontSize: 13
+              ),
+            ),
+          );
         }
 
         return ListView.builder(
@@ -45,8 +49,8 @@ class RecentOrdersListView extends StatelessWidget {
 
             final totalPrice =
                 order.cartEntity.getTotalPrice() -
-                    order.couponDiscount +
-                    (order.selectedLocationEntity?.cost ?? 0);
+                order.couponDiscount +
+                (order.selectedLocationEntity?.cost ?? 0);
 
             return GestureDetector(
               onTap: () {

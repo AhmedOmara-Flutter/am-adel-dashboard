@@ -68,7 +68,7 @@ class _MainViewState extends State<MainView> {
             child:MediaQuery.sizeOf(context).width >ConfigSize.phone? Row(
               children: [
                 const SizedBox(
-                  width: 280,
+                  width: 260,
                   child: CustomDrawer(),
                 ),
                 Expanded(

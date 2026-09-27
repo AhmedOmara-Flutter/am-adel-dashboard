@@ -23,7 +23,9 @@ class _DrawerItemListViewState extends State<DrawerItemListView> {
           itemCount: cubit.drawerItems.length,
           itemBuilder: (context, index) {
             return Padding(
-              padding: const EdgeInsets.only(bottom: 30),
+              padding: EdgeInsets.only(bottom: 30, top: MediaQuery
+                  .sizeOf(context)
+                  .width > ConfigSize.phone ? 10 : 0),
               child: GestureDetector(
                 onTap: MediaQuery
                     .sizeOf(context)

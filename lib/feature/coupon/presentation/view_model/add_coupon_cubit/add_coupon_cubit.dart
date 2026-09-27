@@ -34,6 +34,7 @@ class AddCouponCubit extends Cubit<AddCouponState> {
         await _sendCouponNotification(
           userId: userId,
           coupon: coupon,
+
         );
 
         emit(AddCouponSuccess());
@@ -67,6 +68,9 @@ class AddCouponCubit extends Cubit<AddCouponState> {
         'خصم $discountText بكود ${coupon.code} 🎉 '
             'على طلب بحد أدنى ${coupon.minimumOrder.toStringAsFixed(0)} جنيه.',
         fcmToken: fcmToken,
+        data: {
+          'screen': 'coupon',
+        },
       );
     } catch (e) {
       print('❌ Coupon notification error: $e');

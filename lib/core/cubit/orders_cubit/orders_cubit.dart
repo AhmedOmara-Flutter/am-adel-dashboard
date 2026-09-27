@@ -183,6 +183,7 @@ class OrdersCubit extends Cubit<OrdersState> {
             await _sendOrderStatusNotification(
               order,
               status,
+
             );
           }
         }
@@ -247,6 +248,9 @@ class OrdersCubit extends Cubit<OrdersState> {
         title: title,
         body: body,
         fcmToken: fcmToken,
+        data: {
+          'screen': 'orders',
+        },
       );
 
       print('✅ Order status notification sent');

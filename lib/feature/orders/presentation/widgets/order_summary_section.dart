@@ -24,10 +24,10 @@ class OrderSummarySection extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: AppColor.card,
+        color: AppColor.cardLight,
         borderRadius: BorderRadius.circular(14),
-        border: Border.all(color: AppColor.border),
-      ),
+        border: Border.all(color: AppColor.divider.withOpacity(0.5),
+      ),),
       child: Column(
         children: [
           Row(

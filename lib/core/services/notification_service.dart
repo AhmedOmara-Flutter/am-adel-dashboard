@@ -9,28 +9,33 @@ class NotificationService {
     required String body,
     String? fcmToken,
     String? topic,
+    Map<String, String>? data,
   }) async {
-    final Map<String, dynamic> data = {
+    final Map<String, dynamic> bodyData = {
       'title': title,
       'body': body,
     };
 
     if (fcmToken != null && fcmToken.isNotEmpty) {
-      data['fcmToken'] = fcmToken;
+      bodyData['fcmToken'] = fcmToken;
     } else if (topic != null && topic.isNotEmpty) {
-      data['topic'] = topic;
+      bodyData['topic'] = topic;
     } else {
       throw Exception(
         'fcmToken or topic is required',
       );
     }
 
+    if (data != null && data.isNotEmpty) {
+      bodyData['data'] = data;
+    }
+
     print('📤 Sending notification...');
-    print('Data: $data');
+    print('Data: $bodyData');
 
     final response = await _supabase.functions.invoke(
       'send-notification',
-      body: data,
+      body: bodyData,
     );
 
     print('📥 Status: ${response.status}');

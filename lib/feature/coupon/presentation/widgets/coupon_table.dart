@@ -50,33 +50,18 @@ class _CouponTableState extends State<CouponTable> {
 
     return LayoutBuilder(
       builder: (context, constraints) {
-        final isSmall = constraints.maxWidth < 700;
-
-        if (isSmall) {
-          return Column(
-            children: widget.coupons
-                .map(
-                  (userCoupon) => Padding(
-                    padding: const EdgeInsets.only(bottom: 12),
-                    child: _buildCouponCard(context, userCoupon),
-                  ),
-                )
-                .toList(),
-          );
-        }
-
-        return GridView.builder(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            crossAxisSpacing: 14,
-            mainAxisSpacing: 14,
-            childAspectRatio: 1.35,
-          ),
-          itemCount: widget.coupons.length,
-          itemBuilder: (context, index) {
-            return _buildCouponCard(context, widget.coupons[index]);
+        return LayoutBuilder(
+          builder: (context, constraints) {
+            return Column(
+              children: widget.coupons
+                  .map(
+                    (userCoupon) => Padding(
+                  padding: const EdgeInsets.only(bottom: 12),
+                  child: _buildCouponCard(context, userCoupon),
+                ),
+              )
+                  .toList(),
+            );
           },
         );
       },

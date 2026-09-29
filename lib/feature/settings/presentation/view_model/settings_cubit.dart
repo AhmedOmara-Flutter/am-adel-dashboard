@@ -1,41 +1,46 @@
 import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:meta/meta.dart';
-import 'package:am_adel_dashboard/core/errors/failure.dart';
+import '../../../../core/errors/failure.dart';
 import '../../data/repos/settings_repo.dart';
 import '../../domain/entities/restaurant_status_entity.dart';
+
 part 'settings_state.dart';
 
 class SettingsCubit extends Cubit<SettingsState> {
   final SettingsRepo _settingsRepo;
 
+  SettingsCubit(this._settingsRepo) : super(SettingsInitial());
+
   StreamSubscription<Either<Failure, RestaurantStatusEntity>>?
   _restaurantStatusSubscription;
 
-  SettingsCubit(this._settingsRepo) : super(SettingsInitial());
-  bool isRestaurantOpen = true;
+  bool _isUpdating = false;
+
+  bool get isRestaurantOpen {
+    final currentState = state;
+
+    if (currentState is SettingsLoaded) {
+      return currentState.restaurantStatus.isOpen;
+    }
+
+    return true;
+  }
 
   void getRestaurantStatus() {
     if (isClosed) return;
-
-    print('🔥 getRestaurantStatus CALLED');
-
-    emit(SettingsLoading());
 
     _restaurantStatusSubscription?.cancel();
 
     _restaurantStatusSubscription =
         _settingsRepo.watchRestaurantStatus().listen(
               (result) {
-            print('🔥 RESTAURANT STATUS RESULT RECEIVED');
-
             if (isClosed) return;
 
             result.fold(
                   (failure) {
-                print('❌ STATUS ERROR: ${failure.errMessage}');
-
                 emit(
                   SettingsError(
                     message: failure.errMessage,
@@ -43,10 +48,6 @@ class SettingsCubit extends Cubit<SettingsState> {
                 );
               },
                   (status) {
-                print('🔥 FIRESTORE isOpen = ${status.isOpen}');
-
-                isRestaurantOpen = status.isOpen;
-
                 emit(
                   SettingsLoaded(
                     restaurantStatus: status,
@@ -56,8 +57,6 @@ class SettingsCubit extends Cubit<SettingsState> {
             );
           },
           onError: (error) {
-            print('❌ STREAM ERROR: $error');
-
             if (isClosed) return;
 
             emit(
@@ -68,41 +67,40 @@ class SettingsCubit extends Cubit<SettingsState> {
           },
         );
   }
+
   Future<void> toggleRestaurantStatus() async {
-    if (isClosed) return;
+    if (isClosed || _isUpdating) return;
 
-    final oldStatus = isRestaurantOpen;
-    final newStatus = !oldStatus;
+    _isUpdating = true;
 
-    isRestaurantOpen = newStatus;
-
-    emit(
-      SettingsLoaded(
-        restaurantStatus: RestaurantStatusEntity(isOpen: newStatus),
-      ),
-    );
+    final newStatus = !isRestaurantOpen;
 
     final result = await _settingsRepo.updateRestaurantStatus(
       isOpen: newStatus,
     );
 
-    if (isClosed) return;
+    if (isClosed) {
+      _isUpdating = false;
+      return;
+    }
 
-    result.fold((failure) {
-      isRestaurantOpen = oldStatus;
+    result.fold(
+          (failure) {
+        emit(
+          SettingsError(
+            message: failure.errMessage,
+          ),
+        );
+      },
+          (_) {},
+    );
 
-      emit(
-        SettingsLoaded(
-          restaurantStatus: RestaurantStatusEntity(isOpen: oldStatus),
-        ),
-      );
-    }, (_) {});
+    _isUpdating = false;
   }
 
   @override
   Future<void> close() async {
     await _restaurantStatusSubscription?.cancel();
-
     _restaurantStatusSubscription = null;
 
     return super.close();

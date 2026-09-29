@@ -41,7 +41,8 @@ class FirestoreDatabase implements DatabaseServices {
     required String path,
     required Map<String, dynamic> data,
     String? uId,
-  }) async {
+  }) async
+  {
     try {
       if (uId != null) {
         await FirebaseFirestore.instance.collection(path).doc(uId).set(data);
@@ -62,7 +63,8 @@ class FirestoreDatabase implements DatabaseServices {
     required String path,
     String? uId,
     Map<String, dynamic>? query,
-  }) async {
+  }) async
+  {
     try {
       if (uId != null) {
         final user = await FirebaseFirestore.instance
@@ -74,7 +76,8 @@ class FirestoreDatabase implements DatabaseServices {
           throw Exception('المستخدم ليس موجود في قاعده البيانات');
         }
         return user.data() as Map<String, dynamic>;
-      } else {
+      } else
+      {
         Query<Map<String, dynamic>> data = FirebaseFirestore.instance
             .collection(path);
 
@@ -134,7 +137,8 @@ class FirestoreDatabase implements DatabaseServices {
     required String path,
     required Map<String, dynamic> data,
     required String docId,
-  }) async {
+  }) async
+  {
     final userRef = FirebaseFirestore.instance.collection(path).doc(docId);
     await userRef.update(data);
   }
@@ -145,15 +149,22 @@ class FirestoreDatabase implements DatabaseServices {
   {
     try {
       if (uId != null) {
-        final user = await FirebaseFirestore.instance
+        await for (
+        final snapshot in FirebaseFirestore.instance
             .collection(path)
             .doc(uId)
-            .get();
-        if (!user.exists || user.data() == null) {
-          throw Exception('المستخدم ليس موجود في قاعده البيانات');
+            .snapshots()
+        ) {
+          if (!snapshot.exists || snapshot.data() == null) {
+            throw Exception(
+              'المستخدم ليس موجود في قاعده البيانات',
+            );
+          }
+
+          yield snapshot.data() as Map<String, dynamic>;
         }
-        yield user.data() as Map<String, dynamic>;
-      } else {
+      }
+      else {
         Query<Map<String, dynamic>> data = FirebaseFirestore.instance
             .collection(path);
 

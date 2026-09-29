@@ -9,12 +9,15 @@ import '../entities/restaurant_status_entity.dart';
 
 class SettingsRepoImpl implements SettingsRepo {
   final DatabaseServices _databaseServices;
+
   SettingsRepoImpl(this._databaseServices);
+
   static const String _path = 'app_settings';
   static const String _docId = 'restaurant';
 
   @override
-  Future<Either<Failure, RestaurantStatusEntity>> getRestaurantStatus() async {
+  Future<Either<Failure, RestaurantStatusEntity>>
+  getRestaurantStatus() async {
     try {
       final exists = await _databaseServices.checkExists(
         path: _path,
@@ -25,19 +28,33 @@ class SettingsRepoImpl implements SettingsRepo {
         await _databaseServices.addData(
           path: _path,
           uId: _docId,
-          data: {'isOpen': true, 'updatedAt': FieldValue.serverTimestamp()},
+          data: {
+            'isOpen': true,
+            'updatedAt': FieldValue.serverTimestamp(),
+          },
         );
 
-        return const Right(RestaurantStatusModel(isOpen: true));
+        return const Right(
+          RestaurantStatusModel(isOpen: true),
+        );
       }
 
-      final data = await _databaseServices.getData(path: _path, uId: _docId);
+      final data = await _databaseServices.getData(
+        path: _path,
+        uId: _docId,
+      );
 
       return Right(
-        RestaurantStatusModel.fromJson(Map<String, dynamic>.from(data)),
+        RestaurantStatusModel.fromJson(
+          Map<String, dynamic>.from(data),
+        ),
       );
     } catch (e) {
-      return Left(Failure(errMessage: e.toString()));
+      return Left(
+        Failure(
+          errMessage: e.toString(),
+        ),
+      );
     }
   }
 
@@ -51,23 +68,32 @@ class SettingsRepoImpl implements SettingsRepo {
         uId: _docId,
       );
 
+      final data = {
+        'isOpen': isOpen,
+        'updatedAt': FieldValue.serverTimestamp(),
+      };
+
       if (!exists) {
         await _databaseServices.addData(
           path: _path,
           uId: _docId,
-          data: {'isOpen': isOpen, 'updatedAt': FieldValue.serverTimestamp()},
+          data: data,
         );
       } else {
         await _databaseServices.updateData(
           path: _path,
           docId: _docId,
-          data: {'isOpen': isOpen, 'updatedAt': FieldValue.serverTimestamp()},
+          data: data,
         );
       }
 
       return const Right(null);
     } catch (e) {
-      return Left(Failure(errMessage: e.toString()));
+      return Left(
+        Failure(
+          errMessage: e.toString(),
+        ),
+      );
     }
   }
 
@@ -79,10 +105,6 @@ class SettingsRepoImpl implements SettingsRepo {
         path: _path,
         uId: _docId,
       )) {
-        print('🔥 FIRESTORE RAW DATA => $data');
-        print('🔥 isOpen RAW VALUE => ${data['isOpen']}');
-        print('🔥 isOpen RAW TYPE => ${data['isOpen'].runtimeType}');
-
         final map = Map<String, dynamic>.from(data);
 
         if (map.isEmpty) {
@@ -92,15 +114,15 @@ class SettingsRepoImpl implements SettingsRepo {
           continue;
         }
 
-        final model = RestaurantStatusModel.fromJson(map);
-
-        print('🔥 MODEL isOpen => ${model.isOpen}');
-
-        yield Right(model);
+        yield Right(
+          RestaurantStatusModel.fromJson(map),
+        );
       }
     } catch (e) {
       yield Left(
-        Failure(errMessage: e.toString()),
+        Failure(
+          errMessage: e.toString(),
+        ),
       );
     }
   }

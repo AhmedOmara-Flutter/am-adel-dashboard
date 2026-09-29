@@ -1,8 +1,8 @@
+import 'package:am_adel_dashboard/core/utils/app_constants.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:am_adel_dashboard/core/utils/app_color.dart';
 import 'package:am_adel_dashboard/core/utils/style_manager.dart';
-import 'package:am_adel_dashboard/generated/assets.dart';
 
 class ProductItem extends StatelessWidget {
   const ProductItem({
@@ -22,42 +22,32 @@ class ProductItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return RepaintBoundary(
       child: Container(
-        margin: const EdgeInsets.only(left: 10, right: 10, bottom: 10),
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 11),
+        padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
-          color: AppColor.cardLight,
-          borderRadius: BorderRadius.circular(16),
-          border: Border.all(color: AppColor.divider.withOpacity(.45)),
+          color: AppColor.background,
+          borderRadius: BorderRadius.circular(AppConstants.borderRadius),
         ),
         child: Row(
           children: [
-            // ─────────────────────────────
-            // Rank / Medal
-            // ─────────────────────────────
             SizedBox(
-              width: 38,
-              child: Center(
-                child: Image.asset(
-                  medal,
-                  width: 30,
-                  height: 30,
-                  fit: BoxFit.contain,
-                ),
+              width: 34,
+              child: Image.asset(
+                medal,
+                width: 25,
+                height: 25,
+                fit: BoxFit.contain,
               ),
             ),
 
-            const SizedBox(width: 10),
+            const SizedBox(width: 8),
 
-            // ─────────────────────────────
-            // Product Image
-            // ─────────────────────────────
             Container(
-              width: 62,
-              height: 62,
+              width: 58,
+              height: 58,
+              padding: const EdgeInsets.all(6),
               decoration: BoxDecoration(
-                color: AppColor.backgroundDark.withOpacity(.45),
-                borderRadius: BorderRadius.circular(14),
-                border: Border.all(color: AppColor.divider.withOpacity(.45)),
+                color: AppColor.cardLight,
+                borderRadius: BorderRadius.circular(12),
               ),
               clipBehavior: Clip.antiAlias,
               child: CachedNetworkImage(
@@ -65,15 +55,15 @@ class ProductItem extends StatelessWidget {
                 fit: BoxFit.contain,
                 memCacheWidth: 180,
                 memCacheHeight: 180,
-                fadeInDuration: const Duration(milliseconds: 180),
+                fadeInDuration: const Duration(milliseconds: 150),
                 placeholder: (context, url) {
                   return Center(
                     child: SizedBox(
-                      width: 18,
-                      height: 18,
+                      width: 16,
+                      height: 16,
                       child: CircularProgressIndicator(
                         strokeWidth: 2,
-                        color: AppColor.mainColor.withOpacity(.35),
+                        color: AppColor.mainColor.withOpacity(.3),
                       ),
                     ),
                   );
@@ -81,22 +71,18 @@ class ProductItem extends StatelessWidget {
                 errorWidget: (context, url, error) {
                   return Icon(
                     Icons.restaurant_rounded,
+                    color: AppColor.textSecondary.withOpacity(.4),
                     size: 25,
-                    color: AppColor.textSecondary.withOpacity(.45),
                   );
                 },
               ),
             ),
 
-            const SizedBox(width: 13),
+            const SizedBox(width: 11),
 
-            // ─────────────────────────────
-            // Product Information
-            // ─────────────────────────────
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
                     productName,
@@ -104,89 +90,86 @@ class ProductItem extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                     style: StyleManager.font13Weight600(context).copyWith(
                       color: AppColor.textPrimary,
+                      fontSize: 12.5,
                       fontWeight: FontWeight.w800,
-                      fontSize: 13,
                     ),
                   ),
 
                   const SizedBox(height: 7),
 
                   Row(
-                    mainAxisSize: MainAxisSize.min,
                     children: [
                       Icon(
                         Icons.shopping_bag_outlined,
-                        size: 13,
-                        color: AppColor.textSecondary.withOpacity(.75),
-                      ),
-                      const SizedBox(width: 5),
-                      Text(
-                        '$orderCount طلب',
-                        style: StyleManager.font12Weight500(context).copyWith(
-                          color: AppColor.textSecondary,
-                          fontSize: 10.5,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-
-            const SizedBox(width: 12),
-
-            // ─────────────────────────────
-            // Orders Statistics
-            // ─────────────────────────────
-            Container(
-              constraints: const BoxConstraints(minWidth: 70),
-              padding: const EdgeInsets.symmetric(horizontal: 9, vertical: 8),
-              decoration: BoxDecoration(
-                color: AppColor.mainColor.withOpacity(.07),
-                borderRadius: BorderRadius.circular(11),
-                border: Border.all(color: AppColor.mainColor.withOpacity(.10)),
-              ),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        orderCount,
-                        style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                          color: AppColor.mainColor,
-                          fontSize: 17,
-                          fontWeight: FontWeight.w900,
-                          height: 1,
-                        ),
+                        size: 12,
+                        color: AppColor.textSecondary.withOpacity(.65),
                       ),
                       const SizedBox(width: 4),
-                      Image.asset(
-                        Assets.assets.images.rise.path,
-                        width: 11,
-                        height: 11,
-                        color: AppColor.mainColor,
+                      Text(
+                        '$orderCount مبيعات',
+                        style: StyleManager.font12Weight500(context).copyWith(
+                          color: AppColor.textSecondary,
+                          fontSize: 9.5,
+                        ),
                       ),
                     ],
                   ),
 
-                  const SizedBox(height: 4),
+                  const SizedBox(height: 7),
 
-                  Text(
-                    'طلب',
-                    style: StyleManager.font12Weight500(context).copyWith(
-                      color: AppColor.textSecondary,
-                      fontSize: 9,
-                      height: 1,
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(20),
+                    child: LinearProgressIndicator(
+                      minHeight: 4,
+                      value: _getProgress(),
+                      backgroundColor:
+                      AppColor.backgroundDark.withOpacity(.6),
+                      valueColor: AlwaysStoppedAnimation(
+                        AppColor.mainColor,
+                      ),
                     ),
                   ),
                 ],
               ),
             ),
+
+            const SizedBox(width: 10),
+
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  orderCount,
+                  style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                    color: AppColor.mainColor,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w900,
+                    height: 1,
+                  ),
+                ),
+                const SizedBox(height: 3),
+                Text(
+                  'طلب',
+                  style: StyleManager.font12Weight500(context).copyWith(
+                    color: AppColor.textSecondary,
+                    fontSize: 8.5,
+                    height: 1,
+                  ),
+                ),
+              ],
+            ),
           ],
         ),
       ),
     );
+  }
+
+  double _getProgress() {
+    final count = int.tryParse(orderCount) ?? 0;
+
+    if (count <= 0) return 0.05;
+
+    return (count / (count + 100)).clamp(0.08, 0.95);
   }
 }

@@ -18,6 +18,7 @@ class AppColor {
   static const Color border = Color(0xFFB98A52);
   static const Color divider = Color(0xFFD9B985);
   static const Color red = Color(0xFFB94032);
+  static const Color orange = Colors.orangeAccent;
   static const Color green = Color(0xFF658B4A);
   static const Color white = Color(0xFFFFFBF2);
   static const Color black = Color(0xFF2B1A10);

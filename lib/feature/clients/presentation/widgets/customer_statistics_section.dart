@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:am_adel_dashboard/core/utils/app_color.dart';
-import 'package:am_adel_dashboard/feature/clients/presentation/widgets/statistics_card.dart';
+import 'package:am_adel_dashboard/feature/clients/presentation/widgets/clients_statistics_card.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 import '../../../../core/cubit/orders_cubit/orders_cubit.dart';
@@ -21,7 +21,7 @@ class CustomerStatisticsSection extends StatelessWidget {
               const SizedBox(width: 10),
               Expanded(
                 child: Skeletonizer(
-                  child: StatisticsCard(
+                  child: ClientsStatisticsCard(
                     model: StatisticsCardModel(
                       color: AppColor.mainColor,
                       icon: Icons.people,
@@ -35,7 +35,7 @@ class CustomerStatisticsSection extends StatelessWidget {
               const SizedBox(width: 10),
               Expanded(
                 child: Skeletonizer(
-                  child: StatisticsCard(
+                  child: ClientsStatisticsCard(
                     model: StatisticsCardModel(
                       color: AppColor.accentColor,
                       icon: Icons.attach_money,
@@ -59,7 +59,7 @@ class CustomerStatisticsSection extends StatelessWidget {
           children: [
             const SizedBox(width: 10),
             Expanded(
-              child: StatisticsCard(
+              child: ClientsStatisticsCard(
                 model: StatisticsCardModel(
                   color: AppColor.mainColor,
                   icon: Icons.people,
@@ -75,7 +75,7 @@ class CustomerStatisticsSection extends StatelessWidget {
                   : 15,
             ),
             Expanded(
-              child: StatisticsCard(
+              child: ClientsStatisticsCard(
                 model: StatisticsCardModel(
                   color: AppColor.accentColor,
                   icon: Icons.attach_money,

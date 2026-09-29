@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:am_adel_dashboard/core/errors/failure.dart';
 import 'package:am_adel_dashboard/core/services/database_services.dart';
@@ -11,47 +12,89 @@ class OfferRepoImpl implements OfferRepo {
   OfferRepoImpl(this._databaseServices);
 
   @override
-  Future<Either<Failure, String>> addOffer(OfferEntity offer) async {
+  Future<Either<Failure, String>> addOffer(
+      OfferEntity offer,
+      ) async {
     try {
       final docRef = await _databaseServices.addData(
         path: 'offers',
         data: OfferModel.fromEntity(offer).toJson(),
       );
+
+      await _increaseOffersVersion();
+
       return Right(docRef);
     } on Exception catch (e) {
-      return Left(ServerFailure(errMessage: e.toString()));
+      return Left(
+        ServerFailure(
+          errMessage: e.toString(),
+        ),
+      );
     }
   }
 
   @override
-  Future<Either<Failure, void>> deleteOffer(String offerId) async {
+  Future<Either<Failure, void>> deleteOffer(
+      String offerId,
+      ) async {
     try {
       final res = await _databaseServices.deleteData(
-          path: 'offers', uId: offerId);
+        path: 'offers',
+        uId: offerId,
+      );
+
+      await _increaseOffersVersion();
+
       return Right(res);
     } on Exception catch (e) {
-      return Left(ServerFailure(errMessage: e.toString()));
+      return Left(
+        ServerFailure(
+          errMessage: e.toString(),
+        ),
+      );
     }
   }
-
 
   @override
   Stream<Either<Failure, List<OfferEntity>>> getOffers() async* {
     try {
-      await for (var (data as List<Map<String, dynamic>>) in _databaseServices
-          .getStreamData(path: 'offers')) {
-        List<OfferEntity> offers = data
-            .map((e) => OfferModel.fromJson(e).toEntity())
+      await for (var (data as List<Map<String, dynamic>>)
+      in _databaseServices.getStreamData(
+        path: 'offers',
+      )) {
+        final offers = data
+            .map(
+              (e) => OfferModel.fromJson(e).toEntity(),
+        )
             .toList();
+
         yield Right(offers);
       }
     } on Exception catch (e) {
-      yield Left(ServerFailure(errMessage: e.toString()));
+      yield Left(
+        ServerFailure(
+          errMessage: e.toString(),
+        ),
+      );
     }
   }
 
   @override
-  Future<void> deleteCollection(String collectionName)async {
-    return await _databaseServices.deleteCollection(collectionName);
+  Future<void> deleteCollection(
+      String collectionName,
+      ) async {
+    return await _databaseServices.deleteCollection(
+      collectionName,
+    );
+  }
+
+  Future<void> _increaseOffersVersion() async {
+    await _databaseServices.updateData(
+      path: 'app_settings',
+      docId: 'cache_versions',
+      data: {
+        'offersVersion': FieldValue.increment(1),
+      },
+    );
   }
 }

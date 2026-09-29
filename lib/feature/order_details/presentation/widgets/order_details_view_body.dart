@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/services/print_service.dart';
 import '../../../../core/utils/app_color.dart';
+import '../../../../core/utils/config_size.dart';
 import '../../../../core/widgets/custom_back_button.dart';
 import 'customer_info_section.dart';
 import 'delivery_address_section.dart';
@@ -35,6 +36,7 @@ class OrderDetailsViewBody extends StatelessWidget {
       child: Column(
         spacing: 10,
         children: [
+          MediaQuery.sizeOf(context).width > ConfigSize.phone?
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -53,7 +55,7 @@ class OrderDetailsViewBody extends StatelessWidget {
               ),
               const SizedBox(width: 40,height: 40,),
             ],
-          ),
+          ):SizedBox.shrink(),
 
           OrderHeaderSection(
             order: order,

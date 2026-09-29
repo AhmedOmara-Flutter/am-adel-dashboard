@@ -6,10 +6,10 @@ import '../../../../core/utils/app_constants.dart';
 import '../../../../core/utils/config_size.dart';
 
 
-class StatisticsCard extends StatelessWidget {
+class ClientsStatisticsCard extends StatelessWidget {
   final StatisticsCardModel model;
 
-  const StatisticsCard({
+  const ClientsStatisticsCard({
     super.key,
     required this.model,
   });

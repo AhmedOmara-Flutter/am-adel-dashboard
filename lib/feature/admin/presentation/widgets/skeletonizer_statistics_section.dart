@@ -1,6 +1,10 @@
+import 'package:am_adel_dashboard/core/extension/responsive_extension.dart';
+import 'package:am_adel_dashboard/core/utils/app_color.dart';
 import 'package:flutter/material.dart';
 import 'package:skeletonizer/skeletonizer.dart';
-import '../../../clients/presentation/widgets/statistics_card.dart';
+
+import '../../../../core/models/statistics_card_model.dart';
+import 'admin_statistics_card.dart';
 
 class SkeletonizerStatisticsSection extends StatelessWidget {
   const SkeletonizerStatisticsSection({super.key});
@@ -13,8 +17,11 @@ class SkeletonizerStatisticsSection extends StatelessWidget {
           Row(
             children: [
               Expanded(
-                child: StatisticsCard(
+                child: AdminStatisticsCard(
                   model: StatisticsCardModel(
+                    height: context.isDesktop ? 150 : 125,
+                    iconColor: AppColor.transparent,
+
                     color: Colors.green,
                     icon: Icons.people,
                     title: 'اجمالي العملاء',
@@ -26,8 +33,11 @@ class SkeletonizerStatisticsSection extends StatelessWidget {
               ),
               SizedBox(width: 10),
               Expanded(
-                child: StatisticsCard(
+                child: AdminStatisticsCard(
                   model: StatisticsCardModel(
+                    height: context.isDesktop ? 150 : 125,
+                    iconColor: AppColor.transparent,
+
                     color: Colors.orange,
                     icon: Icons.receipt_long_outlined,
                     title: 'اجمالي الطلبات',
@@ -43,8 +53,11 @@ class SkeletonizerStatisticsSection extends StatelessWidget {
           Row(
             children: [
               Expanded(
-                child: StatisticsCard(
+                child: AdminStatisticsCard(
                   model: StatisticsCardModel(
+                    height: context.isDesktop ? 150 : 125,
+                    iconColor: AppColor.transparent,
+
                     color: Colors.purple,
                     icon: Icons.inventory_2_outlined,
                     title: 'اجمالي المنتجات',
@@ -57,8 +70,10 @@ class SkeletonizerStatisticsSection extends StatelessWidget {
               ),
               SizedBox(width: 10),
               Expanded(
-                child: StatisticsCard(
+                child: AdminStatisticsCard(
                   model: StatisticsCardModel(
+                    iconColor: AppColor.transparent,
+                    height: context.isDesktop ? 150 : 125,
                     color: Colors.blue,
                     icon: Icons.attach_money,
                     title: 'اجمالي المبيعات',

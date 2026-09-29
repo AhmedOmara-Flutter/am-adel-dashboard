@@ -1,9 +1,9 @@
+import 'package:am_adel_dashboard/feature/admin/presentation/widgets/admin_statistics_section.dart';
 import 'package:am_adel_dashboard/feature/admin/presentation/widgets/admin_top_bar.dart';
 import 'package:am_adel_dashboard/feature/admin/presentation/widgets/recent_order_card.dart';
-import 'package:am_adel_dashboard/feature/admin/presentation/widgets/statistics_section.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../core/utils/config_size.dart';
+import '../../../../core/extension/responsive_extension.dart';
 import 'best_seller_card.dart';
 
 class AdminViewBody extends StatelessWidget {
@@ -11,28 +11,62 @@ class AdminViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return context.isDesktop
+        ? const AdminViewDesktop()
+        : const AdminViewMobile();
+  }
+}
+
+class AdminViewDesktop extends StatelessWidget {
+  const AdminViewDesktop({super.key});
+
+  @override
+  Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(bottom: 10),
+      padding: const EdgeInsets.only(bottom: 10),
       child: CustomScrollView(
         slivers: [
-          MediaQuery.sizeOf(context).width > ConfigSize.phone
-              ? SliverToBoxAdapter(child: AdminTopBar())
-              : SliverToBoxAdapter(child: SizedBox.shrink()),
-          SliverToBoxAdapter(child: StatisticsSection()),
+          const SliverToBoxAdapter(child: AdminTopBar()),
+
+          const SliverToBoxAdapter(child: AdminStatisticsSection()),
+
           SliverToBoxAdapter(
-            child: MediaQuery.sizeOf(context).width > ConfigSize.phone
-                ? Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Expanded(flex: 2, child: RecentOrdersCard()),
-                      SizedBox(width: 5),
-                      Expanded(child: BestSellerCard()),
-                    ],
-                  )
-                : Column(children: [RecentOrdersCard(), BestSellerCard()]),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: const [
+                Expanded(flex: 2, child: RecentOrdersCard()),
+                SizedBox(width: 5),
+                Expanded(child: BestSellerCard()),
+              ],
+            ),
           ),
         ],
       ),
+    );
+  }
+}
+
+class AdminViewMobile extends StatelessWidget {
+  const AdminViewMobile({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return CustomScrollView(
+      slivers: [
+        const SliverToBoxAdapter(child: AdminStatisticsSection()),
+
+        SliverToBoxAdapter(
+          child: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Column(children: const [
+              RecentOrdersCard(),
+              SizedBox(height: 10,),
+              BestSellerCard(),
+              SizedBox(height: 20,),
+            ]),
+          ),
+        ),
+      ],
     );
   }
 }

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../../../../core/services/database_services.dart';
 import '../../data/models/category_model.dart';
 import '../../data/repos/category_repo.dart';
@@ -75,10 +76,14 @@ class CategoryRepoImpl implements CategoryRepo {
       updatedCategory,
     );
 
-    return await _databaseServices.addData(
+    final result = await _databaseServices.addData(
       path: _collection,
       data: model.toJson(),
     );
+
+    await _increaseCategoriesVersion();
+
+    return result;
   }
 
   @override
@@ -94,6 +99,8 @@ class CategoryRepoImpl implements CategoryRepo {
       docId: category.id,
       data: model.toJson(),
     );
+
+    await _increaseCategoriesVersion();
   }
 
   @override
@@ -121,6 +128,8 @@ class CategoryRepoImpl implements CategoryRepo {
         data: model.toJson(),
       );
     }
+
+    await _increaseCategoriesVersion();
   }
 
   @override
@@ -131,6 +140,8 @@ class CategoryRepoImpl implements CategoryRepo {
       path: _collection,
       uId: id,
     );
+
+    await _increaseCategoriesVersion();
   }
 
   @override
@@ -149,6 +160,16 @@ class CategoryRepoImpl implements CategoryRepo {
       ) async {
     await _databaseServices.deleteCollection(
       collectionName,
+    );
+  }
+
+  Future<void> _increaseCategoriesVersion() async {
+    await _databaseServices.updateData(
+      path: 'app_settings',
+      docId: 'cache_versions',
+      data: {
+        'categoriesVersion': FieldValue.increment(1),
+      },
     );
   }
 }

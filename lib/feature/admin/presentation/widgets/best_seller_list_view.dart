@@ -38,10 +38,12 @@ class BestSellerListView extends StatelessWidget {
             ),
           );
         }
-        return ListView.builder(
+        return ListView.separated(
+          padding: EdgeInsets.zero,
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             itemCount: topProducts.take(5).length,
+            separatorBuilder: (context, index) => const SizedBox(height: 10),
             itemBuilder: (context, index) {
               return ProductItem(
                 productName: topProducts[index].name,

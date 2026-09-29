@@ -3,17 +3,20 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../domain/entities/daily_reports_entity.dart';
 
 class DailyReportModel extends DailyReportEntity {
-   DailyReportModel({
+  DailyReportModel({
     super.id,
     required super.date,
     required super.ordersCount,
     required super.subtotal,
     required super.deliveryCost,
     required super.total,
-    required super.createdAt,
+    required super.cashSubtotal,
+    required super.cashDelivery,
     required super.cashTotal,
-  required super.onlineTotal,
-
+    required super.onlineSubtotal,
+    required super.onlineDelivery,
+    required super.onlineTotal,
+    required super.createdAt,
   });
 
   factory DailyReportModel.fromJson(
@@ -27,9 +30,22 @@ class DailyReportModel extends DailyReportEntity {
       subtotal: (json['subtotal'] as num).toDouble(),
       deliveryCost: (json['deliveryCost'] as num).toDouble(),
       total: (json['total'] as num).toDouble(),
+
+      cashSubtotal:
+      (json['cashSubtotal'] as num?)?.toDouble() ?? 0.0,
+      cashDelivery:
+      (json['cashDelivery'] as num?)?.toDouble() ?? 0.0,
+      cashTotal:
+      (json['cashTotal'] as num?)?.toDouble() ?? 0.0,
+
+      onlineSubtotal:
+      (json['onlineSubtotal'] as num?)?.toDouble() ?? 0.0,
+      onlineDelivery:
+      (json['onlineDelivery'] as num?)?.toDouble() ?? 0.0,
+      onlineTotal:
+      (json['onlineTotal'] as num?)?.toDouble() ?? 0.0,
+
       createdAt: (json['createdAt'] as Timestamp).toDate(),
-      cashTotal: (json['cashTotal'] as num).toDouble(),
-      onlineTotal: (json['onlineTotal'] as num).toDouble(),
     );
   }
 
@@ -40,9 +56,16 @@ class DailyReportModel extends DailyReportEntity {
       'subtotal': subtotal,
       'deliveryCost': deliveryCost,
       'total': total,
-      'createdAt': Timestamp.fromDate(createdAt),
+
+      'cashSubtotal': cashSubtotal,
+      'cashDelivery': cashDelivery,
       'cashTotal': cashTotal,
+
+      'onlineSubtotal': onlineSubtotal,
+      'onlineDelivery': onlineDelivery,
       'onlineTotal': onlineTotal,
+
+      'createdAt': Timestamp.fromDate(createdAt),
     };
   }
 
@@ -56,9 +79,16 @@ class DailyReportModel extends DailyReportEntity {
       subtotal: entity.subtotal,
       deliveryCost: entity.deliveryCost,
       total: entity.total,
-      createdAt: entity.createdAt,
+
+      cashSubtotal: entity.cashSubtotal,
+      cashDelivery: entity.cashDelivery,
       cashTotal: entity.cashTotal,
+
+      onlineSubtotal: entity.onlineSubtotal,
+      onlineDelivery: entity.onlineDelivery,
       onlineTotal: entity.onlineTotal,
+
+      createdAt: entity.createdAt,
     );
   }
 
@@ -70,9 +100,16 @@ class DailyReportModel extends DailyReportEntity {
       subtotal: subtotal,
       deliveryCost: deliveryCost,
       total: total,
-      createdAt: createdAt,
+
+      cashSubtotal: cashSubtotal,
+      cashDelivery: cashDelivery,
       cashTotal: cashTotal,
+
+      onlineSubtotal: onlineSubtotal,
+      onlineDelivery: onlineDelivery,
       onlineTotal: onlineTotal,
+
+      createdAt: createdAt,
     );
   }
 }

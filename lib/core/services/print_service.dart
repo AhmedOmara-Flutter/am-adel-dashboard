@@ -2,8 +2,8 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../feature/daily_reports/domain/entities/daily_reports_entity.dart';
 
+import '../../feature/daily_reports/domain/entities/daily_reports_entity.dart';
 import '../entities/order_entity.dart';
 
 class PrintService {
@@ -29,15 +29,15 @@ class PrintService {
 
   static Future<void> printOrder(
       OrderEntity order,
-      int orderNumber,
-      ) async
+      int orderNumber,) async
   {
     final subTotal = order.cartEntity.getTotalPrice();
 
     final shipping =
         order.selectedLocationEntity?.cost ?? 0.0;
 
-    final total = subTotal + shipping;
+    final total =
+        subTotal - order.couponDiscount + shipping;
 
     final json = {
       "OrderNumber": orderNumber.toString().padLeft(2, '0'),
@@ -131,8 +131,7 @@ class PrintService {
   }
 
   static Future<void> printDailyReport(
-      DailyReportEntity report,
-      ) async {
+      DailyReportEntity report,) async {
     final now = DateTime.now();
 
     final json = {
@@ -149,10 +148,19 @@ class PrintService {
           "${now.minute.toString().padLeft(2, '0')}",
 
       "OrdersCount": report.ordersCount,
+
       "Subtotal": report.subtotal,
+
       "DeliveryCost": report.deliveryCost,
+
       "Total": report.total,
+
+      "CashSubtotal": report.cashSubtotal,
+      "CashDelivery": report.cashDelivery,
       "CashTotal": report.cashTotal,
+
+      "OnlineSubtotal": report.onlineSubtotal,
+      "OnlineDelivery": report.onlineDelivery,
       "OnlineTotal": report.onlineTotal,
     };
 
@@ -201,4 +209,5 @@ class PrintService {
       }
     }
   }
+
 }

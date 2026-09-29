@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:am_adel_dashboard/core/errors/failure.dart';
 import 'package:am_adel_dashboard/core/services/database_services.dart';
@@ -19,6 +20,7 @@ class ProductRepoImpl implements ProductRepo {
     try {
       var result = await _databaseServices.addData(
         path: 'products', data: ProductModel.fromEntity(addProductEntity).toJson(),);
+      await _increaseProductsVersion();
       return Right(result);
 
     } on Exception catch (e) {
@@ -36,6 +38,7 @@ class ProductRepoImpl implements ProductRepo {
   Future<Either<Failure,void>> deleteProduct(String productId) async {
     try {
       final res= await _databaseServices.deleteData(path: 'products', uId: productId);
+      await _increaseProductsVersion();
       return Right(res);
     } on Exception catch (e) {
       return Left(ServerFailure(errMessage: e.toString()));
@@ -69,7 +72,7 @@ class ProductRepoImpl implements ProductRepo {
         docId: productId,
         data: data,
       );
-
+      await _increaseProductsVersion();
       return const Right(null);
     } catch (e) {
       return Left(ServerFailure(errMessage: e.toString()));
@@ -92,7 +95,6 @@ class ProductRepoImpl implements ProductRepo {
           continue;
         }
 
-        // لو المنتج عنده isPaused بالفعل، متلمسوش
         if (product.containsKey('isPaused')) {
           continue;
         }
@@ -105,6 +107,7 @@ class ProductRepoImpl implements ProductRepo {
           },
         );
       }
+      await _increaseProductsVersion();
 
       return const Right(null);
     } catch (e) {
@@ -114,5 +117,14 @@ class ProductRepoImpl implements ProductRepo {
         ),
       );
     }
+  }
+  Future<void> _increaseProductsVersion() async {
+    await _databaseServices.updateData(
+      path: 'app_settings',
+      docId: 'cache_versions',
+      data: {
+        'productsVersion': FieldValue.increment(1),
+      },
+    );
   }
 }

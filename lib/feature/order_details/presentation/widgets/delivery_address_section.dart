@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
 import 'package:am_adel_dashboard/core/entities/order_entity.dart';
 import 'package:am_adel_dashboard/core/utils/app_color.dart';
 import 'package:am_adel_dashboard/core/utils/style_manager.dart';
+import 'package:flutter/material.dart';
 
 class DeliveryAddressSection extends StatelessWidget {
   const DeliveryAddressSection({
@@ -17,38 +17,75 @@ class DeliveryAddressSection extends StatelessWidget {
     final location = order.selectedLocationEntity!;
 
     return Container(
-      padding: EdgeInsets.all(14),
+      width: double.infinity,
+      padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: AppColor.cardLight,
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(18),
         border: Border.all(
-          color: AppColor.divider,
+          color: AppColor.divider.withOpacity(.55),
         ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(.025),
+            blurRadius: 14,
+            offset: const Offset(0, 4),
+          ),
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'عنوان التوصيل',
-            style: StyleManager.font13Weight600(context).copyWith(
-              color: AppColor.textPrimary,
-            ),
+          Row(
+            children: [
+              Container(
+                width: 38,
+                height: 38,
+                decoration: BoxDecoration(
+                  color: AppColor.mainColor.withOpacity(.09),
+                  borderRadius: BorderRadius.circular(11),
+                ),
+                child: Icon(
+                  Icons.location_on_outlined,
+                  color: AppColor.mainColor,
+                  size: 20,
+                ),
+              ),
+              const SizedBox(width: 10),
+              Expanded(
+                child: Text(
+                  'عنوان التوصيل',
+                  style: StyleManager.font13Weight600(
+                    context,
+                  ).copyWith(
+                    color: AppColor.textPrimary,
+                    fontSize: 14,
+                  ),
+                ),
+              ),
+            ],
           ),
 
-          SizedBox(height: 12),
+          const SizedBox(height: 15),
 
-          _AddressTile(
+          Container(
+            height: 1,
+            color: AppColor.divider.withOpacity(.4),
+          ),
+
+          const SizedBox(height: 5),
+
+          _AddressRow(
             icon: Icons.map_outlined,
             title: 'المنطقة',
             value: location.title,
           ),
 
-          SizedBox(height: 8),
-
-          _AddressTile(
-            icon: Icons.location_on_outlined,
+          _AddressRow(
+            icon: Icons.home_outlined,
             title: 'العنوان',
             value: address.address,
+            highlight: true,
           ),
         ],
       ),
@@ -56,65 +93,58 @@ class DeliveryAddressSection extends StatelessWidget {
   }
 }
 
-class _AddressTile extends StatelessWidget {
-  const _AddressTile({
+class _AddressRow extends StatelessWidget {
+  const _AddressRow({
     required this.icon,
     required this.title,
     required this.value,
+    this.highlight = false,
   });
 
   final IconData icon;
   final String title;
   final String value;
+  final bool highlight;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.symmetric(
-        horizontal: 10,
-        vertical: 10,
-      ),
-      decoration: BoxDecoration(
-        color: AppColor.cardLight,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(
-          color: AppColor.divider,
-        ),
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        vertical: 9,
       ),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            width: 34,
-            height: 34,
-            decoration: BoxDecoration(
-              color: AppColor.backgroundDark,
-              shape: BoxShape.circle,
-            ),
+          Padding(
+            padding: const EdgeInsets.only(top: 2),
             child: Icon(
               icon,
-              color: AppColor.mainColor,
-              size: 16,
+              size: 19,
+              color: highlight
+                  ? AppColor.mainColor
+                  : AppColor.textSecondary,
             ),
           ),
-
-          SizedBox(width: 10),
-
+          const SizedBox(width: 12),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   title,
-                  style: StyleManager.font11Weight400(context).copyWith(
+                  style: StyleManager.font11Weight400(
+                    context,
+                  ).copyWith(
                     color: AppColor.textSecondary,
+                    fontSize: 10,
                   ),
                 ),
-
-                SizedBox(height: 2),
-
+                const SizedBox(height: 4),
                 Text(
                   value,
-                  style: StyleManager.font12Weight500(context).copyWith(
+                  style: StyleManager.font13Weight600(
+                    context,
+                  ).copyWith(
                     color: AppColor.textPrimary,
                   ),
                 ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../../../../core/utils/app_color.dart';
 import '../../../../core/utils/style_manager.dart';
 
@@ -16,67 +17,85 @@ class OrderTotalSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final finalTotal = total + delivery;
 
-    return Container(
-      padding: EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: AppColor.background,
-        borderRadius: BorderRadius.circular(14),
-        border: Border.all(
-          color: AppColor.border,
+    return Column(
+      children: [
+        _PriceRow(
+          title: 'المنتجات',
+          value: '${total.toStringAsFixed(2)} ج.م',
         ),
-      ),
-      child: Column(
-        children: [
-          _RowItem(
-            title: 'إجمالي المنتجات',
-            value: '${total.toStringAsFixed(2)} ج.م',
-          ),
 
-          SizedBox(height: 8),
+        const SizedBox(height: 9),
 
-          _RowItem(
-            title: 'التوصيل',
-            value: '${delivery.toStringAsFixed(2)} ج.م',
-          ),
+        _PriceRow(
+          title: 'التوصيل',
+          value: '${delivery.toStringAsFixed(2)} ج.م',
+        ),
 
-          Padding(
-            padding: EdgeInsets.symmetric(vertical: 10),
-            child: Divider(
-              color: AppColor.border,
-              height: 1,
+        const SizedBox(height: 12),
+
+        Container(
+          height: 1,
+          color: AppColor.divider.withOpacity(.35),
+        ),
+
+        const SizedBox(height: 12),
+
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Container(
+              width: 32,
+              height: 32,
+              decoration: BoxDecoration(
+                color: AppColor.mainColor.withOpacity(.09),
+                shape: BoxShape.circle,
+              ),
+              child: Icon(
+                Icons.receipt_long_outlined,
+                size: 16,
+                color: AppColor.mainColor,
+              ),
             ),
-          ),
 
-          Row(
-            children: [
-              Text(
-                'الإجمالي',
-                style: StyleManager.font13Weight600(context).copyWith(
-                  color: AppColor.white,
+            const SizedBox(width: 9),
+
+            Expanded(
+              child: Text(
+                'الإجمالي النهائي',
+                style: StyleManager.font13Weight600(
+                  context,
+                ).copyWith(
+                  color: AppColor.textPrimary,
                 ),
               ),
+            ),
 
-              const Spacer(),
+            const SizedBox(width: 8),
 
-              Text(
+            FittedBox(
+              fit: BoxFit.scaleDown,
+              child: Text(
                 '${finalTotal.toStringAsFixed(2)} ج.م',
-                style: StyleManager.font15Weight700(context).copyWith(
+                style: StyleManager.font15Weight700(
+                  context,
+                ).copyWith(
                   color: AppColor.mainColor,
+                  fontSize: 17,
                 ),
               ),
-            ],
-          ),
-        ],
-      ),
+            ),
+          ],
+        ),
+      ],
     );
   }
 }
 
-class _RowItem extends StatelessWidget {
+class _PriceRow extends StatelessWidget {
   final String title;
   final String value;
 
-  const _RowItem({
+  const _PriceRow({
     required this.title,
     required this.value,
   });
@@ -87,13 +106,21 @@ class _RowItem extends StatelessWidget {
       children: [
         Text(
           title,
-          style: StyleManager.font12Weight500(context),
+          style: StyleManager.font12Weight500(
+            context,
+          ).copyWith(
+            color: AppColor.textSecondary,
+          ),
         ),
+
         const Spacer(),
+
         Text(
           value,
-          style: StyleManager.font13Weight600(context).copyWith(
-            color: AppColor.white,
+          style: StyleManager.font14Weight600(
+            context,
+          ).copyWith(
+            color: AppColor.textPrimary,
           ),
         ),
       ],

@@ -22,30 +22,52 @@ class OrderSummaryCardSection extends StatelessWidget {
         subTotal - couponDiscount + deliveryCost;
 
     return Container(
-      padding: EdgeInsets.all(14),
+      width: double.infinity,
+      padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: AppColor.cardLight,
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: AppColor.divider),
+        borderRadius: BorderRadius.circular(18),
+        border: Border.all(
+          color: AppColor.divider.withOpacity(.55),
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(.025),
+            blurRadius: 14,
+            offset: const Offset(0, 4),
+          ),
+        ],
       ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'ملخص الفاتورة',
-            style: StyleManager.font13Weight600(
-              context,
-            ).copyWith(color: AppColor.textPrimary),
+          Row(
+            children: [
+              Icon(
+                Icons.receipt_long_outlined,
+                size: 19,
+                color: AppColor.mainColor,
+              ),
+              const SizedBox(width: 9),
+              Text(
+                'ملخص الفاتورة',
+                style: StyleManager.font13Weight600(
+                  context,
+                ).copyWith(
+                  color: AppColor.textPrimary,
+                  fontSize: 14,
+                ),
+              ),
+            ],
           ),
 
-          SizedBox(height: 12),
+          const SizedBox(height: 16),
 
           _SummaryRow(
             title: 'إجمالي المنتجات',
             value: '${subTotal.toStringAsFixed(2)} ج.م',
           ),
 
-          SizedBox(height: 8),
+          const SizedBox(height: 10),
 
           if (hasCoupon) ...[
             _SummaryRow(
@@ -53,7 +75,7 @@ class OrderSummaryCardSection extends StatelessWidget {
               value: '-${couponDiscount.toStringAsFixed(2)} ج.م',
               valueColor: AppColor.green,
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 10),
           ],
 
           _SummaryRow(
@@ -61,55 +83,59 @@ class OrderSummaryCardSection extends StatelessWidget {
             value: '${deliveryCost.toStringAsFixed(2)} ج.م',
           ),
 
-          Padding(
-            padding: EdgeInsets.symmetric(vertical: 10),
-            child: Divider(
-              color: AppColor.border,
-              height: 1,
-            ),
-          ),
+          const SizedBox(height: 14),
 
           Container(
-            padding: EdgeInsets.symmetric(
-              horizontal: 10,
-              vertical: 10,
-            ),
-            decoration: BoxDecoration(
-              color: AppColor.accentColor,
-              borderRadius: BorderRadius.circular(12),
-              border: Border.all(
-                color: AppColor.divider,
+            height: 1,
+            color: AppColor.divider.withOpacity(.45),
+          ),
+
+          const SizedBox(height: 14),
+
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Container(
+                width: 7,
+                height: 7,
+                decoration: BoxDecoration(
+                  color: AppColor.mainColor,
+                  shape: BoxShape.circle,
+                ),
               ),
-            ),
-            child: Row(
-              children: [
-                Text(
+              const SizedBox(width: 9),
+              Expanded(
+                child: Text(
                   'الإجمالي النهائي',
-                  style: StyleManager.font12Weight500(
+                  style: StyleManager.font13Weight600(
                     context,
                   ).copyWith(
                     color: AppColor.textPrimary,
+                    fontSize: 13,
                   ),
                 ),
-
-                const Spacer(),
-
-                Text(
+              ),
+              const SizedBox(width: 10),
+              FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Text(
                   '${totalPrice.toStringAsFixed(2)} ج.م',
-                  style: StyleManager.font13Weight700(
+                  style: StyleManager.font15Weight700(
                     context,
                   ).copyWith(
                     color: AppColor.mainColor,
+                    fontSize: 17,
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ],
       ),
     );
   }
 }
+
 class _SummaryRow extends StatelessWidget {
   const _SummaryRow({
     required this.title,
@@ -123,30 +149,28 @@ class _SummaryRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-      decoration: BoxDecoration(
-        color: AppColor.cardLight,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: AppColor.divider),
-      ),
-      child: Row(
-        children: [
-          Text(
+    return Row(
+      children: [
+        Expanded(
+          child: Text(
             title,
-            style: StyleManager.font11Weight400(
-              context,
-            ).copyWith(color: AppColor.textSecondary),
-          ),
-          const Spacer(),
-          Text(
-            value,
             style: StyleManager.font12Weight500(
               context,
-            ).copyWith(color: valueColor ?? AppColor.textPrimary),
+            ).copyWith(
+              color: AppColor.textSecondary,
+            ),
           ),
-        ],
-      ),
+        ),
+        const SizedBox(width: 10),
+        Text(
+          value,
+          style: StyleManager.font12Weight500(
+            context,
+          ).copyWith(
+            color: valueColor ?? AppColor.textPrimary,
+          ),
+        ),
+      ],
     );
   }
 }

@@ -1,78 +1,123 @@
-import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:am_adel_dashboard/core/helper_function/get_date_formate.dart';
-
+import 'package:am_adel_dashboard/core/utils/style_manager.dart';
+import 'package:flutter/material.dart';
 import '../../../../core/utils/app_color.dart';
 import '../../../../core/utils/app_constants.dart';
-import '../../../../core/widgets/custom_back_button.dart';
 
 class DailyReportHeader extends StatelessWidget {
   const DailyReportHeader({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const SizedBox(height: 18),
-        Container(
-          padding: const EdgeInsets.all(18),
-          decoration: BoxDecoration(
-            color: AppColor.cardLight,
-            borderRadius: BorderRadius.circular(
-              AppConstants.borderRadius,
+    return Container(
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: AppColor.cardLight,
+        borderRadius: BorderRadius.circular(AppConstants.borderRadius),
+        border: Border.all(color: AppColor.border.withOpacity(.32)),
+        boxShadow: [
+          BoxShadow(
+            color: AppColor.mainColor.withOpacity(.035),
+            blurRadius: 18,
+            offset: const Offset(0, 6),
+          ),
+        ],
+      ),
+      child: Row(
+        children: [
+          // Calendar Icon
+          Container(
+            width: 54,
+            height: 54,
+            decoration: BoxDecoration(
+              color: AppColor.mainColor.withOpacity(0.09),
+              borderRadius: BorderRadius.circular(16),
             ),
-            border: Border.all(
-              color: AppColor.divider,
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                Icon(
+                  Icons.calendar_month_rounded,
+                  color: AppColor.mainColor,
+                  size: 25,
+                ),
+
+                Positioned(
+                  top: 9,
+                  right: 9,
+                  child: Container(
+                    width: 6,
+                    height: 6,
+                    decoration: BoxDecoration(
+                      color: AppColor.mainColor,
+                      shape: BoxShape.circle,
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
-          child: Row(
-            children: [
-              Container(
-                width: 48,
-                height: 48,
-                decoration: BoxDecoration(
-                  color: AppColor.backgroundDark,
-                  borderRadius: BorderRadius.circular(14),
-                ),
-                child: Icon(
-                  Icons.calendar_today_rounded,
-                  color: AppColor.mainColor,
-                  size: 22,
-                ),
-              ),
 
-              const SizedBox(width: 14),
+          const SizedBox(width: 16),
 
-              Expanded(
-                child: Column(
-                  crossAxisAlignment:
-                  CrossAxisAlignment.start,
+          // Title
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('جرد اليوم', style: StyleManager.font18Weight700(context)),
+
+                const SizedBox(height: 7),
+
+                Row(
                   children: [
-                    Text(
-                      'جرد اليوم',
-                      style: TextStyle(
-                        color: AppColor.textPrimary,
-                        fontSize: 18,
-                        fontWeight: FontWeight.w800,
-                      ),
+                    Icon(
+                      Icons.schedule_rounded,
+                      size: 14,
+                      color: AppColor.textSecondary,
                     ),
-
-                    const SizedBox(height: 4),
-
+                    const SizedBox(width: 5),
                     Text(
                       getDateFormate(DateTime.now().toString()),
-                      style: TextStyle(
-                        color: AppColor.textSecondary,
-                        fontSize: 13,
-                      ),
+                      style: StyleManager.font12Weight500(context),
                     ),
                   ],
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-        ),
-      ],
+
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 8),
+            decoration: BoxDecoration(
+              color: AppColor.mainColor.withOpacity(0.08),
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(
+                  width: 6,
+                  height: 6,
+                  decoration: BoxDecoration(
+                    color: AppColor.mainColor,
+                    shape: BoxShape.circle,
+                  ),
+                ),
+                const SizedBox(width: 6),
+                Text(
+                  'اليوم',
+                  style: TextStyle(
+                    color: AppColor.mainColor,
+                    fontSize: 11.5,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

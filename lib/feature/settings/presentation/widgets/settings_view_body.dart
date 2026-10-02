@@ -89,7 +89,7 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
         const SizedBox(height: 50),
         const ManagerInfoCard(
           name: 'عم عادل',
-          phone: '01000000000',
+          phone: '01098431538',
         ),
         const SizedBox(height: 15),
         const RestaurantStatusCard(),
@@ -126,26 +126,26 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
       children: [
         const ManagerInfoCard(
           name: 'عم عادل',
-          phone: '0100000000',
+          phone: '01098431538',
         ),
-        const SizedBox(height: 15),
+        const SizedBox(height: 10),
         const RestaurantStatusCard(),
-        const SizedBox(height: 15),
+        const SizedBox(height: 10),
         const PrintSettingsTile(),
-        const SizedBox(height: 15),
+        const SizedBox(height: 10),
         Column(
           children: [
             buildOrdersDangerCard(context),
 
-            const SizedBox(height: 15),
+            const SizedBox(height: 10),
 
             buildCartDangerCard(context),
 
-            const SizedBox(height: 15),
+            const SizedBox(height: 10),
 
             buildBundleOffersDangerCard(context),
 
-            const SizedBox(height: 15),
+            const SizedBox(height: 10),
 
             buildOffersDangerCard(context),
           ],

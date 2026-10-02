@@ -7,7 +7,6 @@ class StatisticsCardModel {
   final String title;
   final String subTitleNumber;
   final String subTitleText;
-
   final VoidCallback? onTap;
 
   StatisticsCardModel({
@@ -17,6 +16,7 @@ class StatisticsCardModel {
     required this.subTitleNumber,
     required this.subTitleText,
     required this.height,
-    this.onTap, required this.iconColor,
+    this.onTap,
+    required this.iconColor,
   });
 }

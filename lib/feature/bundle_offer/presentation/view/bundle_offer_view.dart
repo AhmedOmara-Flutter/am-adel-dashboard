@@ -6,6 +6,7 @@ import 'package:am_adel_dashboard/core/repos/upload_image_repo/upload_image_repo
 import 'package:am_adel_dashboard/core/services/database_services.dart';
 import 'package:am_adel_dashboard/core/services/storage_services.dart';
 import 'package:am_adel_dashboard/core/utils/app_color.dart';
+import '../../../../core/widgets/custom_floating_action_button.dart';
 import '../view_model/add_bundle_offer_cubit/add_bundle_offer_cubit.dart';
 import '../view_model/get_bundle_offer_cubit/get_bundle_offer_cubit.dart';
 import '../widgets/add_bundle_offer_bottom_sheet.dart';
@@ -23,44 +24,28 @@ class BundleOfferView extends StatelessWidget {
         ),
       )..getBundleOffers(),
       child: Scaffold(
-        floatingActionButton: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 30),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              FloatingActionButton(
-                heroTag: null,
-                backgroundColor: AppColor.mainColor,
-                shape: const CircleBorder(),
-                onPressed: () {
-                  showModalBottomSheet(
-                    context: context,
-                    isScrollControlled: true,
-                    backgroundColor: AppColor.background,
-                    builder: (_) {
-                      return BlocProvider(
-                        create: (_) => AddBundleOfferCubit(
-                          BundleOfferRepoImpl(
-                            FirestoreDatabase(),
-                          ),
-                          UploadImageRepoImpl(
-                            SupabaseStorage(),
-                          ),
-                        ),
-                        child: const AddBundleOfferBottomSheet(),
-                      );
-                    },
-                  );
-                },
-                child: const Icon(
-                  Icons.add,
-                  color: AppColor.white,
-                ),
-              ),
-            ],
-          ),
-        ),
-        body: const BundleOfferViewBody(),
+        floatingActionButton: CustomFloatingActionButton(
+          onPressed: () {
+            showModalBottomSheet(
+              context: context,
+              isScrollControlled: true,
+              backgroundColor: AppColor.background,
+              builder: (_) {
+                return BlocProvider(
+                  create: (_) => AddBundleOfferCubit(
+                    BundleOfferRepoImpl(
+                      FirestoreDatabase(),
+                    ),
+                    UploadImageRepoImpl(
+                      SupabaseStorage(),
+                    ),
+                  ),
+                  child: const AddBundleOfferBottomSheet(),
+                );
+              },
+            );
+          },
+        ),        body: const BundleOfferViewBody(),
       ),
     );
   }

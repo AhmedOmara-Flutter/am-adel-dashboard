@@ -27,10 +27,7 @@ class CustomIsOrganic extends StatelessWidget {
                 : null,
           ),
 
-          Text(
-            'المنتج عضوي',
-            style: Theme.of(context).textTheme.titleMedium,
-          ),
+          Text('المنتج عضوي', style: Theme.of(context).textTheme.titleMedium),
         ],
       ),
     );

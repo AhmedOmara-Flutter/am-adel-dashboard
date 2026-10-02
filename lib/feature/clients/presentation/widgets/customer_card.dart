@@ -4,13 +4,12 @@ import 'package:am_adel_dashboard/core/entities/user_entity.dart';
 import 'package:am_adel_dashboard/core/helper_function/get_date_formate.dart';
 import 'package:am_adel_dashboard/core/helper_function/make_full_name.dart';
 import 'package:am_adel_dashboard/core/utils/app_color.dart';
+import 'package:am_adel_dashboard/core/utils/app_constants.dart';
+import 'package:am_adel_dashboard/core/utils/route_manager.dart';
 import 'package:am_adel_dashboard/core/utils/style_manager.dart';
 import 'package:am_adel_dashboard/generated/assets.dart';
 import '../../../../core/helper_function/make_call_function.dart';
-import '../../../../core/utils/app_constants.dart';
-import '../../../../core/utils/config_size.dart';
-import '../../../../core/utils/route_manager.dart';
-import 'customer_info_item.dart';
+import 'customer_stat.dart';
 
 class CustomerCard extends StatelessWidget {
   final UserEntity user;
@@ -27,162 +26,212 @@ class CustomerCard extends StatelessWidget {
     final totalAmount =
         orders.fold(
           0.0,
-              (sum, order) => sum + order.cartEntity.getTotalPrice(),
+              (sum, order) =>
+          sum + order.cartEntity.getTotalPrice(),
         ) +
             orders.fold(
               0.0,
-                  (sum, order) => sum + order.selectedLocationEntity!.cost,
+                  (sum, order) =>
+              sum + (order.selectedLocationEntity?.cost ?? 0),
             );
 
     return Container(
-      padding: EdgeInsets.all(14),
-      margin: MediaQuery.sizeOf(context).width > ConfigSize.phone
-          ? EdgeInsets.all(10)
-          : EdgeInsets.only(
-        top: 5,
-        left: 10,
-        right: 10,
-        bottom: 5,
-      ),
+      padding: const EdgeInsets.all(14),
       decoration: BoxDecoration(
         color: AppColor.cardLight,
-        borderRadius: BorderRadius.circular(
-          AppConstants.borderRadius,
-        ),
+        borderRadius: BorderRadius.circular(AppConstants.borderRadius),
+        border: Border.all(color: AppColor.border.withOpacity(.32)),
         boxShadow: [
           BoxShadow(
-            color: AppColor.secondaryColor.withOpacity(.12),
-            spreadRadius: 1,
-            blurRadius: 7,
-            offset: const Offset(0, 1),
+            color: AppColor.mainColor.withOpacity(.035),
+            blurRadius: 18,
+            offset: const Offset(0, 6),
           ),
         ],
-        border: Border(
-          bottom: BorderSide(
-            color: AppColor.divider,
-          ),
-        ),
       ),
-      clipBehavior: Clip.antiAliasWithSaveLayer,
       child: Column(
         children: [
           Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              CircleAvatar(
-                radius: 28,
-                backgroundColor: AppColor.backgroundDark,
-                backgroundImage: AssetImage(
-                  Assets.assets.images.customer.path,
+              Container(
+                padding: const EdgeInsets.all(3),
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                    color: AppColor.mainColor.withOpacity(.25),
+                    width: 2,
+                  ),
+                ),
+                child: CircleAvatar(
+                  radius: 27,
+                  backgroundColor: AppColor.backgroundDark,
+                  backgroundImage: AssetImage(
+                    Assets.assets.images.customer.path,
+                  ),
                 ),
               ),
-
-              SizedBox(width: 12),
-
+              const SizedBox(width: 12),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       makeFullName(user.userName),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                       style: StyleManager.font13Weight600(
                         context,
                       ).copyWith(
                         color: AppColor.textPrimary,
+                        fontSize: 14,
                       ),
                     ),
-
-                    SizedBox(height: 4),
-
+                    const SizedBox(height: 5),
                     Text(
                       user.email,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                       style: StyleManager.font12Weight500(
                         context,
                       ).copyWith(
                         color: AppColor.textSecondary,
                       ),
                     ),
-
-                    SizedBox(height: 2),
-
+                    const SizedBox(height: 4),
                     GestureDetector(
                       onTap: () {
                         makePhoneCall(user.phone);
                       },
-                      child: Text(
-                        user.phone,
-                        style: StyleManager.font12Weight500(
-                          context,
-                        ).copyWith(
-                          color: AppColor.mainColor,
-                        ),
-                      ),
-                    ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(
+                            Icons.phone_outlined,
+                            size: 14,
+                            color: AppColor.mainColor,
+                          ),
+                          const SizedBox(width: 5),
+                          Text(
+                            user.phone,
+                            style: StyleManager.font12Weight500(
+                              context,
+                            ).copyWith(
 
-                    SizedBox(height: 2),
-
-                    Text(
-                      getDateFormate(
-                        user.createdAt.toString(),
-                      ),
-                      style: StyleManager.font12Weight500(
-                        context,
-                      ).copyWith(
-                        color: AppColor.textSecondary,
+                              color: AppColor.mainColor,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ],
                 ),
               ),
-
-              SizedBox(width: 10),
-
-              if (orders.isNotEmpty) ...[
-                MaterialButton(
-                  padding: EdgeInsets.symmetric(
-                    vertical: 15,
-                    horizontal: 20,
-                  ),
-                  color: AppColor.mainColor,
-                  onPressed: () {
+              if (orders.isNotEmpty)
+                GestureDetector(
+                  onTap: () {
                     Navigator.pushNamed(
                       context,
                       RouteManager.displayOrders,
                       arguments: orders,
                     );
                   },
-                  child: Text(
-                    'عرض الطلبات',
-                    style: StyleManager.font12Weight500(
-                      context,
-                    ).copyWith(
-                      color: AppColor.textOnDark,
-                      fontSize: 11,
-                    ),
+                  child: Stack(
+                    clipBehavior: Clip.none,
+                    children: [
+                      Container(
+                        width: 42,
+                        height: 42,
+                        decoration: BoxDecoration(
+                          color: AppColor.mainColor.withOpacity(.06),
+                          shape: BoxShape.circle,
+                          border: Border.all(
+                            color:
+                            AppColor.mainColor.withOpacity(.12),
+                          ),
+                        ),
+                        child: Icon(
+                          Icons.receipt_long_rounded,
+                          size: 20,
+                          color: AppColor.mainColor,
+                        ),
+                      ),
+                      Positioned(
+                        top: -4,
+                        right: -4,
+                        child: Container(
+                          constraints: const BoxConstraints(
+                            minWidth: 18,
+                            minHeight: 18,
+                          ),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 4,
+                          ),
+                          decoration: BoxDecoration(
+                            color: AppColor.mainColor,
+                            shape: BoxShape.circle,
+                            border: Border.all(
+                              color: AppColor.cardLight,
+                              width: 2,
+                            ),
+                          ),
+                          child: Center(
+                            child: Text(
+                              '${orders.length}',
+                              style: StyleManager.font13Weight600(
+                                context,
+                              ).copyWith(
+                                color: Colors.white,
+                                fontSize: 9,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-              ],
             ],
           ),
-
-          SizedBox(height: 14),
-
+          const SizedBox(height: 14),
+          Container(
+            height: 1,
+            color: AppColor.divider.withOpacity(.35),
+          ),
+          const SizedBox(height: 12),
           Row(
             children: [
               Expanded(
-                child: CustomerInfoItem(
+                child: CustomerStat(
                   icon: Icons.shopping_bag_outlined,
-                  title: '${orders.length}',
-                  subtitle: 'طلبات',
+                  value: '${orders.length}',
+                  label: 'الطلبات',
                 ),
               ),
-
-              SizedBox(width: 10),
-
+              Container(
+                height: 32,
+                width: 1,
+                color: AppColor.divider.withOpacity(.4),
+              ),
               Expanded(
-                child: CustomerInfoItem(
+                child: CustomerStat(
                   icon: Icons.payments_outlined,
-                  title: '${totalAmount.toStringAsFixed(0)} ج.م',
-                  subtitle: 'إجمالي الشراء',
+                  value: '${totalAmount.toStringAsFixed(0)} ج.م',
+                  label: 'إجمالي الشراء',
+                ),
+              ),
+              Container(
+                height: 32,
+                width: 1,
+                color: AppColor.divider.withOpacity(.4),
+              ),
+              Expanded(
+                child: CustomerStat(
+                  icon: Icons.calendar_today_outlined,
+                  value: getDateFormate(
+                    user.createdAt.toString(),
+                  ),
+                  label: 'تاريخ التسجيل',
                 ),
               ),
             ],
@@ -192,3 +241,4 @@ class CustomerCard extends StatelessWidget {
     );
   }
 }
+

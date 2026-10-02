@@ -1,204 +1,181 @@
 import 'package:am_adel_dashboard/core/entities/product_entity.dart';
 import 'package:am_adel_dashboard/core/utils/app_color.dart';
 import 'package:am_adel_dashboard/core/utils/route_manager.dart';
+import 'package:am_adel_dashboard/core/utils/style_manager.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-
-import '../../../../core/utils/app_constants.dart';
-import '../../../../core/utils/config_size.dart';
 
 class ReviewItem extends StatelessWidget {
   final ProductEntity product;
 
-  const ReviewItem({
-    super.key,
-    required this.product,
-  });
+  const ReviewItem({super.key, required this.product});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: MediaQuery
-          .sizeOf(context)
-          .width > ConfigSize.phone
-          ? EdgeInsets.only(
-        top: 2,
-        bottom: 10,
-        left: 10,
-      )
-          : EdgeInsets.only(
-        right: 10,
-      ),
-      decoration: BoxDecoration(
-        color: AppColor.cardLight,
-        borderRadius: BorderRadius.circular(AppConstants.borderRadius),
-        boxShadow: [
-          BoxShadow(
-            color: AppColor.secondaryColor.withOpacity(
-              AppConstants.borderColor,
-            ),
-            spreadRadius: 1,
-            blurRadius: 7,
-            offset: const Offset(0, 1),
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        borderRadius: BorderRadius.circular(16),
+        onTap: () {
+          Navigator.pushNamed(
+            context,
+            RouteManager.productReviews,
+            arguments: product,
+          );
+        },
+        child: Ink(
+          padding: const EdgeInsets.all(12),
+          decoration: BoxDecoration(
+            color: AppColor.cardLight,
+            borderRadius: BorderRadius.circular(16),
+            border: Border.all(color: AppColor.divider.withOpacity(.55)),
           ),
-        ],
-        border: Border(
-          bottom: BorderSide(
-            color: AppColor.divider,
-          ),
-        ),
-      ),
-      clipBehavior: Clip.antiAliasWithSaveLayer,
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          child: Row(
             children: [
-              Row(
-                children: [
-                  Container(
-                    margin: EdgeInsets.all(10),
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 8,
-                      vertical: 5,
-                    ),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(4),
-                      border: Border.all(
-                        color: AppColor.divider,
-                      ),
-                    ),
-                    child: Row(
-                      children: [
-                        Text(
-                          '${product.reviewsCount}',
-                          style: Theme
-                              .of(context)
-                              .textTheme
-                              .titleMedium!
-                              .copyWith(
-                            color: AppColor.textPrimary,
-                          ),
-                        ),
-                        SizedBox(width: 5),
-                        Icon(
-                          Icons.message,
-                          color: AppColor.textSecondary,
-                          size: 18,
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-          SizedBox(height: 5),
-          Column(
-            children: [
+              // --------------------------------------------------------
+              // Product Image
+              // --------------------------------------------------------
               Container(
-                height: 125,
-                width: 125,
-                child: CachedNetworkImage(
-                  imageUrl: product.image ?? '',
-                  fit: BoxFit.contain,
-                  fadeInDuration: const Duration(milliseconds: 250),
-                  placeholder: (context, url) =>
-                      Center(
+                width: 82,
+                height: 82,
+                padding: const EdgeInsets.all(7),
+                decoration: BoxDecoration(
+                  color: AppColor.background,
+                  borderRadius: BorderRadius.circular(13),
+                ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(9),
+                  child: CachedNetworkImage(
+                    imageUrl: product.image ?? '',
+                    fit: BoxFit.contain,
+                    fadeInDuration: const Duration(milliseconds: 200),
+                    placeholder: (context, url) {
+                      return Center(
                         child: SizedBox(
-                          width: 100,
-                          height: 100,
-                          child: const CircularProgressIndicator(
+                          width: 20,
+                          height: 20,
+                          child: CircularProgressIndicator(
                             strokeWidth: 2,
                             color: AppColor.accentColor,
                           ),
                         ),
-                      ),
-                  errorWidget: (context, url, error) =>
-                      Icon(
-                        Icons.image_not_supported_outlined,
-                        size: 42,
-                        color: AppColor.textSecondary,
-                      ),
-                ),
-              ),
-              SizedBox(height: 10),
-              Text(
-                product.name,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                textAlign: TextAlign.center,
-                style: Theme
-                    .of(context)
-                    .textTheme
-                    .labelLarge!
-                    .copyWith(
-                  color: AppColor.textPrimary,
-                ),
-              ),
-              SizedBox(height: 10),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(
-                    Icons.star_rounded,
-                    color: AppColor.accentColor,
-                    size: 16,
-                  ),
-                  SizedBox(width: 5),
-                  Text(
-                    product.averageRating.toStringAsFixed(2),
-                    style: Theme
-                        .of(context)
-                        .textTheme
-                        .labelSmall
-                        ?.copyWith(
-                      color: AppColor.textGold,
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 10),
-              ClipRRect(
-                borderRadius: BorderRadius.circular(12),
-                child: Material(
-                  color: Colors.transparent,
-                  child: InkWell(
-                    onTap: () {
-                      Navigator.pushNamed(
-                        context,
-                        RouteManager.productReviews,
-                        arguments: product,
                       );
                     },
-                    child: Container(
-                      padding: EdgeInsets.symmetric(
-                        vertical: 12,
-                        horizontal: 15,
-                      ),
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: AppColor.border,
-                        ),
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: Text(
-                        'عرض جميع التعليقات',
-                        style: Theme
-                            .of(context)
-                            .textTheme
-                            .titleSmall
-                            ?.copyWith(
-                          color: AppColor.textPrimary,
-                        ),
+                    errorWidget: (context, url, error) {
+                      return Icon(
+                        Icons.image_outlined,
+                        size: 30,
+                        color: AppColor.textSecondary,
+                      );
+                    },
+                  ),
+                ),
+              ),
+
+              const SizedBox(width: 13),
+
+              // --------------------------------------------------------
+              // Product Information
+              // --------------------------------------------------------
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      product.name,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: StyleManager.font14Weight600(context).copyWith(
+                        color: AppColor.textPrimary,
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
-                  ),
+
+                    const SizedBox(height: 8),
+
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.star_rounded,
+                          size: 17,
+                          color: AppColor.accentColor,
+                        ),
+
+                        const SizedBox(width: 4),
+
+                        Text(
+                          product.averageRating.toStringAsFixed(1),
+                          style: StyleManager.font13Weight600(context).copyWith(
+                            color: AppColor.textGold,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+
+                        const SizedBox(width: 9),
+
+                        Container(
+                          width: 3,
+                          height: 3,
+                          decoration: BoxDecoration(
+                            color: AppColor.textSecondary.withOpacity(.5),
+                            shape: BoxShape.circle,
+                          ),
+                        ),
+
+                        const SizedBox(width: 9),
+
+                        Text(
+                          '${product.reviewsCount} تقييم',
+                          style: StyleManager.font11Weight400(
+                            context,
+                          ).copyWith(color: AppColor.textSecondary),
+                        ),
+                      ],
+                    ),
+
+                    const SizedBox(height: 9),
+
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.chat_bubble_outline_rounded,
+                          size: 14,
+                          color: AppColor.textSecondary,
+                        ),
+                        const SizedBox(width: 5),
+                        Text(
+                          'عرض تقييمات المنتج',
+                          style: StyleManager.font13Weight600(
+                            context,
+                          ).copyWith(color: AppColor.textSecondary),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+
+              const SizedBox(width: 10),
+
+              // --------------------------------------------------------
+              // Arrow
+              // --------------------------------------------------------
+              Container(
+                width: 32,
+                height: 32,
+                decoration: BoxDecoration(
+                  color: AppColor.background,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Icon(
+                  Icons.arrow_forward_ios_rounded,
+                  size: 13,
+                  color: AppColor.textSecondary,
                 ),
               ),
             ],
           ),
-        ],
+        ),
       ),
     );
   }

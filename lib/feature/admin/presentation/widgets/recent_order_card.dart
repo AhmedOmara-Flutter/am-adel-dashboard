@@ -6,7 +6,6 @@ import 'package:am_adel_dashboard/feature/main/presentation/view_model/main_cubi
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/cubit/orders_cubit/orders_cubit.dart';
-import '../../../../core/widgets/icon_badge.dart';
 
 class RecentOrdersCard extends StatelessWidget {
   const RecentOrdersCard({super.key});
@@ -21,12 +20,8 @@ class RecentOrdersCard extends StatelessWidget {
       padding: const EdgeInsets.all(13),
       decoration: BoxDecoration(
         color: AppColor.cardLight,
-        borderRadius: BorderRadius.circular(
-          AppConstants.borderRadius,
-        ),
-        border: Border.all(
-          color: AppColor.border.withOpacity(.40),
-        ),
+        borderRadius: BorderRadius.circular(AppConstants.borderRadius),
+        border: Border.all(color: AppColor.border.withOpacity(.40)),
         boxShadow: [
           BoxShadow(
             color: AppColor.mainColor.withOpacity(.06),
@@ -40,88 +35,70 @@ class RecentOrdersCard extends StatelessWidget {
       child: Column(
         children: [
           Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              IconBadge(
-                icon: Icons.receipt_long_rounded,
-                iconColor: AppColor.mainColor,
-              ),
-
-              const SizedBox(width: 12),
-
               Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
+                child: Row(
                   children: [
-                    Text(
-                      'الطلبات الحديثة',
-                      style: StyleManager.font12Weight500(context).copyWith(
-                        color: AppColor.textPrimary,
-                        fontSize: 15,
-                        fontWeight: FontWeight.w800,
-                        height: 1.2,
+                    Container(
+                      width: 4,
+                      height: 38,
+                      decoration: BoxDecoration(
+                        color: AppColor.mainColor,
+                        borderRadius: BorderRadius.circular(10),
                       ),
                     ),
-                    const SizedBox(height: 5),
-                    Row(
+                    const SizedBox(width: 12),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
                       children: [
-                        Container(
-                          width: 6,
-                          height: 6,
-                          decoration: BoxDecoration(
-                            color: AppColor.mainColor,
-                            shape: BoxShape.circle,
-                          ),
+                        Text(
+                          'الطلبات الحديثة',
+                          style: StyleManager.font16Weight700(
+                            context,
+                          ).copyWith(color: AppColor.textPrimary),
                         ),
-                        const SizedBox(width: 6),
+                        const SizedBox(height: 3),
                         Text(
                           hasOrders
-                              ? '$ordersCount طلب في المتجر'
+                              ? 'متابعة أحدث الطلبات'
                               : 'لا توجد طلبات حاليًا',
-                          style: StyleManager.font12Weight500(context).copyWith(
-                            color: AppColor.textSecondary,
-                            fontSize: 9.5,
-                            fontWeight: FontWeight.w500,
-                          ),
+                          style: StyleManager.font11Weight400(
+                            context,
+                          ).copyWith(color: AppColor.textSecondary),
                         ),
                       ],
                     ),
                   ],
                 ),
               ),
-
               if (hasOrders)
                 Material(
                   color: Colors.transparent,
                   child: InkWell(
-                    borderRadius: BorderRadius.circular(11),
+                    borderRadius: BorderRadius.circular(8),
                     onTap: () {
                       context.read<MainCubit>().changeIndex(5);
                     },
-                    child: Container(
+                    child: Padding(
                       padding: const EdgeInsets.symmetric(
-                        horizontal: 13,
-                        vertical: 9,
-                      ),
-                      decoration: BoxDecoration(
-                        color: AppColor.background,
-                        borderRadius: BorderRadius.circular(AppConstants.borderRadius),
+                        horizontal: 4,
+                        vertical: 6,
                       ),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Text(
                             'عرض الكل',
-                            style: StyleManager.font12Weight500(context).copyWith(
-                              color: AppColor.mainColor,
-                              fontSize: 9.5,
-                              fontWeight: FontWeight.w800,
-                            ),
+                            style: StyleManager.font12Weight500(
+                              context,
+                            ).copyWith(color: AppColor.mainColor),
                           ),
                           const SizedBox(width: 5),
-                          Icon(
-                            Icons.arrow_back_ios_new_rounded,
-                            size: 10,
+                          const Icon(
+                            Icons.arrow_back_rounded,
+                            size: 16,
                             color: AppColor.mainColor,
                           ),
                         ],
@@ -131,16 +108,7 @@ class RecentOrdersCard extends StatelessWidget {
                 ),
             ],
           ),
-
-          const SizedBox(height: 14),
-
-          Divider(
-            height: 1,
-            thickness: .7,
-            color: AppColor.border.withOpacity(.35),
-          ),
-
-          const SizedBox(height: 12),
+          const SizedBox(height: 20),
 
           const RecentOrdersListView(),
         ],

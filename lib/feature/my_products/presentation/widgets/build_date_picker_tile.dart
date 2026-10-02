@@ -1,3 +1,4 @@
+import 'package:am_adel_dashboard/core/utils/app_imports.dart';
 import 'package:flutter/material.dart';
 import '../../../../core/utils/app_color.dart';
 
@@ -53,12 +54,9 @@ class BuildDatePickerTile extends StatelessWidget {
                 children: [
                   Text(
                     title,
-                    style: Theme
-                        .of(context)
-                        .textTheme
-                        .bodySmall
-                        ?.copyWith(
+                    style: StyleManager.font12Weight500(context).copyWith(
                       color: AppColor.textSecondary,
+                      fontWeight: FontWeight.w600,
                     ),
                   ),
 
@@ -68,11 +66,7 @@ class BuildDatePickerTile extends StatelessWidget {
                     date == null
                         ? 'اختر التاريخ'
                         : '${date!.day}/${date!.month}/${date!.year}',
-                    style: Theme
-                        .of(context)
-                        .textTheme
-                        .titleMedium
-                        ?.copyWith(
+                    style: StyleManager.font11Weight400(context).copyWith(
                       color: date == null
                           ? AppColor.textSecondary
                           : AppColor.textPrimary,

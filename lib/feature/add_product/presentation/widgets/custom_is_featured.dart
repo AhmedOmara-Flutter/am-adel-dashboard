@@ -1,13 +1,8 @@
 import 'package:flutter/material.dart';
-
 import '../../../../core/utils/app_color.dart';
 
 class CustomIsFeatured extends StatelessWidget {
-  const CustomIsFeatured({
-    super.key,
-    required this.isFeatured,
-    this.onTap,
-  });
+  const CustomIsFeatured({super.key, required this.isFeatured, this.onTap});
 
   final bool isFeatured;
   final VoidCallback? onTap;
@@ -18,10 +13,7 @@ class CustomIsFeatured extends StatelessWidget {
       onTap: onTap,
       borderRadius: BorderRadius.circular(10),
       child: Padding(
-        padding: const EdgeInsets.symmetric(
-          vertical: 6,
-          horizontal: 4,
-        ),
+        padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 4),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -30,14 +22,10 @@ class CustomIsFeatured extends StatelessWidget {
               width: 24,
               height: 24,
               decoration: BoxDecoration(
-                color: isFeatured
-                    ? AppColor.mainColor
-                    : AppColor.cardLight,
+                color: isFeatured ? AppColor.mainColor : AppColor.cardLight,
                 borderRadius: BorderRadius.circular(7),
                 border: Border.all(
-                  color: isFeatured
-                      ? AppColor.mainColor
-                      : AppColor.border,
+                  color: isFeatured ? AppColor.mainColor : AppColor.border,
                   width: 1.2,
                 ),
               ),
@@ -45,24 +33,18 @@ class CustomIsFeatured extends StatelessWidget {
                 duration: const Duration(milliseconds: 150),
                 child: isFeatured
                     ? const Icon(
-                  Icons.check_rounded,
-                  key: ValueKey(true),
-                  size: 17,
-                  color: AppColor.textOnDark,
-                )
-                    : const SizedBox(
-                  key: ValueKey(false),
-                ),
+                        Icons.check_rounded,
+                        key: ValueKey(true),
+                        size: 17,
+                        color: AppColor.textOnDark,
+                      )
+                    : const SizedBox(key: ValueKey(false)),
               ),
             ),
             const SizedBox(width: 9),
             Text(
               'المنتج مميز',
-              style: Theme
-                  .of(context)
-                  .textTheme
-                  .titleMedium
-                  ?.copyWith(
+              style: Theme.of(context).textTheme.titleMedium?.copyWith(
                 color: AppColor.textPrimary,
                 fontWeight: FontWeight.w600,
               ),

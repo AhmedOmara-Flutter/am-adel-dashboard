@@ -1,10 +1,11 @@
+import 'package:am_adel_dashboard/core/utils/app_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../../../core/helper_function/custom_show_dialog.dart';
 import '../../../../core/helper_function/get_date_formate.dart';
 import '../../../../core/services/print_service.dart';
 import '../../../../core/utils/app_color.dart';
+import '../../../../core/utils/style_manager.dart';
 import '../../domain/entities/daily_reports_entity.dart';
 import '../view_model/daily_reports_cubit.dart';
 import 'details_value.dart';
@@ -20,7 +21,7 @@ class DailyReportCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius: BorderRadius.circular(16),
+      borderRadius: BorderRadius.circular(AppConstants.borderRadius),
       child: Material(
         color: Colors.transparent,
         child: InkWell(
@@ -35,10 +36,9 @@ class DailyReportCard extends StatelessWidget {
                 'هل أنت متأكد من حذف تقرير الجرد؟\n\n'
                     'سيتم حذف التقرير نهائيًا ولا يمكن التراجع عن هذا الإجراء.',
                 textAlign: TextAlign.center,
-                style: const TextStyle(
-                  color: AppColor.textSecondary,
-                  fontSize: 14,
-                  height: 1.6,
+                style: StyleManager.font12Weight500(context).copyWith(
+                    height: 1.5,
+                    color: AppColor.textSecondary
                 ),
               ),
               accept: () async {
@@ -54,15 +54,13 @@ class DailyReportCard extends StatelessWidget {
             padding: const EdgeInsets.all(14),
             decoration: BoxDecoration(
               color: AppColor.cardLight,
-              borderRadius: BorderRadius.circular(16),
-              border: Border.all(
-                color: AppColor.border.withOpacity(.35),
-              ),
+              borderRadius: BorderRadius.circular(AppConstants.borderRadius),
+              border: Border.all(color: AppColor.border.withOpacity(.32)),
               boxShadow: [
                 BoxShadow(
-                  color: AppColor.mainColor.withOpacity(.06),
-                  blurRadius: 12,
-                  offset: const Offset(0, 4),
+                  color: AppColor.mainColor.withOpacity(.035),
+                  blurRadius: 18,
+                  offset: const Offset(0, 6),
                 ),
               ],
             ),

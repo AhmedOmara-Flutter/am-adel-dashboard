@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/utils/app_color.dart';
 import '../../../../core/utils/app_constants.dart';
+import '../../../../core/utils/style_manager.dart';
 
 class BackgroundCard extends StatelessWidget {
   final Widget child;
@@ -20,87 +21,74 @@ class BackgroundCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.all(10),
+      margin: const EdgeInsets.symmetric(horizontal: 10,vertical: 5),
       decoration: BoxDecoration(
         color: AppColor.cardLight,
         borderRadius: BorderRadius.circular(
           AppConstants.borderRadius,
         ),
+        border: Border.all(
+          color: AppColor.border.withOpacity(.32),
+        ),
         boxShadow: [
           BoxShadow(
-            color: AppColor.secondaryColor.withOpacity(0.15),
-            spreadRadius: 1,
-            blurRadius: 8,
-            offset: const Offset(0, 2),
+            color: AppColor.mainColor.withOpacity(.035),
+            blurRadius: 16,
+            offset: const Offset(0, 4),
           ),
         ],
-        border: Border.all(
-          color: AppColor.divider,
-        ),
       ),
       clipBehavior: Clip.antiAlias,
       child: Column(
         children: [
-          Container(
-            width: double.infinity,
-            padding: const EdgeInsets.symmetric(
-              horizontal: 12,
-              vertical: 10,
-            ),
-            decoration: const BoxDecoration(
-              color: AppColor.backgroundDark,
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(
-                  AppConstants.borderRadius,
-                ),
-                topRight: Radius.circular(
-                  AppConstants.borderRadius,
-                ),
-              ),
-              border: Border(
-                bottom: BorderSide(
-                  color: AppColor.divider,
-                ),
-              ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(
+              16,
+              14,
+              16,
+              13,
             ),
             child: Row(
               children: [
                 Container(
-                  padding: const EdgeInsets.all(7),
+                  width: 4,
+                  height: 34,
                   decoration: BoxDecoration(
                     color: AppColor.mainColor,
                     borderRadius: BorderRadius.circular(8),
                   ),
-                  child: const Icon(
-                    Icons.info_outline,
-                    color: AppColor.textOnDark,
-                    size: 18,
-                  ),
+                ),
+                const SizedBox(width: 11),
+                Icon(
+                  icon,
+                  size: 21,
+                  color: AppColor.mainColor,
                 ),
                 const SizedBox(width: 10),
                 Expanded(
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment:
+                    CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
                     children: [
                       Text(
                         label,
-                        style: Theme
-                            .of(context)
-                            .textTheme
-                            .titleMedium!
-                            .copyWith(
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: StyleManager.font16Weight700(
+                          context,
+                        ).copyWith(
                           color: AppColor.textPrimary,
-                          fontWeight: FontWeight.w700,
                         ),
                       ),
-                      const SizedBox(height: 3),
+                      const SizedBox(height: 2),
                       Text(
                         subLabel,
-                        style: Theme
-                            .of(context)
-                            .textTheme
-                            .bodyMedium!
-                            .copyWith(
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: StyleManager.font11Weight400(
+                          context,
+                        ).copyWith(
                           color: AppColor.textSecondary,
                         ),
                       ),
@@ -109,6 +97,10 @@ class BackgroundCard extends StatelessWidget {
                 ),
               ],
             ),
+          ),
+          Container(
+            height: 1,
+            color: AppColor.divider.withOpacity(.28),
           ),
           child,
         ],

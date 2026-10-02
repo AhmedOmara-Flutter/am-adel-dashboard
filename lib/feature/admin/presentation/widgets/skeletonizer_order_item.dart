@@ -1,5 +1,6 @@
 import 'package:am_adel_dashboard/core/utils/app_color.dart';
 import 'package:am_adel_dashboard/core/utils/style_manager.dart';
+import 'package:am_adel_dashboard/core/widgets/app_skeleton_effect.dart';
 import 'package:am_adel_dashboard/generated/assets.dart';
 import 'package:flutter/material.dart';
 import 'package:skeletonizer/skeletonizer.dart';
@@ -13,11 +14,7 @@ class SkeletonizerOrderItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Skeletonizer(
       enabled: true,
-      effect: ShimmerEffect(
-        baseColor: AppColor.backgroundDark,
-        highlightColor: AppColor.cardLight,
-        duration: const Duration(milliseconds: 1200),
-      ),
+      effect:AppSkeletonEffect.shimmer,
       child: Container(
         margin: const EdgeInsets.symmetric(
           horizontal: 10,

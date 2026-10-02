@@ -38,27 +38,29 @@ class PausedProductButton extends StatelessWidget {
         child: InkWell(
           borderRadius: BorderRadius.circular(8),
           onTap: () async {
-            if (product.isPaused) {
+            final productsCubit = context.read<ProductsCubit>();
+
+            final currentProduct = productsCubit.allProducts.firstWhere(
+                  (item) => item.id == product.id,
+              orElse: () => product,
+            );
+
+            // المنتج موقوف → السماح بالتفعيل
+            if (currentProduct.isPaused) {
               CustomShowDialog.show(
                 context,
                 title: 'تفعيل المنتج',
                 content: Text(
                   'هل أنت متأكد أنك تريد تفعيل هذا المنتج مرة أخرى؟',
                   textAlign: TextAlign.center,
-                  style: Theme
-                      .of(context)
-                      .textTheme
-                      .titleMedium!
-                      .copyWith(
+                  style: Theme.of(context).textTheme.titleMedium!.copyWith(
                     color: AppColor.textSecondary,
                   ),
                 ),
                 cancel: () => Navigator.pop(context),
                 accept: () {
-                  context
-                      .read<ProductsCubit>()
-                      .toggleProductPaused(
-                    product.id!,
+                  productsCubit.toggleProductPaused(
+                    currentProduct.id!,
                     false,
                   );
 
@@ -71,8 +73,19 @@ class PausedProductButton extends StatelessWidget {
               return;
             }
 
-            final cartStatusCubit =
-            context.read<CartStatusCubit>();
+            // المنتج عليه عرض → ممنوع إيقافه
+            if (currentProduct.offerId != null &&
+                currentProduct.offerId!.isNotEmpty) {
+              customShowSnakeBar(
+                context,
+                color: AppColor.red,
+                label: 'لا يمكن إيقاف المنتج لأنه عليه عرض حاليًا',
+              );
+
+              return;
+            }
+
+            final cartStatusCubit = context.read<CartStatusCubit>();
 
             await cartStatusCubit.checkCartsStatus();
 
@@ -83,8 +96,7 @@ class PausedProductButton extends StatelessWidget {
                 customShowSnakeBar(
                   context,
                   color: AppColor.red,
-                  label:
-                  'برجاء مسح جميع السله أولاً قبل إيقاف المنتج',
+                  label: 'برجاء مسح جميع السله أولاً قبل إيقاف المنتج',
                 );
 
                 return;
@@ -96,20 +108,14 @@ class PausedProductButton extends StatelessWidget {
                 content: Text(
                   'هل أنت متأكد أنك تريد إيقاف هذا المنتج مؤقتًا؟',
                   textAlign: TextAlign.center,
-                  style: Theme
-                      .of(context)
-                      .textTheme
-                      .titleMedium!
-                      .copyWith(
+                  style: Theme.of(context).textTheme.titleMedium!.copyWith(
                     color: AppColor.textSecondary,
                   ),
                 ),
                 cancel: () => Navigator.pop(context),
                 accept: () {
-                  context
-                      .read<ProductsCubit>()
-                      .toggleProductPaused(
-                    product.id!,
+                  productsCubit.toggleProductPaused(
+                    currentProduct.id!,
                     true,
                   );
 
@@ -130,11 +136,7 @@ class PausedProductButton extends StatelessWidget {
           child: Text(
             isPaused ? 'تفعيل المنتج' : 'إيقاف المنتج',
             textAlign: TextAlign.center,
-            style: Theme
-                .of(context)
-                .textTheme
-                .titleSmall!
-                .copyWith(
+            style: Theme.of(context).textTheme.titleSmall!.copyWith(
               color: isPaused
                   ? AppColor.red
                   : AppColor.textPrimary,

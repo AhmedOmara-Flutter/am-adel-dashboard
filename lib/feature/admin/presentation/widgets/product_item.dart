@@ -1,8 +1,8 @@
-import 'package:am_adel_dashboard/core/utils/app_constants.dart';
+import 'package:am_adel_dashboard/core/utils/style_manager.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:am_adel_dashboard/core/utils/app_color.dart';
-import 'package:am_adel_dashboard/core/utils/style_manager.dart';
+
+import '../../../../core/utils/app_color.dart';
 
 class ProductItem extends StatelessWidget {
   const ProductItem({
@@ -21,32 +21,27 @@ class ProductItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RepaintBoundary(
-      child: Container(
-        padding: const EdgeInsets.all(10),
-        decoration: BoxDecoration(
-          color: AppColor.background,
-          borderRadius: BorderRadius.circular(AppConstants.borderRadius),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(
+          vertical: 7,
         ),
         child: Row(
           children: [
             SizedBox(
-              width: 34,
+              width: 30,
               child: Image.asset(
                 medal,
-                width: 25,
-                height: 25,
+                width: 24,
+                height: 24,
                 fit: BoxFit.contain,
               ),
             ),
-
-            const SizedBox(width: 8),
-
+            const SizedBox(width: 9),
             Container(
-              width: 58,
-              height: 58,
-              padding: const EdgeInsets.all(6),
+              width: 54,
+              height: 54,
               decoration: BoxDecoration(
-                color: AppColor.cardLight,
+                color: AppColor.background,
                 borderRadius: BorderRadius.circular(12),
               ),
               clipBehavior: Clip.antiAlias,
@@ -55,15 +50,17 @@ class ProductItem extends StatelessWidget {
                 fit: BoxFit.contain,
                 memCacheWidth: 180,
                 memCacheHeight: 180,
-                fadeInDuration: const Duration(milliseconds: 150),
+                fadeInDuration: const Duration(
+                  milliseconds: 150,
+                ),
                 placeholder: (context, url) {
                   return Center(
                     child: SizedBox(
-                      width: 16,
-                      height: 16,
+                      width: 15,
+                      height: 15,
                       child: CircularProgressIndicator(
                         strokeWidth: 2,
-                        color: AppColor.mainColor.withOpacity(.3),
+                        color: AppColor.mainColor.withOpacity(.25),
                       ),
                     ),
                   );
@@ -71,90 +68,83 @@ class ProductItem extends StatelessWidget {
                 errorWidget: (context, url, error) {
                   return Icon(
                     Icons.restaurant_rounded,
-                    color: AppColor.textSecondary.withOpacity(.4),
-                    size: 25,
+                    color: AppColor.textSecondary.withOpacity(.35),
+                    size: 23,
                   );
                 },
               ),
             ),
-
             const SizedBox(width: 11),
-
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
                     productName,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                    style: StyleManager.font13Weight600(context).copyWith(
+                    style: StyleManager.font13Weight600(
+                      context,
+                    ).copyWith(
                       color: AppColor.textPrimary,
-                      fontSize: 12.5,
-                      fontWeight: FontWeight.w800,
                     ),
                   ),
-
-                  const SizedBox(height: 7),
-
+                  const SizedBox(height: 6),
                   Row(
                     children: [
                       Icon(
                         Icons.shopping_bag_outlined,
-                        size: 12,
-                        color: AppColor.textSecondary.withOpacity(.65),
+                        size: 13,
+                        color: AppColor.textSecondary.withOpacity(.55),
                       ),
                       const SizedBox(width: 4),
                       Text(
                         '$orderCount مبيعات',
-                        style: StyleManager.font12Weight500(context).copyWith(
+                        style: StyleManager.font11Weight400(
+                          context,
+                        ).copyWith(
                           color: AppColor.textSecondary,
-                          fontSize: 9.5,
                         ),
                       ),
                     ],
                   ),
-
                   const SizedBox(height: 7),
-
                   ClipRRect(
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: BorderRadius.circular(10),
                     child: LinearProgressIndicator(
                       minHeight: 4,
                       value: _getProgress(),
                       backgroundColor:
-                      AppColor.backgroundDark.withOpacity(.6),
+                      AppColor.backgroundDark.withOpacity(.45),
                       valueColor: AlwaysStoppedAnimation(
-                        AppColor.mainColor,
+                        AppColor.orange.withOpacity(.75),
                       ),
                     ),
                   ),
                 ],
               ),
             ),
-
-            const SizedBox(width: 10),
-
+            const SizedBox(width: 12),
             Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
                   orderCount,
-                  style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                  style: StyleManager.font18Weight700(
+                    context,
+                  ).copyWith(
                     color: AppColor.mainColor,
-                    fontSize: 18,
-                    fontWeight: FontWeight.w900,
-                    height: 1,
                   ),
                 ),
-                const SizedBox(height: 3),
+                const SizedBox(height: 2),
                 Text(
                   'طلب',
-                  style: StyleManager.font12Weight500(context).copyWith(
+                  style: StyleManager.font11Weight400(
+                    context,
+                  ).copyWith(
                     color: AppColor.textSecondary,
-                    fontSize: 8.5,
-                    height: 1,
                   ),
                 ),
               ],
@@ -168,7 +158,9 @@ class ProductItem extends StatelessWidget {
   double _getProgress() {
     final count = int.tryParse(orderCount) ?? 0;
 
-    if (count <= 0) return 0.05;
+    if (count <= 0) {
+      return 0.05;
+    }
 
     return (count / (count + 100)).clamp(0.08, 0.95);
   }

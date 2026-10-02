@@ -1,22 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:page_transition/page_transition.dart';
-
-import 'package:am_adel_dashboard/core/entities/order_entity.dart';
-import 'package:am_adel_dashboard/core/entities/product_entity.dart';
-import 'package:am_adel_dashboard/core/utils/app_color.dart';
-import 'package:am_adel_dashboard/core/utils/style_manager.dart';
-import 'package:am_adel_dashboard/feature/daily_reports/presentation/view/daily_reports_view.dart';
-import 'package:am_adel_dashboard/feature/send_notification/view/send_notification_for_each_user.dart';
-import 'package:am_adel_dashboard/feature/send_notification/view/send_notification_view.dart';
-
-import '../../feature/add_product/presentation/view/add_product_view.dart';
-import '../../feature/display_order/presentation/view/display_orders_view.dart';
-import '../../feature/edit_product/presentation/view/edit_product_view.dart';
-import '../../feature/main/presentation/view/main_view.dart';
-import '../../feature/order_details/presentation/view/order_details_view.dart';
-import '../../feature/reviews/presentation/view/product_reviews.dart';
-import '../../feature/splash/view/splash_view.dart';
-
+import 'package:am_adel_dashboard/core/utils/app_imports.dart';
 class RouteManager {
   static const String splash = '/splashView';
   static const String main = '/mainView';

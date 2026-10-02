@@ -1,3 +1,4 @@
+import 'package:am_adel_dashboard/core/utils/app_imports.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -43,9 +44,9 @@ class _ReportsViewBodyState extends State<ReportsViewBody> {
 
         if (reports.isNotEmpty) {
           return ListView.separated(
-            padding: const EdgeInsets.fromLTRB(16, 16, 16, 100),
+            padding: const EdgeInsets.only(left: 10, right: 10, top: 10,bottom: 100),
             itemCount: reports.length,
-            separatorBuilder: (_, __) => const SizedBox(height: 14),
+            separatorBuilder: (_, __) => const SizedBox(height: 10),
             itemBuilder: (context, index) {
               return DailyReportCard(report: reports[index]);
             },
@@ -71,7 +72,9 @@ class _ReportsViewBodyState extends State<ReportsViewBody> {
         return Center(
           child: Text(
             'لا توجد تقارير محفوظة',
-            style: TextStyle(color: AppColor.textSecondary, fontSize: 15),
+            style: StyleManager.font14Weight600(context).copyWith(
+                color: AppColor.textSecondary
+            ),
           ),
         );
       },

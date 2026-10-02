@@ -6,18 +6,16 @@ import '../../data/repos/cart_status_repo.dart';
 part 'cart_status_state.dart';
 
 class CartStatusCubit extends Cubit<CartStatusState> {
-  final CartStatusRepo cartStatusRepo;
+  final CartStatusRepo _cartStatusRepo;
 
-  CartStatusCubit({
-    required this.cartStatusRepo,
-  }) : super(CartStatusInitial());
+  CartStatusCubit(this._cartStatusRepo,) : super(CartStatusInitial());
 
   Future<void> checkCartsStatus() async {
     emit(CartStatusLoading());
 
     try {
       final areAllCartsEmpty =
-      await cartStatusRepo.areAllCartsEmpty();
+      await _cartStatusRepo.areAllCartsEmpty();
 
       emit(
         CartStatusLoaded(

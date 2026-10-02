@@ -1,11 +1,10 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:am_adel_dashboard/core/cubit/orders_cubit/orders_cubit.dart';
+import 'package:am_adel_dashboard/core/extension/responsive_extension.dart';
+import 'package:am_adel_dashboard/core/models/statistics_card_model.dart';
 import 'package:am_adel_dashboard/core/utils/app_color.dart';
 import 'package:am_adel_dashboard/feature/clients/presentation/widgets/clients_statistics_card.dart';
-import 'package:skeletonizer/skeletonizer.dart';
-
-import '../../../../core/cubit/orders_cubit/orders_cubit.dart';
-import '../../../../core/utils/config_size.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../view_model/clients_cubit.dart';
 
 class CustomerStatisticsSection extends StatelessWidget {
@@ -13,82 +12,104 @@ class CustomerStatisticsSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ClientsCubit, ClientsState>(
-      builder: (context, state) {
-        if (state is GetClientsLoading) {
-          return Row(
-            children: [
-              const SizedBox(width: 10),
-              Expanded(
-                child: Skeletonizer(
-                  child: ClientsStatisticsCard(
-                    model: StatisticsCardModel(
-                      color: AppColor.mainColor,
-                      icon: Icons.people,
-                      title: '----------------',
-                      subTitleNumber: '-----',
-                      subTitleText: '--------------------',
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(width: 10),
-              Expanded(
-                child: Skeletonizer(
-                  child: ClientsStatisticsCard(
-                    model: StatisticsCardModel(
-                      color: AppColor.accentColor,
-                      icon: Icons.attach_money,
-                      title: '----------------',
-                      subTitleNumber: '-----',
-                      subTitleText: '--------------------',
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(width: 10),
-            ],
-          );
-        }
+    return context.isDesktop
+        ? const CustomerStatisticsDesktop()
+        : const CustomerStatisticsMobile();
+  }
+}
 
-        final clients = context.read<ClientsCubit>().clients;
-        final totalPriceWithDelivery =
-            context.read<OrdersCubit>().totalPriceWithDelivery;
+class CustomerStatisticsDesktop extends StatelessWidget {
+  const CustomerStatisticsDesktop({super.key});
 
-        return Row(
-          children: [
-            const SizedBox(width: 10),
-            Expanded(
-              child: ClientsStatisticsCard(
-                model: StatisticsCardModel(
-                  color: AppColor.mainColor,
-                  icon: Icons.people,
-                  title: 'اجمالي العملاء',
-                  subTitleNumber: '${clients.length}',
-                  subTitleText: 'كل العملاء',
-                ),
+  @override
+  Widget build(BuildContext context) {
+    final clients = context.watch<ClientsCubit>().clients;
+
+    final totalPriceWithDelivery = context
+        .watch<OrdersCubit>()
+        .totalPriceWithDelivery;
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10),
+      child: Row(
+        children: [
+          Expanded(
+            child: ClientsStatisticsCard(
+              model: StatisticsCardModel(
+                color: AppColor.mainColor,
+                icon: Icons.people_outline_rounded,
+                title: 'إجمالي العملاء',
+                subTitleNumber: '${clients.length}',
+                subTitleText: 'جميع العملاء',
+                height: 150,
+                iconColor: AppColor.mainColor,
               ),
             ),
-            SizedBox(
-              width: MediaQuery.sizeOf(context).width > ConfigSize.phone
-                  ? 10
-                  : 15,
-            ),
-            Expanded(
-              child: ClientsStatisticsCard(
-                model: StatisticsCardModel(
-                  color: AppColor.accentColor,
-                  icon: Icons.attach_money,
-                  title: 'اجمالي المبيعات',
-                  subTitleNumber: '${totalPriceWithDelivery.toStringAsFixed(2)}',
-                  subTitleText: 'كل المبيعات',
-                ),
+          ),
+          const SizedBox(width: 14),
+          Expanded(
+            child: ClientsStatisticsCard(
+              model: StatisticsCardModel(
+                color: AppColor.accentColor,
+                icon: Icons.payments_outlined,
+                title: 'إجمالي المبيعات',
+                subTitleNumber: '${totalPriceWithDelivery.toStringAsFixed(2)}',
+                subTitleText: 'إجمالي قيمة المبيعات',
+                height: 150,
+                iconColor: AppColor.mainColor,
               ),
             ),
-            const SizedBox(width: 10),
-          ],
-        );
-      },
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class CustomerStatisticsMobile extends StatelessWidget {
+  const CustomerStatisticsMobile({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final clients = context.watch<ClientsCubit>().clients;
+
+    final totalPriceWithDelivery = context
+        .watch<OrdersCubit>()
+        .totalPriceWithDelivery;
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10),
+      child: Row(
+        children: [
+          Expanded(
+            child: ClientsStatisticsCard(
+              model: StatisticsCardModel(
+                color: AppColor.mainColor,
+                icon: Icons.people_outline_rounded,
+                title: 'إجمالي العملاء',
+                subTitleNumber: '${clients.length}',
+                subTitleText: 'جميع العملاء',
+                height: 125,
+                iconColor: AppColor.mainColor,
+              ),
+            ),
+          ),
+          const SizedBox(width: 10),
+          Expanded(
+            child: ClientsStatisticsCard(
+              model: StatisticsCardModel(
+                color: AppColor.accentColor,
+                icon: Icons.payments_outlined,
+                title: 'إجمالي المبيعات',
+                subTitleNumber: '${totalPriceWithDelivery.toStringAsFixed(2)}',
+                subTitleText: 'إجمالي قيمة المبيعات',
+                height: 125,
+                iconColor: AppColor.mainColor,
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

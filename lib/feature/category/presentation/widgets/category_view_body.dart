@@ -43,7 +43,7 @@ class CategoryViewBody extends StatelessWidget {
         }
 
         return ReorderableListView.builder(
-          padding: const EdgeInsets.all(20),
+          padding: const EdgeInsets.all(10),
           itemCount: categories.length,
           buildDefaultDragHandles: false,
           onReorder: (oldIndex, newIndex) async {
@@ -64,8 +64,8 @@ class CategoryViewBody extends StatelessWidget {
           itemBuilder: (context, index) {
             final category = categories[index];
             return Container(
+              margin: const EdgeInsets.only(bottom: 10),
               key: ValueKey(category.id),
-              margin: const EdgeInsets.only(bottom: 14),
               child: CategoryCard(
                 category: category,
                 dragHandle: ReorderableDragStartListener(
@@ -99,7 +99,10 @@ class CategoryViewBody extends StatelessWidget {
                     content: Text(
                       'هل أنت متأكد أنك تريد حذف "${category.name}"؟',
                       textAlign: TextAlign.center,
-                      style: StyleManager.font13Weight600(context),
+                      style: StyleManager.font12Weight500(context).copyWith(
+                          height: 1.5,
+                          color: AppColor.textSecondary
+                      ),
                     ),
                     cancel: () {
                       Navigator.pop(context);

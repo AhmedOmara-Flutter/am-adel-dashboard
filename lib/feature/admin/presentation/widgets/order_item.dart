@@ -1,10 +1,9 @@
 import 'package:am_adel_dashboard/core/utils/app_color.dart';
-import 'package:am_adel_dashboard/core/utils/app_constants.dart';
 import 'package:am_adel_dashboard/core/utils/style_manager.dart';
 import 'package:flutter/material.dart';
-
-import '../../../../core/utils/config_size.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../generated/assets.dart';
+import '../../../main/presentation/view_model/main_cubit.dart';
 import '../../../orders/presentation/widgets/order_status_badge.dart';
 
 class OrderItem extends StatelessWidget {
@@ -29,76 +28,156 @@ class OrderItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(14),
-      decoration: BoxDecoration(
-        color: AppColor.background,
-        borderRadius: BorderRadius.circular(AppConstants.borderRadius),
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          ClipOval(
-            child: Image.asset(
-              Assets.assets.images.customer.path,
-              width: 68,
-              height: 68,
-              fit: BoxFit.cover,
-            ),
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        borderRadius: BorderRadius.circular(16),
+        splashColor: AppColor.mainColor.withOpacity(.04),
+        highlightColor: AppColor.mainColor.withOpacity(.02),
+        onTap: () {
+          context.read<MainCubit>().changeIndex(5);
+        },
+        child: Container(
+          padding: const EdgeInsets.all(14),
+          decoration: BoxDecoration(
+            color: AppColor.cardLight,
+            borderRadius: BorderRadius.circular(16),
+            border: Border.all(color: AppColor.divider.withOpacity(.38)),
           ),
-          const SizedBox(width: 12),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  customerName,
-                  style: StyleManager.font13Weight600(
-                    context,
-                  ).copyWith(color: AppColor.mainColor),
-                ),
-                const SizedBox(height: 6),
-                Text(
-                  products,
-                  style: StyleManager.font13Weight600(context).copyWith(color: AppColor.textPrimary),
-                ),
-                const SizedBox(height: 8),
-                Row(
+          child: Row(
+            children: [
+              _Avatar(),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
                   children: [
-                    Icon(
-                      Icons.access_time_rounded,
-                      size: 14,
-                      color: AppColor.textSecondary,
+                    Row(
+                      children: [
+                        Flexible(
+                          child: Text(
+                            customerName,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: StyleManager.font15Weight700(
+                              context,
+                            ).copyWith(color: AppColor.textPrimary),
+                          ),
+                        ),
+                        const SizedBox(width: 8),
+                        Container(
+                          width: 5,
+                          height: 5,
+                          decoration: const BoxDecoration(
+                            color: AppColor.accentColor,
+                            shape: BoxShape.circle,
+                          ),
+                        ),
+                      ],
                     ),
-                    const SizedBox(width: 4),
+                    const SizedBox(height: 5),
                     Text(
-                      time,
-                      style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                        color: AppColor.textSecondary,
-                      ),
+                      products,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: StyleManager.font12Weight500(
+                        context,
+                      ).copyWith(color: AppColor.textSecondary),
+                    ),
+                    const SizedBox(height: 8),
+                    Row(
+                      children: [
+                        _Meta(icon: Icons.schedule_outlined, text: time),
+                        const SizedBox(width: 12),
+                        Container(
+                          width: 3,
+                          height: 3,
+                          decoration: const BoxDecoration(
+                            color: AppColor.divider,
+                            shape: BoxShape.circle,
+                          ),
+                        ),
+                        const SizedBox(width: 12),
+                        _Meta(
+                          icon: Icons.local_shipping_outlined,
+                          text: '${deliveryCost.toStringAsFixed(0)} ج.م',
+                        ),
+                      ],
                     ),
                   ],
                 ),
-              ],
-            ),
-          ),
-          const SizedBox(width: 10),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              OrderStatusBadge(color: statusColor, title: status),
-              const SizedBox(height: 12),
-              Text(
-                '${amount.toStringAsFixed(2)} ج.م',
-                style: Theme.of(context).textTheme.labelSmall!.copyWith(
-                  color: AppColor.mainColor,
-                  fontWeight: FontWeight.w700,
-                ),
+              ),
+              const SizedBox(width: 14),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  OrderStatusBadge(color: statusColor, title: status),
+                  const SizedBox(height: 8),
+                  Text(
+                    '${amount.toStringAsFixed(2)} ج.م',
+                    maxLines: 1,
+                    style: StyleManager.font16Weight700(
+                      context,
+                    ).copyWith(color: AppColor.mainColor),
+                  ),
+                ],
               ),
             ],
           ),
-        ],
+        ),
       ),
+    );
+  }
+}
+
+class _Avatar extends StatelessWidget {
+  const _Avatar();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 52,
+      height: 52,
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        color: AppColor.backgroundDark.withOpacity(.35),
+        border: Border.all(color: AppColor.divider.withOpacity(.65)),
+      ),
+      padding: const EdgeInsets.all(2),
+      child: ClipOval(
+        child: Image.asset(
+          Assets.assets.images.customer.path,
+          fit: BoxFit.cover,
+        ),
+      ),
+    );
+  }
+}
+
+class _Meta extends StatelessWidget {
+  final IconData icon;
+  final String text;
+
+  const _Meta({required this.icon, required this.text});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Icon(icon, size: 13, color: AppColor.textSecondary.withOpacity(.65)),
+        const SizedBox(width: 4),
+        Text(
+          text,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+          style: StyleManager.font11Weight400(
+            context,
+          ).copyWith(color: AppColor.textSecondary),
+        ),
+      ],
     );
   }
 }

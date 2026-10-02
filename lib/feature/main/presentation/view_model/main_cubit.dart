@@ -6,7 +6,7 @@ import 'package:am_adel_dashboard/feature/daily_reports/presentation/view/report
 import 'package:am_adel_dashboard/feature/main/presentation/widgets/drawer_item.dart';
 import 'package:am_adel_dashboard/feature/my_products/presentation/view/my_products_view.dart';
 import 'package:am_adel_dashboard/feature/orders/presentation/view/order_view.dart';
-import 'package:am_adel_dashboard/feature/send_notification/view/notification_hub_view.dart';
+import 'package:am_adel_dashboard/feature/notification/view/notification_hub_view.dart';
 import '../../../admin/presentation/view/admin_view.dart';
 import '../../../bundle_offer/presentation/view/bundle_offer_view.dart';
 import '../../../category/presentation/view/category_view.dart';

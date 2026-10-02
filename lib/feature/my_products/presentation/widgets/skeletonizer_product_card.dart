@@ -1,3 +1,4 @@
+import 'package:am_adel_dashboard/core/widgets/app_skeleton_effect.dart';
 import 'package:flutter/material.dart';
 import 'package:am_adel_dashboard/core/entities/product_entity.dart';
 import 'package:skeletonizer/skeletonizer.dart';
@@ -15,11 +16,7 @@ class SkeletonizerProductCard extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return Skeletonizer(
-        effect: const ShimmerEffect(
-          baseColor: Color(0xFF2A2A2A),
-          highlightColor: Color(0xFF3A3A3A),
-          duration: Duration(milliseconds: 1200),
-        ),
+        effect: AppSkeletonEffect.shimmer,
       child: Container(
         padding: EdgeInsets.all(16),
         margin: EdgeInsets.only(top: 10, bottom: 10, left: 10),

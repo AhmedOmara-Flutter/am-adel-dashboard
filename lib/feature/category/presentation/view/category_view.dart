@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/services/database_services.dart';
 import '../../../../core/utils/app_color.dart';
+import '../../../../core/widgets/custom_floating_action_button.dart';
 import '../../domain/repos/category_repo_impl.dart';
 import '../view_model/category_cubit.dart';
 import '../widgets/add_category_bottom_sheet.dart';
@@ -20,39 +21,23 @@ class CategoryView extends StatelessWidget {
       child: Scaffold(
         backgroundColor: AppColor.background,
 
-        floatingActionButton: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 30),
-
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              FloatingActionButton(
-                heroTag: null,
-                backgroundColor: AppColor.mainColor,
-                shape: const CircleBorder(),
-                onPressed: () {
-                  showModalBottomSheet(
-                    context: context,
-                    isScrollControlled: true,
-                    backgroundColor: AppColor.background,
-
-                    builder: (_) {
-                      return BlocProvider(
-                        create: (_) => CategoryCubit(
-                          CategoryRepoImpl(FirestoreDatabase()),
-                        ),
-                        child: const AddCategoryBottomSheet(),
-                      );
-                    },
-                  );
-                },
-
-                child: const Icon(Icons.add, color: AppColor.white),
-              ),
-            ],
-          ),
+        floatingActionButton: CustomFloatingActionButton(
+          onPressed: () {
+            showModalBottomSheet(
+              context: context,
+              isScrollControlled: true,
+              backgroundColor: AppColor.background,
+              builder: (_) {
+                return BlocProvider(
+                  create: (_) => CategoryCubit(
+                    CategoryRepoImpl(FirestoreDatabase()),
+                  ),
+                  child: const AddCategoryBottomSheet(),
+                );
+              },
+            );
+          },
         ),
-
         body: const CategoryViewBody(),
       ),
     );

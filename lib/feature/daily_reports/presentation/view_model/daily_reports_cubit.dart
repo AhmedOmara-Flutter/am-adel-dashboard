@@ -68,79 +68,85 @@ class DailyReportsCubit extends Cubit<DailyReportsState> {
     );
   }
 
+  DailyReportEntity _calculateReport() {
+    final paidOrders = _ordersCubit.allOrders
+        .where(
+          (order) => order.status == OrderStatus.paid,
+    )
+        .toList();
+
+    final cashOrders = paidOrders
+        .where(
+          (order) => order.isCashOnDelivery == true,
+    )
+        .toList();
+
+    final onlineOrders = paidOrders
+        .where(
+          (order) => order.isCashOnDelivery != true,
+    )
+        .toList();
+
+    final total = paidOrders.fold<double>(
+      0.0,
+          (sum, order) => sum + order.totalPrice,
+    );
+
+    final deliveryCost = paidOrders.fold<double>(
+      0.0,
+          (sum, order) =>
+      sum + (order.selectedLocationEntity?.cost ?? 0),
+    );
+
+    final subtotal = total - deliveryCost;
+
+    final cashTotal = cashOrders.fold<double>(
+      0.0,
+          (sum, order) => sum + order.totalPrice,
+    );
+
+    final cashDelivery = cashOrders.fold<double>(
+      0.0,
+          (sum, order) =>
+      sum + (order.selectedLocationEntity?.cost ?? 0),
+    );
+
+    final cashSubtotal = cashTotal - cashDelivery;
+
+    final onlineTotal = onlineOrders.fold<double>(
+      0.0,
+          (sum, order) => sum + order.totalPrice,
+    );
+
+    final onlineDelivery = onlineOrders.fold<double>(
+      0.0,
+          (sum, order) =>
+      sum + (order.selectedLocationEntity?.cost ?? 0),
+    );
+
+    final onlineSubtotal = onlineTotal - onlineDelivery;
+
+    return DailyReportEntity(
+      date: DateTime.now(),
+      ordersCount: paidOrders.length,
+      subtotal: subtotal,
+      deliveryCost: deliveryCost,
+      total: total,
+      cashSubtotal: cashSubtotal,
+      cashDelivery: cashDelivery,
+      cashTotal: cashTotal,
+      onlineSubtotal: onlineSubtotal,
+      onlineDelivery: onlineDelivery,
+      onlineTotal: onlineTotal,
+      createdAt: DateTime.now(),
+    );
+  }
+
   void calculateTodayReport() {
     emit(DailyReportsLoading());
 
     try {
-      final paidOrders = _ordersCubit.allOrders
-          .where(
-            (order) => order.status == OrderStatus.paid,
-      )
-          .toList();
-
-      final subtotal = paidOrders.fold<double>(
-        0.0,
-            (sum, order) => sum + order.cartEntity.getTotalPrice(),
-      );
-
-      final deliveryCost = paidOrders.fold<double>(
-        0.0,
-            (sum, order) =>
-        sum + (order.selectedLocationEntity?.cost ?? 0),
-      );
-
-      final cashOrders = paidOrders
-          .where(
-            (order) => order.isCashOnDelivery == true,
-      )
-          .toList();
-
-      final onlineOrders = paidOrders
-          .where(
-            (order) => order.isCashOnDelivery != true,
-      )
-          .toList();
-
-      final cashSubtotal = cashOrders.fold<double>(
-        0.0,
-            (sum, order) => sum + order.cartEntity.getTotalPrice(),
-      );
-
-      final cashDelivery = cashOrders.fold<double>(
-        0.0,
-            (sum, order) =>
-        sum + (order.selectedLocationEntity?.cost ?? 0),
-      );
-
-      final cashTotal = cashSubtotal + cashDelivery;
-
-      final onlineSubtotal = onlineOrders.fold<double>(
-        0.0,
-            (sum, order) => sum + order.cartEntity.getTotalPrice(),
-      );
-
-      final onlineDelivery = onlineOrders.fold<double>(
-        0.0,
-            (sum, order) =>
-        sum + (order.selectedLocationEntity?.cost ?? 0),
-      );
-
-      final onlineTotal = onlineSubtotal + onlineDelivery;
-
-      report = DailyReportEntity(
-        date: DateTime.now(),
-        ordersCount: paidOrders.length,
-        subtotal: subtotal,
-        deliveryCost: deliveryCost,
-        total: subtotal + deliveryCost,
-        cashSubtotal: cashSubtotal,
-        cashDelivery: cashDelivery,
-        cashTotal: cashTotal,
-        onlineSubtotal: onlineSubtotal,
-        onlineDelivery: onlineDelivery,
-        onlineTotal: onlineTotal,
-        createdAt: DateTime.now(),
-      );
+      report = _calculateReport();
 
       emit(
         DailyReportsTodaySuccess(
@@ -164,75 +170,7 @@ class DailyReportsCubit extends Cubit<DailyReportsState> {
     emit(DailyReportsClosing());
 
     try {
-      final paidOrders = _ordersCubit.allOrders
-          .where(
-            (order) => order.status == OrderStatus.paid,
-      )
-          .toList();
-
-      final subtotal = paidOrders.fold<double>(
-        0.0,
-            (sum, order) => sum + order.cartEntity.getTotalPrice(),
-      );
-
-      final deliveryCost = paidOrders.fold<double>(
-        0.0,
-            (sum, order) =>
-        sum + (order.selectedLocationEntity?.cost ?? 0),
-      );
-
-      final cashOrders = paidOrders
-          .where(
-            (order) => order.isCashOnDelivery == true,
-      )
-          .toList();
-
-      final onlineOrders = paidOrders
-          .where(
-            (order) => order.isCashOnDelivery != true,
-      )
-          .toList();
-
-      final cashSubtotal = cashOrders.fold<double>(
-        0.0,
-            (sum, order) => sum + order.cartEntity.getTotalPrice(),
-      );
-
-      final cashDelivery = cashOrders.fold<double>(
-        0.0,
-            (sum, order) =>
-        sum + (order.selectedLocationEntity?.cost ?? 0),
-      );
-
-      final cashTotal = cashSubtotal + cashDelivery;
-
-      final onlineSubtotal = onlineOrders.fold<double>(
-        0.0,
-            (sum, order) => sum + order.cartEntity.getTotalPrice(),
-      );
-
-      final onlineDelivery = onlineOrders.fold<double>(
-        0.0,
-            (sum, order) =>
-        sum + (order.selectedLocationEntity?.cost ?? 0),
-      );
-
-      final onlineTotal = onlineSubtotal + onlineDelivery;
-
-      final dailyReport = DailyReportEntity(
-        date: DateTime.now(),
-        ordersCount: paidOrders.length,
-        subtotal: subtotal,
-        deliveryCost: deliveryCost,
-        total: subtotal + deliveryCost,
-        cashSubtotal: cashSubtotal,
-        cashDelivery: cashDelivery,
-        cashTotal: cashTotal,
-        onlineSubtotal: onlineSubtotal,
-        onlineDelivery: onlineDelivery,
-        onlineTotal: onlineTotal,
-        createdAt: DateTime.now(),
-      );
+      final dailyReport = _calculateReport();
 
       final result = await _dailyReportRepo.addDailyReport(
         dailyReport,

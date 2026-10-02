@@ -297,32 +297,46 @@ class _EditProductViewBodyState extends State<EditProductViewBody> {
                             child: Text(category.name),
                           );
                         }).toList(),
-                        dropdownColor: AppColor.card,
-                        style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                        dropdownColor: AppColor.cardLight,
+                        style: Theme
+                            .of(context)
+                            .textTheme
+                            .titleSmall!
+                            .copyWith(
                           color: AppColor.textPrimary,
                         ),
                         decoration: InputDecoration(
                           filled: true,
-                          fillColor: AppColor.card,
+                          fillColor: AppColor.cardLight,
+                          contentPadding: const EdgeInsets.symmetric(
+                            horizontal: 14,
+                            vertical: 14,
+                          ),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12),
                             borderSide: const BorderSide(
-                              color: AppColor.border,
+                              color: AppColor.divider,
                             ),
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12),
                             borderSide: const BorderSide(
-                              color: AppColor.mainColor,
+                              color: AppColor.accentColor,
+                              width: 1.5,
                             ),
                           ),
                           errorBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12),
-                            borderSide: const BorderSide(color: AppColor.red),
+                            borderSide: const BorderSide(
+                              color: AppColor.red,
+                            ),
                           ),
                           focusedErrorBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12),
-                            borderSide: const BorderSide(color: AppColor.red),
+                            borderSide: const BorderSide(
+                              color: AppColor.red,
+                              width: 1.5,
+                            ),
                           ),
                         ),
                         onChanged: (value) {
@@ -380,30 +394,46 @@ class _EditProductViewBodyState extends State<EditProductViewBody> {
                           child: Text(size),
                         );
                       }).toList(),
-                      dropdownColor: AppColor.card,
-                      style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                      dropdownColor: AppColor.cardLight,
+                      style: Theme
+                          .of(context)
+                          .textTheme
+                          .titleSmall!
+                          .copyWith(
                         color: AppColor.textPrimary,
                       ),
                       decoration: InputDecoration(
                         filled: true,
-                        fillColor: AppColor.card,
+                        fillColor: AppColor.cardLight,
+                        contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 14,
+                          vertical: 14,
+                        ),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
-                          borderSide: const BorderSide(color: AppColor.border),
+                          borderSide: const BorderSide(
+                            color: AppColor.divider,
+                          ),
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
                           borderSide: const BorderSide(
-                            color: AppColor.mainColor,
+                            color: AppColor.accentColor,
+                            width: 1.5,
                           ),
                         ),
                         errorBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
-                          borderSide: const BorderSide(color: AppColor.red),
+                          borderSide: const BorderSide(
+                            color: AppColor.red,
+                          ),
                         ),
                         focusedErrorBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
-                          borderSide: const BorderSide(color: AppColor.red),
+                          borderSide: const BorderSide(
+                            color: AppColor.red,
+                            width: 1.5,
+                          ),
                         ),
                       ),
                       onChanged: (value) {

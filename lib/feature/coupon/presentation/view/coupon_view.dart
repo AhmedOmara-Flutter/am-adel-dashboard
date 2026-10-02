@@ -3,6 +3,7 @@ import 'package:am_adel_dashboard/core/utils/app_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../core/widgets/custom_floating_action_button.dart';
 import '../../domain/repos/coupon_repo_impl.dart';
 import '../view_model/add_coupon_cubit/add_coupon_cubit.dart';
 import '../view_model/delete_coupon_cubit/delete_coupon_cubit.dart';
@@ -26,35 +27,23 @@ class CouponView extends StatelessWidget {
         ),
       ],
       child: Scaffold(
-        floatingActionButton: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 30),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              FloatingActionButton(
-                heroTag: null,
-                backgroundColor: AppColor.mainColor,
-                shape: const CircleBorder(),
-                onPressed: () {
-                  showModalBottomSheet(
-                    context: context,
-                    isScrollControlled: true,
-                    backgroundColor: AppColor.background,
-                    builder: (_) {
-                      return BlocProvider(
-                        create: (_) =>
-                            AddCouponCubit(CouponRepoImpl(FirestoreDatabase())),
-                        child: const AddCouponBottomSheet(),
-                      );
-                    },
-                  );
-                },
-                child: const Icon(Icons.add, color: AppColor.white),
-              ),
-            ],
-          ),
-        ),
-        body: const CouponViewBody(),
+        floatingActionButton: CustomFloatingActionButton(
+          onPressed: () {
+            showModalBottomSheet(
+              context: context,
+              isScrollControlled: true,
+              backgroundColor: AppColor.background,
+              builder: (_) {
+                return BlocProvider(
+                  create: (_) => AddCouponCubit(
+                    CouponRepoImpl(FirestoreDatabase()),
+                  ),
+                  child: const AddCouponBottomSheet(),
+                );
+              },
+            );
+          },
+        ),        body: const CouponViewBody(),
       ),
     );
   }

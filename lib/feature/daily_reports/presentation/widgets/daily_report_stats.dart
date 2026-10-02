@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import '../../../../core/utils/app_color.dart';
-import '../../../../core/utils/app_constants.dart';
 import '../../../../core/utils/config_size.dart';
 import '../../domain/entities/daily_reports_entity.dart';
+import 'daily_report_stat_card.dart';
 
 class DailyReportStats extends StatelessWidget {
   const DailyReportStats({
@@ -38,133 +37,45 @@ class DailyReportStats extends StatelessWidget {
         value: _formatMoney(report.total),
         subtitle: 'ج.م',
         icon: Icons.account_balance_wallet_rounded,
+        isTotal: true,
       ),
     ];
 
     return LayoutBuilder(
       builder: (context, constraints) {
-        // Desktop
         if (MediaQuery.sizeOf(context).width > ConfigSize.phone) {
           return Row(
             children: [
               for (int i = 0; i < cards.length; i++) ...[
-                Expanded(
-                  child: cards[i],
-                ),
+                Expanded(child: cards[i]),
                 if (i != cards.length - 1)
-                  const SizedBox(width: 12),
+                  const SizedBox(width: 10),
               ],
             ],
           );
         }
 
-        // Mobile
-        return GridView.count(
-          crossAxisCount: 2,
+        return GridView.builder(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
-          crossAxisSpacing: 12,
-          mainAxisSpacing: 12,
-          childAspectRatio: 1.55,
-          children: cards,
+          itemCount: cards.length,
+          gridDelegate:
+          const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            crossAxisSpacing: 10,
+            mainAxisSpacing: 10,
+            childAspectRatio: 1.25,
+          ),
+          itemBuilder: (context, index) {
+            return cards[index];
+          },
         );
       },
     );
   }
+
   String _formatMoney(double value) {
     return value.toStringAsFixed(2);
   }
 }
 
-class DailyReportStatCard extends StatelessWidget {
-  const DailyReportStatCard({
-    super.key,
-    required this.title,
-    required this.value,
-    required this.subtitle,
-    required this.icon,
-  });
-
-  final String title;
-  final String value;
-  final String subtitle;
-  final IconData icon;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(14),
-      decoration: BoxDecoration(
-        color: AppColor.cardLight,
-        borderRadius: BorderRadius.circular(
-          AppConstants.borderRadius,
-        ),
-        border: Border.all(
-          color: AppColor.divider,
-        ),
-      ),
-      child: Row(
-        children: [
-          Container(
-            width: 42,
-            height: 42,
-            decoration: BoxDecoration(
-              color: AppColor.backgroundDark,
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Icon(
-              icon,
-              color: AppColor.mainColor,
-              size: 21,
-            ),
-          ),
-          const SizedBox(width: 11),
-          Expanded(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                    color: AppColor.textSecondary,
-                    fontSize: 11.5,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-                const SizedBox(height: 5),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Flexible(
-                      child: Text(
-                        value,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          color: AppColor.textPrimary,
-                          fontSize: 17,
-                          fontWeight: FontWeight.w800,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(width: 4),
-                    Text(
-                      subtitle,
-                      style: TextStyle(
-                        color: AppColor.textSecondary,
-                        fontSize: 10,
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}

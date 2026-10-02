@@ -43,7 +43,7 @@ class TapBarViewBody extends StatelessWidget {
               return SkeletonizerProductCard(getDummyProduct);
             },
             separatorBuilder: (context, index) {
-              return const SizedBox(height: 5);
+              return const SizedBox(height:10);
             },
             itemCount: getDummyProducts.length,
           );
@@ -59,9 +59,12 @@ class TapBarViewBody extends StatelessWidget {
           return const EmptyProductsWidget();
         }
 
-        return ListView.builder(
+        return ListView.separated(
           padding: const EdgeInsets.all(10),
           itemCount: products.length,
+          separatorBuilder: (context, index) {
+            return const SizedBox(height:10);
+          },
           itemBuilder: (context, index) {
             final product = products[index];
 

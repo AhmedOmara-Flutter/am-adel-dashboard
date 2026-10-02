@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
 import '../../../../core/helper_function/custom_show_dialog.dart';
 import '../../../../core/utils/app_color.dart';
+import '../../../../core/utils/style_manager.dart';
 import '../../../../generated/assets.dart';
 import '../view_model/delete_bundle_offer_cubit/delete_bundle_offer_cubit.dart';
 import '../view_model/get_bundle_offer_cubit/get_bundle_offer_cubit.dart';
@@ -47,10 +48,10 @@ class BundleOfferViewBody extends StatelessWidget {
           }
 
           return ListView.separated(
-            padding: const EdgeInsets.all(20),
+            padding: const EdgeInsets.all(10),
             itemCount: bundleOffers.length,
             separatorBuilder: (_, __) {
-              return const SizedBox(height: 14);
+              return const SizedBox(height: 10);
             },
             itemBuilder: (context, index) {
               final bundleOffer = bundleOffers[index];
@@ -61,9 +62,12 @@ class BundleOfferViewBody extends StatelessWidget {
                   CustomShowDialog.show(
                     context,
                     title: 'حذف الباكدج',
-                    content: const Text(
+                    content: Text(
                       'هل أنت متأكد أنك تريد حذف هذا الباكدج؟',
-                      textAlign: TextAlign.center,
+                      style: StyleManager.font12Weight500(context).copyWith(
+                          height: 1.5,
+                          color: AppColor.textSecondary
+                      ),
                     ),
                     cancel: () {
                       Navigator.pop(context);

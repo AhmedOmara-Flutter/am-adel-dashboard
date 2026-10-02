@@ -82,6 +82,14 @@ class RemoveOfferButton extends StatelessWidget {
                 return;
               }
 
+              if (product.isPaused) {
+                customShowSnakeBar(
+                  context,
+                  color: AppColor.red,
+                  label: 'لا يمكن إضافة عرض على منتج موقوف',
+                );
+                return;
+              }
               final cartStatusCubit =
               context.read<CartStatusCubit>();
 

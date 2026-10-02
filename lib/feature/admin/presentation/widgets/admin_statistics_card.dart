@@ -9,106 +9,79 @@ import '../../../../core/widgets/icon_badge.dart';
 class AdminStatisticsCard extends StatelessWidget {
   final StatisticsCardModel model;
 
-  const AdminStatisticsCard({
-    super.key,
-    required this.model,
-  });
+  const AdminStatisticsCard({super.key, required this.model});
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      color: Colors.transparent,
-      child: InkWell(
-        onTap: model.onTap,
-        borderRadius: BorderRadius.circular(
-          AppConstants.borderRadius,
-        ),
-        child: Container(
-          height: model.height,
-          padding: const EdgeInsets.all(13),
-          decoration: BoxDecoration(
-            color: AppColor.cardLight,
-            borderRadius: BorderRadius.circular(
-              AppConstants.borderRadius,
+    return GestureDetector(
+      onTap: model.onTap,
+      child: Container(
+        decoration: BoxDecoration(
+          color: AppColor.cardLight,
+          borderRadius: BorderRadius.circular(AppConstants.borderRadius),
+          boxShadow: [
+            BoxShadow(
+              color: AppColor.mainColor.withOpacity(AppConstants.borderColor),
+              spreadRadius: 1,
+              blurRadius: 7,
+              offset: const Offset(0, 1),
             ),
-            border: Border.all(
-              color: AppColor.border.withOpacity(.40),
-            ),
-            boxShadow: [
-              BoxShadow(
-                color: model.iconColor.withOpacity(.06),
-                blurRadius: 18,
-                spreadRadius: 1,
-                offset: const Offset(0, 6),
-              ),
-            ],
+          ],
+          border: Border.all(
+            color: AppColor.divider.withOpacity(.55),
+            width: 1,
           ),
-          clipBehavior: Clip.antiAlias,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  IconBadge(
-                    icon: model.icon,
-                    iconColor: model.iconColor,
-                  ),
-
-                  const SizedBox(width: 10),
-
-                  Expanded(
-                    child: Text(
-                      model.title,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: StyleManager.font12Weight500(context).copyWith(
-                        color: AppColor.textPrimary,
-                        fontSize: responsiveFontSize(
-                          context,
-                          fontSize: 13,
-                        ),
-                        fontWeight: FontWeight.w800,
-                      ),
+        ),
+        clipBehavior: Clip.antiAliasWithSaveLayer,
+        height: model.height,
+        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Row(
+              children: [
+                IconBadge(icon: model.icon,iconColor: model.iconColor,),
+                const SizedBox(width: 10),
+                Expanded(
+                  child: Text(
+                    model.title,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                      color: AppColor.textPrimary,
+                      fontWeight: FontWeight.w600,
+                      fontSize: responsiveFontSize(context, fontSize: 14),
                     ),
                   ),
-                ],
-              ),
-
-              const Spacer(),
-
-              Text(
-                model.subTitleNumber,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: Theme.of(context).textTheme.displaySmall?.copyWith(
-                  color: model.iconColor,
-                  fontSize: responsiveFontSize(
-                    context,
-                    fontSize: 24,
-                  ),
-                  fontWeight: FontWeight.w900,
-                  height: 1,
                 ),
-              ),
+              ],
+            ),
 
-              const SizedBox(height: 8),
+            const Spacer(),
 
-              Text(
-                model.subTitleText,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: StyleManager.font12Weight500(context).copyWith(
-                  color: AppColor.textSecondary,
-                  fontSize: responsiveFontSize(
-                    context,
-                    fontSize: 10,
-                  ),
-                  fontWeight: FontWeight.w500,
-                  height: 1.2,
-                ),
+            Text(
+              model.subTitleNumber,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: Theme.of(context).textTheme.displaySmall!.copyWith(
+                color: AppColor.mainColor,
+                fontWeight: FontWeight.bold,
+                fontSize: responsiveFontSize(context, fontSize: 22),
               ),
-            ],
-          ),
+            ),
+
+            const SizedBox(height: 15),
+
+            Text(
+              model.subTitleText,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              style: StyleManager.font12Weight500(context).copyWith(
+                color: AppColor.textSecondary,
+                fontSize: responsiveFontSize(context, fontSize: 11),
+              ),
+            ),
+          ],
         ),
       ),
     );

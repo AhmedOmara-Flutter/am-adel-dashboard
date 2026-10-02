@@ -1,3 +1,4 @@
+import 'package:am_adel_dashboard/core/utils/app_constants.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import '../../../../core/entities/bundle_offer_entity.dart';
@@ -17,13 +18,13 @@ class BundleOfferCard extends StatelessWidget {
       width: double.infinity,
       decoration: BoxDecoration(
         color: AppColor.cardLight,
-        borderRadius: BorderRadius.circular(22),
-        border: Border.all(color: AppColor.divider),
+        borderRadius: BorderRadius.circular(AppConstants.borderRadius),
+        border: Border.all(color: AppColor.border.withOpacity(.32)),
         boxShadow: [
           BoxShadow(
-            color: AppColor.secondaryColor.withOpacity(.07),
-            blurRadius: 14,
-            offset: const Offset(0, 4),
+            color: AppColor.mainColor.withOpacity(.035),
+            blurRadius: 18,
+            offset: const Offset(0, 6),
           ),
         ],
       ),
@@ -63,7 +64,14 @@ class BundleOfferCard extends StatelessWidget {
         fit: StackFit.expand,
         children: [
           Container(
-            color: AppColor.backgroundDark,
+            padding: EdgeInsets.symmetric(horizontal: 5),
+            decoration: BoxDecoration(
+              color: AppColor.backgroundDark.withOpacity(0.70),
+              borderRadius: BorderRadius.only(
+                topRight: Radius.circular(AppConstants.borderRadius),
+                bottomRight: Radius.circular(AppConstants.borderRadius),
+              ),
+            ),
             child: _buildImage(context),
           ),
           Positioned(
@@ -204,10 +212,7 @@ class BundleOfferCard extends StatelessWidget {
   Widget _buildDescription(BuildContext context) {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.symmetric(
-        horizontal: 14,
-        vertical: 13,
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 13),
       decoration: BoxDecoration(
         color: AppColor.backgroundDark.withOpacity(.55),
         borderRadius: BorderRadius.circular(12),
@@ -218,10 +223,7 @@ class BundleOfferCard extends StatelessWidget {
         overflow: TextOverflow.visible,
         style: StyleManager.font12Weight500(
           context,
-        ).copyWith(
-          color: AppColor.textSecondary,
-          height: 1.65,
-        ),
+        ).copyWith(color: AppColor.textSecondary, height: 1.65),
       ),
     );
   }

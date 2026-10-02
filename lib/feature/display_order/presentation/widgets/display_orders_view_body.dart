@@ -37,7 +37,7 @@ class DisplayOrdersViewBody extends StatelessWidget {
               child: ListView.separated(
                   padding: EdgeInsets.all(10),
                   itemCount: orders.length,
-                  separatorBuilder: (_, __) => SizedBox(height: 14),
+                  separatorBuilder: (_, __) => SizedBox(height: 10),
                   itemBuilder: (context, index) {
                     return DisplayOrderCard(
                       order: orders[index],

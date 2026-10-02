@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/helper_function/custom_show_dialog.dart';
 import '../../../../core/utils/app_color.dart';
+import '../../../../core/utils/style_manager.dart';
 import '../../domain/entities/user_coupon_entity.dart';
 import '../view_model/delete_coupon_cubit/delete_coupon_cubit.dart';
 import '../view_model/get_coupon_cubit/get_coupon_cubit.dart';
@@ -95,20 +96,20 @@ class _CouponViewBodyState extends State<CouponViewBody> {
                       : MediaQuery.of(context).size.width;
 
                   return SingleChildScrollView(
-                    padding: const EdgeInsets.all(15),
+                    padding: const EdgeInsets.all(10),
                     child: ConstrainedBox(
                       constraints: BoxConstraints(minWidth: maxWidth - 48),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const CouponHeader(),
-                          const SizedBox(height: 15),
+                          const SizedBox(height: 10),
                           CouponStatistics(
                             coupons: userCoupons
                                 .map((item) => item.coupon)
                                 .toList(),
                           ),
-                          const SizedBox(height: 15),
+                          const SizedBox(height: 10),
                           CouponToolbar(
                             searchController: _searchController,
                             selectedFilter: _selectedFilter,
@@ -121,7 +122,7 @@ class _CouponViewBodyState extends State<CouponViewBody> {
                               });
                             },
                           ),
-                          const SizedBox(height: 15),
+                          const SizedBox(height: 10),
                           CouponTable(
                             coupons: filteredCoupons,
                             onDelete: _showDeleteDialog,
@@ -154,11 +155,9 @@ class _CouponViewBodyState extends State<CouponViewBody> {
       acceptText: 'حذف',
       content: Text(
         'هل أنت متأكد من حذف الكوبون ${coupon.code} من حساب ${user.userName}؟',
-        textAlign: TextAlign.center,
-        style: const TextStyle(
-          color: AppColor.textSecondary,
-          fontSize: 13,
-          height: 1.6,
+        style: StyleManager.font12Weight500(context).copyWith(
+            height: 1.5,
+            color: AppColor.textSecondary
         ),
       ),
       accept: () {

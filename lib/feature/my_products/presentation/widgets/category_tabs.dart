@@ -183,19 +183,15 @@ class _CategoryTabsState extends State<CategoryTabs>
 
     return Column(
       children: [
-        const SizedBox(height: 2),
-
         Container(
           height: 70,
           margin: const EdgeInsets.only(
-            top: 10,
-            bottom: 10,
             left: 10,
             right: 10,
+            bottom: 10,
           ),
           padding: const EdgeInsets.symmetric(
             horizontal: 10,
-            vertical: 15,
           ),
           decoration: BoxDecoration(
             color: AppColor.cardLight,
@@ -302,80 +298,113 @@ class _CategoryTabsState extends State<CategoryTabs>
     }
 
     return Container(
-      height: 55,
-
-      margin: const EdgeInsets.symmetric(horizontal: 10),
-
-      child: Row(
-        children: sizes.map((size) {
-          final isSelected = selectedSize == size;
-
-          return Expanded(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 4),
-
-              child: InkWell(
-                borderRadius: BorderRadius.circular(20),
-
-                onTap: () {
-                  if (selectedSize == size) {
-                    return;
-                  }
-
-                  setState(() {
-                    selectedSize = size;
-                  });
-                },
-
-                child: AnimatedContainer(
-                  duration: const Duration(milliseconds: 200),
-
-                  alignment: Alignment.center,
-
-                  decoration: BoxDecoration(
-                    color: isSelected
-                        ? AppColor.mainColor
-                        : AppColor.cardLight,
-
-                    borderRadius: BorderRadius.circular(20),
-
-                    border: Border.all(
-                      color: isSelected
-                          ? AppColor.mainColor
-                          : AppColor.divider,
-                      width: 1,
-                    ),
-
-                    boxShadow: isSelected
-                        ? [
-                      BoxShadow(
-                        color: AppColor.mainColor.withOpacity(.12),
-                        blurRadius: 6,
-                        offset: const Offset(0, 2),
-                      ),
-                    ]
-                        : null,
-                  ),
-
-                  child: Text(
-                    size,
-
-                    style: TextStyle(
-                      color: isSelected
-                          ? AppColor.white
-                          : AppColor.textSecondary,
-
-                      fontWeight: isSelected
-                          ? FontWeight.w700
-                          : FontWeight.w500,
-                    ),
-                  ),
+      margin: const EdgeInsets.only(left: 10, right: 10),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Text(
+                'اختار الحجم',
+                style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w800,
+                  color: AppColor.textPrimary,
                 ),
               ),
+              const SizedBox(width: 6),
+              Text(
+                '(${sizes.length})',
+                style: TextStyle(
+                  fontSize: 11,
+                  fontWeight: FontWeight.w600,
+                  color: AppColor.textSecondary,
+                ),
+              ),
+            ],
+          ),
+
+          const SizedBox(height: 12),
+
+          SizedBox(
+            height: 52,
+            child: ListView.separated(
+              scrollDirection: Axis.horizontal,
+              physics: const BouncingScrollPhysics(),
+              itemCount: sizes.length,
+              separatorBuilder: (_, __) => const SizedBox(width: 10),
+              itemBuilder: (context, index) {
+                final size = sizes[index];
+                final isSelected = selectedSize == size;
+
+                return GestureDetector(
+                  behavior: HitTestBehavior.opaque,
+                  onTap: () {
+                    if (selectedSize == size) return;
+
+                    setState(() {
+                      selectedSize = size;
+                    });
+                  },
+                  child: AnimatedContainer(
+                    duration: const Duration(milliseconds: 240),
+                    curve: Curves.easeOutCubic,
+                    constraints: const BoxConstraints(
+                      minWidth: 78,
+                    ),
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                    decoration: BoxDecoration(
+                      color: isSelected
+                          ? AppColor.mainColor
+                          : AppColor.cardLight,
+                      borderRadius: BorderRadius.circular(11),
+                      border: Border.all(
+                        color: isSelected
+                            ? AppColor.mainColor
+                            : AppColor.divider.withOpacity(.7),
+                      ),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        AnimatedContainer(
+                          duration: const Duration(milliseconds: 200),
+                          width: isSelected ? 8 : 6,
+                          height: isSelected ? 8 : 6,
+                          decoration: BoxDecoration(
+                            color: isSelected
+                                ? AppColor.white
+                                : AppColor.mainColor,
+                            borderRadius: BorderRadius.circular(2),
+                          ),
+                        ),
+
+                        const SizedBox(width: 9),
+
+                        Text(
+                          size,
+                          style: TextStyle(
+                            fontSize: 13,
+                            fontWeight: isSelected
+                                ? FontWeight.w800
+                                : FontWeight.w600,
+                            color: isSelected
+                                ? AppColor.white
+                                : AppColor.textPrimary,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              },
             ),
-          );
-        }).toList(),
+          ),
+        ],
       ),
     );
   }
+
 }

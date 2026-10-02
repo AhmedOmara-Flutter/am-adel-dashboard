@@ -1,44 +1,25 @@
 import 'package:am_adel_dashboard/core/utils/app_color.dart';
 import 'package:am_adel_dashboard/core/utils/style_manager.dart';
 import 'package:flutter/material.dart';
-
+import '../../../../core/models/statistics_card_model.dart';
 import '../../../../core/utils/app_constants.dart';
-import '../../../../core/utils/config_size.dart';
-
 
 class ClientsStatisticsCard extends StatelessWidget {
   final StatisticsCardModel model;
 
-  const ClientsStatisticsCard({
-    super.key,
-    required this.model,
-  });
+  const ClientsStatisticsCard({super.key, required this.model});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: model.onTap,
       child: Container(
-        margin: MediaQuery
-            .sizeOf(context)
-            .width > ConfigSize.phone
-            ? const EdgeInsets.only(
-          top: 10,
-          bottom: 10,
-          left: 10,
-          right: 10,
-        )
-            : EdgeInsets.zero,
         decoration: BoxDecoration(
           color: AppColor.cardLight,
-          borderRadius: BorderRadius.circular(
-            AppConstants.borderRadius,
-          ),
+          borderRadius: BorderRadius.circular(AppConstants.borderRadius),
           boxShadow: [
             BoxShadow(
-              color: AppColor.mainColor.withOpacity(
-                AppConstants.borderColor,
-              ),
+              color: AppColor.mainColor.withOpacity(AppConstants.borderColor),
               spreadRadius: 1,
               blurRadius: 7,
               offset: const Offset(0, 1),
@@ -50,15 +31,8 @@ class ClientsStatisticsCard extends StatelessWidget {
           ),
         ),
         clipBehavior: Clip.antiAliasWithSaveLayer,
-        height: MediaQuery
-            .sizeOf(context)
-            .width > ConfigSize.phone
-            ? 150
-            : 125,
-        padding: const EdgeInsets.symmetric(
-          horizontal: 14,
-          vertical: 12,
-        ),
+        height: model.height,
+        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -70,30 +44,16 @@ class ClientsStatisticsCard extends StatelessWidget {
                   child: Icon(
                     model.icon,
                     color: AppColor.mainColor,
-                    size: responsiveFontSize(
-                      context,
-                      fontSize: 18,
-                    ),
+                    size: responsiveFontSize(context, fontSize: 18),
                   ),
                 ),
                 const SizedBox(width: 10),
                 Expanded(
                   child: Text(
                     model.title,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: Theme
-                        .of(context)
-                        .textTheme
-                        .titleMedium!
-                        .copyWith(
-                      color: AppColor.textPrimary,
-                      fontWeight: FontWeight.w600,
-                      fontSize: responsiveFontSize(
-                        context,
-                        fontSize: 14,
-                      ),
-                    ),
+                    style: StyleManager.font14Weight600(
+                      context,
+                    ).copyWith(color: AppColor.textPrimary),
                   ),
                 ),
               ],
@@ -105,17 +65,9 @@ class ClientsStatisticsCard extends StatelessWidget {
               model.subTitleNumber,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
-              style: Theme
-                  .of(context)
-                  .textTheme
-                  .displaySmall!
-                  .copyWith(
+              style: StyleManager.font19Weight700(context).copyWith(
                 color: AppColor.mainColor,
                 fontWeight: FontWeight.bold,
-                fontSize: responsiveFontSize(
-                  context,
-                  fontSize: 22,
-                ),
               ),
             ),
 
@@ -125,35 +77,13 @@ class ClientsStatisticsCard extends StatelessWidget {
               model.subTitleText,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
-              style: StyleManager.font12Weight500(context).copyWith(
-                color: AppColor.textSecondary,
-                fontSize: responsiveFontSize(
-                  context,
-                  fontSize: 11,
-                ),
-              ),
+              style: StyleManager.font11Weight400(
+                context,
+              ).copyWith(color: AppColor.textSecondary),
             ),
           ],
         ),
       ),
     );
   }
-}
-
-class StatisticsCardModel {
-  final Color color;
-  final IconData icon;
-  final String title;
-  final String subTitleNumber;
-  final String subTitleText;
-  final VoidCallback? onTap;
-
-  StatisticsCardModel({
-    required this.color,
-    required this.icon,
-    required this.title,
-    required this.subTitleNumber,
-    required this.subTitleText,
-    this.onTap,
-  });
 }

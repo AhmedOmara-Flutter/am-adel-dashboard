@@ -1,3 +1,4 @@
+import 'package:am_adel_dashboard/core/utils/app_constants.dart';
 import 'package:flutter/material.dart';
 
 import '../../../core/entities/selected_location_entity.dart';
@@ -19,144 +20,164 @@ class SelectedLocationCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(12),
+      padding: const EdgeInsets.all(15),
       decoration: BoxDecoration(
         color: AppColor.cardLight,
-        borderRadius: BorderRadius.circular(14),
-        border: Border.all(
-          color: AppColor.divider,
-        ),
+        borderRadius: BorderRadius.circular(AppConstants.borderRadius),
+        border: Border.all(color: AppColor.border.withOpacity(.32)),
         boxShadow: [
           BoxShadow(
-            color: AppColor.secondaryColor.withOpacity(.08),
-            blurRadius: 8,
-            offset: const Offset(0, 2),
+            color: AppColor.mainColor.withOpacity(.035),
+            blurRadius: 18,
+            offset: const Offset(0, 6),
           ),
         ],
       ),
       child: Row(
         children: [
-          Container(
-            width: 40,
-            height: 40,
-            decoration: BoxDecoration(
-              color: AppColor.backgroundDark,
-              borderRadius: BorderRadius.circular(10),
-              border: Border.all(
-                color: AppColor.divider,
-              ),
-            ),
-            child: const Icon(
-              Icons.location_on_rounded,
-              color: AppColor.mainColor,
-              size: 21,
-            ),
-          ),
-          const SizedBox(width: 10),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  location.title,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: StyleManager.font15Weight700(
-                    context,
-                  ).copyWith(
-                    color: AppColor.textPrimary,
-                  ),
-                ),
-                const SizedBox(height: 3),
-                Text(
-                  location.subTitle,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: StyleManager.font13Weight600(
-                    context,
-                  ).copyWith(
-                    color: AppColor.textSecondary,
-                  ),
-                ),
-                const SizedBox(height: 9),
-                Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 9,
-                    vertical: 5,
-                  ),
-                  decoration: BoxDecoration(
-                    color: AppColor.backgroundDark,
-                    borderRadius: BorderRadius.circular(8),
-                    border: Border.all(
-                      color: AppColor.divider,
-                    ),
-                  ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      const Icon(
-                        Icons.delivery_dining_rounded,
-                        color: AppColor.mainColor,
-                        size: 16,
-                      ),
-                      const SizedBox(width: 5),
-                      Text(
-                        '${location.cost.toStringAsFixed(0)} جنيه',
-                        style: StyleManager.font13Weight600(
-                          context,
-                        ).copyWith(
-                          color: AppColor.mainColor,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(width: 8),
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Material(
-                color: AppColor.mainColor.withOpacity(.08),
-                borderRadius: BorderRadius.circular(8),
-                child: InkWell(
-                  onTap: onEdit,
-                  borderRadius: BorderRadius.circular(8),
-                  child: SizedBox(
-                    width: 34,
-                    height: 34,
-                    child: Icon(
-                      Icons.edit_outlined,
-                      color: AppColor.mainColor,
-                      size: 18,
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(width: 7),
-              Material(
-                color: AppColor.red.withOpacity(.08),
-                borderRadius: BorderRadius.circular(8),
-                child: InkWell(
-                  onTap: onDelete,
-                  borderRadius: BorderRadius.circular(8),
-                  child: SizedBox(
-                    width: 34,
-                    height: 34,
-                    child: Icon(
-                      Icons.delete_outline,
-                      color: AppColor.red,
-                      size: 18,
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
+          _LocationIcon(),
+          const SizedBox(width: 12),
+          Expanded(child: _LocationInfo(location: location)),
+          const SizedBox(width: 12),
+          _Actions(onEdit: onEdit, onDelete: onDelete),
         ],
+      ),
+    );
+  }
+}
+
+class _LocationIcon extends StatelessWidget {
+  const _LocationIcon();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 46,
+      height: 46,
+      decoration: BoxDecoration(
+        color: AppColor.mainColor.withOpacity(.08),
+        borderRadius: BorderRadius.circular(13),
+      ),
+      child: const Icon(
+        Icons.location_on_rounded,
+        color: AppColor.mainColor,
+        size: 22,
+      ),
+    );
+  }
+}
+
+class _LocationInfo extends StatelessWidget {
+  final SelectedLocationEntity location;
+
+  const _LocationInfo({required this.location});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text(
+          location.title,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+          style: StyleManager.font15Weight700(
+            context,
+          ).copyWith(color: AppColor.textPrimary),
+        ),
+        const SizedBox(height: 3),
+        Text(
+          location.subTitle,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+          style: StyleManager.font12Weight500(
+            context,
+          ).copyWith(color: AppColor.textSecondary),
+        ),
+        const SizedBox(height: 7),
+        Row(
+          children: [
+            Icon(
+              Icons.delivery_dining_outlined,
+              size: 15,
+              color: AppColor.mainColor.withOpacity(.8),
+            ),
+            const SizedBox(width: 5),
+            Text(
+              'رسوم التوصيل',
+              style: StyleManager.font11Weight400(
+                context,
+              ).copyWith(color: AppColor.textSecondary),
+            ),
+            const SizedBox(width: 7),
+            Text(
+              '${location.cost.toStringAsFixed(0)} جنيه',
+              style: StyleManager.font12Weight500(
+                context,
+              ).copyWith(color: AppColor.mainColor),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+}
+
+class _Actions extends StatelessWidget {
+  final VoidCallback onEdit;
+  final VoidCallback onDelete;
+
+  const _Actions({required this.onEdit, required this.onDelete});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        _ActionButton(
+          icon: Icons.edit_outlined,
+          color: AppColor.mainColor,
+          onTap: onEdit,
+        ),
+        const SizedBox(width: 6),
+        _ActionButton(
+          icon: Icons.delete_outline_rounded,
+          color: AppColor.red,
+          onTap: onDelete,
+        ),
+      ],
+    );
+  }
+}
+
+class _ActionButton extends StatelessWidget {
+  final IconData icon;
+  final Color color;
+  final VoidCallback onTap;
+
+  const _ActionButton({
+    required this.icon,
+    required this.color,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(10),
+        child: Container(
+          width: 36,
+          height: 36,
+          decoration: BoxDecoration(
+            color: color.withOpacity(.07),
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Icon(icon, size: 18, color: color),
+        ),
       ),
     );
   }

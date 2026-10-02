@@ -6,24 +6,72 @@ import '../../../../core/utils/app_color.dart';
 import '../../../../core/utils/app_constants.dart';
 
 class DailyReportStatusSection extends StatelessWidget {
-  const DailyReportStatusSection({
-    super.key,
-    required this.ordersCubit,
-  });
+  const DailyReportStatusSection({super.key, required this.ordersCubit});
 
   final OrdersCubit ordersCubit;
 
   @override
   Widget build(BuildContext context) {
-    return _SectionContainer(
-      title: 'تفاصيل الطلبات',
-      icon: Icons.analytics_outlined,
+    return Container(
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: AppColor.cardLight,
+        borderRadius: BorderRadius.circular(AppConstants.borderRadius),
+        border: Border.all(color: AppColor.border.withOpacity(.28)),
+      ),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          // Header
+          Row(
+            children: [
+              Container(
+                width: 40,
+                height: 40,
+                decoration: BoxDecoration(
+                  color: AppColor.mainColor.withOpacity(.08),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Icon(
+                  Icons.analytics_rounded,
+                  color: AppColor.mainColor,
+                  size: 20,
+                ),
+              ),
+
+              const SizedBox(width: 12),
+
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'تفاصيل الطلبات',
+                    style: TextStyle(
+                      color: AppColor.textPrimary,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w800,
+                    ),
+                  ),
+                  const SizedBox(height: 3),
+                  Text(
+                    'توزيع الطلبات حسب الحالة',
+                    style: TextStyle(
+                      color: AppColor.textSecondary,
+                      fontSize: 11,
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+
+          const SizedBox(height: 20),
+
           DailyReportStatusRow(
             title: 'انتظار',
             count: _count(OrderStatus.pending),
             icon: Icons.hourglass_top_rounded,
+            iconColor: Colors.orange,
           ),
 
           const _SectionDivider(),
@@ -32,6 +80,7 @@ class DailyReportStatusSection extends StatelessWidget {
             title: 'مؤكد',
             count: _count(OrderStatus.confirmed),
             icon: Icons.check_circle_outline_rounded,
+            iconColor: Colors.blue,
           ),
 
           const _SectionDivider(),
@@ -40,6 +89,7 @@ class DailyReportStatusSection extends StatelessWidget {
             title: 'منتهي',
             count: _count(OrderStatus.delivered),
             icon: Icons.done_all_rounded,
+            iconColor: Colors.green,
           ),
 
           const _SectionDivider(),
@@ -48,6 +98,7 @@ class DailyReportStatusSection extends StatelessWidget {
             title: 'مسدد',
             count: _count(OrderStatus.paid),
             icon: Icons.payments_outlined,
+            iconColor: AppColor.mainColor,
           ),
 
           const _SectionDivider(),
@@ -56,6 +107,7 @@ class DailyReportStatusSection extends StatelessWidget {
             title: 'ملغي',
             count: _count(OrderStatus.cancelled),
             icon: Icons.cancel_outlined,
+            iconColor: Colors.redAccent,
           ),
         ],
       ),
@@ -75,102 +127,60 @@ class DailyReportStatusRow extends StatelessWidget {
     required this.title,
     required this.count,
     required this.icon,
+    required this.iconColor,
   });
 
   final String title;
   final int count;
   final IconData icon;
+  final Color iconColor;
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Icon(
-          icon,
-          color: AppColor.textSecondary,
-          size: 19,
+        // Icon
+        Container(
+          width: 38,
+          height: 38,
+          decoration: BoxDecoration(
+            color: iconColor.withOpacity(.09),
+            borderRadius: BorderRadius.circular(11),
+          ),
+          child: Icon(icon, color: iconColor, size: 19),
         ),
 
-        const SizedBox(width: 10),
+        const SizedBox(width: 12),
 
+        // Title
         Expanded(
           child: Text(
             title,
             style: TextStyle(
-              color: AppColor.textSecondary,
-              fontSize: 14,
-              fontWeight: FontWeight.w500,
+              color: AppColor.textPrimary,
+              fontSize: 13,
+              fontWeight: FontWeight.w600,
             ),
           ),
         ),
 
-        Text(
-          '$count طلب',
-          style: TextStyle(
-            color: AppColor.textPrimary,
-            fontSize: 14,
-            fontWeight: FontWeight.w700,
+        // Count
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 11, vertical: 6),
+          decoration: BoxDecoration(
+            color: AppColor.backgroundDark,
+            borderRadius: BorderRadius.circular(9),
+          ),
+          child: Text(
+            '$count طلب',
+            style: TextStyle(
+              color: AppColor.textSecondary,
+              fontSize: 11,
+              fontWeight: FontWeight.w700,
+            ),
           ),
         ),
       ],
-    );
-  }
-}
-
-class _SectionContainer extends StatelessWidget {
-  const _SectionContainer({
-    required this.title,
-    required this.icon,
-    required this.child,
-  });
-
-  final String title;
-  final IconData icon;
-  final Widget child;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(18),
-      decoration: BoxDecoration(
-        color: AppColor.cardLight,
-        borderRadius: BorderRadius.circular(
-          AppConstants.borderRadius,
-        ),
-        border: Border.all(
-          color: AppColor.divider,
-        ),
-      ),
-      child: Column(
-        crossAxisAlignment:
-        CrossAxisAlignment.stretch,
-        children: [
-          Row(
-            children: [
-              Icon(
-                icon,
-                color: AppColor.mainColor,
-                size: 21,
-              ),
-
-              const SizedBox(width: 9),
-
-              Text(
-                title,
-                style: TextStyle(
-                  color: AppColor.textPrimary,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w800,
-                ),
-              ),
-            ],
-          ),
-
-          const SizedBox(height: 16),
-
-          child,
-        ],
-      ),
     );
   }
 }
@@ -181,13 +191,8 @@ class _SectionDivider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(
-        vertical: 11,
-      ),
-      child: Divider(
-        color: AppColor.divider,
-        height: 1,
-      ),
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      child: Divider(color: AppColor.divider.withOpacity(.65), height: 1),
     );
   }
 }

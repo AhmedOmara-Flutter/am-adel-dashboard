@@ -48,10 +48,10 @@ class SelectedLocationViewBody extends StatelessWidget {
         }
 
         return ListView.separated(
-          padding: const EdgeInsets.all(20),
+          padding: const EdgeInsets.all(10),
           itemCount: locations.length,
           separatorBuilder: (_, __) {
-            return const SizedBox(height: 14);
+            return const SizedBox(height: 10);
           },
           itemBuilder: (context, index) {
             final location = locations[index];
@@ -80,7 +80,10 @@ class SelectedLocationViewBody extends StatelessWidget {
                   content: Text(
                     'هل أنت متأكد أنك تريد حذف "${location.title}"؟',
                     textAlign: TextAlign.center,
-                    style: StyleManager.font13Weight600(context),
+                    style: StyleManager.font12Weight500(context).copyWith(
+                        height: 1.5,
+                        color: AppColor.textSecondary
+                    ),
                   ),
                   cancel: () {
                     Navigator.pop(context);

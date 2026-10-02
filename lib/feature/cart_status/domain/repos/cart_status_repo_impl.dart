@@ -2,16 +2,14 @@ import '../../../../core/services/database_services.dart';
 import '../../data/repos/cart_status_repo.dart';
 
 class CartStatusRepoImpl implements CartStatusRepo {
-  final DatabaseServices databaseServices;
+  final DatabaseServices _databaseServices;
 
-  CartStatusRepoImpl({
-    required this.databaseServices,
-  });
+  CartStatusRepoImpl(this._databaseServices);
 
   @override
   Future<bool> areAllCartsEmpty() async {
     try {
-      return await databaseServices.areAllCartsEmpty();
+      return await _databaseServices.areAllCartsEmpty();
     } catch (e) {
       throw Exception(e.toString());
     }

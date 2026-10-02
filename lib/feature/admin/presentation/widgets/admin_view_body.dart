@@ -1,4 +1,5 @@
-import 'package:am_adel_dashboard/feature/admin/presentation/widgets/admin_statistics_section.dart';
+import 'package:am_adel_dashboard/feature/admin/presentation/widgets/admin_statistics_desktop.dart';
+import 'package:am_adel_dashboard/feature/admin/presentation/widgets/admin_statistics_mobile.dart';
 import 'package:am_adel_dashboard/feature/admin/presentation/widgets/admin_top_bar.dart';
 import 'package:am_adel_dashboard/feature/admin/presentation/widgets/recent_order_card.dart';
 import 'package:flutter/material.dart';
@@ -28,7 +29,7 @@ class AdminViewDesktop extends StatelessWidget {
         slivers: [
           const SliverToBoxAdapter(child: AdminTopBar()),
 
-          const SliverToBoxAdapter(child: AdminStatisticsSection()),
+          const SliverToBoxAdapter(child: AdminStatisticsDesktop()),
 
           SliverToBoxAdapter(
             child: Row(
@@ -53,8 +54,8 @@ class AdminViewMobile extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomScrollView(
       slivers: [
-        const SliverToBoxAdapter(child: AdminStatisticsSection()),
-
+        SliverToBoxAdapter(child: SizedBox(height: 10,),),
+        const SliverToBoxAdapter(child: AdminStatisticsMobile()),
         SliverToBoxAdapter(
           child: Padding(
             padding: const EdgeInsets.all(10.0),

@@ -79,6 +79,7 @@ class CustomTextFormField extends StatelessWidget {
             fontSize: 13,
           ),
           cursorColor: AppColor.mainColor,
+
           decoration: InputDecoration(
             hintText: hintText,
             labelText: labelText,

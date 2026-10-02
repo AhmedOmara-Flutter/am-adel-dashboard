@@ -1,10 +1,10 @@
-import 'package:flutter/material.dart';
 import 'package:am_adel_dashboard/core/entities/order_entity.dart';
 import 'package:am_adel_dashboard/core/helper_function/make_call_function.dart';
 import 'package:am_adel_dashboard/core/helper_function/make_full_name.dart';
 import 'package:am_adel_dashboard/core/utils/app_color.dart';
 import 'package:am_adel_dashboard/core/utils/style_manager.dart';
 import 'package:am_adel_dashboard/generated/assets.dart';
+import 'package:flutter/material.dart';
 
 class CustomerInfoSection extends StatelessWidget {
   const CustomerInfoSection({
@@ -17,56 +17,91 @@ class CustomerInfoSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final user = order.userEntity!;
+    final receiverName = order.addressEntity?.name ?? 'غير محدد';
 
     return Container(
-      padding: EdgeInsets.all(14),
+      padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: AppColor.cardLight,
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(18),
         border: Border.all(
-          color: AppColor.divider,
+          color: AppColor.divider.withOpacity(.55),
         ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(.025),
+            blurRadius: 14,
+            offset: const Offset(0, 4),
+          ),
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'بيانات العميل',
-            style: StyleManager.font13Weight600(context).copyWith(
-              color: AppColor.textPrimary,
-            ),
+          Row(
+            children: [
+              Container(
+                width: 38,
+                height: 38,
+                decoration: BoxDecoration(
+                  color: AppColor.mainColor.withOpacity(.09),
+                  borderRadius: BorderRadius.circular(11),
+                ),
+                child: Icon(
+                  Icons.person_outline_rounded,
+                  color: AppColor.mainColor,
+                  size: 19,
+                ),
+              ),
+              const SizedBox(width: 10),
+              Expanded(
+                child: Text(
+                  'بيانات العميل',
+                  style: StyleManager.font13Weight600(
+                    context,
+                  ).copyWith(
+                    color: AppColor.textPrimary,
+                    fontSize: 14,
+                  ),
+                ),
+              ),
+            ],
           ),
 
-          SizedBox(height: 12),
+          const SizedBox(height: 16),
 
           Row(
             children: [
               CircleAvatar(
-                radius: 24,
+                radius: 25,
                 backgroundColor: AppColor.backgroundDark,
                 backgroundImage: AssetImage(
                   Assets.assets.images.customer.path,
                 ),
               ),
-
-              SizedBox(width: 10),
-
+              const SizedBox(width: 11),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       makeFullName(user.userName),
-                      style: StyleManager.font15Weight700(context).copyWith(
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: StyleManager.font15Weight700(
+                        context,
+                      ).copyWith(
                         color: AppColor.textPrimary,
                       ),
                     ),
-
-                    SizedBox(height: 2),
-
+                    const SizedBox(height: 3),
                     Text(
                       user.email,
-                      style: StyleManager.font12Weight500(context).copyWith(
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: StyleManager.font12Weight500(
+                        context,
+                      ).copyWith(
                         color: AppColor.textSecondary,
                       ),
                     ),
@@ -76,21 +111,34 @@ class CustomerInfoSection extends StatelessWidget {
             ],
           ),
 
-          SizedBox(height: 14),
+          const SizedBox(height: 15),
 
-          _InfoTile(
-            icon: Icons.phone_rounded,
-            title: 'رقم الهاتف',
-            value: user.phone,
-            onTap: () => makePhoneCall(user.phone),
+          Container(
+            height: 1,
+            color: AppColor.divider.withOpacity(.4),
           ),
 
-          SizedBox(height: 10),
+          const SizedBox(height: 4),
 
-          _InfoTile(
+          _InfoRow(
+            icon: Icons.phone_outlined,
+            title: 'رقم الهاتف',
+            value: user.phone,
+            trailing: IconButton(
+              onPressed: () => makePhoneCall(user.phone),
+              splashRadius: 20,
+              icon: Icon(
+                Icons.call_outlined,
+                size: 19,
+                color: AppColor.mainColor,
+              ),
+            ),
+          ),
+
+          _InfoRow(
             icon: Icons.person_outline_rounded,
             title: 'اسم المستلم',
-            value: order.addressEntity!.name,
+            value: receiverName,
           ),
         ],
       ),
@@ -98,78 +146,61 @@ class CustomerInfoSection extends StatelessWidget {
   }
 }
 
-class _InfoTile extends StatelessWidget {
-  const _InfoTile({
+class _InfoRow extends StatelessWidget {
+  const _InfoRow({
     required this.icon,
     required this.title,
     required this.value,
-    this.onTap,
+    this.trailing,
   });
 
   final IconData icon;
   final String title;
   final String value;
-  final VoidCallback? onTap;
+  final Widget? trailing;
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
-      borderRadius: BorderRadius.circular(12),
-      child: Container(
-        padding: EdgeInsets.symmetric(
-          horizontal: 12,
-          vertical: 10,
-        ),
-        decoration: BoxDecoration(
-          color: AppColor.cardLight,
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(
-            color: AppColor.divider,
+    return SizedBox(
+      height: 58,
+      child: Row(
+        children: [
+          Icon(
+            icon,
+            size: 19,
+            color: AppColor.textSecondary,
           ),
-        ),
-        child: Row(
-          children: [
-            Container(
-              width: 34,
-              height: 34,
-              decoration: BoxDecoration(
-                color: AppColor.backgroundDark,
-                shape: BoxShape.circle,
-              ),
-              child: Icon(
-                icon,
-                color: AppColor.mainColor,
-                size: 17,
-              ),
-            ),
-
-            SizedBox(width: 10),
-
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    title,
-                    style: StyleManager.font11Weight400(context).copyWith(
-                      color: AppColor.textSecondary,
-                    ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: StyleManager.font11Weight400(
+                    context,
+                  ).copyWith(
+                    color: AppColor.textSecondary,
+                    fontSize: 10,
                   ),
-
-                  SizedBox(height: 2),
-
-                  Text(
-                    value,
-                    style: StyleManager.font13Weight600(context).copyWith(
-                      color: AppColor.textPrimary,
-                    ),
+                ),
+                const SizedBox(height: 3),
+                Text(
+                  value,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: StyleManager.font13Weight600(
+                    context,
+                  ).copyWith(
+                    color: AppColor.textPrimary,
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
-          ],
-        ),
+          ),
+          if (trailing != null) trailing!,
+        ],
       ),
     );
   }

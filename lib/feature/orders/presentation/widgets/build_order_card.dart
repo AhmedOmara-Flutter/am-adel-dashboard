@@ -5,10 +5,8 @@ import 'package:am_adel_dashboard/core/helper_function/get_date_formate.dart';
 import 'package:am_adel_dashboard/core/helper_function/make_full_name.dart';
 import 'package:am_adel_dashboard/core/utils/app_color.dart';
 import 'package:am_adel_dashboard/core/utils/route_manager.dart';
-
 import '../../../../core/cubit/orders_cubit/orders_cubit.dart';
 import '../../../../core/entities/order_entity.dart';
-import '../../../../core/services/print_service.dart';
 import '../../../../core/utils/app_constants.dart';
 import 'order_customer_info.dart';
 import 'order_status_action.dart';
@@ -55,10 +53,7 @@ class _BuildOrderCardState extends State<BuildOrderCard> {
         );
       },
       child: Container(
-        margin: const EdgeInsets.symmetric(
-          vertical: 6,
-          horizontal: 10,
-        ),
+        margin: EdgeInsets.only(bottom: 10),
         padding: const EdgeInsets.all(14),
         decoration: BoxDecoration(
           color: AppColor.cardLight,

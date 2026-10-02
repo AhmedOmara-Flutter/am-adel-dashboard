@@ -1,8 +1,8 @@
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/material.dart';
-import 'package:am_adel_dashboard/feature/cart_status/domain/entities/cart_item_entity.dart';
 import 'package:am_adel_dashboard/core/utils/app_color.dart';
 import 'package:am_adel_dashboard/core/utils/style_manager.dart';
+import 'package:am_adel_dashboard/feature/cart_status/domain/entities/cart_item_entity.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/material.dart';
 
 class ProductItemCard extends StatelessWidget {
   const ProductItemCard({
@@ -14,61 +14,54 @@ class ProductItemCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        color: AppColor.cardLight,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(
-          color: AppColor.divider,
-        ),
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        vertical: 10,
       ),
       child: Row(
         children: [
           Container(
             width: 58,
             height: 58,
+            padding: const EdgeInsets.all(5),
             decoration: BoxDecoration(
-              color: AppColor.backgroundDark,
-              borderRadius: BorderRadius.circular(10),
+              color: AppColor.cardLight,
+              borderRadius: BorderRadius.circular(18),
               border: Border.all(
-                color: AppColor.divider,
+                color: AppColor.divider.withOpacity(.55),
               ),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(.025),
+                  blurRadius: 14,
+                  offset: const Offset(0, 4),
+                ),
+              ],
             ),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(9),
               child: CachedNetworkImage(
-                imageUrl: item.product.image!,
+                imageUrl: item.product.image ?? '',
                 width: 58,
                 height: 58,
                 fit: BoxFit.contain,
-                placeholder: (_, __) => Container(
-                  width: 58,
-                  height: 58,
-                  color: AppColor.backgroundDark,
-                  alignment: Alignment.center,
-                  child: Icon(
-                    Icons.image_outlined,
-                    color: AppColor.textSecondary,
-                    size: 20,
-                  ),
-                ),
-                errorWidget: (_, __, ___) => Container(
-                  width: 58,
-                  height: 58,
-                  color: AppColor.backgroundDark,
-                  alignment: Alignment.center,
-                  child: Icon(
-                    Icons.image_not_supported_outlined,
-                    color: AppColor.textSecondary,
-                    size: 18,
-                  ),
-                ),
+                placeholder: (_, __) =>
+                    Icon(
+                      Icons.image_outlined,
+                      color: AppColor.textSecondary.withOpacity(.6),
+                      size: 21,
+                    ),
+                errorWidget: (_, __, ___) =>
+                    Icon(
+                      Icons.image_not_supported_outlined,
+                      color: AppColor.textSecondary.withOpacity(.6),
+                      size: 20,
+                    ),
               ),
             ),
           ),
 
-          SizedBox(width: 10),
+          const SizedBox(width: 12),
 
           Expanded(
             child: Column(
@@ -78,44 +71,73 @@ class ProductItemCard extends StatelessWidget {
                   item.product.name,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: StyleManager.font12Weight500(context).copyWith(
+                  style: StyleManager.font13Weight600(
+                    context,
+                  ).copyWith(
                     color: AppColor.textPrimary,
-                    fontWeight: FontWeight.w600,
                   ),
                 ),
 
-                SizedBox(height: 6),
+                const SizedBox(height: 5),
 
-                Text(
-                  '${item.unitPrice.toStringAsFixed(2)} ج.م',
-                  style: StyleManager.font13Weight700(context).copyWith(
-                    color: AppColor.mainColor,
-                  ),
+                Row(
+                  children: [
+                    Text(
+                      '${item.unitPrice.toStringAsFixed(2)} ج.م',
+                      style: StyleManager.font13Weight600(
+                        context,
+                      ).copyWith(
+                        color: AppColor.mainColor,
+                      ),
+                    ),
+                    const SizedBox(width: 7),
+                    Container(
+                      width: 3,
+                      height: 3,
+                      decoration: BoxDecoration(
+                        color: AppColor.textSecondary.withOpacity(.45),
+                        shape: BoxShape.circle,
+                      ),
+                    ),
+                    const SizedBox(width: 7),
+                    Text(
+                      'سعر الوحدة',
+                      style: StyleManager.font11Weight400(
+                        context,
+                      ).copyWith(
+                        color: AppColor.textSecondary,
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
           ),
 
-          SizedBox(width: 8),
+          const SizedBox(width: 12),
 
-          Container(
-            padding: EdgeInsets.symmetric(
-              horizontal: 10,
-              vertical: 7,
-            ),
-            decoration: BoxDecoration(
-              color: AppColor.backgroundDark,
-              borderRadius: BorderRadius.circular(10),
-              border: Border.all(
-                color: AppColor.divider,
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Text(
+                'الكمية',
+                style: StyleManager.font11Weight400(
+                  context,
+                ).copyWith(
+                  color: AppColor.textSecondary,
+                  fontSize: 9,
+                ),
               ),
-            ),
-            child: Text(
-              '×${item.quantity}',
-              style: StyleManager.font13Weight700(context).copyWith(
-                color: AppColor.mainColor,
+              const SizedBox(height: 4),
+              Text(
+                '×${item.quantity}',
+                style: StyleManager.font13Weight700(
+                  context,
+                ).copyWith(
+                  color: AppColor.textPrimary,
+                ),
               ),
-            ),
+            ],
           ),
         ],
       ),

@@ -1,4 +1,5 @@
 import 'package:am_adel_dashboard/core/entities/order_entity.dart';
+import 'package:am_adel_dashboard/core/extension/responsive_extension.dart';
 import 'package:am_adel_dashboard/feature/order_details/presentation/widgets/order_note_card_section.dart';
 import 'package:am_adel_dashboard/feature/order_details/presentation/widgets/order_print_section.dart';
 import 'package:am_adel_dashboard/feature/order_details/presentation/widgets/order_summary_card_section.dart';
@@ -27,76 +28,58 @@ class OrderDetailsViewBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      padding: EdgeInsets.only(
-        left: 10,
-        right: 10,
-        bottom: 20,
-        top: 10,
-      ),
+      padding: EdgeInsets.only(left: 10, right: 10, bottom: 20, top: 10),
       child: Column(
-        spacing: 10,
         children: [
-          MediaQuery.sizeOf(context).width > ConfigSize.phone?
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const CustomBackButton(),
-              Row(
-                children: [
-                  Icon(Icons.inventory, color: AppColor.mainColor),
-                  const SizedBox(width: 8),
-                  Text(
-                    "تفاصيل الطلب",
-                    style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                      color: AppColor.textPrimary,
+          context.isDesktop
+              ? Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const CustomBackButton(),
+                    Row(
+                      children: [
+                        Icon(Icons.inventory, color: AppColor.mainColor),
+                        const SizedBox(width: 8),
+                        Text(
+                          "تفاصيل الطلب",
+                          style: Theme.of(context).textTheme.labelLarge!
+                              .copyWith(color: AppColor.textPrimary),
+                        ),
+                      ],
                     ),
-                  ),
-                ],
-              ),
-              const SizedBox(width: 40,height: 40,),
-            ],
-          ):SizedBox.shrink(),
+                    const SizedBox(width: 40, height: 40),
+                  ],
+                )
+              : SizedBox.shrink(),
+          OrderHeaderSection(order: order),
+          SizedBox(height: 10),
 
-          OrderHeaderSection(
-            order: order,
-          ),
+          CustomerInfoSection(order: order),
+          SizedBox(height: 10),
 
-          CustomerInfoSection(
-            order: order,
-          ),
+          DeliveryAddressSection(order: order),
+          SizedBox(height: 10),
 
-          DeliveryAddressSection(
-            order: order,
-          ),
+          ProductsSection(order: order),
+          SizedBox(height: 10),
 
-          ProductsSection(
-            order: order,
-          ),
-
-          OrderNoteCardSection(
-            note: order.orderNote,
-          ),
+          OrderNoteCardSection(note: order.orderNote),
 
           PaymentCardSection(
-            paymentMethod:
-            order.isCashOnDelivery == true
-                ? 'Cash'
-                : 'Online',
+            paymentMethod: order.isCashOnDelivery == true ? 'Cash' : 'Online',
             paymentImage: order.paymentImage,
           ),
-
+          SizedBox(height: 10),
           OrderSummaryCardSection(
             subTotal: order.cartEntity.getTotalPrice(),
             deliveryCost: order.selectedLocationEntity!.cost,
             couponDiscount: order.couponDiscount,
           ),
+          SizedBox(height: 10),
 
           OrderPrintSection(
             onPressed: () async {
-              await PrintService.printOrder(
-                order,
-                orderNumber,
-              );
+              await PrintService.printOrder(order, orderNumber);
             },
           ),
         ],

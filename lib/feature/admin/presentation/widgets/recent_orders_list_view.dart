@@ -48,7 +48,6 @@ class RecentOrdersListView extends StatelessWidget {
           separatorBuilder: (context, index) => const SizedBox(height: 10),
           itemBuilder: (context, index) {
             final order = recentOrders[index];
-
             final totalPrice =
                 order.cartEntity.getTotalPrice() -
                 order.couponDiscount +

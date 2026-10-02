@@ -1,19 +1,16 @@
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:am_adel_dashboard/core/widgets/app_skeleton_effect.dart';
 import 'package:flutter/material.dart';
-import 'package:am_adel_dashboard/core/utils/route_manager.dart';
-import 'package:am_adel_dashboard/core/entities/product_entity.dart';
 import 'package:skeletonizer/skeletonizer.dart';
-
 import '../../../../generated/assets.dart';
 
 class SkeletonizerReviewItem extends StatelessWidget {
-  final ProductEntity product;
-
-  const SkeletonizerReviewItem({super.key, required this.product});
+  const SkeletonizerReviewItem({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Skeletonizer(
+      enabled: true,
+      effect: AppSkeletonEffect.shimmer,
       child: Container(
         decoration: ShapeDecoration(
           color: const Color(0xFFF3F5F7),
@@ -33,7 +30,7 @@ class SkeletonizerReviewItem extends StatelessWidget {
                   child: Row(
                     children: [
                       Text(
-                        '${product.reviewsCount}',
+                        '{product.reviewsCount}',
                         style: Theme.of(context).textTheme.titleMedium,
                       ),
                       SizedBox(width: 5),
@@ -47,24 +44,27 @@ class SkeletonizerReviewItem extends StatelessWidget {
             Column(
               children: [
                 Image.asset(
-                  product.image??Assets.assets.images.img.path,
+                  Assets.assets.images.img.path,
                   width: 110,
                   height: 110,
                   fit: BoxFit.cover,
                 ),
                 SizedBox(height: 10),
-                Text('${product.name}', style: Theme.of(context).textTheme.labelLarge),
+                Text(
+                  '{product.name}',
+                  style: Theme.of(context).textTheme.labelLarge,
+                ),
                 SizedBox(height: 10),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Icon(Icons.star, color: Colors.orange, size: 16),
-                    SizedBox(width: 5,),
+                    SizedBox(width: 5),
                     Text(
-                      '${product.averageRating}',
+                      '{product.averageRating}',
                       style: Theme.of(
                         context,
-                      ).textTheme.labelSmall!.copyWith(color: Colors.orange,),
+                      ).textTheme.labelSmall!.copyWith(color: Colors.orange),
                     ),
                   ],
                 ),
@@ -74,9 +74,6 @@ class SkeletonizerReviewItem extends StatelessWidget {
                   child: Material(
                     color: Colors.transparent,
                     child: InkWell(
-                      onTap: (){
-                        Navigator.pushNamed(context, RouteManager.productReviews,arguments: product);
-                      },
                       child: Container(
                         padding: const EdgeInsets.symmetric(
                           vertical: 12,

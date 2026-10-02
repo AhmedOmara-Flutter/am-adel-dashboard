@@ -22,6 +22,7 @@ class _MyProductsViewBodyState extends State<MyProductsViewBody> {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        SizedBox(height: 10,),
         Expanded(child: CategoryTabs()),
       ],
     );

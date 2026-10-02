@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:am_adel_dashboard/core/utils/app_color.dart';
 import 'package:am_adel_dashboard/core/utils/style_manager.dart';
+import 'package:flutter/material.dart';
 
 class OrderNoteCardSection extends StatelessWidget {
   const OrderNoteCardSection({
@@ -12,58 +12,68 @@ class OrderNoteCardSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (note == null || note!.trim().isEmpty) {
+    final value = note?.trim();
+
+    if (value == null || value.isEmpty) {
       return const SizedBox.shrink();
     }
 
     return Container(
-      padding: EdgeInsets.all(14),
+      width: double.infinity,
+      margin: EdgeInsets.only(bottom: 10),
+      padding: const EdgeInsets.fromLTRB(16, 14, 16, 16),
       decoration: BoxDecoration(
         color: AppColor.cardLight,
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(18),
         border: Border.all(
-          color: AppColor.divider,
+          color: AppColor.divider.withOpacity(.55),
         ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(.025),
+            blurRadius: 14,
+            offset: const Offset(0, 4),
+          ),
+        ],
       ),
-      child: Row(
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            width: 34,
-            height: 34,
-            decoration: BoxDecoration(
-              color: AppColor.backgroundDark,
-              shape: BoxShape.circle,
-            ),
-            child: Icon(
-              Icons.sticky_note_2_outlined,
-              color: AppColor.mainColor,
-              size: 16,
-            ),
+          Row(
+            children: [
+              Icon(
+                Icons.sticky_note_2_outlined,
+                size: 19,
+                color: AppColor.mainColor,
+              ),
+              const SizedBox(width: 9),
+              Text(
+                'ملاحظات الطلب',
+                style: StyleManager.font13Weight600(
+                  context,
+                ).copyWith(
+                  color: AppColor.textPrimary,
+                  fontSize: 13,
+                ),
+              ),
+            ],
           ),
-
-          SizedBox(width: 10),
-
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'ملاحظات الطلب',
-                  style: StyleManager.font13Weight600(context).copyWith(
-                    color: AppColor.textPrimary,
-                  ),
-                ),
-
-                SizedBox(height: 4),
-
-                Text(
-                  note!,
-                  style: StyleManager.font12Weight500(context).copyWith(
-                    color: AppColor.textSecondary,
-                  ),
-                ),
-              ],
+          const SizedBox(height: 12),
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.fromLTRB(12, 11, 12, 11),
+            decoration: BoxDecoration(
+              color: AppColor.background.withOpacity(.55),
+              borderRadius: BorderRadius.circular(11),
+            ),
+            child: Text(
+              value,
+              style: StyleManager.font12Weight500(
+                context,
+              ).copyWith(
+                color: AppColor.textSecondary,
+                height: 1.6,
+              ),
             ),
           ),
         ],

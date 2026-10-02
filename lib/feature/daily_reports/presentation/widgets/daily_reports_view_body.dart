@@ -68,21 +68,23 @@ class _DailyReportsViewBodyState extends State<DailyReportsViewBody> {
           children: [
             SafeArea(
               child: SingleChildScrollView(
-                padding: const EdgeInsets.fromLTRB(16, 0, 16, 24),
+                padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
+                    const SizedBox(height: 10),
                     const DailyReportHeader(),
-                    const SizedBox(height: 18),
+                    const SizedBox(height: 10),
                     DailyReportStats(report: report),
-                    const SizedBox(height: 18),
+                    const SizedBox(height: 10),
                     DailyReportStatusSection(
                       ordersCubit: cubit.ordersCubit,
                     ),
-                    const SizedBox(height: 18),
+                    const SizedBox(height: 10),
                     DailyReportSummary(report: report),
                     const SizedBox(height: 24),
                     DailyReportActions(report: report),
+                    const SizedBox(height: 10),
                   ],
                 ),
               ),

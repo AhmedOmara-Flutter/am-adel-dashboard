@@ -21,36 +21,39 @@ class _OrderViewBodyState extends State<OrderViewBody> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 10),
       child: CustomScrollView(
         slivers: [
           SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.all(10),
-              child: Container(
-                padding: const EdgeInsets.all(8),
-                margin: const EdgeInsets.only(top: 3),
-                decoration: BoxDecoration(
-                  color: AppColor.cardLight,
-                  borderRadius: BorderRadius.circular(
-                    AppConstants.borderRadius,
-                  ),
-                  border: Border.all(
-                    color: AppColor.divider.withOpacity(0.5),
-                    width: 1.2,
-                  ),
+            child: SizedBox(height: 10,),
+          ),
+          SliverToBoxAdapter(
+            child: Container(
+              padding: const EdgeInsets.all(8),
+              margin: const EdgeInsets.only(top: 3),
+              decoration: BoxDecoration(
+                color: AppColor.cardLight,
+                borderRadius: BorderRadius.circular(
+                  AppConstants.borderRadius,
                 ),
-                child: Row(
-                  children: [
-                    _buildTab('انتظار'),
-                    _buildTab('مؤكد'),
-                    _buildTab('منتهي'),
-                    _buildTab('مسدد'),
-                    _buildTab('ملغي'),
-                  ],
+                border: Border.all(
+                  color: AppColor.divider.withOpacity(0.5),
+                  width: 1.2,
                 ),
               ),
+              child: Row(
+                children: [
+                  _buildTab('انتظار'),
+                  _buildTab('مؤكد'),
+                  _buildTab('منتهي'),
+                  _buildTab('مسدد'),
+                  _buildTab('ملغي'),
+                ],
+              ),
             ),
+          ),
+          SliverToBoxAdapter(
+            child: SizedBox(height: 10,),
           ),
           BlocBuilder<OrdersCubit, OrdersState>(
             builder: (context, state) {
@@ -98,6 +101,9 @@ class _OrderViewBodyState extends State<OrderViewBody> {
                 },
               );
             },
+          ),
+          SliverToBoxAdapter(
+            child: SizedBox(height: 15,),
           ),
         ],
       ),

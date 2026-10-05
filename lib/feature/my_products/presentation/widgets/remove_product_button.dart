@@ -7,7 +7,7 @@ import 'package:am_adel_dashboard/core/utils/route_manager.dart';
 
 import '../../../../core/cubit/offers_cubit/offers_cubit.dart';
 import '../../../../core/cubit/products_cubit/products_cubit.dart';
-import '../../../../core/entities/offer_entity.dart';
+import '../../../offers/domain/entities/offer_entity.dart';
 import '../../../../core/helper_function/custom_show_snake_bar.dart';
 import 'add_offer_bottom_sheet.dart';
 

@@ -1,4 +1,4 @@
-import 'package:am_adel_dashboard/core/entities/offer_entity.dart';
+import 'package:am_adel_dashboard/feature/offers/domain/entities/offer_entity.dart';
 import 'package:am_adel_dashboard/core/helper_function/custom_show_snake_bar.dart';
 import 'package:am_adel_dashboard/core/utils/app_imports.dart';
 import 'package:am_adel_dashboard/core/widgets/custom_button.dart';

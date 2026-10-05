@@ -1,4 +1,4 @@
-import 'package:am_adel_dashboard/core/entities/offer_entity.dart';
+import 'package:am_adel_dashboard/feature/offers/domain/entities/offer_entity.dart';
 import 'package:am_adel_dashboard/core/entities/product_entity.dart';
 import 'package:am_adel_dashboard/core/utils/app_color.dart';
 import 'package:am_adel_dashboard/feature/my_products/presentation/widgets/product_actions_section.dart';

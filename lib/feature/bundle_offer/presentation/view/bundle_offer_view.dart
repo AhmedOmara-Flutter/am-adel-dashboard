@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:am_adel_dashboard/core/repos/bundle_offer_repo/bundle_offer_repo_impl.dart';
+import 'package:am_adel_dashboard/feature/bundle_offer/domain/repos/bundle_offer_repo_impl.dart';
 import 'package:am_adel_dashboard/core/repos/upload_image_repo/upload_image_repo_impl.dart';
 import 'package:am_adel_dashboard/core/services/database_services.dart';
 import 'package:am_adel_dashboard/core/services/storage_services.dart';

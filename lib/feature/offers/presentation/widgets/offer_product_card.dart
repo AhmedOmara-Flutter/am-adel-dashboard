@@ -1,5 +1,5 @@
 import 'package:am_adel_dashboard/core/cubit/offers_cubit/offers_cubit.dart';
-import 'package:am_adel_dashboard/core/entities/offer_entity.dart';
+import 'package:am_adel_dashboard/feature/offers/domain/entities/offer_entity.dart';
 import 'package:am_adel_dashboard/core/helper_function/custom_show_dialog.dart';
 import 'package:am_adel_dashboard/core/utils/app_color.dart';
 import 'package:am_adel_dashboard/core/utils/style_manager.dart';

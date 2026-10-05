@@ -1,7 +1,6 @@
 import 'package:am_adel_dashboard/core/utils/app_color.dart';
 import 'package:am_adel_dashboard/core/utils/style_manager.dart';
 import 'package:flutter/material.dart';
-
 import '../../../../core/models/statistics_card_model.dart';
 import '../../../../core/utils/app_constants.dart';
 import '../../../../core/widgets/icon_badge.dart';
@@ -9,48 +8,52 @@ import '../../../../core/widgets/icon_badge.dart';
 class AdminStatisticsCard extends StatelessWidget {
   final StatisticsCardModel model;
 
-  const AdminStatisticsCard({super.key, required this.model});
+  const AdminStatisticsCard({
+    super.key,
+    required this.model,
+  });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: model.onTap,
       child: Container(
+        height: model.height,
+        padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
           color: AppColor.cardLight,
-          borderRadius: BorderRadius.circular(AppConstants.borderRadius),
-          boxShadow: [
-            BoxShadow(
-              color: AppColor.mainColor.withOpacity(AppConstants.borderColor),
-              spreadRadius: 1,
-              blurRadius: 7,
-              offset: const Offset(0, 1),
-            ),
-          ],
+          borderRadius: BorderRadius.circular(
+            AppConstants.borderRadius,
+          ),
           border: Border.all(
-            color: AppColor.divider.withOpacity(.55),
-            width: 1,
+            color: AppColor.divider.withOpacity(.45),
           ),
         ),
-        clipBehavior: Clip.antiAliasWithSaveLayer,
-        height: model.height,
-        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
               children: [
-                IconBadge(icon: model.icon,iconColor: model.iconColor,),
-                const SizedBox(width: 10),
+                IconBadge(
+                  icon: model.icon,
+                  iconColor: model.iconColor,
+                ),
+                const SizedBox(width: 8),
                 Expanded(
                   child: Text(
                     model.title,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                    style: Theme.of(context)
+                        .textTheme
+                        .titleMedium
+                        ?.copyWith(
                       color: AppColor.textPrimary,
-                      fontWeight: FontWeight.w600,
-                      fontSize: responsiveFontSize(context, fontSize: 14),
+                      fontSize: responsiveFontSize(
+                        context,
+                        fontSize: 12,
+                      ),
+                      fontWeight: FontWeight.w700,
                     ),
                   ),
                 ),
@@ -63,22 +66,31 @@ class AdminStatisticsCard extends StatelessWidget {
               model.subTitleNumber,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
-              style: Theme.of(context).textTheme.displaySmall!.copyWith(
+              style: Theme.of(context)
+                  .textTheme
+                  .displaySmall
+                  ?.copyWith(
                 color: AppColor.mainColor,
-                fontWeight: FontWeight.bold,
-                fontSize: responsiveFontSize(context, fontSize: 22),
+                fontSize: responsiveFontSize(
+                  context,
+                  fontSize: 21,
+                ),
+                fontWeight: FontWeight.w800,
               ),
             ),
 
-            const SizedBox(height: 15),
+            const SizedBox(height: 4),
 
             Text(
               model.subTitleText,
-              maxLines: 2,
+              maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: StyleManager.font12Weight500(context).copyWith(
                 color: AppColor.textSecondary,
-                fontSize: responsiveFontSize(context, fontSize: 11),
+                fontSize: responsiveFontSize(
+                  context,
+                  fontSize: 10,
+                ),
               ),
             ),
           ],

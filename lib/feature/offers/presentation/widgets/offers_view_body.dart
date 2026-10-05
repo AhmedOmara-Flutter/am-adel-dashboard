@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:am_adel_dashboard/feature/offers/presentation/widgets/skeletonizer_offer_product_card.dart';
 import '../../../../core/cubit/offers_cubit/offers_cubit.dart';
 import '../../../../core/widgets/empty_widget.dart';
-import '../../../../core/entities/offer_entity.dart';
+import '../../domain/entities/offer_entity.dart';
 import 'offer_product_card.dart';
 
 class OffersViewBody extends StatelessWidget {

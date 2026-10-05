@@ -1,8 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 
-import '../../../../../core/entities/bundle_offer_entity.dart';
-import '../../../../../core/repos/bundle_offer_repo/bundle_offer_repo.dart';
+import '../../../domain/entities/bundle_offer_entity.dart';
+import '../../../data/repos/bundle_offer_repo.dart';
 
 part 'delete_bundle_offer_state.dart';
 

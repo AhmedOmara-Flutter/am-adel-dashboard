@@ -1,5 +1,5 @@
 import 'package:am_adel_dashboard/core/entities/address_entity.dart';
-import 'package:am_adel_dashboard/core/entities/selected_location_entity.dart';
+import 'package:am_adel_dashboard/feature/selected_location/domain/entities/selected_location_entity.dart';
 import 'package:am_adel_dashboard/core/entities/user_entity.dart';
 import 'package:am_adel_dashboard/feature/cart_status/domain/entities/cart_entity.dart';
 

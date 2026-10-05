@@ -25,8 +25,6 @@ export 'package:am_adel_dashboard/core/entities/product_entity.dart';
 export 'package:am_adel_dashboard/core/utils/app_color.dart';
 export 'package:am_adel_dashboard/core/utils/style_manager.dart';
 export 'package:am_adel_dashboard/feature/daily_reports/presentation/view/daily_reports_view.dart';
-export 'package:am_adel_dashboard/feature/notification/view/send_notification_for_each_user.dart';
-export 'package:am_adel_dashboard/feature/notification/view/send_notification_view.dart';
 export 'package:am_adel_dashboard/feature/add_product/presentation/view/add_product_view.dart';
 export 'package:am_adel_dashboard/feature/display_order/presentation/view/display_orders_view.dart';
 export 'package:am_adel_dashboard/feature/edit_product/presentation/view/edit_product_view.dart';

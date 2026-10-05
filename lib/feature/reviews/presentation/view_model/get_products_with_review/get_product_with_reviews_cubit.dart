@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:am_adel_dashboard/core/repos/reviews_repo/review_repo.dart';
+import 'package:am_adel_dashboard/feature/reviews/data/repos/review_repo.dart';
 import 'package:meta/meta.dart';
 
 import '../../../../../core/entities/product_entity.dart';

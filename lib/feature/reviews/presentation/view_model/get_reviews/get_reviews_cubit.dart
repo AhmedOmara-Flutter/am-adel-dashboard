@@ -4,7 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 
 import '../../../domain/entities/review_entity.dart';
-import '../../../../../core/repos/reviews_repo/review_repo.dart';
+import '../../../data/repos/review_repo.dart';
 
 part 'get_reviews_state.dart';
 

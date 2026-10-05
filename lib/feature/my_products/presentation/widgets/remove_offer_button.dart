@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/cubit/offers_cubit/offers_cubit.dart';
-import '../../../../core/entities/offer_entity.dart';
+import '../../../offers/domain/entities/offer_entity.dart';
 import '../../../../core/helper_function/custom_show_snake_bar.dart';
 import '../../../cart_status/presentation/view_model/cart_status_cubit.dart';
 import 'add_offer_bottom_sheet.dart';

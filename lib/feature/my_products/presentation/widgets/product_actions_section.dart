@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:am_adel_dashboard/core/entities/product_entity.dart';
 import 'package:am_adel_dashboard/feature/my_products/presentation/widgets/paused_product_button.dart';
 import 'package:am_adel_dashboard/feature/my_products/presentation/widgets/remove_offer_button.dart';
-import '../../../../core/entities/offer_entity.dart';
+import '../../../offers/domain/entities/offer_entity.dart';
 
 class ProductActionsSection extends StatelessWidget {
   final ProductEntity product;

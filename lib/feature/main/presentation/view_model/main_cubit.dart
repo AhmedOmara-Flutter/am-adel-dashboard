@@ -1,3 +1,4 @@
+import 'package:am_adel_dashboard/feature/flash_offer/presentation/view/flash_offer_view.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:am_adel_dashboard/feature/add_product/presentation/view/add_product_view.dart';
@@ -6,14 +7,14 @@ import 'package:am_adel_dashboard/feature/daily_reports/presentation/view/report
 import 'package:am_adel_dashboard/feature/main/presentation/widgets/drawer_item.dart';
 import 'package:am_adel_dashboard/feature/my_products/presentation/view/my_products_view.dart';
 import 'package:am_adel_dashboard/feature/orders/presentation/view/order_view.dart';
-import 'package:am_adel_dashboard/feature/notification/view/notification_hub_view.dart';
 import '../../../admin/presentation/view/admin_view.dart';
 import '../../../bundle_offer/presentation/view/bundle_offer_view.dart';
 import '../../../category/presentation/view/category_view.dart';
 import '../../../coupon/presentation/view/coupon_view.dart';
+import '../../../notification/presentation/view/notification_hub_view.dart';
 import '../../../offers/presentation/view/offers_view.dart';
 import '../../../reviews/presentation/view/reviews_view.dart';
-import '../../../selected_location/view/selected_location_view.dart';
+import '../../../selected_location/presentation/view/selected_location_view.dart';
 import '../../../settings/presentation/view/settings_view.dart';
 
 part 'main_state.dart';
@@ -69,10 +70,16 @@ class MainCubit extends Cubit<MainState> {
       activeIcon: Icons.inventory_2_rounded,
     ),
     DrawerItemModel(
+      title: 'عروض فلاش',
+      inactiveIcon: Icons.flash_on_outlined,
+      activeIcon: Icons.flash_on_outlined,
+    ),
+    DrawerItemModel(
       title: 'التوصيل',
       inactiveIcon: Icons.location_on_outlined,
       activeIcon: Icons.location_on,
     ),
+
     DrawerItemModel(
       title: 'الاشعارات',
       inactiveIcon: Icons.notification_important_outlined,
@@ -105,6 +112,7 @@ class MainCubit extends Cubit<MainState> {
     ClientsView(),
     OffersView(),
     BundleOfferView(),
+    FlashOfferView(),
     SelectedLocationView(),
     NotificationsHubView(),
     ReportsView(),

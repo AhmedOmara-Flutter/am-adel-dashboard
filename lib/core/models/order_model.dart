@@ -1,4 +1,4 @@
-import 'package:am_adel_dashboard/core/models/selected_location_model.dart';
+import 'package:am_adel_dashboard/feature/selected_location/data/models/selected_location_model.dart';
 import 'package:am_adel_dashboard/core/models/user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../feature/cart_status/domain/entities/cart_entity.dart';

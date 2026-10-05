@@ -1,7 +1,7 @@
 import 'package:am_adel_dashboard/core/utils/app_constants.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import '../../../../core/entities/bundle_offer_entity.dart';
+import '../../domain/entities/bundle_offer_entity.dart';
 import '../../../../core/helper_function/get_date_formate.dart';
 import '../../../../core/utils/app_color.dart';
 import '../../../../core/utils/style_manager.dart';

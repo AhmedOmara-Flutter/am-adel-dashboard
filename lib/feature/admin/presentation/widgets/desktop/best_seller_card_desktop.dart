@@ -26,7 +26,7 @@ class BestSellerCardDesktop extends StatelessWidget {
       child: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.all(14),
+            padding: const EdgeInsets.all(16),
             child: Row(
               children: [
                 Container(
@@ -40,41 +40,30 @@ class BestSellerCardDesktop extends StatelessWidget {
                     ),
                   ),
                   child: const Icon(
-                    Icons.access_time_rounded,
+                    Icons.local_fire_department_outlined,
                     size: 17,
                     color: AppColor.mainColor,
                   ),
                 ),
-                const SizedBox(width: 10),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'افضل المنتجات',
-                      style: StyleManager.font15Weight700(
-                        context,
-                      ).copyWith(color: AppColor.textPrimary),
-                    ),
-                    const SizedBox(height: 2),
-                    Text(
-                      'الأكثر مبيعا هذا الشهر',
-                      style: StyleManager.font11Weight400(
-                        context,
-                      ).copyWith(color: AppColor.textSecondary),
-                    ),
-                  ],
+                const SizedBox(width: 8),
+                Text(
+                  'افضل المنتجات',
+                  style: StyleManager.font13Weight400(
+                    context,
+                  ).copyWith(
+                    color: AppColor.textPrimary,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ],
             ),
           ),
-          Container(height: 1, color: AppColor.divider.withOpacity(.65)),
-          const SizedBox(height: 20),
           Container(
-            margin: EdgeInsets.symmetric(
-              horizontal:14,
-            ),
-            child: const BestSellerListViewDesktop(),
+            height: 1,
+            color: AppColor.divider.withOpacity(.65),
           ),
+          const SizedBox(height: 20),
+          const BestSellerListViewDesktop(),
         ],
       ),
     );

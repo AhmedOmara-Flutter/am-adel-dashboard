@@ -5,6 +5,7 @@ import 'package:am_adel_dashboard/feature/admin/presentation/widgets/desktop/qui
 import 'package:am_adel_dashboard/feature/admin/presentation/widgets/desktop/recent_order_card_desktop.dart';
 import 'package:flutter/material.dart';
 import '../mobile/best_seller_card_mobile.dart';
+import 'admin_inventory_card.dart';
 
 class AdminViewDesktop extends StatelessWidget {
   const AdminViewDesktop({super.key});

@@ -1,9 +1,10 @@
 import 'package:am_adel_dashboard/feature/admin/presentation/widgets/desktop/product_item_desktop.dart';
-import 'package:am_adel_dashboard/feature/admin/presentation/widgets/mobile/product_item_mobile.dart';
 import 'package:am_adel_dashboard/feature/admin/presentation/widgets/skeletonizer_product_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../../../../../core/cubit/orders_cubit/orders_cubit.dart';
+import '../../../../../core/utils/app_color.dart';
 import '../../../../../core/utils/style_manager.dart';
 
 class BestSellerListViewDesktop extends StatelessWidget {
@@ -37,12 +38,17 @@ class BestSellerListViewDesktop extends StatelessWidget {
             ),
           );
         }
+
         return ListView.separated(
-            padding: EdgeInsets.zero,
+            padding: EdgeInsets.symmetric(horizontal: 15),
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             itemCount: topProducts.take(5).length,
-            separatorBuilder: (context, index) => const SizedBox(height: 10),
+            separatorBuilder: (context, index) =>Container(
+              height: 1,
+              margin: EdgeInsets.symmetric(vertical: 5),
+              color: AppColor.divider.withOpacity(.65),
+            ),
             itemBuilder: (context, index) {
               return ProductItemDesktop(
                 productName: topProducts[index].name,

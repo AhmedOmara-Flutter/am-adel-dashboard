@@ -1,12 +1,13 @@
+import 'package:am_adel_dashboard/feature/admin/presentation/widgets/desktop/admin_statistics_card_desktop.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../../../../../core/cubit/offers_cubit/offers_cubit.dart';
 import '../../../../../core/cubit/orders_cubit/orders_cubit.dart';
 import '../../../../../core/models/statistics_card_model.dart';
 import '../../../../../core/utils/app_color.dart';
 import '../../../../clients/presentation/view_model/clients_cubit.dart';
 import '../../../../main/presentation/view_model/main_cubit.dart';
-import '../admin_statistics_card.dart';
 
 class AdminStatisticsDesktop extends StatelessWidget {
   const AdminStatisticsDesktop({super.key});
@@ -17,10 +18,10 @@ class AdminStatisticsDesktop extends StatelessWidget {
       children: [
         SizedBox(width: 10,),
         Expanded(
-          child: AdminStatisticsCard(
+          child: AdminStatisticsCardDesktop(
             model: StatisticsCardModel(
               iconColor: AppColor.mainColor,
-              height: 145,
+              height: 125,
               onTap: () {
                 context.read<MainCubit>().changeIndex(6);
               },
@@ -38,10 +39,10 @@ class AdminStatisticsDesktop extends StatelessWidget {
         ),
         SizedBox(width: 10,),
         Expanded(
-          child: AdminStatisticsCard(
+          child: AdminStatisticsCardDesktop(
             model: StatisticsCardModel(
               iconColor: AppColor.mainColor,
-              height: 145,
+              height: 125,
               onTap: () {
                 context.read<MainCubit>().changeIndex(5);
               },
@@ -59,10 +60,10 @@ class AdminStatisticsDesktop extends StatelessWidget {
         ),
         SizedBox(width: 10,),
         Expanded(
-          child: AdminStatisticsCard(
+          child: AdminStatisticsCardDesktop(
             model: StatisticsCardModel(
               iconColor: AppColor.mainColor,
-              height: 145,
+              height: 125,
               onTap: () {
                 context.read<MainCubit>().changeIndex(7);
               },
@@ -80,10 +81,10 @@ class AdminStatisticsDesktop extends StatelessWidget {
         ),
         SizedBox(width: 10,),
         Expanded(
-          child: AdminStatisticsCard(
+          child: AdminStatisticsCardDesktop(
             model: StatisticsCardModel(
               iconColor: AppColor.mainColor,
-              height: 145,
+              height: 125,
               color: Colors.blue,
               icon: Icons.attach_money,
               title: 'اجمالي المبيعات',

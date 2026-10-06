@@ -1,12 +1,8 @@
 import 'package:am_adel_dashboard/core/utils/app_imports.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+
 import '../../../../../core/helper_function/custom_show_snake_bar.dart';
-import '../../../../../core/utils/app_color.dart';
-import '../../../../../core/utils/app_constants.dart';
-import '../../../../cart_status/presentation/view_model/cart_status_cubit.dart';
-import '../../../../settings/presentation/view_model/settings_cubit.dart';
+import 'admin_order_comments_button.dart';
 
 class AdminTopBar extends StatefulWidget {
   final ValueChanged<String>? onSearch;
@@ -27,7 +23,8 @@ class AdminTopBar extends StatefulWidget {
 }
 
 class _AdminTopBarState extends State<AdminTopBar> {
-  final TextEditingController _searchController = TextEditingController();
+  final TextEditingController _searchController =
+  TextEditingController();
 
   @override
   void dispose() {
@@ -53,7 +50,7 @@ class _AdminTopBarState extends State<AdminTopBar> {
           customShowSnakeBar(
             context,
             color: AppColor.red,
-            label: 'برجاء مسح جميع السله أولاً قبل إغلاق المطعم',
+            label: 'برجاء مسح جميع السلال أولاً قبل إغلاق المطعم',
           );
         }
       } else if (cartState is CartStatusError) {
@@ -72,28 +69,21 @@ class _AdminTopBarState extends State<AdminTopBar> {
   Widget build(BuildContext context) {
     return BlocBuilder<SettingsCubit, SettingsState>(
       builder: (context, state) {
-        final isOpen =
-            context.read<SettingsCubit>().isRestaurantOpen;
+        final settingsCubit = context.read<SettingsCubit>();
+        final isOpen = settingsCubit.isRestaurantOpen;
 
         final formattedDate =
         DateFormat('dd MMM yyyy').format(DateTime.now());
 
         return Container(
-          height: 68,
-          margin: const EdgeInsets.symmetric(horizontal: 10),
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          decoration: BoxDecoration(
-            color: AppColor.cardLight,
-            borderRadius: BorderRadius.circular(
-              AppConstants.borderRadius,
-            ),
-            border: Border.all(
-              color: AppColor.border.withOpacity(.35),
-            ),
+          margin: const EdgeInsets.only(
+              left: 20,
+              right: 20,bottom: 10
           ),
+
           child: Row(
             children: [
-              // Profile
+              // ───────────────── Profile ─────────────────
               InkWell(
                 onTap: widget.onProfileTap,
                 borderRadius: BorderRadius.circular(10),
@@ -104,7 +94,7 @@ class _AdminTopBarState extends State<AdminTopBar> {
                       width: 36,
                       height: 36,
                       decoration: BoxDecoration(
-                        color: AppColor.mainColor.withOpacity(.08),
+                        color: AppColor.accentColor.withOpacity(.10),
                         shape: BoxShape.circle,
                       ),
                       child: const Icon(
@@ -116,19 +106,20 @@ class _AdminTopBarState extends State<AdminTopBar> {
 
                     const SizedBox(width: 9),
 
-                     Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                    Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'احمد عماره',
-                          style:StyleManager.font12Weight500(context).copyWith(
+                          'أحمد عمارة',
+                          style: StyleManager
+                              .font12Weight500(context)
+                              .copyWith(
                             fontWeight: FontWeight.bold,
-                            color: AppColor.textPrimary
+                            color: AppColor.textPrimary,
                           ),
                         ),
-                        SizedBox(height: 2),
-                        Text(
+                        const SizedBox(height: 2),
+                        const Text(
                           'مدير المطعم',
                           style: TextStyle(
                             color: AppColor.textSecondary,
@@ -143,33 +134,44 @@ class _AdminTopBarState extends State<AdminTopBar> {
 
               const Spacer(),
 
-              // Date
+              // ───────────────── Date ─────────────────
               Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   const Icon(
                     Icons.calendar_today_outlined,
-                    size: 15,
+                    size: 14,
                     color: AppColor.textSecondary,
                   ),
                   const SizedBox(width: 6),
                   Text(
                     formattedDate,
-                    style: const TextStyle(
+                    style: StyleManager
+                        .font11Weight400(context)
+                        .copyWith(
                       color: AppColor.textPrimary,
-                      fontSize: 10,
                       fontWeight: FontWeight.w700,
                     ),
                   ),
                 ],
               ),
 
-              const SizedBox(width: 18),
+              const SizedBox(width: 20),
 
-              // Restaurant Status
+              // ───────────────── Comments ─────────────────
+              AdminOrderCommentsButton(
+                commentCount: 3,
+                onTap: () {
+                  // TODO: Navigate to order comments
+                },
+              ),
+
+              const SizedBox(width: 14),
+
+              // ───────────────── Restaurant Status ─────────────────
               InkWell(
                 onTap: _toggleRestaurantStatus,
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(9),
                 child: AnimatedContainer(
                   duration: const Duration(milliseconds: 250),
                   padding: const EdgeInsets.symmetric(
@@ -180,7 +182,7 @@ class _AdminTopBarState extends State<AdminTopBar> {
                     color: isOpen
                         ? AppColor.green.withOpacity(.07)
                         : AppColor.red.withOpacity(.07),
-                    borderRadius: BorderRadius.circular(10),
+                    borderRadius: BorderRadius.circular(9),
                     border: Border.all(
                       color: isOpen
                           ? AppColor.green.withOpacity(.18)
@@ -195,8 +197,9 @@ class _AdminTopBarState extends State<AdminTopBar> {
                         width: 7,
                         height: 7,
                         decoration: BoxDecoration(
-                          color:
-                          isOpen ? AppColor.green : AppColor.red,
+                          color: isOpen
+                              ? AppColor.green
+                              : AppColor.red,
                           shape: BoxShape.circle,
                         ),
                       ),
@@ -206,20 +209,22 @@ class _AdminTopBarState extends State<AdminTopBar> {
                       Text(
                         isOpen ? 'مفتوح' : 'مغلق',
                         style: TextStyle(
-                          color:
-                          isOpen ? AppColor.green : AppColor.red,
+                          color: isOpen
+                              ? AppColor.green
+                              : AppColor.red,
                           fontSize: 10,
                           fontWeight: FontWeight.w800,
                         ),
                       ),
 
-                      const SizedBox(width: 4),
+                      const SizedBox(width: 3),
 
                       Icon(
                         Icons.keyboard_arrow_down_rounded,
                         size: 15,
-                        color:
-                        isOpen ? AppColor.green : AppColor.red,
+                        color: isOpen
+                            ? AppColor.green
+                            : AppColor.red,
                       ),
                     ],
                   ),

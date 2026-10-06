@@ -83,11 +83,7 @@ class QuickActionsSection extends StatelessWidget {
                       title: 'إضافة منتج',
                       icon: Icons.add_rounded,
                       onTap: () {
-                        Navigator.pushNamed(
-                          context,
-                          RouteManager.addProductView,
-                        );
-                      },
+                        context.read<MainCubit>().changeIndex(3);                      },
                     ),
                   ),
                   SizedBox(
@@ -95,7 +91,9 @@ class QuickActionsSection extends StatelessWidget {
                     child: _QuickActionButton(
                       title: 'إنشاء عرض',
                       icon: Icons.card_giftcard_outlined,
-                      onTap: () {},
+                      onTap: () {
+                        context.read<MainCubit>().changeIndex(2);
+                      },
                     ),
                   ),
                   SizedBox(
@@ -103,7 +101,9 @@ class QuickActionsSection extends StatelessWidget {
                     child: _QuickActionButton(
                       title: 'إضافة كوبون',
                       icon: Icons.local_offer_outlined,
-                      onTap: () {},
+                      onTap: () {
+                        context.read<MainCubit>().changeIndex(13);
+                      },
                     ),
                   ),
                   SizedBox(
@@ -111,7 +111,9 @@ class QuickActionsSection extends StatelessWidget {
                     child: _QuickActionButton(
                       title: 'التقرير اليومي',
                       icon: Icons.description_outlined,
-                      onTap: () {},
+                      onTap: () {
+                        context.read<MainCubit>().changeIndex(12);
+                      },
                     ),
                   ),
                 ],

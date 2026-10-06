@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'app_color.dart';
+import 'config_size.dart';
 
 class StyleManager {
   static const String _fontFamily = 'Cairo';
@@ -134,11 +135,13 @@ double responsiveFontSize(
 double getScaleFactor(BuildContext context) {
   final width = MediaQuery.sizeOf(context).width;
 
-  if (width < 800) {
-    return width / 600;
-  } else if (width < 1200) {
-    return width / 1000;
-  } else {
-    return width / 1300;
+  if (width < ConfigSize.phone) {
+    return width / 390;
   }
+
+  if (width < ConfigSize.tablet) {
+    return width / 768;
+  }
+
+  return width / 1440;
 }

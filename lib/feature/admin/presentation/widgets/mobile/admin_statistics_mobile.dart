@@ -1,3 +1,4 @@
+import 'package:am_adel_dashboard/feature/admin/presentation/widgets/mobile/admin_statistics_card_mobile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -7,7 +8,6 @@ import '../../../../../core/models/statistics_card_model.dart';
 import '../../../../../core/utils/app_color.dart';
 import '../../../../clients/presentation/view_model/clients_cubit.dart';
 import '../../../../main/presentation/view_model/main_cubit.dart';
-import '../admin_statistics_card.dart';
 
 class AdminStatisticsMobile extends StatelessWidget {
   const AdminStatisticsMobile({super.key});
@@ -24,7 +24,7 @@ class AdminStatisticsMobile extends StatelessWidget {
           Row(
             children: [
               Expanded(
-                child: AdminStatisticsCard(
+                child: AdminStatisticsCardMobile(
                   model: StatisticsCardModel(
                     iconColor: AppColor.mainColor,
                     height: 125,
@@ -45,7 +45,7 @@ class AdminStatisticsMobile extends StatelessWidget {
               ),
               const SizedBox(width: 10),
               Expanded(
-                child: AdminStatisticsCard(
+                child: AdminStatisticsCardMobile(
                   model: StatisticsCardModel(
                     height: 125,
                     iconColor: AppColor.mainColor,
@@ -70,7 +70,7 @@ class AdminStatisticsMobile extends StatelessWidget {
           Row(
             children: [
               Expanded(
-                child: AdminStatisticsCard(
+                child: AdminStatisticsCardMobile(
                   model: StatisticsCardModel(
                     height: 125,
                     iconColor: AppColor.mainColor,
@@ -91,7 +91,7 @@ class AdminStatisticsMobile extends StatelessWidget {
               ),
               const SizedBox(width: 10),
               Expanded(
-                child: AdminStatisticsCard(
+                child: AdminStatisticsCardMobile(
                   model: StatisticsCardModel(
                     height: 125,
                     iconColor: AppColor.mainColor,

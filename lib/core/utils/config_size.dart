@@ -1,3 +1,4 @@
 class ConfigSize {
-static const phone =600;
+  static const double phone = 600;
+  static const double tablet = 1200;
 }

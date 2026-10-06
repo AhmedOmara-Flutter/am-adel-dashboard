@@ -1,14 +1,14 @@
 import 'package:am_adel_dashboard/core/utils/app_color.dart';
 import 'package:am_adel_dashboard/core/utils/style_manager.dart';
 import 'package:flutter/material.dart';
-import '../../../../core/models/statistics_card_model.dart';
-import '../../../../core/utils/app_constants.dart';
-import '../../../../core/widgets/icon_badge.dart';
+import '../../../../../core/models/statistics_card_model.dart';
+import '../../../../../core/utils/app_constants.dart';
+import '../../../../../core/widgets/icon_badge.dart';
 
-class AdminStatisticsCard extends StatelessWidget {
+class AdminStatisticsCardMobile extends StatelessWidget {
   final StatisticsCardModel model;
 
-  const AdminStatisticsCard({
+  const AdminStatisticsCardMobile({
     super.key,
     required this.model,
   });

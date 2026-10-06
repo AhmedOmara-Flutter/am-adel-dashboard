@@ -3,7 +3,6 @@ import 'package:am_adel_dashboard/core/utils/style_manager.dart';
 import 'package:am_adel_dashboard/feature/main/presentation/view_model/main_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../../../../generated/assets.dart';
 
 class OrderItemDesktop extends StatelessWidget {
@@ -48,9 +47,8 @@ class OrderItemDesktop extends StatelessWidget {
           ),
           child: Row(
             children: [
-              // ================= CUSTOMER =================
               Expanded(
-                flex: 3,
+                flex: 4,
                 child: Row(
                   children: [
                     Container(

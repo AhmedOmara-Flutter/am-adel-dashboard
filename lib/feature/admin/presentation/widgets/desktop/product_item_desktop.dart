@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 
 import '../../../../../core/utils/app_color.dart';
 
-
 class ProductItemDesktop extends StatelessWidget {
   const ProductItemDesktop({
     super.key,
@@ -24,26 +23,30 @@ class ProductItemDesktop extends StatelessWidget {
     return RepaintBoundary(
       child: Padding(
         padding: const EdgeInsets.symmetric(
-          vertical: 7,
+          horizontal: 4,
+          vertical: 8,
         ),
         child: Row(
           children: [
             SizedBox(
-              width: 30,
+              width: 32,
               child: Image.asset(
                 medal,
-                width: 24,
-                height: 24,
+                width: 23,
+                height: 23,
                 fit: BoxFit.contain,
               ),
             ),
-            const SizedBox(width: 9),
+            const SizedBox(width: 10),
             Container(
-              width: 54,
-              height: 54,
+              width: 58,
+              height: 58,
               decoration: BoxDecoration(
                 color: AppColor.background,
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: BorderRadius.circular(13),
+                border: Border.all(
+                  color: AppColor.border.withOpacity(.20),
+                ),
               ),
               clipBehavior: Clip.antiAlias,
               child: CachedNetworkImage(
@@ -70,12 +73,12 @@ class ProductItemDesktop extends StatelessWidget {
                   return Icon(
                     Icons.restaurant_rounded,
                     color: AppColor.textSecondary.withOpacity(.35),
-                    size: 23,
+                    size: 24,
                   );
                 },
               ),
             ),
-            const SizedBox(width: 11),
+            const SizedBox(width: 14),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -85,48 +88,57 @@ class ProductItemDesktop extends StatelessWidget {
                     productName,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                    style: StyleManager.font13Weight600(
+                    style: StyleManager.font11Weight400(
                       context,
                     ).copyWith(
                       color: AppColor.textPrimary,
+                      fontWeight: FontWeight.w700
                     ),
                   ),
-                  const SizedBox(height: 6),
+                  const SizedBox(height: 7),
                   Row(
                     children: [
-                      Icon(
-                        Icons.shopping_bag_outlined,
-                        size: 13,
-                        color: AppColor.textSecondary.withOpacity(.55),
-                      ),
-                      const SizedBox(width: 4),
-                      Text(
-                        '$orderCount مبيعات',
-                        style: StyleManager.font11Weight400(
-                          context,
-                        ).copyWith(
-                          color: AppColor.textSecondary,
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 7,
+                          vertical: 4,
+                        ),
+                        decoration: BoxDecoration(
+                          color: AppColor.mainColor.withOpacity(.06),
+                          borderRadius: BorderRadius.circular(7),
+                        ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            const Icon(
+                              Icons.shopping_bag_outlined,
+                              size: 13,
+                              color: AppColor.mainColor,
+                            ),
+                            const SizedBox(width: 5),
+                            Text(
+                              '$orderCount مبيعات',
+                              style: StyleManager.font11Weight400(
+                                context,
+                              ).copyWith(
+                                color: AppColor.mainColor,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ],
                   ),
-                  const SizedBox(height: 7),
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
-                    child: LinearProgressIndicator(
-                      minHeight: 4,
-                      value: _getProgress(),
-                      backgroundColor:
-                      AppColor.backgroundDark.withOpacity(.45),
-                      valueColor: AlwaysStoppedAnimation(
-                        AppColor.orange.withOpacity(.75),
-                      ),
-                    ),
-                  ),
                 ],
               ),
             ),
-            const SizedBox(width: 12),
+            const SizedBox(width: 16),
+            Container(
+              width: 1,
+              height: 38,
+              color: AppColor.divider.withOpacity(.55),
+            ),
+            const SizedBox(width: 16),
             Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               mainAxisSize: MainAxisSize.min,
@@ -154,15 +166,5 @@ class ProductItemDesktop extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  double _getProgress() {
-    final count = int.tryParse(orderCount) ?? 0;
-
-    if (count <= 0) {
-      return 0.05;
-    }
-
-    return (count / (count + 100)).clamp(0.08, 0.95);
   }
 }

@@ -214,7 +214,7 @@ class BundleOfferCard extends StatelessWidget {
       width: double.infinity,
       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 13),
       decoration: BoxDecoration(
-        color: AppColor.backgroundDark.withOpacity(.55),
+        color:AppColor.inputFill,
         borderRadius: BorderRadius.circular(12),
       ),
       child: Text(

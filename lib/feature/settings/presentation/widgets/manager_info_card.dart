@@ -46,9 +46,11 @@ class ManagerInfoCard extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(width: 7),
-                   Text(
+                  Text(
                     'ACTIVE MANAGER',
-                    style:StyleManager.font11Weight400(context).copyWith(fontWeight: FontWeight.w700),
+                    style: StyleManager.font11Weight400(
+                      context,
+                    ).copyWith(fontWeight: FontWeight.w700),
                   ),
                 ],
               ),
@@ -61,7 +63,10 @@ class ManagerInfoCard extends StatelessWidget {
                 ),
                 child: Text(
                   'MANAGER',
-                  style: StyleManager.font11Weight400(context).copyWith(fontWeight: FontWeight.w700,color: AppColor.black),
+                  style: StyleManager.font11Weight400(context).copyWith(
+                    fontWeight: FontWeight.w700,
+                    color: AppColor.black,
+                  ),
                 ),
               ),
             ],
@@ -156,7 +161,7 @@ class ManagerInfoCard extends StatelessWidget {
             width: double.infinity,
             padding: const EdgeInsets.symmetric(horizontal: 13, vertical: 11),
             decoration: BoxDecoration(
-              color: AppColor.backgroundDark,
+              color: AppColor.inputFill,
               borderRadius: BorderRadius.circular(13),
             ),
             child: Row(
@@ -169,14 +174,10 @@ class ManagerInfoCard extends StatelessWidget {
 
                 const SizedBox(width: 8),
 
-                const Expanded(
+                Expanded(
                   child: Text(
                     'إدارة المطعم والتحكم في الإعدادات',
-                    style: TextStyle(
-                      color: AppColor.textSecondary,
-                      fontSize: 11,
-                      fontWeight: FontWeight.w600,
-                    ),
+                    style: StyleManager.font12Weight500(context),
                   ),
                 ),
               ],

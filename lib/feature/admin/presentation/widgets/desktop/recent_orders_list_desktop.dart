@@ -7,6 +7,7 @@ import 'package:am_adel_dashboard/feature/admin/presentation/widgets/desktop/ord
 import 'package:am_adel_dashboard/feature/admin/presentation/widgets/skeletonizer_order_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../../../../../core/enums/order_enum.dart';
 
 class RecentOrdersListDesktop extends StatelessWidget {
@@ -18,16 +19,13 @@ class RecentOrdersListDesktop extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<OrdersCubit, OrdersState>(
       builder: (context, state) {
-        final cubit = context.watch<OrdersCubit>();
-        final recentOrders = cubit.recentOrders;
+        final recentOrders = context.read<OrdersCubit>().recentOrders;
 
-        final isLoading =
-        state is GetOrdersLoadingState;
+        final isLoading = state is GetOrdersLoadingState;
 
         if (isLoading) {
           return ListView.builder(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
+            padding: EdgeInsets.zero,
             itemCount: 3,
             itemBuilder: (context, index) {
               return const Padding(
@@ -39,56 +37,62 @@ class RecentOrdersListDesktop extends StatelessWidget {
         }
 
         if (recentOrders.isEmpty) {
-          return Padding(
-            padding: const EdgeInsets.symmetric(
-              vertical: 35,
-            ),
-            child: Column(
-              children: [
-                Container(
-                  width: 52,
-                  height: 52,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: AppColor.mainColor.withOpacity(.06),
-                    border: Border.all(
-                      color: AppColor.border.withOpacity(.25),
+          return Center(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 16,
+                vertical: 24,
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Container(
+                    width: 52,
+                    height: 52,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: AppColor.mainColor.withOpacity(.06),
+                      border: Border.all(
+                        color: AppColor.border.withOpacity(.25),
+                      ),
+                    ),
+                    child: Icon(
+                      Icons.receipt_long_outlined,
+                      size: 25,
+                      color: AppColor.textSecondary.withOpacity(.65),
                     ),
                   ),
-                  child: Icon(
-                    Icons.receipt_long_outlined,
-                    size: 25,
-                    color: AppColor.textSecondary.withOpacity(.65),
+                  const SizedBox(height: 10),
+                  Text(
+                    'لا يوجد حاليًا طلبات حديثة',
+                    textAlign: TextAlign.center,
+                    style: StyleManager.font12Weight500(
+                      context,
+                    ).copyWith(
+                      color: AppColor.textPrimary,
+                    ),
                   ),
-                ),
-                const SizedBox(height: 10),
-                Text(
-                  'لا يوجد حاليًا طلبات حديثة',
-                  style: StyleManager.font12Weight500(
-                    context,
-                  ).copyWith(
-                    color: AppColor.textPrimary,
+                  const SizedBox(height: 4),
+                  Text(
+                    'ستظهر الطلبات الجديدة هنا',
+                    textAlign: TextAlign.center,
+                    style: StyleManager.font11Weight400(
+                      context,
+                    ).copyWith(
+                      color: AppColor.textSecondary.withOpacity(.70),
+                    ),
                   ),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  'ستظهر الطلبات الجديدة هنا',
-                  style: StyleManager.font11Weight400(
-                    context,
-                  ).copyWith(
-                    color: AppColor.textSecondary.withOpacity(.70),
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
           );
         }
 
+        final visibleOrders = recentOrders.take(3).toList();
+
         return ListView.separated(
           padding: EdgeInsets.zero,
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          itemCount: recentOrders.take(3).length + 1,
+          itemCount: visibleOrders.length + 1,
           separatorBuilder: (context, index) {
             return Container(
               height: 1,
@@ -183,7 +187,7 @@ class RecentOrdersListDesktop extends StatelessWidget {
               );
             }
 
-            final order = recentOrders[index - 1];
+            final order = visibleOrders[index - 1];
 
             final deliveryCost =
                 order.selectedLocationEntity?.cost ?? 0;

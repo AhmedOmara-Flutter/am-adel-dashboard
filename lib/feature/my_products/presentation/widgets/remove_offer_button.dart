@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/cubit/offers_cubit/offers_cubit.dart';
+import '../../../../core/utils/style_manager.dart';
 import '../../../offers/domain/entities/offer_entity.dart';
 import '../../../../core/helper_function/custom_show_snake_bar.dart';
 import '../../../cart_status/presentation/view_model/cart_status_cubit.dart';
@@ -41,13 +42,8 @@ class RemoveOfferButton extends StatelessWidget {
           decoration: BoxDecoration(
             color: hasOffer
                 ? AppColor.red.withOpacity(.10)
-                : AppColor.cardLight.withOpacity(.22),
+                : AppColor.inputFill,
             borderRadius: BorderRadius.circular(8),
-            border: Border.all(
-              color: hasOffer
-                  ? AppColor.red.withOpacity(.35)
-                  : AppColor.accentColor.withOpacity(.45),
-            ),
           ),
           child: InkWell(
             borderRadius: BorderRadius.circular(8),
@@ -130,15 +126,12 @@ class RemoveOfferButton extends StatelessWidget {
             child: Text(
               hasOffer ? 'حذف عرض' : 'إضافة عرض',
               textAlign: TextAlign.center,
-              style: Theme
-                  .of(context)
-                  .textTheme
-                  .titleSmall!
+              style:  StyleManager.font14Weight600(context)
                   .copyWith(
                 color: hasOffer
                     ? AppColor.red
                     : AppColor.mainColor,
-                fontWeight: FontWeight.w700,
+                fontWeight: FontWeight.w600,
               ),
             ),
           ),

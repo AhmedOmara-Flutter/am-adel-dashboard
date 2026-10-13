@@ -1,3 +1,4 @@
+
 import 'package:am_adel_dashboard/core/utils/app_color.dart';
 import 'package:am_adel_dashboard/core/utils/style_manager.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +27,7 @@ class AdminStatisticsCardMobile extends StatelessWidget {
             AppConstants.borderRadius,
           ),
           border: Border.all(
-            color: AppColor.divider.withOpacity(.45),
+            color: AppColor.divider.withOpacity(0.25),
           ),
         ),
         child: Column(
@@ -36,7 +37,7 @@ class AdminStatisticsCardMobile extends StatelessWidget {
               children: [
                 IconBadge(
                   icon: model.icon,
-                  iconColor: model.iconColor,
+                  iconColor: AppColor.textSecondary,
                 ),
                 const SizedBox(width: 8),
                 Expanded(
@@ -44,24 +45,19 @@ class AdminStatisticsCardMobile extends StatelessWidget {
                     model.title,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context)
-                        .textTheme
-                        .titleMedium
-                        ?.copyWith(
-                      color: AppColor.textPrimary,
+                    style: StyleManager.font12Weight500(context).copyWith(
+                      color: AppColor.black,
                       fontSize: responsiveFontSize(
                         context,
                         fontSize: 12,
                       ),
-                      fontWeight: FontWeight.w700,
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
                 ),
               ],
             ),
-
             const Spacer(),
-
             Text(
               model.subTitleNumber,
               maxLines: 1,
@@ -70,23 +66,21 @@ class AdminStatisticsCardMobile extends StatelessWidget {
                   .textTheme
                   .displaySmall
                   ?.copyWith(
-                color: AppColor.mainColor,
+                color: AppColor.textPrimary,
                 fontSize: responsiveFontSize(
                   context,
                   fontSize: 21,
                 ),
-                fontWeight: FontWeight.w800,
+                fontWeight: FontWeight.w700,
               ),
             ),
-
             const SizedBox(height: 4),
-
             Text(
               model.subTitleText,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: StyleManager.font12Weight500(context).copyWith(
-                color: AppColor.textSecondary,
+                color: AppColor.textSecondary.withOpacity(0.8),
                 fontSize: responsiveFontSize(
                   context,
                   fontSize: 10,

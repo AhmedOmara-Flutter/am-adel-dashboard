@@ -1,4 +1,5 @@
 import 'package:am_adel_dashboard/feature/flash_offer/presentation/view/flash_offer_view.dart';
+import 'package:am_adel_dashboard/feature/order_review/presentation/view/order_review.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:am_adel_dashboard/feature/add_product/presentation/view/add_product_view.dart';
@@ -55,6 +56,11 @@ class MainCubit extends Cubit<MainState> {
       activeIcon: Icons.local_shipping,
     ),
     DrawerItemModel(
+      title: 'تقييم الطلبات',
+      inactiveIcon: Icons.rate_review_outlined,
+      activeIcon: Icons.rate_review,
+    ),
+    DrawerItemModel(
       title: 'العملاء',
       inactiveIcon: Icons.people_alt_outlined,
       activeIcon: Icons.people,
@@ -109,6 +115,7 @@ class MainCubit extends Cubit<MainState> {
     AddProductView(),
     ReviewsView(),
     OrderView(),
+    OrderReviewView(),
     ClientsView(),
     OffersView(),
     BundleOfferView(),

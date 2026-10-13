@@ -23,5 +23,5 @@ class AppColor {
   static const Color white = Color(0xFFFFFBF2);
   static const Color black = Color(0xFF2B1A10);
   static const Color transparent = Colors.transparent;
-
+  static final Color inputFill = const Color(0xFF4A2C1A).withOpacity(.055);
 }

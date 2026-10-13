@@ -286,6 +286,22 @@ class _SplashViewBodyState extends State<SplashViewBody> {
           fit: BoxFit.cover,
         ),
       ),
+      // child: Column(
+      //   mainAxisAlignment: MainAxisAlignment.end,
+      //   children: [
+      //
+      //     Padding(
+      //       padding: const EdgeInsets.only(bottom: 55),
+      //       child: Row(
+      //         mainAxisAlignment: MainAxisAlignment.center,
+      //         children: [
+      //           CircularProgressIndicator(color: AppColor.mainColor,),
+      //         ],
+      //
+      //       ),
+      //     ),
+      //   ],
+      // ),
     );
   }
 

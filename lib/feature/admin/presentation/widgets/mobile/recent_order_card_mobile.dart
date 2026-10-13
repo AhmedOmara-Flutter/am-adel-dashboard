@@ -20,16 +20,12 @@ class RecentOrderCardMobile extends StatelessWidget {
       padding: const EdgeInsets.all(13),
       decoration: BoxDecoration(
         color: AppColor.cardLight,
-        borderRadius: BorderRadius.circular(AppConstants.borderRadius),
-        border: Border.all(color: AppColor.border.withOpacity(.40)),
-        boxShadow: [
-          BoxShadow(
-            color: AppColor.mainColor.withOpacity(.06),
-            blurRadius: 20,
-            spreadRadius: 1,
-            offset: const Offset(0, 7),
-          ),
-        ],
+        borderRadius: BorderRadius.circular(
+          AppConstants.borderRadius,
+        ),
+        border: Border.all(
+          color: AppColor.divider.withOpacity(0.25),
+        ),
       ),
       clipBehavior: Clip.antiAlias,
       child: Column(

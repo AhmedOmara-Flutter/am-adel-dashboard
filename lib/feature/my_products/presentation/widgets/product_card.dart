@@ -63,9 +63,6 @@ class ProductCard extends StatelessWidget {
                         decoration: BoxDecoration(
                           color: AppColor.background,
                           borderRadius: BorderRadius.circular(14),
-                          border: Border.all(
-                            color: AppColor.divider,
-                          ),
                         ),
                         child: CachedNetworkImage(
                           imageUrl: product.image ?? '',

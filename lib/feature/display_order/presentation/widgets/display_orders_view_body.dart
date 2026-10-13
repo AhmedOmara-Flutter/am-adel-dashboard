@@ -1,3 +1,4 @@
+import 'package:am_adel_dashboard/core/extension/responsive_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:am_adel_dashboard/core/entities/order_entity.dart';
 import '../../../../core/utils/app_color.dart';
@@ -14,26 +15,7 @@ class DisplayOrdersViewBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        MediaQuery.sizeOf(context).width > ConfigSize.phone
-            ? Expanded(
-                child: GridView.builder(
-            padding: EdgeInsets.all(10),
-            itemCount: orders.length,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 3,
-                    crossAxisSpacing: 0,
-                    mainAxisSpacing: 0,
-                    childAspectRatio: 1.15,
-                  ),
-                  itemBuilder: (context, index) {
-              return DisplayOrderCard(
-                order: orders[index],
-                orderNumber: orders.length - index,
-              );
-            },
-          ),
-              )
-            : Expanded(
+      Expanded(
               child: ListView.separated(
                   padding: EdgeInsets.all(10),
                   itemCount: orders.length,

@@ -87,7 +87,9 @@ class RecentOrderCardDesktop extends StatelessWidget {
             height: 1,
             color: AppColor.divider.withOpacity(.65),
           ),
-          const RecentOrdersListDesktop(),
+          const Expanded(
+            child: RecentOrdersListDesktop(),
+          ),
         ],
       ),
     );

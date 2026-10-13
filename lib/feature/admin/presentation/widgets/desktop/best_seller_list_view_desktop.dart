@@ -27,14 +27,47 @@ class BestSellerListViewDesktop extends StatelessWidget {
           );
 
         if (topProducts.isEmpty) {
-          return Container(
-            margin: EdgeInsets.only(bottom: 20, top: 15),
-            child: Text(
-              'لا يوجد حاليا اكثر منتجات مبيعا',
-              style: StyleManager.font15Weight800(context).copyWith(
-                  fontSize: 13
-              ),
-
+          return Padding(
+            padding: const EdgeInsets.symmetric(
+              vertical: 15,
+            ),
+            child: Column(
+              children: [
+                Container(
+                  width: 52,
+                  height: 52,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: AppColor.mainColor.withOpacity(.06),
+                    border: Border.all(
+                      color: AppColor.border.withOpacity(.25),
+                    ),
+                  ),
+                  child: Icon(
+                    Icons.receipt_long_outlined,
+                    size: 25,
+                    color: AppColor.textSecondary.withOpacity(.65),
+                  ),
+                ),
+                const SizedBox(height: 10),
+                Text(
+                  'لا يوجد حاليا اكثر منتجات مبيعا',
+                  style: StyleManager.font12Weight500(
+                    context,
+                  ).copyWith(
+                    color: AppColor.textPrimary,
+                  ),
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  'ستظهر المنتجات الحديثه هنا',
+                  style: StyleManager.font11Weight400(
+                    context,
+                  ).copyWith(
+                    color: AppColor.textSecondary.withOpacity(.70),
+                  ),
+                ),
+              ],
             ),
           );
         }

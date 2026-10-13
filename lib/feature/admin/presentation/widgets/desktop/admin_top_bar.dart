@@ -80,10 +80,8 @@ class _AdminTopBarState extends State<AdminTopBar> {
               left: 20,
               right: 20,bottom: 10
           ),
-
           child: Row(
             children: [
-              // ───────────────── Profile ─────────────────
               InkWell(
                 onTap: widget.onProfileTap,
                 borderRadius: BorderRadius.circular(10),
@@ -134,7 +132,6 @@ class _AdminTopBarState extends State<AdminTopBar> {
 
               const Spacer(),
 
-              // ───────────────── Date ─────────────────
               Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -158,17 +155,14 @@ class _AdminTopBarState extends State<AdminTopBar> {
 
               const SizedBox(width: 20),
 
-              // ───────────────── Comments ─────────────────
               AdminOrderCommentsButton(
-                commentCount: 3,
                 onTap: () {
-                  // TODO: Navigate to order comments
+                  context.read<MainCubit>().changeIndex(6);
                 },
               ),
 
               const SizedBox(width: 14),
 
-              // ───────────────── Restaurant Status ─────────────────
               InkWell(
                 onTap: _toggleRestaurantStatus,
                 borderRadius: BorderRadius.circular(9),

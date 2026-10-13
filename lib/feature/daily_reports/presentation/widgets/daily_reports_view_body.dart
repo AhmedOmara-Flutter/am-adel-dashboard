@@ -75,7 +75,7 @@ class _DailyReportsViewBodyState extends State<DailyReportsViewBody> {
                     const SizedBox(height: 10),
                     const DailyReportHeader(),
                     const SizedBox(height: 10),
-                    DailyReportStats(report: report),
+                     DailyReportStats(report: report),
                     const SizedBox(height: 10),
                     DailyReportStatusSection(
                       ordersCubit: cubit.ordersCubit,

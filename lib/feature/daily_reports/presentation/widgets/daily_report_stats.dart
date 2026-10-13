@@ -1,13 +1,11 @@
+import 'package:am_adel_dashboard/core/extension/responsive_extension.dart';
 import 'package:flutter/material.dart';
 import '../../../../core/utils/config_size.dart';
 import '../../domain/entities/daily_reports_entity.dart';
 import 'daily_report_stat_card.dart';
 
 class DailyReportStats extends StatelessWidget {
-  const DailyReportStats({
-    super.key,
-    required this.report,
-  });
+  const DailyReportStats({super.key, required this.report});
 
   final DailyReportEntity report;
 
@@ -40,42 +38,23 @@ class DailyReportStats extends StatelessWidget {
         isTotal: true,
       ),
     ];
-
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        if (MediaQuery.sizeOf(context).width > ConfigSize.phone) {
-          return Row(
-            children: [
-              for (int i = 0; i < cards.length; i++) ...[
-                Expanded(child: cards[i]),
-                if (i != cards.length - 1)
-                  const SizedBox(width: 10),
-              ],
-            ],
+    return GridView.builder(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: cards.length,
+            gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: context.isDesktop?4:2,
+              crossAxisSpacing: 10,
+              mainAxisSpacing: 10,
+              childAspectRatio:context.isDesktop?2.2: 1.25,
+            ),
+            itemBuilder: (context, index) {
+              return cards[index];
+            },
           );
-        }
-
-        return GridView.builder(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          itemCount: cards.length,
-          gridDelegate:
-          const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            crossAxisSpacing: 10,
-            mainAxisSpacing: 10,
-            childAspectRatio: 1.25,
-          ),
-          itemBuilder: (context, index) {
-            return cards[index];
-          },
-        );
-      },
-    );
   }
 
   String _formatMoney(double value) {
     return value.toStringAsFixed(2);
   }
 }
-

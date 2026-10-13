@@ -11,16 +11,12 @@ class BestSellerCardMobile extends StatelessWidget {
       padding: EdgeInsets.all(13),
       decoration: BoxDecoration(
         color: AppColor.cardLight,
-        borderRadius: BorderRadius.circular(AppConstants.borderRadius),
-        border: Border.all(color: AppColor.border.withOpacity(.40)),
-        boxShadow: [
-          BoxShadow(
-            color: AppColor.accentColor.withOpacity(.06),
-            blurRadius: 20,
-            spreadRadius: 1,
-            offset: const Offset(0, 7),
-          ),
-        ],
+        borderRadius: BorderRadius.circular(
+          AppConstants.borderRadius,
+        ),
+        border: Border.all(
+          color: AppColor.divider.withOpacity(0.25),
+        ),
       ),
       clipBehavior: Clip.antiAlias,
       child: Column(
@@ -62,36 +58,42 @@ class BestSellerCardMobile extends StatelessWidget {
                         ],
                       ),
                     ),
+
                     Container(
                       padding: const EdgeInsets.symmetric(
-                        horizontal: 10,
-                        vertical: 6,
+                        horizontal: 9,
+                        vertical: 5,
                       ),
                       decoration: BoxDecoration(
-                        color: AppColor.orange.withOpacity(.10),
-                        borderRadius: BorderRadius.circular(10),
+                        color: const Color(0xFFFFF3E0),
+                        borderRadius: BorderRadius.circular(8),
+                        border: Border.all(
+                          color: const Color(0xFFFFE0B2),
+                        ),
                       ),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Container(
-                            width: 6,
-                            height: 6,
+                            width: 5,
+                            height: 5,
                             decoration: const BoxDecoration(
-                              color: AppColor.orange,
+                              color: Color(0xFFE07800),
                               shape: BoxShape.circle,
                             ),
                           ),
                           const SizedBox(width: 6),
                           Text(
                             'TOP 5',
-                            style: StyleManager.font11Weight400(
-                              context,
-                            ).copyWith(color: AppColor.orange),
+                            style: StyleManager.font11Weight400(context).copyWith(
+                              color: const Color(0xFFB85C00),
+                              fontWeight: FontWeight.w700,
+                              letterSpacing: 0.3,
+                            ),
                           ),
                         ],
                       ),
-                    ),
+                    )
                   ],
                 ),
           const SizedBox(height: 20),

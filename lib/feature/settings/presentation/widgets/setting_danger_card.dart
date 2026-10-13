@@ -40,21 +40,21 @@ Widget buildCartDangerCard(BuildContext context) {
   );
 }
 
-Widget buildBundleOffersDangerCard(BuildContext context) {
-  return DangerCard(
-    title: 'حذف الباكدج',
-    description: 'حذف جميع الباكدج نهائيًا.',
-    buttonText: 'حذف جميع الباكدج',
-    icon: Icons.inventory_2_outlined,
-    color: AppColor.secondaryColor,
-    dialogTitle: 'تأكيد حذف جميع الباكدج',
-    dialogContent: 'هل أنت متأكد أنك تريد حذف جميع الباكدج؟',
-    dialogIcon: Icons.inventory_2_outlined,
-    onPressed: () {
-      context.read<DeleteBundleOfferCubit>().deleteAllBundleOffers();
-    },
-  );
-}
+// Widget buildBundleOffersDangerCard(BuildContext context) {
+//   return DangerCard(
+//     title: 'حذف الباكدج',
+//     description: 'حذف جميع الباكدج نهائيًا.',
+//     buttonText: 'حذف جميع الباكدج',
+//     icon: Icons.inventory_2_outlined,
+//     color: AppColor.secondaryColor,
+//     dialogTitle: 'تأكيد حذف جميع الباكدج',
+//     dialogContent: 'هل أنت متأكد أنك تريد حذف جميع الباكدج؟',
+//     dialogIcon: Icons.inventory_2_outlined,
+//     onPressed: () {
+//       context.read<DeleteBundleOfferCubit>().deleteAllBundleOffers();
+//     },
+//   );
+// }
 
 Widget buildOffersDangerCard(BuildContext context) {
   return DangerCard(

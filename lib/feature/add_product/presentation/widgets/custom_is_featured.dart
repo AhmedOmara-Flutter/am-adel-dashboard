@@ -22,10 +22,10 @@ class CustomIsFeatured extends StatelessWidget {
               width: 24,
               height: 24,
               decoration: BoxDecoration(
-                color: isFeatured ? AppColor.mainColor : AppColor.cardLight,
+                color: isFeatured ? AppColor.mainColor : AppColor.inputFill,
                 borderRadius: BorderRadius.circular(7),
                 border: Border.all(
-                  color: isFeatured ? AppColor.mainColor : AppColor.border,
+                  color: isFeatured ? AppColor.mainColor : AppColor.transparent,
                   width: 1.2,
                 ),
               ),

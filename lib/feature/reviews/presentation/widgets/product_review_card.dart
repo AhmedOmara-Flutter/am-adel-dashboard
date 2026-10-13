@@ -41,7 +41,7 @@ class ProductReviewCardDesktop extends StatelessWidget {
             width: double.infinity,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(18),
-              border: Border.all(color: AppColor.divider),
+              color: AppColor.background.withOpacity(.55),
             ),
             clipBehavior: Clip.antiAlias,
             child: Padding(
@@ -128,9 +128,8 @@ class ProductReviewCardDesktop extends StatelessWidget {
                 width: double.infinity,
                 padding: const EdgeInsets.all(15),
                 decoration: BoxDecoration(
-                  color: AppColor.background,
+                  color: AppColor.background.withOpacity(.55),
                   borderRadius: BorderRadius.circular(14),
-                  border: Border.all(color: AppColor.divider),
                 ),
                 child: Text(
                   product.description,
@@ -379,9 +378,8 @@ class _InfoCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 14),
       decoration: BoxDecoration(
-        color: AppColor.background,
+        color: AppColor.background.withOpacity(.55),
         borderRadius: BorderRadius.circular(14),
-        border: Border.all(color: AppColor.divider),
       ),
       child: Column(
         children: [

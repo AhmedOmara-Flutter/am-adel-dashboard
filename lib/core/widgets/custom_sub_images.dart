@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:am_adel_dashboard/core/extension/responsive_extension.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -73,10 +74,10 @@ class _CustomSubImagesState extends State<CustomSubImages> {
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       itemCount: 4,
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 3,
-        crossAxisSpacing: 12,
-        mainAxisSpacing: 12,
+      gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount:context.isDesktop? 4:3,
+        crossAxisSpacing: 10,
+        mainAxisSpacing: 10,
         childAspectRatio: 1,
       ),
       itemBuilder: (context, index) {
@@ -86,7 +87,7 @@ class _CustomSubImagesState extends State<CustomSubImages> {
           return GestureDetector(
             onTap: pickImages,
             child: DottedBorder(
-              color: AppColor.divider,
+              color: AppColor.transparent,
               strokeWidth: 2,
               dashPattern: const [8, 4],
               borderType: BorderType.RRect,
@@ -94,7 +95,7 @@ class _CustomSubImagesState extends State<CustomSubImages> {
               child: Container(
                 width: double.infinity,
                 decoration: BoxDecoration(
-                  color: AppColor.cardLight,
+                  color: AppColor.inputFill,
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Column(

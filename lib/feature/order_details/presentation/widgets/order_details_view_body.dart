@@ -31,26 +31,6 @@ class OrderDetailsViewBody extends StatelessWidget {
       padding: EdgeInsets.only(left: 10, right: 10, bottom: 20, top: 10),
       child: Column(
         children: [
-          context.isDesktop
-              ? Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const CustomBackButton(),
-                    Row(
-                      children: [
-                        Icon(Icons.inventory, color: AppColor.mainColor),
-                        const SizedBox(width: 8),
-                        Text(
-                          "تفاصيل الطلب",
-                          style: Theme.of(context).textTheme.labelLarge!
-                              .copyWith(color: AppColor.textPrimary),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(width: 40, height: 40),
-                  ],
-                )
-              : SizedBox.shrink(),
           OrderHeaderSection(order: order),
           SizedBox(height: 10),
 

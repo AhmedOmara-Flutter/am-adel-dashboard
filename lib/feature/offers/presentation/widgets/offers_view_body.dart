@@ -38,7 +38,7 @@ class OffersViewBody extends StatelessWidget {
         return ListView.separated(
           padding: const EdgeInsets.all(12),
           itemCount: offers.length,
-          separatorBuilder: (_, __) => const SizedBox(height: 5),
+          separatorBuilder: (_, __) => const SizedBox(height: 10),
           itemBuilder: (context, index) {
             return OfferProductCard(offer: offers[index]);
           },

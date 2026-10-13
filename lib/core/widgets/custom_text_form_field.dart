@@ -109,8 +109,7 @@ class CustomTextFormField extends StatelessWidget {
                 : null,
 
             filled: true,
-            fillColor: AppColor.cardLight,
-
+            fillColor: AppColor.inputFill,
             contentPadding: const EdgeInsets.symmetric(
               horizontal: 14,
               vertical: 15,
@@ -123,41 +122,30 @@ class CustomTextFormField extends StatelessWidget {
 
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
-              borderSide: const BorderSide(
-                color: AppColor.divider,
-                width: 1,
-              ),
+              borderSide: BorderSide.none,
             ),
 
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
-              borderSide: const BorderSide(
-                color: AppColor.accentColor,
-                width: 1.5,
-              ),
+              borderSide: BorderSide.none,
+
             ),
 
             errorBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
-              borderSide: const BorderSide(
-                color: AppColor.red,
-                width: 1,
-              ),
+              borderSide: BorderSide.none,
+
             ),
 
             focusedErrorBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
-              borderSide: const BorderSide(
-                color: AppColor.red,
-                width: 1.5,
-              ),
+              borderSide: BorderSide.none,
+
             ),
 
             disabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
-              borderSide: const BorderSide(
-                color: AppColor.backgroundDark,
-              ),
+              borderSide: BorderSide.none,
             ),
           ),
         ),

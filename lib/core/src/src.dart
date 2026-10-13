@@ -1,4 +1,6 @@
 import 'package:am_adel_dashboard/core/utils/app_imports.dart';
+import 'package:am_adel_dashboard/feature/flash_offer/presentation/view_model/delete_flash_offer_cubit/delete_flash_offer_cubit.dart';
+import 'package:am_adel_dashboard/feature/order_review/presentation/view_model/view_model/order_review_cubit.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -10,21 +12,19 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => NetworkCubit()),
         BlocProvider(create: (context) => MainCubit()),
         BlocProvider(create: (context) => ClientsCubit(instance(), instance())),
-        BlocProvider(
-          create: (context) => GetProductWithReviewsCubit(instance()),),
+        BlocProvider(create: (context) => GetProductWithReviewsCubit(instance()),),
         BlocProvider(create: (context) => GetReviewsCubit(instance()),),
         BlocProvider(create: (context) => CategoryCubit(instance()),),
         BlocProvider(create: (context) => ProductsCubit(instance()),),
-        BlocProvider(
-          create: (context) => OffersCubit(instance(), instance(),),),
+        BlocProvider(create: (context) => OffersCubit(instance(), instance(),),),
         BlocProvider(create: (context) => OrdersCubit(instance()),),
-        BlocProvider(create: (_) =>
-        SettingsCubit(instance())
-          ..getRestaurantStatus(),),
+        BlocProvider(create: (_) => SettingsCubit(instance())..getRestaurantStatus(),),
         BlocProvider(create: (context) => DeleteBundleOfferCubit(instance()),),
+        BlocProvider(create: (context) => DeleteFlashOfferCubit(instance()),),
         BlocProvider(create: (_) => CartStatusCubit(instance()),),
-        BlocProvider(create: (context) =>
-            DailyReportsCubit(instance(), context.read<OrdersCubit>(),),),
+        BlocProvider(create: (context) => DailyReportsCubit(instance(), context.read<OrdersCubit>(),),),
+        BlocProvider(create: (context) => OrderReviewCubit(instance())),
+        BlocProvider(create: (context) => OrderReviewCubit(instance())..getReviews(),),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

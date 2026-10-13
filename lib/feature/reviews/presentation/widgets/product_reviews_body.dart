@@ -85,7 +85,7 @@ class ProductReviewsDesktop extends StatelessWidget {
                                 crossAxisCount: 2,
                                 crossAxisSpacing: 10,
                                 mainAxisSpacing: 10,
-                                childAspectRatio: 5,
+                                childAspectRatio: 3.1,
                               ),
                           itemBuilder: (context, index) {
                             return ReviewCard(

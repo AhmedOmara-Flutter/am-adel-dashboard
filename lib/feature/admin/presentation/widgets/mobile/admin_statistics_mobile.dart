@@ -29,7 +29,7 @@ class AdminStatisticsMobile extends StatelessWidget {
                     iconColor: AppColor.mainColor,
                     height: 125,
                     onTap: () {
-                      context.read<MainCubit>().changeIndex(6);
+                      context.read<MainCubit>().changeIndex(7);
                     },
                     color: Colors.green,
                     icon: Icons.people,
@@ -75,7 +75,7 @@ class AdminStatisticsMobile extends StatelessWidget {
                     height: 125,
                     iconColor: AppColor.mainColor,
                     onTap: () {
-                      context.read<MainCubit>().changeIndex(7);
+                      context.read<MainCubit>().changeIndex(8);
                     },
                     color: Colors.purple,
                     icon: Icons.inventory_2_outlined,

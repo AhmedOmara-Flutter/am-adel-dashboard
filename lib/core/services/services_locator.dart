@@ -1,5 +1,6 @@
 import 'package:am_adel_dashboard/feature/clients/data/repos/clients_repo_impl.dart';
 import 'package:am_adel_dashboard/feature/clients/domain/repos/clients_repo.dart';
+import 'package:am_adel_dashboard/feature/flash_offer/domain/repo/flash_offer_repo_impl.dart';
 import 'package:get_it/get_it.dart';
 import 'package:am_adel_dashboard/core/services/storage_services.dart';
 import '../../feature/cart_status/data/repos/cart_status_repo.dart';
@@ -8,6 +9,9 @@ import '../../feature/category/data/repos/category_repo.dart';
 import '../../feature/category/domain/repos/category_repo_impl.dart';
 import '../../feature/daily_reports/data/repos/daily_report_repo.dart';
 import '../../feature/daily_reports/domain/repos/daily_report_repo_impl.dart';
+import '../../feature/flash_offer/data/repo/flash_offer_repo.dart';
+import '../../feature/order_review/data/repos/order_review_repo.dart';
+import '../../feature/order_review/domain/repos/order_review_repo_impl.dart';
 import '../../feature/settings/data/repos/settings_repo.dart';
 import '../../feature/settings/domain/repos/settings_repo_impl.dart';
 import '../../feature/bundle_offer/data/repos/bundle_offer_repo.dart';
@@ -36,4 +40,6 @@ void initAppModule() {
   instance.registerLazySingleton<SettingsRepo>(() => SettingsRepoImpl(instance()),);
   instance.registerLazySingleton<DailyReportRepo>(() => DailyReportRepoImpl(instance()),);
   instance.registerLazySingleton<ClientsRepo>(() => ClientsRepoImpl(instance()),);
+  instance.registerLazySingleton<OrderReviewsRepo>(() => OrderReviewsRepoImpl(instance<DatabaseServices>()),);
+  instance.registerLazySingleton<FlashOfferRepo>(()=>FlashOfferRepoImpl(instance()));
 }

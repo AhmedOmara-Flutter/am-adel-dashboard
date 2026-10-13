@@ -93,7 +93,6 @@ class ReviewCard extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: AppColor.background,
                   borderRadius: BorderRadius.circular(13),
-                  border: Border.all(color: AppColor.divider.withOpacity(.55)),
                 ),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,

@@ -2,6 +2,7 @@ import 'package:am_adel_dashboard/core/entities/product_entity.dart';
 import 'package:am_adel_dashboard/core/helper_function/custom_show_dialog.dart';
 import 'package:am_adel_dashboard/core/helper_function/custom_show_snake_bar.dart';
 import 'package:am_adel_dashboard/core/utils/app_color.dart';
+import 'package:am_adel_dashboard/core/utils/app_imports.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -27,13 +28,9 @@ class PausedProductButton extends StatelessWidget {
         decoration: BoxDecoration(
           color: isPaused
               ? AppColor.red.withOpacity(.10)
-              : AppColor.cardLight,
+              : AppColor.inputFill,
           borderRadius: BorderRadius.circular(8),
-          border: Border.all(
-            color: isPaused
-                ? AppColor.red.withOpacity(.35)
-                : AppColor.divider,
-          ),
+
         ),
         child: InkWell(
           borderRadius: BorderRadius.circular(8),
@@ -136,7 +133,7 @@ class PausedProductButton extends StatelessWidget {
           child: Text(
             isPaused ? 'تفعيل المنتج' : 'إيقاف المنتج',
             textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.titleSmall!.copyWith(
+            style: StyleManager.font14Weight600(context).copyWith(
               color: isPaused
                   ? AppColor.red
                   : AppColor.textPrimary,

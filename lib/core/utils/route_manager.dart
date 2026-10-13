@@ -2,6 +2,7 @@ import 'package:am_adel_dashboard/core/utils/app_imports.dart';
 
 import '../../feature/notification/presentation/view/send_notification_for_each_user.dart';
 import '../../feature/notification/presentation/view/send_notification_view.dart';
+import '../../feature/order_review/presentation/view/order_review.dart';
 class RouteManager {
   static const String splash = '/splashView';
   static const String main = '/mainView';
@@ -12,6 +13,7 @@ class RouteManager {
   static const String orderDetails = '/orderDetailsView';
   static const String sendNotification = '/sendNotificationView';
   static const String dailyReportView = '/dailyReportView';
+  static const String reviewOrderView = '/reviewOrderView';
   static const String sendNotificationForEachUser = '/sendNotificationForEachUser';
 
 }
@@ -47,6 +49,9 @@ class GenerateRoute {
 
       case RouteManager.sendNotificationForEachUser:
         return _route(const SendNotificationForEachUser());
+
+      case RouteManager.reviewOrderView:
+        return _route(const OrderReviewView());
 
       case RouteManager.displayOrders:
         final orders = settings.arguments as List<OrderEntity>;

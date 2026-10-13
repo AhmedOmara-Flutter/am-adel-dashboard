@@ -307,7 +307,7 @@ class _EditProductViewBodyState extends State<EditProductViewBody> {
                         ),
                         decoration: InputDecoration(
                           filled: true,
-                          fillColor: AppColor.cardLight,
+                          fillColor: AppColor.inputFill,
                           contentPadding: const EdgeInsets.symmetric(
                             horizontal: 14,
                             vertical: 14,
@@ -404,36 +404,30 @@ class _EditProductViewBodyState extends State<EditProductViewBody> {
                       ),
                       decoration: InputDecoration(
                         filled: true,
-                        fillColor: AppColor.cardLight,
+                        fillColor: AppColor.inputFill,
                         contentPadding: const EdgeInsets.symmetric(
                           horizontal: 14,
                           vertical: 14,
                         ),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
-                          borderSide: const BorderSide(
-                            color: AppColor.divider,
-                          ),
+                          borderSide: BorderSide.none,
+
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
-                          borderSide: const BorderSide(
-                            color: AppColor.accentColor,
-                            width: 1.5,
-                          ),
+                          borderSide: BorderSide.none,
+
                         ),
                         errorBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
-                          borderSide: const BorderSide(
-                            color: AppColor.red,
-                          ),
+                          borderSide: BorderSide.none,
+
                         ),
                         focusedErrorBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
-                          borderSide: const BorderSide(
-                            color: AppColor.red,
-                            width: 1.5,
-                          ),
+                          borderSide: BorderSide.none,
+
                         ),
                       ),
                       onChanged: (value) {

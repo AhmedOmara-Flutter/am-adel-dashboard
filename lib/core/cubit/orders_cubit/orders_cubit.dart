@@ -103,7 +103,7 @@ class OrdersCubit extends Cubit<OrdersState> {
   }
 
   List<OrderEntity> get recentOrders {
-    return allOrders.take(3).toList();
+    return allOrders.take(6).toList();
   }
 
   List<TopProductModel> get topProducts {

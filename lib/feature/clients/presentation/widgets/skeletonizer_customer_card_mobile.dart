@@ -5,10 +5,12 @@ import 'package:am_adel_dashboard/core/utils/app_constants.dart';
 import 'package:am_adel_dashboard/core/utils/style_manager.dart';
 import 'package:am_adel_dashboard/generated/assets.dart';
 import 'package:skeletonizer/skeletonizer.dart';
+import '../../../../core/helper_function/get_date_formate.dart';
+import '../../../../core/widgets/app_skeleton_effect.dart';
 import 'customer_stat.dart';
 
-class SkeletonizerCustomerCard extends StatelessWidget {
-  const SkeletonizerCustomerCard({
+class SkeletonizerCustomerCardMobile extends StatelessWidget {
+  const SkeletonizerCustomerCardMobile({
     super.key,
   });
 
@@ -16,16 +18,21 @@ class SkeletonizerCustomerCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Skeletonizer(
       enabled: true,
-      child: Container(
+      effect: AppSkeletonEffect.shimmer,
+      child:Container(
+        margin: EdgeInsets.symmetric(horizontal: 10),
         padding: const EdgeInsets.all(14),
         decoration: BoxDecoration(
           color: AppColor.cardLight,
-          borderRadius: BorderRadius.circular(
-            AppConstants.borderRadius + 4,
-          ),
-          border: Border.all(
-            color: AppColor.divider.withOpacity(.45),
-          ),
+          borderRadius: BorderRadius.circular(AppConstants.borderRadius),
+          border: Border.all(color: AppColor.border.withOpacity(.32)),
+          boxShadow: [
+            BoxShadow(
+              color: AppColor.mainColor.withOpacity(.035),
+              blurRadius: 18,
+              offset: const Offset(0, 6),
+            ),
+          ],
         ),
         child: Column(
           children: [
@@ -55,15 +62,12 @@ class SkeletonizerCustomerCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        makeFullName('user.userName'),
+                        makeFullName('sdfghghj'),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: StyleManager.font13Weight600(
                           context,
-                        ).copyWith(
-                          color: AppColor.textPrimary,
-                          fontSize: 14,
-                        ),
+                        ).copyWith(color: AppColor.textPrimary, fontSize: 14),
                       ),
                       const SizedBox(height: 5),
                       Text(
@@ -72,13 +76,10 @@ class SkeletonizerCustomerCard extends StatelessWidget {
                         overflow: TextOverflow.ellipsis,
                         style: StyleManager.font12Weight500(
                           context,
-                        ).copyWith(
-                          color: AppColor.textSecondary,
-                        ),
+                        ).copyWith(color: AppColor.textSecondary),
                       ),
                       const SizedBox(height: 4),
                       GestureDetector(
-      
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
@@ -89,12 +90,10 @@ class SkeletonizerCustomerCard extends StatelessWidget {
                             ),
                             const SizedBox(width: 5),
                             Text(
-                              'user.phone',
+                              'jk,.hjnm,.hnmvbn',
                               style: StyleManager.font12Weight500(
                                 context,
-                              ).copyWith(
-                                color: AppColor.mainColor,
-                              ),
+                              ).copyWith(color: AppColor.mainColor),
                             ),
                           ],
                         ),
@@ -105,17 +104,14 @@ class SkeletonizerCustomerCard extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 14),
-            Container(
-              height: 1,
-              color: AppColor.divider.withOpacity(.35),
-            ),
+            Container(height: 1, color: AppColor.divider.withOpacity(.35)),
             const SizedBox(height: 12),
             Row(
               children: [
                 Expanded(
                   child: CustomerStat(
                     icon: Icons.shopping_bag_outlined,
-                    value: '10',
+                    value: '{length}',
                     label: 'الطلبات',
                   ),
                 ),
@@ -127,7 +123,7 @@ class SkeletonizerCustomerCard extends StatelessWidget {
                 Expanded(
                   child: CustomerStat(
                     icon: Icons.payments_outlined,
-                    value: '4',
+                    value: '{toStringAsFixed(0)} ج.م',
                     label: 'إجمالي الشراء',
                   ),
                 ),
@@ -139,11 +135,46 @@ class SkeletonizerCustomerCard extends StatelessWidget {
                 Expanded(
                   child: CustomerStat(
                     icon: Icons.calendar_today_outlined,
-                    value:'merk',
+                    value: 'erftgyhjnmk,l',
                     label: 'تاريخ التسجيل',
                   ),
                 ),
               ],
+            ),
+            const SizedBox(height: 12),
+
+            // Historical order count from customer_stats.
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.symmetric(
+                horizontal: 12,
+                vertical: 10,
+              ),
+              decoration: BoxDecoration(
+                color: AppColor.mainColor.withOpacity(.06),
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(
+                  color: AppColor.mainColor.withOpacity(.15),
+                ),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.history_rounded,
+                    size: 18,
+                    color: AppColor.mainColor,
+                  ),
+                  const SizedBox(width: 8),
+                  Text(
+                    'إجمالي الطلبات:  nmjn nm jnj',
+                    style: StyleManager.font12Weight500(context).copyWith(
+                      color: AppColor.mainColor,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ],
+              ),
             ),
           ],
         ),

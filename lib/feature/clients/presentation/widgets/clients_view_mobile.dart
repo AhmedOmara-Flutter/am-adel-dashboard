@@ -1,4 +1,4 @@
-import 'package:am_adel_dashboard/feature/clients/presentation/widgets/skeletonizer_customer_card.dart';
+import 'package:am_adel_dashboard/feature/clients/presentation/widgets/skeletonizer_customer_card_mobile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/widgets/empty_widget.dart';
@@ -69,7 +69,7 @@ class ClientsViewMobile extends StatelessWidget {
                   return const SizedBox(height: 4);
                 },
                 itemBuilder: (context, index) {
-                  return SkeletonizerCustomerCard();
+                  return SkeletonizerCustomerCardMobile();
                 },
               ),
             );

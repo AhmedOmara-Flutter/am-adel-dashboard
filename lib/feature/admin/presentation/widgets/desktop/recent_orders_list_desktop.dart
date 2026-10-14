@@ -11,9 +11,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../core/enums/order_enum.dart';
 
 class RecentOrdersListDesktop extends StatelessWidget {
-  const RecentOrdersListDesktop({
-    super.key,
-  });
+  const RecentOrdersListDesktop({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -39,10 +37,7 @@ class RecentOrdersListDesktop extends StatelessWidget {
         if (recentOrders.isEmpty) {
           return Center(
             child: Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 16,
-                vertical: 24,
-              ),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -68,9 +63,7 @@ class RecentOrdersListDesktop extends StatelessWidget {
                     textAlign: TextAlign.center,
                     style: StyleManager.font12Weight500(
                       context,
-                    ).copyWith(
-                      color: AppColor.textPrimary,
-                    ),
+                    ).copyWith(color: AppColor.textPrimary),
                   ),
                   const SizedBox(height: 4),
                   Text(
@@ -78,9 +71,7 @@ class RecentOrdersListDesktop extends StatelessWidget {
                     textAlign: TextAlign.center,
                     style: StyleManager.font11Weight400(
                       context,
-                    ).copyWith(
-                      color: AppColor.textSecondary.withOpacity(.70),
-                    ),
+                    ).copyWith(color: AppColor.textSecondary.withOpacity(.70)),
                   ),
                 ],
               ),
@@ -88,7 +79,7 @@ class RecentOrdersListDesktop extends StatelessWidget {
           );
         }
 
-        final visibleOrders = recentOrders.take(3).toList();
+        final visibleOrders = recentOrders.take(6).toList();
 
         return ListView.separated(
           padding: EdgeInsets.zero,
@@ -103,15 +94,11 @@ class RecentOrdersListDesktop extends StatelessWidget {
             if (index == 0) {
               return Container(
                 height: 40,
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 14,
-                ),
+                padding: const EdgeInsets.symmetric(horizontal: 14),
                 decoration: BoxDecoration(
                   color: AppColor.mainColor.withOpacity(.035),
                   border: Border(
-                    bottom: BorderSide(
-                      color: AppColor.border.withOpacity(.20),
-                    ),
+                    bottom: BorderSide(color: AppColor.border.withOpacity(.20)),
                   ),
                 ),
                 child: Row(
@@ -124,9 +111,7 @@ class RecentOrdersListDesktop extends StatelessWidget {
                         overflow: TextOverflow.ellipsis,
                         style: StyleManager.font11Weight400(
                           context,
-                        ).copyWith(
-                          color: AppColor.textSecondary,
-                        ),
+                        ).copyWith(color: AppColor.textSecondary),
                       ),
                     ),
                     Expanded(
@@ -137,9 +122,7 @@ class RecentOrdersListDesktop extends StatelessWidget {
                         overflow: TextOverflow.ellipsis,
                         style: StyleManager.font11Weight400(
                           context,
-                        ).copyWith(
-                          color: AppColor.textSecondary,
-                        ),
+                        ).copyWith(color: AppColor.textSecondary),
                       ),
                     ),
                     Expanded(
@@ -150,9 +133,7 @@ class RecentOrdersListDesktop extends StatelessWidget {
                         overflow: TextOverflow.ellipsis,
                         style: StyleManager.font11Weight400(
                           context,
-                        ).copyWith(
-                          color: AppColor.textSecondary,
-                        ),
+                        ).copyWith(color: AppColor.textSecondary),
                       ),
                     ),
                     Expanded(
@@ -163,9 +144,7 @@ class RecentOrdersListDesktop extends StatelessWidget {
                         overflow: TextOverflow.ellipsis,
                         style: StyleManager.font11Weight400(
                           context,
-                        ).copyWith(
-                          color: AppColor.textSecondary,
-                        ),
+                        ).copyWith(color: AppColor.textSecondary),
                       ),
                     ),
                     Expanded(
@@ -176,9 +155,7 @@ class RecentOrdersListDesktop extends StatelessWidget {
                         overflow: TextOverflow.ellipsis,
                         style: StyleManager.font11Weight400(
                           context,
-                        ).copyWith(
-                          color: AppColor.textSecondary,
-                        ),
+                        ).copyWith(color: AppColor.textSecondary),
                       ),
                     ),
                     const SizedBox(width: 24),
@@ -189,29 +166,21 @@ class RecentOrdersListDesktop extends StatelessWidget {
 
             final order = visibleOrders[index - 1];
 
-            final deliveryCost =
-                order.selectedLocationEntity?.cost ?? 0;
+            final deliveryCost = order.selectedLocationEntity?.cost ?? 0;
 
             final totalPrice =
                 order.cartEntity.getTotalPrice() -
-                    order.couponDiscount +
-                    deliveryCost;
+                order.couponDiscount +
+                deliveryCost;
 
             return OrderItemDesktop(
               amount: totalPrice,
               status: order.status.ar,
               statusColor: order.status.color,
-              customerName: makeFullName(
-                order.userEntity!.userName,
-              ),
-              time: getTimeOnly(
-                order.createdAt.toString(),
-              ),
+              customerName: makeFullName(order.userEntity!.userName),
+              time: getTimeOnly(order.createdAt.toString()),
               products: order.cartEntity.cartItems
-                  .map(
-                    (item) =>
-                '${item.product.name} × ${item.quantity}',
-              )
+                  .map((item) => '${item.product.name} × ${item.quantity}')
                   .join('\n'),
               deliveryCost: deliveryCost,
             );

@@ -1,10 +1,10 @@
+import 'package:am_adel_dashboard/core/extension/responsive_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/utils/app_color.dart';
 import '../../../../core/utils/config_size.dart';
-import '../../../../generated/assets.dart';
 import '../view_model/main_cubit.dart';
 import '../widgets/custom_drawer.dart';
 
@@ -26,35 +26,42 @@ class _MainViewState extends State<MainView> {
         return Scaffold(
           key: _scaffoldKey,
           drawer: SizedBox(width:250,child: CustomDrawer()),
-          appBar: MediaQuery.sizeOf(context).width <= ConfigSize.phone
-              ? AppBar(
-            backgroundColor: AppColor.mainColor,
-            elevation: 0,
-            centerTitle: true,
-            automaticallyImplyLeading: false,
-
+          appBar: context.isDesktop ? null : AppBar(
             title: Text(
               cubit.drawerItems[cubit.selectedIndex].title,
-              style: Theme.of(context)
+              style: Theme
+                  .of(context)
                   .textTheme
                   .displaySmall!
                   .copyWith(
-                color: AppColor.textOnDark,
-                fontWeight: FontWeight.bold,
+                  color: AppColor.mainColor
               ),
             ),
+            centerTitle: true,
+            leading: Padding(
+              padding: const EdgeInsets.all(8),
+              child: Material(
+                color: AppColor.mainColor,
+                borderRadius: BorderRadius.circular(14),
+                child: InkWell(
+                  borderRadius: BorderRadius.circular(14),
+                  onTap: () {
+                    _scaffoldKey.currentState?.openDrawer();
+                  },
+                  child: const Center(
+                    child: Icon(
+                      Icons.menu_rounded,
+                      color: AppColor.white,
+                      size: 22,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            automaticallyImplyLeading: false,
+            backgroundColor: AppColor.background,
+          ),
 
-            leading: IconButton(
-              onPressed: () {
-                _scaffoldKey.currentState!.openDrawer();
-              },
-              icon: const Icon(
-                Icons.menu_rounded,
-                color: AppColor.accentColor,
-              ),
-            ),
-          )
-              : null,
           body: PopScope(
             canPop: false,
             onPopInvoked: (didPop) {
@@ -68,7 +75,7 @@ class _MainViewState extends State<MainView> {
             child:MediaQuery.sizeOf(context).width >ConfigSize.phone? Row(
               children: [
                 const SizedBox(
-                  width: 260,
+                  width: 280,
                   child: CustomDrawer(),
                 ),
                 Expanded(
@@ -88,4 +95,3 @@ class _MainViewState extends State<MainView> {
     );
   }
 }
-

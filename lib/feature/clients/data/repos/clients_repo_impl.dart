@@ -28,4 +28,23 @@ class ClientsRepoImpl implements ClientsRepo {
       yield Left(Failure(errMessage: e.toString()));
     }
   }
+
+  @override
+  Stream<Either<Failure, int>> getCustomerOrdersCount(
+      String uId,
+      ) async* {
+    try {
+      await for (final data in _databaseServices.getStreamData(
+        path: 'customer_stats',
+        uId: uId,
+      )) {
+        final customerData = data as Map<String, dynamic>;
+        final count = customerData['totalOrders'];
+
+        yield Right(count is num ? count.toInt() : 0);
+      }
+    } catch (e) {
+      yield Left(Failure(errMessage: e.toString()));
+    }
+  }
 }

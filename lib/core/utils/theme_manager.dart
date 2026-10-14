@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:am_adel_dashboard/core/utils/app_color.dart';
 import 'package:am_adel_dashboard/core/utils/style_manager.dart';
+import 'package:flutter/services.dart';
 
 class ThemeManager {
   static ThemeData darkTheme(BuildContext context)=> ThemeData(
       scaffoldBackgroundColor: AppColor.background,
     ///appBar
     appBarTheme: AppBarTheme(
+      systemOverlayStyle: SystemUiOverlayStyle(
+        statusBarBrightness: Brightness.dark
+      ),
       scrolledUnderElevation: 0.0,
       elevation: 0,
       centerTitle: true,

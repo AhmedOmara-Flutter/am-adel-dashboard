@@ -63,7 +63,7 @@ class BestSellerCardDesktop extends StatelessWidget {
             color: AppColor.divider.withOpacity(.65),
           ),
           const SizedBox(height: 20),
-          const BestSellerListViewDesktop(),
+          Expanded(child: const BestSellerListViewDesktop()),
         ],
       ),
     );

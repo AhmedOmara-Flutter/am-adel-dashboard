@@ -4,4 +4,5 @@ import 'package:am_adel_dashboard/core/entities/user_entity.dart';
 
 abstract class ClientsRepo {
   Stream<Either<Failure,List<UserEntity>>>getClients();
+  Stream<Either<Failure, int>> getCustomerOrdersCount(String uId);
 }

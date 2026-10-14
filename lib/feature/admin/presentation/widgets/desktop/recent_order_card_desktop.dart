@@ -1,4 +1,6 @@
 import '../../../../../core/utils/app_imports.dart';
+import '../../../../../core/widgets/custom_gradient_icon.dart';
+import '../../../../../core/widgets/icon_badge.dart';
 import 'recent_orders_list_desktop.dart';
 
 class RecentOrderCardDesktop extends StatelessWidget {
@@ -15,16 +17,8 @@ class RecentOrderCardDesktop extends StatelessWidget {
           AppConstants.borderRadius,
         ),
         border: Border.all(
-          color: AppColor.border.withOpacity(.40),
+          color: AppColor.divider.withOpacity(0.25),
         ),
-        boxShadow: [
-          BoxShadow(
-            color: AppColor.accentColor.withOpacity(.06),
-            blurRadius: 20,
-            spreadRadius: 1,
-            offset: const Offset(0, 7),
-          ),
-        ],
       ),
       clipBehavior: Clip.antiAlias,
       child: Column(
@@ -33,21 +27,9 @@ class RecentOrderCardDesktop extends StatelessWidget {
             padding: const EdgeInsets.all(16),
             child: Row(
               children: [
-                Container(
-                  width: 34,
-                  height: 34,
-                  decoration: BoxDecoration(
-                    color: AppColor.mainColor.withOpacity(.07),
-                    borderRadius: BorderRadius.circular(9),
-                    border: Border.all(
-                      color: AppColor.border.withOpacity(.20),
-                    ),
-                  ),
-                  child: const Icon(
-                    Icons.access_time_rounded,
-                    size: 17,
-                    color: AppColor.mainColor,
-                  ),
+                IconBadge(
+                  icon: Icons.access_time,
+                  iconColor: AppColor.mainColor,
                 ),
                 const SizedBox(width: 8),
                 Text(
@@ -82,10 +64,6 @@ class RecentOrderCardDesktop extends StatelessWidget {
                 ),
               ],
             ),
-          ),
-          Container(
-            height: 1,
-            color: AppColor.divider.withOpacity(.65),
           ),
           const Expanded(
             child: RecentOrdersListDesktop(),

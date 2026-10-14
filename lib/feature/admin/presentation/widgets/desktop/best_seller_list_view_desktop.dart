@@ -84,15 +84,22 @@ class BestSellerListViewDesktop extends StatelessWidget {
             itemCount: topProducts.take(5).length,
             separatorBuilder: (context, index) =>Container(
               height: 1,
-              margin: EdgeInsets.symmetric(vertical: 5),
               color: AppColor.divider.withOpacity(.65),
             ),
             itemBuilder: (context, index) {
-              return ProductItemDesktop(
-                productName: topProducts[index].name,
-                orderCount: topProducts[index].totalOrders.toString(),
-                image: topProducts[index].image,
-                medal: cubit.medals[index],
+              return Column(
+                children: [
+                  Container(
+                    height: 1,
+                    color: AppColor.divider.withOpacity(.65),
+                  ),
+                  ProductItemDesktop(
+                    productName: topProducts[index].name,
+                    orderCount: topProducts[index].totalOrders.toString(),
+                    image: topProducts[index].image,
+                    medal: cubit.medals[index],
+                  ),
+                ],
               );
             });
       },

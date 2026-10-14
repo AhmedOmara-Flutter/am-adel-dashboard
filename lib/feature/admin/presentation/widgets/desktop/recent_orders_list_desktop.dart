@@ -101,64 +101,72 @@ class RecentOrdersListDesktop extends StatelessWidget {
                     bottom: BorderSide(color: AppColor.border.withOpacity(.20)),
                   ),
                 ),
-                child: Row(
+                child: Column(
                   children: [
-                    Expanded(
-                      flex: 4,
-                      child: Text(
-                        'العميل والمنتجات',
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: StyleManager.font11Weight400(
-                          context,
-                        ).copyWith(color: AppColor.textSecondary),
-                      ),
+                    Container(
+                      height: 1,
+                      color: AppColor.divider.withOpacity(.65),
                     ),
-                    Expanded(
-                      flex: 2,
-                      child: Text(
-                        'الوقت',
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: StyleManager.font11Weight400(
-                          context,
-                        ).copyWith(color: AppColor.textSecondary),
-                      ),
+                    Row(
+                      children: [
+                        Expanded(
+                          flex: 4,
+                          child: Text(
+                            'العميل والمنتجات',
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: StyleManager.font11Weight400(
+                              context,
+                            ).copyWith(color: AppColor.textSecondary),
+                          ),
+                        ),
+                        Expanded(
+                          flex: 2,
+                          child: Text(
+                            'الوقت',
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: StyleManager.font11Weight400(
+                              context,
+                            ).copyWith(color: AppColor.textSecondary),
+                          ),
+                        ),
+                        Expanded(
+                          flex: 2,
+                          child: Text(
+                            'التوصيل',
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: StyleManager.font11Weight400(
+                              context,
+                            ).copyWith(color: AppColor.textSecondary),
+                          ),
+                        ),
+                        Expanded(
+                          flex: 2,
+                          child: Text(
+                            'الحالة',
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: StyleManager.font11Weight400(
+                              context,
+                            ).copyWith(color: AppColor.textSecondary),
+                          ),
+                        ),
+                        Expanded(
+                          flex: 2,
+                          child: Text(
+                            'الإجمالي',
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: StyleManager.font11Weight400(
+                              context,
+                            ).copyWith(color: AppColor.textSecondary),
+                          ),
+                        ),
+                        const SizedBox(width: 24),
+                      ],
                     ),
-                    Expanded(
-                      flex: 2,
-                      child: Text(
-                        'التوصيل',
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: StyleManager.font11Weight400(
-                          context,
-                        ).copyWith(color: AppColor.textSecondary),
-                      ),
-                    ),
-                    Expanded(
-                      flex: 2,
-                      child: Text(
-                        'الحالة',
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: StyleManager.font11Weight400(
-                          context,
-                        ).copyWith(color: AppColor.textSecondary),
-                      ),
-                    ),
-                    Expanded(
-                      flex: 2,
-                      child: Text(
-                        'الإجمالي',
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: StyleManager.font11Weight400(
-                          context,
-                        ).copyWith(color: AppColor.textSecondary),
-                      ),
-                    ),
-                    const SizedBox(width: 24),
                   ],
                 ),
               );

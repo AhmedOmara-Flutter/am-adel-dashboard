@@ -2,6 +2,7 @@ import 'package:am_adel_dashboard/core/utils/app_imports.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../../core/helper_function/custom_show_snake_bar.dart';
+import '../../../../../generated/assets.dart';
 import 'admin_order_comments_button.dart';
 
 class AdminTopBar extends StatefulWidget {
@@ -95,11 +96,8 @@ class _AdminTopBarState extends State<AdminTopBar> {
                         color: AppColor.accentColor.withOpacity(.10),
                         shape: BoxShape.circle,
                       ),
-                      child: const Icon(
-                        Icons.person_rounded,
-                        color: AppColor.mainColor,
-                        size: 18,
-                      ),
+                      clipBehavior: Clip.antiAliasWithSaveLayer,
+                      child: Image.asset(Assets.assets.images.me.path)
                     ),
 
                     const SizedBox(width: 9),

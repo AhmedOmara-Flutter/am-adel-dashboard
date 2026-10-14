@@ -64,9 +64,7 @@ class ClientsViewDesktop extends StatelessWidget {
                 itemCount: clients.length,
                 itemBuilder: (context, index) {
                   final client = clients[index];
-
                   final orders = cubit.getOrdersForUser(client.uId);
-
                   return CustomerCard(user: client, orders: orders);
                 },
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(

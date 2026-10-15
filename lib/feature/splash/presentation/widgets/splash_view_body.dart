@@ -2,10 +2,10 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
-import '../../../core/utils/app_color.dart';
-import '../../../core/utils/config_size.dart';
-import '../../../core/utils/route_manager.dart';
-import '../../../generated/assets.dart';
+import '../../../../core/utils/app_color.dart';
+import '../../../../core/utils/config_size.dart';
+import '../../../../core/utils/route_manager.dart';
+import '../../../../generated/assets.dart';
 
 class SplashViewBody extends StatefulWidget {
   const SplashViewBody({super.key});

@@ -2,9 +2,9 @@ import 'package:dartz/dartz.dart';
 
 import '../../../../core/errors/failure.dart';
 import '../../../../core/services/database_services.dart';
-import '../../data/models/daily_reports_model.dart';
-import '../../data/repos/daily_report_repo.dart';
-import '../entities/daily_reports_entity.dart';
+import '../models/daily_reports_model.dart';
+import '../../domain/repos/daily_report_repo.dart';
+import '../../domain/entities/daily_reports_entity.dart';
 
 class DailyReportRepoImpl implements DailyReportRepo {
   final DatabaseServices _databaseServices;

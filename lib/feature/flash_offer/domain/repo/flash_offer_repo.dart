@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import '../../../../core/errors/failure.dart';
-import '../../domain/entities/flash_offer_entity.dart';
+import '../entities/flash_offer_entity.dart';
 
 abstract class FlashOfferRepo {
   Future<Either<Failure, String>> addFlashOffer(

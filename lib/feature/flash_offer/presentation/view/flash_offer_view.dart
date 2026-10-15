@@ -5,7 +5,7 @@ import 'package:am_adel_dashboard/core/services/database_services.dart';
 import 'package:am_adel_dashboard/core/services/storage_services.dart';
 import 'package:am_adel_dashboard/core/utils/app_color.dart';
 import '../../../../core/widgets/custom_floating_action_button.dart';
-import '../../domain/repo/flash_offer_repo_impl.dart';
+import '../../data/repo/flash_offer_repo_impl.dart';
 import '../view_model/add_flash_offer_cubit/add_flash_offer_cubit.dart';
 import '../view_model/get_flash_offer_cubit/get_flash_offer_cubit.dart';
 import '../widgets/add_flash_offer_bottom_sheet.dart';

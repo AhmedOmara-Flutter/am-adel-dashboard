@@ -4,7 +4,7 @@ import 'package:am_adel_dashboard/core/errors/failure.dart';
 import 'package:am_adel_dashboard/core/services/database_services.dart';
 import 'package:am_adel_dashboard/feature/offers/data/models/offer_model.dart';
 import 'package:am_adel_dashboard/feature/offers/domain/entities/offer_entity.dart';
-import 'package:am_adel_dashboard/feature/offers/data/repos/offer_repo.dart';
+import 'package:am_adel_dashboard/feature/offers/domain/repos/offer_repo.dart';
 
 class OfferRepoImpl implements OfferRepo {
   final DatabaseServices _databaseServices;

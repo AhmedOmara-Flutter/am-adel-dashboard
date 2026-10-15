@@ -1,11 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 
-import '../entities/bundle_offer_entity.dart';
+import '../../domain/entities/bundle_offer_entity.dart';
 import '../../../../core/errors/failure.dart';
-import '../../data/models/bundle_offer_model.dart';
+import '../models/bundle_offer_model.dart';
 import '../../../../core/services/database_services.dart';
-import '../../data/repos/bundle_offer_repo.dart';
+import '../../domain/repos/bundle_offer_repo.dart';
 
 class BundleOfferRepoImpl implements BundleOfferRepo {
   final DatabaseServices _databaseServices;

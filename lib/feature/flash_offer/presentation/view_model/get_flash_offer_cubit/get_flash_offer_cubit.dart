@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
-import '../../../data/repo/flash_offer_repo.dart';
+import '../../../domain/repo/flash_offer_repo.dart';
 import '../../../domain/entities/flash_offer_entity.dart';
 
 part 'get_flash_offer_state.dart';

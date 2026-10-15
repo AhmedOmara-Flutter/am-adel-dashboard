@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/widgets/custom_floating_action_button.dart';
-import '../../domain/repos/coupon_repo_impl.dart';
+import '../../data/repos/coupon_repo_impl.dart';
 import '../view_model/add_coupon_cubit/add_coupon_cubit.dart';
 import '../view_model/delete_coupon_cubit/delete_coupon_cubit.dart';
 import '../view_model/get_coupon_cubit/get_coupon_cubit.dart';

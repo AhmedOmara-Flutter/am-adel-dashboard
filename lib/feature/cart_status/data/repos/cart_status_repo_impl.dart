@@ -1,5 +1,5 @@
 import '../../../../core/services/database_services.dart';
-import '../../data/repos/cart_status_repo.dart';
+import '../../domain/repos/cart_status_repo.dart';
 
 class CartStatusRepoImpl implements CartStatusRepo {
   final DatabaseServices _databaseServices;

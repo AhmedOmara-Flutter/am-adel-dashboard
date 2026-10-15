@@ -31,5 +31,5 @@ export 'package:am_adel_dashboard/feature/edit_product/presentation/view/edit_pr
 export 'package:am_adel_dashboard/feature/main/presentation/view/main_view.dart';
 export 'package:am_adel_dashboard/feature/order_details/presentation/view/order_details_view.dart';
 export 'package:am_adel_dashboard/feature/reviews/presentation/view/product_reviews.dart';
-export 'package:am_adel_dashboard/feature/splash/view/splash_view.dart';
+export 'package:am_adel_dashboard/feature/splash/presentation/view/splash_view.dart';
 export 'package:am_adel_dashboard/core/utils/app_constants.dart';

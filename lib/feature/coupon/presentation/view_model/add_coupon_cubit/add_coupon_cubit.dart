@@ -3,7 +3,7 @@ import 'package:meta/meta.dart';
 import '../../../../../core/services/database_services.dart';
 import '../../../../../core/services/notification_service.dart';
 import '../../../../../core/services/services_locator.dart';
-import '../../../data/repos/coupon_repo.dart';
+import '../../../domain/repos/coupon_repo.dart';
 import '../../../domain/entities/coupon_entity.dart';
 
 part 'add_coupon_state.dart';

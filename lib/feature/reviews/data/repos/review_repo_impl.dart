@@ -6,7 +6,7 @@ import 'package:am_adel_dashboard/feature/reviews/domain/entities/review_entity.
 
 import '../../../../core/entities/product_entity.dart';
 import '../../../../core/models/product_model.dart';
-import '../../data/repos/review_repo.dart';
+import '../../domain/repos/review_repo.dart';
 
 class ReviewRepoImpl implements ReviewRepo {
   final DatabaseServices _databaseServices;

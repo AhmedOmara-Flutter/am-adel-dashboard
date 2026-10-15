@@ -3,9 +3,9 @@ import 'package:dartz/dartz.dart';
 import 'package:am_adel_dashboard/core/errors/failure.dart';
 import 'package:am_adel_dashboard/core/services/database_services.dart';
 
-import '../../data/models/restaurant_status_model.dart';
-import '../../data/repos/settings_repo.dart';
-import '../entities/restaurant_status_entity.dart';
+import '../models/restaurant_status_model.dart';
+import '../../domain/repos/settings_repo.dart';
+import '../../domain/entities/restaurant_status_entity.dart';
 
 class SettingsRepoImpl implements SettingsRepo {
   final DatabaseServices _databaseServices;

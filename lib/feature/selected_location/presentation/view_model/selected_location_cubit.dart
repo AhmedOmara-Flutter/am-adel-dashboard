@@ -4,7 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 
 import '../../domain/entities/selected_location_entity.dart';
-import '../../data/repos/selected_location_repo.dart';
+import '../../domain/repos/selected_location_repo.dart';
 
 part 'selected_location_state.dart';
 

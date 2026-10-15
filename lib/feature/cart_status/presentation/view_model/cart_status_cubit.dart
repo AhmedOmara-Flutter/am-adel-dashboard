@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 
-import '../../data/repos/cart_status_repo.dart';
+import '../../domain/repos/cart_status_repo.dart';
 
 part 'cart_status_state.dart';
 

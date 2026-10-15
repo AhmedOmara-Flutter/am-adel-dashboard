@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:am_adel_dashboard/feature/selected_location/data/repos/selected_location_repo.dart';
+import 'package:am_adel_dashboard/feature/selected_location/domain/repos/selected_location_repo.dart';
 
-import '../entities/selected_location_entity.dart';
-import '../../data/models/selected_location_model.dart';
+import '../../domain/entities/selected_location_entity.dart';
+import '../models/selected_location_model.dart';
 import '../../../../../../core/services/database_services.dart';
 
 class SelectedLocationRepoImpl implements SelectedLocationRepo {

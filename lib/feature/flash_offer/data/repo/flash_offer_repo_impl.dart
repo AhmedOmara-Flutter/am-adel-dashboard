@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
-import '../../data/repo/flash_offer_repo.dart';
+import '../../domain/repo/flash_offer_repo.dart';
 import '../../domain/entities/flash_offer_entity.dart';
 import '../../../../core/errors/failure.dart';
-import '../../data/models/flash_offer_model.dart';
+import '../models/flash_offer_model.dart';
 import '../../../../core/services/database_services.dart';
 
 class FlashOfferRepoImpl implements FlashOfferRepo {

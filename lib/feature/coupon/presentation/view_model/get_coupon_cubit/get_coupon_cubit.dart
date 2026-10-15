@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 
-import '../../../data/repos/coupon_repo.dart';
+import '../../../domain/repos/coupon_repo.dart';
 import '../../../domain/entities/user_coupon_entity.dart';
 
 part 'get_coupon_state.dart';

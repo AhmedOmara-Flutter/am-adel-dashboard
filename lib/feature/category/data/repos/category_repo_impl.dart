@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../../../../core/services/database_services.dart';
-import '../../data/models/category_model.dart';
-import '../../data/repos/category_repo.dart';
-import '../entities/category_entity.dart';
+import '../models/category_model.dart';
+import '../../domain/repos/category_repo.dart';
+import '../../domain/entities/category_entity.dart';
 
 class CategoryRepoImpl implements CategoryRepo {
   final DatabaseServices _databaseServices;

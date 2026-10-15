@@ -4,7 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:meta/meta.dart';
 import '../../../../core/errors/failure.dart';
-import '../../data/repos/settings_repo.dart';
+import '../../domain/repos/settings_repo.dart';
 import '../../domain/entities/restaurant_status_entity.dart';
 
 part 'settings_state.dart';

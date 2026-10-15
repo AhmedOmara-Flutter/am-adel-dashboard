@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 
-import '../../data/repos/category_repo.dart';
+import '../../domain/repos/category_repo.dart';
 import '../../domain/entities/category_entity.dart';
 
 part 'category_state.dart';

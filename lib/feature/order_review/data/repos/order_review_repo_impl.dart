@@ -2,8 +2,8 @@ import 'package:dartz/dartz.dart';
 
 import '../../../../core/errors/failure.dart';
 import '../../../../core/services/database_services.dart';
-import '../../data/models/order_review_model.dart';
-import '../../data/repos/order_review_repo.dart';
+import '../models/order_review_model.dart';
+import '../../domain/repos/order_review_repo.dart';
 
 class OrderReviewsRepoImpl implements OrderReviewsRepo {
   final DatabaseServices _databaseServices;

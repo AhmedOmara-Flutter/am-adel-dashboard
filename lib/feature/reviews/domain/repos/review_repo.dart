@@ -2,7 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:am_adel_dashboard/core/errors/failure.dart';
 
 import '../../../../core/entities/product_entity.dart';
-import '../../domain/entities/review_entity.dart';
+import '../entities/review_entity.dart';
 
 abstract class ReviewRepo {
   Stream<Either<Failure, List<ReviewEntity>>> getReviews({required String productId});

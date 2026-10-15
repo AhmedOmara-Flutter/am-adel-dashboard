@@ -1,4 +1,4 @@
-import '../../domain/entities/selected_location_entity.dart';
+import '../entities/selected_location_entity.dart';
 
 abstract class SelectedLocationRepo {
   Stream<List<SelectedLocationEntity>> getLocationsStream();

@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
 
 import '../../../../core/errors/failure.dart';
-import '../../domain/entities/coupon_entity.dart';
-import '../../domain/entities/user_coupon_entity.dart';
+import '../entities/coupon_entity.dart';
+import '../entities/user_coupon_entity.dart';
 
 abstract class CouponRepo {
   Future<Either<Failure, void>> addCoupon(

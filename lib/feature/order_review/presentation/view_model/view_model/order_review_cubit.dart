@@ -1,7 +1,7 @@
 import 'dart:async';
 import '../../../../../core/utils/app_imports.dart';
 import '../../../data/models/order_review_model.dart';
-import '../../../data/repos/order_review_repo.dart';
+import '../../../domain/repos/order_review_repo.dart';
 
 part 'order_review_state.dart';
 

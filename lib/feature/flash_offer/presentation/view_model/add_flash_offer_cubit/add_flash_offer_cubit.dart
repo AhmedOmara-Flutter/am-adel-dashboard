@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
-import '../../../data/repo/flash_offer_repo.dart';
+import '../../../domain/repo/flash_offer_repo.dart';
 import '../../../domain/entities/flash_offer_entity.dart';
 import '../../../../../core/repos/upload_image_repo/upload_image_repo.dart';
 

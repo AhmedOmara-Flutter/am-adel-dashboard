@@ -1,5 +1,5 @@
 import 'package:dartz/dartz.dart';
-import '../../domain/entities/bundle_offer_entity.dart';
+import '../entities/bundle_offer_entity.dart';
 import '../../../../core/errors/failure.dart';
 
 abstract class BundleOfferRepo {

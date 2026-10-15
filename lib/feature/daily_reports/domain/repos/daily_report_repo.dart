@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 
 import '../../../../core/errors/failure.dart';
-import '../../domain/entities/daily_reports_entity.dart';
+import '../entities/daily_reports_entity.dart';
 
 abstract class DailyReportRepo {
   Future<Either<Failure, String>> addDailyReport(

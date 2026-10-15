@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
-import '../../../data/repos/coupon_repo.dart';
+import '../../../domain/repos/coupon_repo.dart';
 part 'delete_coupon_state.dart';
 
 class DeleteCouponCubit extends Cubit<DeleteCouponState> {

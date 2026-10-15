@@ -4,8 +4,8 @@ import 'package:dartz/dartz.dart';
 import '../../../../core/entities/user_entity.dart';
 import '../../../../core/errors/failure.dart';
 import '../../../../core/services/database_services.dart';
-import '../../data/models/coupon_model.dart';
-import '../../data/repos/coupon_repo.dart';
+import '../models/coupon_model.dart';
+import '../../domain/repos/coupon_repo.dart';
 import '../../domain/entities/coupon_entity.dart';
 import '../../domain/entities/user_coupon_entity.dart';
 

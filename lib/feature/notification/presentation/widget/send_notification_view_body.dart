@@ -136,7 +136,7 @@ class _SendNotificationViewBodyState extends State<SendNotificationViewBody> {
                         ),
                       ),
                     ),
-                    const SizedBox(width: 28),
+                    const SizedBox(width: 10),
                     Expanded(
                       flex: 4,
                       child: CustomNotificationPreview(
@@ -174,7 +174,7 @@ class _SendNotificationViewBodyState extends State<SendNotificationViewBody> {
                         loadingText: 'جاري إرسال الإشعار...',
                       ),
                     ),
-                    const SizedBox(height: 24),
+                    const SizedBox(height: 10),
                     CustomNotificationPreview(
                       titleController: titleController,
                       bodyController: bodyController,

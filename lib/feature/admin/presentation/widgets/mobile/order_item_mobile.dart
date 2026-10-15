@@ -38,15 +38,30 @@ class OrderItemMobile extends StatelessWidget {
           decoration: BoxDecoration(
             color: AppColor.cardLight,
             borderRadius: BorderRadius.circular(14),
-            border: Border.all(
-              color: AppColor.divider.withOpacity(.3),
-            ),
+            border: Border.all(color: AppColor.divider.withOpacity(.3)),
           ),
           child: Column(
             children: [
               Row(
                 children: [
-                  const _Avatar(),
+                  Container(
+                    width: 44,
+                    height: 44,
+                    padding: const EdgeInsets.all(2),
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: AppColor.backgroundDark.withOpacity(.15),
+                      border: Border.all(
+                        color: AppColor.divider.withOpacity(.4),
+                      ),
+                    ),
+                    child: ClipOval(
+                      child: Image.asset(
+                        Assets.assets.images.customer.path,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
                   const SizedBox(width: 10),
                   Expanded(
                     child: Column(
@@ -56,25 +71,24 @@ class OrderItemMobile extends StatelessWidget {
                           customerName,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
-                          style: StyleManager.font14Weight600(context)
-                              .copyWith(color: AppColor.textPrimary),
+                          style: StyleManager.font14Weight600(
+                            context,
+                          ).copyWith(color: AppColor.textPrimary),
                         ),
                         const SizedBox(height: 4),
                         Text(
                           products,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
-                          style: StyleManager.font12Weight500(context)
-                              .copyWith(color: AppColor.textSecondary),
+                          style: StyleManager.font12Weight500(
+                            context,
+                          ).copyWith(color: AppColor.textSecondary),
                         ),
                       ],
                     ),
                   ),
                   const SizedBox(width: 8),
-                  OrderStatusBadge(
-                    color: statusColor,
-                    title: status,
-                  ),
+                  OrderStatusBadge(color: statusColor, title: status),
                 ],
               ),
               const SizedBox(height: 12),
@@ -87,16 +101,50 @@ class OrderItemMobile extends StatelessWidget {
               Row(
                 children: [
                   Expanded(
-                    child: _Meta(
-                      icon: Icons.schedule_outlined,
-                      text: time,
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const Icon(
+                          Icons.schedule_outlined,
+                          size: 13,
+                          color: AppColor.textSecondary,
+                        ),
+                        const SizedBox(width: 4),
+                        Flexible(
+                          child: Text(
+                            time,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: StyleManager.font11Weight400(
+                              context,
+                            ).copyWith(color: AppColor.textSecondary),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                   const SizedBox(width: 6),
                   Expanded(
-                    child: _Meta(
-                      icon: Icons.local_shipping_outlined,
-                      text: '${deliveryCost.toStringAsFixed(0)} ج.م',
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const Icon(
+                          Icons.local_shipping_outlined,
+                          size: 13,
+                          color: AppColor.textSecondary,
+                        ),
+                        const SizedBox(width: 4),
+                        Flexible(
+                          child: Text(
+                            '${deliveryCost.toStringAsFixed(0)} ج.م',
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: StyleManager.font11Weight400(
+                              context,
+                            ).copyWith(color: AppColor.textSecondary),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                   const SizedBox(width: 8),
@@ -106,8 +154,9 @@ class OrderItemMobile extends StatelessWidget {
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       textAlign: TextAlign.end,
-                      style: StyleManager.font14Weight600(context)
-                          .copyWith(color: AppColor.mainColor),
+                      style: StyleManager.font14Weight600(
+                        context,
+                      ).copyWith(color: AppColor.mainColor),
                     ),
                   ),
                 ],
@@ -116,67 +165,6 @@ class OrderItemMobile extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
-}
-
-class _Avatar extends StatelessWidget {
-  const _Avatar();
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 44,
-      height: 44,
-      padding: const EdgeInsets.all(2),
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        color: AppColor.backgroundDark.withOpacity(.15),
-        border: Border.all(
-          color: AppColor.divider.withOpacity(.4),
-        ),
-      ),
-      child: ClipOval(
-        child: Image.asset(
-          Assets.assets.images.customer.path,
-          fit: BoxFit.cover,
-        ),
-      ),
-    );
-  }
-}
-
-class _Meta extends StatelessWidget {
-  final IconData icon;
-  final String text;
-
-  const _Meta({
-    required this.icon,
-    required this.text,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Icon(
-          icon,
-          size: 13,
-          color: AppColor.textSecondary,
-        ),
-        const SizedBox(width: 4),
-        Flexible(
-          child: Text(
-            text,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            style: StyleManager.font11Weight400(context).copyWith(
-              color: AppColor.textSecondary,
-            ),
-          ),
-        ),
-      ],
     );
   }
 }

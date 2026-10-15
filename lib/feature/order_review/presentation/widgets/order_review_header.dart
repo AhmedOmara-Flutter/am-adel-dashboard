@@ -12,19 +12,22 @@ class OrderReviewHeader extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'إدارة التقييمات',
-                    style: StyleManager.font19Weight700(context),
-                  ),
-                  const SizedBox(height: 5),
-                  Text(
-                    'تابع آراء العملاء وجودة الخدمة',
-                    style: StyleManager.font12Weight500(context),
-                  ),
-                ],
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'إدارة التقييمات',
+                      style: StyleManager.font19Weight700(context),
+                    ),
+                    const SizedBox(height: 5),
+                    Text(
+                      'تابع آراء العملاء وجودة الخدمة',
+                      style: StyleManager.font12Weight500(context),
+                    ),
+                  ],
+                ),
               ),
             ),
           ],

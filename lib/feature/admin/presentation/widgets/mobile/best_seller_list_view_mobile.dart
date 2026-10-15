@@ -1,5 +1,5 @@
 import 'package:am_adel_dashboard/feature/admin/presentation/widgets/mobile/product_item_mobile.dart';
-import 'package:am_adel_dashboard/feature/admin/presentation/widgets/skeletonizer_product_item.dart';
+import 'package:am_adel_dashboard/feature/admin/presentation/widgets/mobile/skeletonizer_product_item_mobile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../core/cubit/orders_cubit/orders_cubit.dart';
@@ -21,7 +21,7 @@ class BestSellerListViewMobile extends StatelessWidget {
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             itemCount: 2,
-            itemBuilder: (context, index) => SkeletonizerProductItem(),
+            itemBuilder: (context, index) => SkeletonizerProductItemMobile(),
           );
 
         if (topProducts.isEmpty) {

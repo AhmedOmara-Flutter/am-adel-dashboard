@@ -203,7 +203,7 @@ class _SendNotificationForEachUserBodyState
                         ),
                       ),
                     ),
-                    const SizedBox(width: 28),
+                    const SizedBox(width: 10),
                     Expanded(
                       flex: 4,
                       child: CustomNotificationPreview(
@@ -249,7 +249,7 @@ class _SendNotificationForEachUserBodyState
                             icon: Icons.person,
                           ),
                         ),
-                        const SizedBox(height: 24),
+                        const SizedBox(height: 10),
                         CustomNotificationPreview(
                           titleController: titleController,
                           bodyController: bodyController,

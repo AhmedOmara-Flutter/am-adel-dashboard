@@ -5,6 +5,7 @@ import '../../../../../core/helper_function/custom_show_dialog.dart';
 import '../../../../../core/utils/app_color.dart';
 import '../../../../../generated/assets.dart';
 import '../../../../core/utils/style_manager.dart';
+import '../../../../core/widgets/empty_widget.dart';
 import '../view_model/selected_location_cubit.dart';
 import 'edit_location_bottom_sheet.dart';
 import 'selected_location_card.dart';
@@ -40,11 +41,7 @@ class SelectedLocationViewBody extends StatelessWidget {
             context.read<SelectedLocationCubit>().locations;
 
         if (locations.isEmpty) {
-          return Center(
-            child: Lottie.asset(
-              Assets.assets.json.empty,
-            ),
-          );
+          return EmptyWidget();
         }
 
         return ListView.separated(

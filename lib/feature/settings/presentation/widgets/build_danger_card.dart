@@ -3,6 +3,8 @@ import 'package:am_adel_dashboard/core/utils/app_color.dart';
 import 'package:am_adel_dashboard/core/utils/style_manager.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../core/widgets/custom_container.dart';
+
 class DangerCard extends StatelessWidget {
   const DangerCard({
     super.key,
@@ -33,14 +35,7 @@ class DangerCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: AppColor.cardLight,
-        borderRadius: BorderRadius.circular(18),
-        border: Border.all(
-          color: color.withOpacity(.16),
-        ),
-      ),
+    return CustomContainer(
       clipBehavior: Clip.antiAlias,
       child: Padding(
         padding: const EdgeInsets.all(16),

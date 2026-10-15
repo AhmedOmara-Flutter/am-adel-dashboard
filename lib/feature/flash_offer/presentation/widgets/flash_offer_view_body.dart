@@ -1,3 +1,4 @@
+import 'package:am_adel_dashboard/core/widgets/empty_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
@@ -43,11 +44,7 @@ class FlashOfferViewBody extends StatelessWidget {
           final flashOffers = state.flashOffers;
 
           if (flashOffers.isEmpty) {
-            return Center(
-              child: Lottie.asset(
-                Assets.assets.json.empty,
-              ),
-            );
+            return EmptyWidget();
           }
 
           return ListView.separated(

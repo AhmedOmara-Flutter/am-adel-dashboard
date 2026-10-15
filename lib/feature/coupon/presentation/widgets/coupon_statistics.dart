@@ -1,7 +1,9 @@
+import 'package:am_adel_dashboard/core/extension/responsive_extension.dart';
 import 'package:am_adel_dashboard/core/utils/app_color.dart';
 import 'package:am_adel_dashboard/core/utils/config_size.dart';
 import 'package:am_adel_dashboard/core/utils/style_manager.dart';
 import 'package:flutter/material.dart';
+import '../../../../core/widgets/custom_container.dart';
 import '../../domain/entities/coupon_entity.dart';
 
 class CouponStatistics extends StatelessWidget {
@@ -74,22 +76,8 @@ class CouponStatistics extends StatelessWidget {
     required IconData icon,
     required Color color,
   }) {
-    return Container(
-      height: MediaQuery.sizeOf(context).width > ConfigSize.phone ? 170 : 145,
-      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
-      decoration: BoxDecoration(
-        color: AppColor.cardLight,
-        borderRadius: BorderRadius.circular(14),
-        boxShadow: [
-          BoxShadow(
-            color: AppColor.mainColor.withOpacity(.10),
-            spreadRadius: 1,
-            blurRadius: 7,
-            offset: const Offset(0, 1),
-          ),
-        ],
-        border: Border.all(color: AppColor.divider.withOpacity(.55), width: 1),
-      ),
+    return CustomContainer(
+      height: context.isDesktop ? 170 : 145,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [

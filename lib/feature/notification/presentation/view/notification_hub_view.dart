@@ -1,5 +1,6 @@
 import 'package:am_adel_dashboard/core/utils/route_manager.dart';
 import 'package:flutter/material.dart';
+
 import '../../../../core/utils/app_color.dart';
 import '../../../../core/utils/style_manager.dart';
 import '../widget/notification_type_card.dart';
@@ -18,7 +19,6 @@ class NotificationsHubView extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 10),
-
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -70,42 +70,46 @@ class NotificationsHubView extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 20),
-
               Expanded(
-                child: ListView(
-                  padding: const EdgeInsets.only(bottom: 10),
+                child: Column(
                   children: [
-                    NotificationTypeCard(
-                      icon: Icons.campaign_rounded,
-                      label: 'عام',
-                      title: 'الإشعارات العامة',
-                      subtitle: 'لجميع العملاء',
-                      description:
-                      'العروض والإعلانات والأخبار والتنبيهات التي تظهر لجميع العملاء.',
-                      accent: AppColor.accentColor,
-                      onTap: () {
-                        Navigator.pushNamed(
-                          context,
-                          RouteManager.sendNotification,
-                        );
-                      },
+                    Expanded(
+                      child: NotificationTypeCard(
+                        icon: Icons.campaign_rounded,
+                        label: 'عام',
+                        title: 'الإشعارات العامة',
+                        subtitle: 'لجميع العملاء',
+                        description:
+                        'العروض والإعلانات والأخبار والتنبيهات التي تظهر لجميع العملاء.',
+                        accent: AppColor.accentColor,
+                        onTap: () {
+                          Navigator.pushNamed(
+                            context,
+                            RouteManager.sendNotification,
+                          );
+                        },
+                      ),
                     ),
                     const SizedBox(height: 10),
-                    NotificationTypeCard(
-                      icon: Icons.person_rounded,
-                      label: 'خاص',
-                      title: 'الإشعارات الخاصة',
-                      subtitle: 'لعملاء محددين',
-                      description:
-                      'إرسال ومتابعة الإشعارات المرتبطة بحساب عميل أو طلب محدد.',
-                      accent: AppColor.green,
-                      onTap: () {
-                        Navigator.pushNamed(
-                          context,
-                          RouteManager.sendNotificationForEachUser,
-                        );
-                      },
+                    Expanded(
+                      child: NotificationTypeCard(
+                        icon: Icons.person_rounded,
+                        label: 'خاص',
+                        title: 'الإشعارات الخاصة',
+                        subtitle: 'لعملاء محددين',
+                        description:
+                        'إرسال ومتابعة الإشعارات المرتبطة بحساب عميل أو طلب محدد.',
+                        accent: AppColor.green,
+                        onTap: () {
+                          Navigator.pushNamed(
+                            context,
+                            RouteManager.sendNotificationForEachUser,
+                          );
+                        },
+                      ),
                     ),
+                    const SizedBox(height: 10),
+
                   ],
                 ),
               ),

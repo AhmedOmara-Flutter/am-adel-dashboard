@@ -1,6 +1,8 @@
 import 'package:am_adel_dashboard/core/utils/app_color.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../core/widgets/custom_container.dart';
+
 class CouponToolbar extends StatelessWidget {
   final TextEditingController searchController;
   final String selectedFilter;
@@ -17,15 +19,7 @@ class CouponToolbar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(18),
-      decoration: BoxDecoration(
-        color: AppColor.cardLight,
-        borderRadius: BorderRadius.circular(18),
-        border: Border.all(
-          color: AppColor.divider.withOpacity(.5),
-        ),
-      ),
+    return CustomContainer(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

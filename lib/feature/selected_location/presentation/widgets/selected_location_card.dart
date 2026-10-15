@@ -1,9 +1,10 @@
+import 'package:am_adel_dashboard/core/utils/app_color.dart';
 import 'package:am_adel_dashboard/core/utils/app_constants.dart';
+import 'package:am_adel_dashboard/core/utils/style_manager.dart';
+import 'package:am_adel_dashboard/core/widgets/custom_container.dart';
 import 'package:flutter/material.dart';
 
 import '../../domain/entities/selected_location_entity.dart';
-import '../../../../../core/utils/app_color.dart';
-import '../../../../../core/utils/style_manager.dart';
 
 class SelectedLocationCard extends StatelessWidget {
   const SelectedLocationCard({
@@ -19,165 +20,144 @@ class SelectedLocationCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(15),
-      decoration: BoxDecoration(
-        color: AppColor.cardLight,
-        borderRadius: BorderRadius.circular(AppConstants.borderRadius),
-        border: Border.all(color: AppColor.border.withOpacity(.32)),
-        boxShadow: [
-          BoxShadow(
-            color: AppColor.mainColor.withOpacity(.035),
-            blurRadius: 18,
-            offset: const Offset(0, 6),
-          ),
-        ],
-      ),
+    return CustomContainer(
+      padding: const EdgeInsets.all(16),
+      color: AppColor.cardLight,
+      borderRadius: AppConstants.borderRadius,
+      borderColor: AppColor.divider.withOpacity(.30),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _LocationIcon(),
-          const SizedBox(width: 12),
-          Expanded(child: _LocationInfo(location: location)),
-          const SizedBox(width: 12),
-          _Actions(onEdit: onEdit, onDelete: onDelete),
-        ],
-      ),
-    );
-  }
-}
-
-class _LocationIcon extends StatelessWidget {
-  const _LocationIcon();
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 46,
-      height: 46,
-      decoration: BoxDecoration(
-        color: AppColor.mainColor.withOpacity(.08),
-        borderRadius: BorderRadius.circular(13),
-      ),
-      child: const Icon(
-        Icons.location_on_rounded,
-        color: AppColor.mainColor,
-        size: 22,
-      ),
-    );
-  }
-}
-
-class _LocationInfo extends StatelessWidget {
-  final SelectedLocationEntity location;
-
-  const _LocationInfo({required this.location});
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Text(
-          location.title,
-          maxLines: 1,
-          overflow: TextOverflow.ellipsis,
-          style: StyleManager.font15Weight700(
-            context,
-          ).copyWith(color: AppColor.textPrimary),
-        ),
-        const SizedBox(height: 3),
-        Text(
-          location.subTitle,
-          maxLines: 1,
-          overflow: TextOverflow.ellipsis,
-          style: StyleManager.font12Weight500(
-            context,
-          ).copyWith(color: AppColor.textSecondary),
-        ),
-        const SizedBox(height: 7),
-        Row(
-          children: [
-            Icon(
-              Icons.delivery_dining_outlined,
-              size: 15,
-              color: AppColor.mainColor.withOpacity(.8),
+          Container(
+            width: 48,
+            height: 48,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  AppColor.mainColor.withOpacity(.14),
+                  AppColor.accentColor.withOpacity(.08),
+                ],
+              ),
+              borderRadius: BorderRadius.circular(15),
+              border: Border.all(color: AppColor.mainColor.withOpacity(.10)),
             ),
-            const SizedBox(width: 5),
-            Text(
-              'رسوم التوصيل',
-              style: StyleManager.font11Weight400(
-                context,
-              ).copyWith(color: AppColor.textSecondary),
+            child: Icon(
+              Icons.location_on_rounded,
+              color: AppColor.mainColor,
+              size: 24,
             ),
-            const SizedBox(width: 7),
-            Text(
-              '${location.cost.toStringAsFixed(0)} جنيه',
-              style: StyleManager.font12Weight500(
-                context,
-              ).copyWith(color: AppColor.mainColor),
-            ),
-          ],
-        ),
-      ],
-    );
-  }
-}
-
-class _Actions extends StatelessWidget {
-  final VoidCallback onEdit;
-  final VoidCallback onDelete;
-
-  const _Actions({required this.onEdit, required this.onDelete});
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        _ActionButton(
-          icon: Icons.edit_outlined,
-          color: AppColor.mainColor,
-          onTap: onEdit,
-        ),
-        const SizedBox(width: 6),
-        _ActionButton(
-          icon: Icons.delete_outline_rounded,
-          color: AppColor.red,
-          onTap: onDelete,
-        ),
-      ],
-    );
-  }
-}
-
-class _ActionButton extends StatelessWidget {
-  final IconData icon;
-  final Color color;
-  final VoidCallback onTap;
-
-  const _ActionButton({
-    required this.icon,
-    required this.color,
-    required this.onTap,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Material(
-      color: Colors.transparent,
-      child: InkWell(
-        onTap: onTap,
-        borderRadius: BorderRadius.circular(10),
-        child: Container(
-          width: 36,
-          height: 36,
-          decoration: BoxDecoration(
-            color: color.withOpacity(.07),
-            borderRadius: BorderRadius.circular(10),
           ),
-          child: Icon(icon, size: 18, color: color),
-        ),
+          const SizedBox(width: 13),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  location.title,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: StyleManager.font15Weight700(
+                    context,
+                  ).copyWith(color: AppColor.textPrimary),
+                ),
+                const SizedBox(height: 5),
+                Text(
+                  location.subTitle,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: StyleManager.font12Weight500(
+                    context,
+                  ).copyWith(color: AppColor.textSecondary, height: 1.5),
+                ),
+                const SizedBox(height: 12),
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 10,
+                    vertical: 7,
+                  ),
+                  decoration: BoxDecoration(
+                    color: AppColor.mainColor.withOpacity(.055),
+                    borderRadius: BorderRadius.circular(9),
+                    border: Border.all(
+                      color: AppColor.mainColor.withOpacity(.08),
+                    ),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(
+                        Icons.delivery_dining_rounded,
+                        size: 17,
+                        color: AppColor.mainColor,
+                      ),
+                      const SizedBox(width: 6),
+                      Text(
+                        'رسوم التوصيل',
+                        style: StyleManager.font11Weight400(
+                          context,
+                        ).copyWith(color: AppColor.textSecondary),
+                      ),
+                      const SizedBox(width: 8),
+                      Text(
+                        '${location.cost.toStringAsFixed(0)} جنيه',
+                        style: StyleManager.font12Weight500(context).copyWith(
+                          color: AppColor.mainColor,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(width: 10),
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Material(
+                color: AppColor.mainColor.withOpacity(.07),
+                borderRadius: BorderRadius.circular(11),
+                child: InkWell(
+                  onTap: onEdit,
+                  borderRadius: BorderRadius.circular(11),
+                  splashColor: AppColor.mainColor.withOpacity(.12),
+                  child: const SizedBox(
+                    width: 36,
+                    height: 36,
+                    child: Icon(
+                      Icons.edit_outlined,
+                      size: 18,
+                      color: AppColor.mainColor,
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 8),
+              Material(
+                color: AppColor.red.withOpacity(.07),
+                borderRadius: BorderRadius.circular(11),
+                child: InkWell(
+                  onTap: onDelete,
+                  borderRadius: BorderRadius.circular(11),
+                  splashColor: AppColor.red.withOpacity(.12),
+                  child: SizedBox(
+                    width: 36,
+                    height: 36,
+                    child: Icon(
+                      Icons.delete_outline_rounded,
+                      size: 18,
+                      color: AppColor.red,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }

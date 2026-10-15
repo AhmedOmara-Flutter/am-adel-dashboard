@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+
 import '../../../../../core/utils/app_color.dart';
 import '../../../../../core/utils/style_manager.dart';
-import '../../../../core/utils/app_constants.dart';
+import '../../../../core/widgets/action_button.dart';
+import '../../../../core/widgets/custom_container.dart';
 import '../../domain/entities/category_entity.dart';
 
 class CategoryCard extends StatelessWidget {
@@ -22,71 +24,48 @@ class CategoryCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final hasSizes = category.sizes.isNotEmpty;
 
-    return Container(
-      decoration: BoxDecoration(
-        color: AppColor.cardLight,
-        borderRadius: BorderRadius.circular(AppConstants.borderRadius),
-        border: Border.all(color: AppColor.border.withOpacity(.32)),
-        boxShadow: [
-          BoxShadow(
-            color: AppColor.mainColor.withOpacity(.035),
-            blurRadius: 18,
-            offset: const Offset(0, 6),
-          ),
-        ],
-      ),
+    return CustomContainer(
       clipBehavior: Clip.antiAlias,
       child: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.fromLTRB(14, 14, 12, 13),
-            child: Row(
-              children: [
-                _CategoryIcon(),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: _CategoryHeader(
-                    category: category,
-                    hasSizes: hasSizes,
-                  ),
-                ),
-                const SizedBox(width: 10),
-                _DragHandle(child: dragHandle),
-              ],
-            ),
+          Row(
+            children: [
+              _CategoryIcon(),
+              const SizedBox(width: 12),
+              Expanded(
+                child: _CategoryHeader(category: category, hasSizes: hasSizes),
+              ),
+              const SizedBox(width: 10),
+              _DragHandle(child: dragHandle),
+            ],
           ),
-
-          if (hasSizes)
-            Padding(
-              padding: const EdgeInsets.fromLTRB(14, 0, 14, 12),
-              child: _Sizes(sizes: category.sizes),
-            ),
+          SizedBox(height: 10),
+          if (hasSizes) _Sizes(sizes: category.sizes),
+          SizedBox(height: 10),
 
           Container(height: 1, color: AppColor.divider.withOpacity(.25)),
+          SizedBox(height: 10),
 
-          Padding(
-            padding: const EdgeInsets.all(10),
-            child: Row(
-              children: [
-                Expanded(
-                  child: _ActionButton(
-                    icon: Icons.edit_outlined,
-                    label: 'تعديل',
-                    color: AppColor.mainColor,
-                    onTap: onEdit,
-                  ),
+          Row(
+            children: [
+              Expanded(
+                child: ActionButton(
+                  icon: Icons.edit_outlined,
+                  label: 'تعديل',
+                  color: AppColor.mainColor,
+                  onTap: onEdit,
                 ),
-                const SizedBox(width: 8),
-                Expanded(
-                  child: _ActionButton(
-                    icon: Icons.delete_outline_rounded,
-                    label: 'حذف',
-                    color: AppColor.red,
-                    onTap: onDelete,
-                  ),
+              ),
+              const SizedBox(width: 8),
+              Expanded(
+                child: ActionButton(
+                  icon: Icons.delete_outline_rounded,
+                  label: 'حذف',
+                  color: AppColor.red,
+                  onTap: onDelete,
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ],
       ),
@@ -229,46 +208,3 @@ class _DragHandle extends StatelessWidget {
   }
 }
 
-class _ActionButton extends StatelessWidget {
-  const _ActionButton({
-    required this.icon,
-    required this.label,
-    required this.color,
-    required this.onTap,
-  });
-
-  final IconData icon;
-  final String label;
-  final Color color;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    return Material(
-      color: color.withOpacity(.055),
-      borderRadius: BorderRadius.circular(10),
-      child: InkWell(
-        onTap: onTap,
-        borderRadius: BorderRadius.circular(10),
-        splashColor: color.withOpacity(.10),
-        highlightColor: color.withOpacity(.04),
-        child: SizedBox(
-          height: 36,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(icon, size: 17, color: color),
-              const SizedBox(width: 6),
-              Text(
-                label,
-                style: StyleManager.font11Weight400(
-                  context,
-                ).copyWith(color: color),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}

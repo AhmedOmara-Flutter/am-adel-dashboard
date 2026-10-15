@@ -4,10 +4,9 @@ import 'package:am_adel_dashboard/core/helper_function/make_full_name.dart';
 import 'package:am_adel_dashboard/core/utils/app_color.dart';
 import 'package:am_adel_dashboard/core/utils/style_manager.dart';
 import 'package:am_adel_dashboard/feature/admin/presentation/widgets/desktop/order_item_desktop.dart';
-import 'package:am_adel_dashboard/feature/admin/presentation/widgets/skeletonizer_order_item.dart';
+import 'package:am_adel_dashboard/feature/admin/presentation/widgets/desktop/skeletonizer_order_item_desktop.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../../../../core/enums/order_enum.dart';
 
 class RecentOrdersListDesktop extends StatelessWidget {
@@ -21,18 +20,15 @@ class RecentOrdersListDesktop extends StatelessWidget {
 
         final isLoading = state is GetOrdersLoadingState;
 
-        if (isLoading) {
+        if (isLoading)
           return ListView.builder(
-            padding: EdgeInsets.zero,
-            itemCount: 3,
+            padding: EdgeInsets.symmetric(horizontal: 10),
+            itemCount: 4,
             itemBuilder: (context, index) {
-              return const Padding(
-                padding: EdgeInsets.all(14),
-                child: SkeletonizerOrderItem(),
-              );
+              return SkeletonizerOrderItemDesktop();
+
             },
           );
-        }
 
         if (recentOrders.isEmpty) {
           return Center(

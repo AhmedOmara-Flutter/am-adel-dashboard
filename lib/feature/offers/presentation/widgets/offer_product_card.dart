@@ -7,6 +7,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../core/widgets/custom_container.dart';
+
 class OfferProductCard extends StatelessWidget {
   final OfferEntity offer;
 
@@ -19,31 +21,16 @@ class OfferProductCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final expired = offer.isExpired;
 
-    return Container(
+    return CustomContainer(
       width: double.infinity,
-      decoration: BoxDecoration(
-        color: AppColor.cardLight,
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(
-          color: expired
-              ? AppColor.red.withOpacity(.28)
-              : AppColor.divider.withOpacity(.5),
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(.025),
-            blurRadius: 20,
-            offset: const Offset(0, 7),
-          ),
-        ],
-      ),
+      padding: EdgeInsets.zero,
       clipBehavior: Clip.antiAlias,
       child: Column(
         children: [
           if (expired) const _ExpiredHeader(),
 
           Padding(
-            padding: const EdgeInsets.all(15),
+            padding: const EdgeInsets.all(12),
             child: Column(
               children: [
                 Row(

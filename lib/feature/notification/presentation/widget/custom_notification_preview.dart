@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/utils/app_color.dart';
 import '../../../../core/utils/style_manager.dart';
+import '../../../../core/widgets/custom_container.dart';
 
 class CustomNotificationPreview extends StatelessWidget {
   const CustomNotificationPreview({
@@ -24,15 +25,8 @@ class CustomNotificationPreview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return CustomContainer(
       padding: const EdgeInsets.all(22),
-      decoration: BoxDecoration(
-        color: AppColor.cardLight,
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(
-          color: AppColor.border.withOpacity(.25),
-        ),
-      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

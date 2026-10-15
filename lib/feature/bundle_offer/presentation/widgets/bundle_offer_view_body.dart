@@ -4,6 +4,7 @@ import 'package:lottie/lottie.dart';
 import '../../../../core/helper_function/custom_show_dialog.dart';
 import '../../../../core/utils/app_color.dart';
 import '../../../../core/utils/style_manager.dart';
+import '../../../../core/widgets/empty_widget.dart';
 import '../../../../generated/assets.dart';
 import '../view_model/delete_bundle_offer_cubit/delete_bundle_offer_cubit.dart';
 import '../view_model/get_bundle_offer_cubit/get_bundle_offer_cubit.dart';
@@ -40,11 +41,7 @@ class BundleOfferViewBody extends StatelessWidget {
           final bundleOffers = state.bundleOffers;
 
           if (bundleOffers.isEmpty) {
-            return Center(
-              child: Lottie.asset(
-                Assets.assets.json.empty,
-              ),
-            );
+            return EmptyWidget();
           }
 
           return ListView.separated(

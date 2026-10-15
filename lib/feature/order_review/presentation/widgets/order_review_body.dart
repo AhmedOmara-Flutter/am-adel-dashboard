@@ -1,4 +1,5 @@
 import 'package:am_adel_dashboard/core/utils/app_imports.dart';
+import '../../../../core/widgets/custom_container.dart';
 import '../../data/models/order_review_model.dart';
 import '../view_model/view_model/order_review_cubit.dart';
 import 'order_review_card.dart';
@@ -92,9 +93,10 @@ class _OrderReviewBodyState extends State<OrderReviewBody> {
               OrderReviewStatistics(reviews:reviews),
               const SizedBox(height: 10),
               _buildSearchAndFilter(),
-              const SizedBox(height: 10),
+              const SizedBox(height: 15),
               Row(
                 children: [
+                  SizedBox(width: 10,),
                   Container(
                     width: 4,
                     height: 25,
@@ -129,7 +131,7 @@ class _OrderReviewBodyState extends State<OrderReviewBody> {
                   ),
                 ],
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: 15),
               if (filteredReviews.isEmpty)
                 _buildEmptyState()
               else
@@ -165,20 +167,7 @@ class _OrderReviewBodyState extends State<OrderReviewBody> {
       ('أقل من 3', Icons.star_outline_rounded),
     ];
 
-    return Container(
-      padding: const EdgeInsets.all(18),
-      decoration: BoxDecoration(
-        color: AppColor.cardLight,
-        borderRadius: BorderRadius.circular(AppConstants.borderRadius),
-        border: Border.all(color: AppColor.border.withOpacity(.32)),
-        boxShadow: [
-          BoxShadow(
-            color: AppColor.mainColor.withOpacity(.035),
-            blurRadius: 18,
-            offset: const Offset(0, 6),
-          ),
-        ],
-      ),
+    return CustomContainer(
       child: LayoutBuilder(
         builder: (context, constraints) {
           final isWide = constraints.maxWidth >= 600;
@@ -332,22 +321,11 @@ class _OrderReviewBodyState extends State<OrderReviewBody> {
   }
 
   Widget _buildEmptyState() {
-    return Container(
-      decoration: BoxDecoration(
-        color: AppColor.cardLight,
-        borderRadius: BorderRadius.circular(AppConstants.borderRadius),
-        border: Border.all(color: AppColor.border.withOpacity(.32)),
-        boxShadow: [
-          BoxShadow(
-            color: AppColor.mainColor.withOpacity(.035),
-            blurRadius: 18,
-            offset: const Offset(0, 6),
-          ),
-        ],
-      ),
+    return CustomContainer(
       width: double.infinity,
-      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 42),
+      height: MediaQuery.sizeOf(context).height*0.5,
       child:  Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Icon(Icons.reviews_outlined, color: AppColor.accentColor, size: 52),
           SizedBox(height: 16),
@@ -361,7 +339,7 @@ class _OrderReviewBodyState extends State<OrderReviewBody> {
           Text(
             'جرّب تغيير كلمات البحث أو الفلتر المحدد.',
             textAlign: TextAlign.center,
-            style:StyleManager.font12Weight500(context)
+            style:StyleManager.font11Weight400(context)
           ),
         ],
       ),

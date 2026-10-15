@@ -1,6 +1,7 @@
 import 'package:am_adel_dashboard/core/utils/app_constants.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import '../../../../core/widgets/custom_container.dart';
 import '../../domain/entities/bundle_offer_entity.dart';
 import '../../../../core/helper_function/get_date_formate.dart';
 import '../../../../core/utils/app_color.dart';
@@ -14,20 +15,9 @@ class BundleOfferCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return CustomContainer(
       width: double.infinity,
-      decoration: BoxDecoration(
-        color: AppColor.cardLight,
-        borderRadius: BorderRadius.circular(AppConstants.borderRadius),
-        border: Border.all(color: AppColor.border.withOpacity(.32)),
-        boxShadow: [
-          BoxShadow(
-            color: AppColor.mainColor.withOpacity(.035),
-            blurRadius: 18,
-            offset: const Offset(0, 6),
-          ),
-        ],
-      ),
+      padding: EdgeInsets.zero,
       clipBehavior: Clip.antiAlias,
       child: IntrinsicHeight(
         child: Row(

@@ -7,6 +7,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/utils/app_constants.dart';
+import '../../../../core/widgets/custom_container.dart';
 
 class ProductCard extends StatelessWidget {
   final ProductEntity product;
@@ -25,29 +26,10 @@ class ProductCard extends StatelessWidget {
     final oldPrice = offer?.priceBeforeDiscount ?? product.price;
     final newPrice = offer?.priceAfterDiscount ?? product.price;
 
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: AppColor.cardLight,
-        borderRadius: BorderRadius.circular(
-          AppConstants.borderRadius,
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: AppColor.mainColor.withOpacity(.10),
-            spreadRadius: 1,
-            blurRadius: 7,
-            offset: const Offset(0, 1),
-          ),
-        ],
-        border: const Border(
-          bottom: BorderSide(
-            color: AppColor.divider,
-          ),
-        ),
-      ),
+    return CustomContainer(
       clipBehavior: Clip.antiAliasWithSaveLayer,
       child: Stack(
+        alignment: AlignmentGeometry.topLeft,
         children: [
           Column(
             children: [
@@ -240,8 +222,11 @@ class ProductCard extends StatelessWidget {
             ],
           ),
 
-          ProductOptionButton(
-            product: product,
+          Padding(
+            padding: const EdgeInsets.symmetric(),
+            child: ProductOptionButton(
+              product: product,
+            ),
           ),
         ],
       ),

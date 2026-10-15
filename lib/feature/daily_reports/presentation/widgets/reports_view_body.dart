@@ -1,4 +1,5 @@
 import 'package:am_adel_dashboard/core/utils/app_imports.dart';
+import 'package:am_adel_dashboard/core/widgets/empty_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -69,14 +70,7 @@ class _ReportsViewBodyState extends State<ReportsViewBody> {
           );
         }
 
-        return Center(
-          child: Text(
-            'لا توجد تقارير محفوظة',
-            style: StyleManager.font14Weight600(context).copyWith(
-                color: AppColor.textSecondary
-            ),
-          ),
-        );
+        return EmptyWidget();
       },
     );
   }

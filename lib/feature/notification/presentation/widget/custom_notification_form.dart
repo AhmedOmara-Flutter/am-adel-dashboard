@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-
 import '../../../../core/utils/app_color.dart';
 import '../../../../core/utils/style_manager.dart';
+import '../../../../core/widgets/custom_container.dart';
 import '../../../../core/widgets/custom_text_form_field.dart';
 
 class CustomNotificationForm extends StatelessWidget {
@@ -19,10 +19,8 @@ class CustomNotificationForm extends StatelessWidget {
 
   final TextEditingController titleController;
   final TextEditingController bodyController;
-
   final Widget infoBox;
   final Widget sendButton;
-
   final String titleHint;
   final String bodyHint;
   final String sectionTitle;
@@ -30,29 +28,44 @@ class CustomNotificationForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(24),
-      decoration: BoxDecoration(
-        color: AppColor.cardLight,
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(
-          color: AppColor.border.withOpacity(.24),
-        ),
-      ),
+    return CustomContainer(
+      width: double.infinity,
+      padding: const EdgeInsets.all(22),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _buildHeader(context),
-
-          const SizedBox(height: 26),
+          const SizedBox(height: 22),
+          Divider(height: 1, color: AppColor.divider.withOpacity(.45)),
+          const SizedBox(height: 24),
+          Row(
+            children: [
+              Container(
+                width: 4,
+                height: 20,
+                decoration: BoxDecoration(
+                  color: AppColor.mainColor,
+                  borderRadius: BorderRadius.circular(5),
+                ),
+              ),
+              const SizedBox(width: 9),
+              Text(
+                'بيانات الرسالة',
+                style: StyleManager.font13Weight400(context).copyWith(
+                  color: AppColor.textPrimary,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 20),
 
           _buildField(
             context,
-            icon: Icons.title_outlined,
+            icon: Icons.title_rounded,
             label: 'عنوان الإشعار',
             child: CustomTextFormField(
               controller: titleController,
-              label: 'عنوان الإشعار',
               hintText: titleHint,
               maxLines: 1,
               onSaved: (_) {},
@@ -63,24 +76,23 @@ class CustomNotificationForm extends StatelessWidget {
 
           _buildField(
             context,
-            icon: Icons.notes_outlined,
-            label: 'محتوى الإشعار',
+            icon: Icons.notes_rounded,
+            label: 'نص الإشعار',
             child: CustomTextFormField(
               controller: bodyController,
-              label: 'نص الإشعار',
               hintText: bodyHint,
               maxLines: 6,
               onSaved: (_) {},
             ),
           ),
 
-          const SizedBox(height: 22),
+          const SizedBox(height: 24),
 
           infoBox,
 
           const SizedBox(height: 20),
 
-          sendButton,
+          SizedBox(width: double.infinity, child: sendButton),
         ],
       ),
     );
@@ -88,73 +100,78 @@ class CustomNotificationForm extends StatelessWidget {
 
   Widget _buildHeader(BuildContext context) {
     return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Container(
-          width: 44,
-          height: 44,
+          width: 50,
+          height: 50,
           decoration: BoxDecoration(
-            color: AppColor.mainColor,
-            borderRadius: BorderRadius.circular(13),
+            color: AppColor.mainColor.withOpacity(.09),
+            borderRadius: BorderRadius.circular(15),
+            border: Border.all(color: AppColor.mainColor.withOpacity(.13)),
           ),
-          child: const Icon(
+          child: Icon(
             Icons.edit_note_rounded,
-            color: AppColor.textOnDark,
-            size: 23,
+            color: AppColor.mainColor,
+            size: 28,
           ),
         ),
-        const SizedBox(width: 12),
+        const SizedBox(width: 14),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 sectionTitle,
-                style: StyleManager.font16Weight700(context).copyWith(
-                  color: AppColor.textPrimary,
-                ),
+                style: StyleManager.font16Weight700(
+                  context,
+                ).copyWith(color: AppColor.textPrimary),
               ),
-              const SizedBox(height: 3),
+              const SizedBox(height: 5),
               Text(
                 sectionSubtitle,
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
-                style: StyleManager.font11Weight400(context).copyWith(
-                  color: AppColor.textSecondary,
-                ),
+                style: StyleManager.font11Weight400(
+                  context,
+                ).copyWith(color: AppColor.textSecondary, height: 1.6),
               ),
             ],
           ),
+        ),
+        const SizedBox(width: 8),
+        Icon(
+          Icons.notifications_active_outlined,
+          color: AppColor.mainColor.withOpacity(.65),
+          size: 22,
         ),
       ],
     );
   }
 
   Widget _buildField(
-      BuildContext context, {
-        required IconData icon,
-        required String label,
-        required Widget child,
-      }) {
+    BuildContext context, {
+    required IconData icon,
+    required String label,
+    required Widget child,
+  }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
           children: [
-            Icon(
-              icon,
-              color: AppColor.mainColor,
-              size: 17,
-            ),
-            const SizedBox(width: 7),
+            Icon(icon, color: AppColor.mainColor, size: 18),
+            const SizedBox(width: 8),
             Text(
               label,
               style: StyleManager.font12Weight500(context).copyWith(
                 color: AppColor.textPrimary,
+                fontWeight: FontWeight.w600,
               ),
             ),
           ],
         ),
-        const SizedBox(height: 9),
+        const SizedBox(height: 10),
         child,
       ],
     );

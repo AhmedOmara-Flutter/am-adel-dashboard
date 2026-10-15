@@ -3,6 +3,7 @@ import 'package:am_adel_dashboard/core/utils/style_manager.dart';
 import 'package:flutter/material.dart';
 import '../../../../core/models/statistics_card_model.dart';
 import '../../../../core/utils/app_constants.dart';
+import '../../../../core/widgets/custom_container.dart';
 
 class ClientsStatisticsCard extends StatelessWidget {
   final StatisticsCardModel model;
@@ -13,26 +14,9 @@ class ClientsStatisticsCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: model.onTap,
-      child: Container(
-        decoration: BoxDecoration(
-          color: AppColor.cardLight,
-          borderRadius: BorderRadius.circular(AppConstants.borderRadius),
-          boxShadow: [
-            BoxShadow(
-              color: AppColor.mainColor.withOpacity(AppConstants.borderColor),
-              spreadRadius: 1,
-              blurRadius: 7,
-              offset: const Offset(0, 1),
-            ),
-          ],
-          border: Border.all(
-            color: AppColor.divider.withOpacity(.55),
-            width: 1,
-          ),
-        ),
+      child: CustomContainer(
         clipBehavior: Clip.antiAliasWithSaveLayer,
         height: model.height,
-        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [

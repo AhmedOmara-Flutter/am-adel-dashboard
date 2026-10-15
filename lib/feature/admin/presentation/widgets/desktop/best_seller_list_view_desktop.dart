@@ -1,5 +1,6 @@
 import 'package:am_adel_dashboard/feature/admin/presentation/widgets/desktop/product_item_desktop.dart';
-import 'package:am_adel_dashboard/feature/admin/presentation/widgets/skeletonizer_product_item.dart';
+import 'package:am_adel_dashboard/feature/admin/presentation/widgets/desktop/skeletonizer_product_item_desktop.dart';
+import 'package:am_adel_dashboard/feature/admin/presentation/widgets/mobile/skeletonizer_product_item_mobile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -20,10 +21,11 @@ class BestSellerListViewDesktop extends StatelessWidget {
 
         if (isLoading)
           return ListView.builder(
+            padding: EdgeInsets.symmetric(horizontal: 10),
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
-            itemCount: 2,
-            itemBuilder: (context, index) => SkeletonizerProductItem(),
+            itemCount: 4,
+            itemBuilder: (context, index) => SkeletonizerProductItemDesktop(),
           );
 
         if (topProducts.isEmpty) {

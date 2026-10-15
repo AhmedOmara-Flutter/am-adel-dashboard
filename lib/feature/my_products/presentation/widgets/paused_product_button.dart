@@ -1,19 +1,10 @@
-import 'package:am_adel_dashboard/core/entities/product_entity.dart';
 import 'package:am_adel_dashboard/core/helper_function/custom_show_dialog.dart';
 import 'package:am_adel_dashboard/core/helper_function/custom_show_snake_bar.dart';
-import 'package:am_adel_dashboard/core/utils/app_color.dart';
 import 'package:am_adel_dashboard/core/utils/app_imports.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../../../core/cubit/products_cubit/products_cubit.dart';
-import '../../../cart_status/presentation/view_model/cart_status_cubit.dart';
+import 'package:am_adel_dashboard/core/widgets/action_button.dart';
 
 class PausedProductButton extends StatelessWidget {
-  const PausedProductButton({
-    super.key,
-    required this.product,
-  });
+  const PausedProductButton({super.key, required this.product});
 
   final ProductEntity product;
 
@@ -22,27 +13,22 @@ class PausedProductButton extends StatelessWidget {
     final isPaused = product.isPaused;
 
     return Expanded(
-      child: Container(
-        margin: const EdgeInsets.only(top: 10),
-        padding: const EdgeInsets.symmetric(vertical: 10),
-        decoration: BoxDecoration(
-          color: isPaused
-              ? AppColor.red.withOpacity(.10)
-              : AppColor.inputFill,
-          borderRadius: BorderRadius.circular(8),
-
-        ),
-        child: InkWell(
-          borderRadius: BorderRadius.circular(8),
+      child: Padding(
+        padding: const EdgeInsets.only(top: 10),
+        child: ActionButton(
+          icon: isPaused
+              ? Icons.play_circle_outline
+              : Icons.pause_circle_outline,
+          label: isPaused ? 'تفعيل المنتج' : 'إيقاف المنتج',
+          color: isPaused ? AppColor.green : AppColor.textPrimary,
           onTap: () async {
             final productsCubit = context.read<ProductsCubit>();
 
             final currentProduct = productsCubit.allProducts.firstWhere(
-                  (item) => item.id == product.id,
+              (item) => item.id == product.id,
               orElse: () => product,
             );
 
-            // المنتج موقوف → السماح بالتفعيل
             if (currentProduct.isPaused) {
               CustomShowDialog.show(
                 context,
@@ -56,10 +42,7 @@ class PausedProductButton extends StatelessWidget {
                 ),
                 cancel: () => Navigator.pop(context),
                 accept: () {
-                  productsCubit.toggleProductPaused(
-                    currentProduct.id!,
-                    false,
-                  );
+                  productsCubit.toggleProductPaused(currentProduct.id!, false);
 
                   Navigator.pop(context);
                 },
@@ -70,7 +53,6 @@ class PausedProductButton extends StatelessWidget {
               return;
             }
 
-            // المنتج عليه عرض → ممنوع إيقافه
             if (currentProduct.offerId != null &&
                 currentProduct.offerId!.isNotEmpty) {
               customShowSnakeBar(
@@ -85,6 +67,8 @@ class PausedProductButton extends StatelessWidget {
             final cartStatusCubit = context.read<CartStatusCubit>();
 
             await cartStatusCubit.checkCartsStatus();
+
+            if (!context.mounted) return;
 
             final cartState = cartStatusCubit.state;
 
@@ -111,10 +95,7 @@ class PausedProductButton extends StatelessWidget {
                 ),
                 cancel: () => Navigator.pop(context),
                 accept: () {
-                  productsCubit.toggleProductPaused(
-                    currentProduct.id!,
-                    true,
-                  );
+                  productsCubit.toggleProductPaused(currentProduct.id!, true);
 
                   Navigator.pop(context);
                 },
@@ -125,21 +106,10 @@ class PausedProductButton extends StatelessWidget {
               customShowSnakeBar(
                 context,
                 color: AppColor.red,
-                label:
-                'حدث خطأ أثناء التحقق من السلال، حاول مرة أخرى',
+                label: 'حدث خطأ أثناء التحقق من السلال، حاول مرة أخرى',
               );
             }
           },
-          child: Text(
-            isPaused ? 'تفعيل المنتج' : 'إيقاف المنتج',
-            textAlign: TextAlign.center,
-            style: StyleManager.font14Weight600(context).copyWith(
-              color: isPaused
-                  ? AppColor.red
-                  : AppColor.textPrimary,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
         ),
       ),
     );

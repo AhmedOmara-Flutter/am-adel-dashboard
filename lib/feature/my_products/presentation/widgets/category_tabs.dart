@@ -1,10 +1,12 @@
 import 'package:am_adel_dashboard/core/utils/app_color.dart';
+import 'package:am_adel_dashboard/core/widgets/empty_widget.dart';
 import 'package:am_adel_dashboard/feature/my_products/presentation/widgets/tap_bar_view_body.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/cubit/products_cubit/products_cubit.dart';
 import '../../../../core/utils/app_constants.dart';
+import '../../../../core/widgets/custom_container.dart';
 import '../../../category/domain/entities/category_entity.dart';
 import '../../../category/presentation/view_model/category_cubit.dart';
 
@@ -150,16 +152,7 @@ class _CategoryTabsState extends State<CategoryTabs>
         }
 
         if (categories.isEmpty) {
-          return const Center(
-            child: Text(
-              'لا توجد تصنيفات',
-              style: TextStyle(
-                color: AppColor.textSecondary,
-                fontSize: 14,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-          );
+          return EmptyWidget();
         }
 
         _createTabController(categories);
@@ -183,35 +176,12 @@ class _CategoryTabsState extends State<CategoryTabs>
 
     return Column(
       children: [
-        Container(
+        CustomContainer(
           height: 70,
           margin: const EdgeInsets.only(
             left: 10,
             right: 10,
             bottom: 10,
-          ),
-          padding: const EdgeInsets.symmetric(
-            horizontal: 10,
-          ),
-          decoration: BoxDecoration(
-            color: AppColor.cardLight,
-            borderRadius: BorderRadius.circular(
-              AppConstants.borderRadius,
-            ),
-            boxShadow: [
-              BoxShadow(
-                color: AppColor.mainColor.withOpacity(.10),
-                spreadRadius: 1,
-                blurRadius: 7,
-                offset: const Offset(0, 1),
-              ),
-            ],
-            border: const Border(
-              bottom: BorderSide(
-                color: AppColor.divider,
-                width: 1,
-              ),
-            ),
           ),
           clipBehavior: Clip.antiAliasWithSaveLayer,
 

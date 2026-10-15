@@ -4,6 +4,7 @@ import '../../../../core/cubit/orders_cubit/orders_cubit.dart';
 import '../../../../core/enums/order_enum.dart';
 import '../../../../core/utils/app_color.dart';
 import '../../../../core/utils/app_constants.dart';
+import '../../../../core/widgets/custom_container.dart';
 
 class DailyReportStatusSection extends StatelessWidget {
   const DailyReportStatusSection({super.key, required this.ordersCubit});
@@ -12,13 +13,7 @@ class DailyReportStatusSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        color: AppColor.cardLight,
-        borderRadius: BorderRadius.circular(AppConstants.borderRadius),
-        border: Border.all(color: AppColor.border.withOpacity(.28)),
-      ),
+    return CustomContainer(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

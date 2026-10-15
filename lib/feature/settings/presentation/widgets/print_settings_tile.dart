@@ -3,6 +3,7 @@ import '../../../../core/services/print_service.dart';
 import '../../../../core/utils/app_color.dart';
 import '../../../../core/utils/app_constants.dart';
 import '../../../../core/utils/style_manager.dart';
+import '../../../../core/widgets/custom_container.dart';
 
 class PrintSettingsTile extends StatefulWidget {
   const PrintSettingsTile({super.key});
@@ -42,21 +43,8 @@ class _PrintSettingsTileState extends State<PrintSettingsTile> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return CustomContainer(
       width: double.infinity,
-      padding: const EdgeInsets.all(18),
-      decoration: BoxDecoration(
-        color: AppColor.cardLight,
-        borderRadius: BorderRadius.circular(AppConstants.borderRadius),
-        border: Border.all(color: AppColor.border.withOpacity(.32)),
-        boxShadow: [
-          BoxShadow(
-            color: AppColor.mainColor.withOpacity(.035),
-            blurRadius: 18,
-            offset: const Offset(0, 6),
-          ),
-        ],
-      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

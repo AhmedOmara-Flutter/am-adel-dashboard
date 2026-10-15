@@ -4,6 +4,7 @@ import 'package:am_adel_dashboard/core/utils/app_color.dart';
 import 'package:am_adel_dashboard/core/utils/style_manager.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../core/widgets/custom_container.dart';
 import '../../domain/entities/user_coupon_entity.dart';
 
 class CouponTable extends StatefulWidget {
@@ -80,20 +81,8 @@ class _CouponTableState extends State<CouponTable> {
         ? '${coupon.discountValue.toStringAsFixed(0)}%'
         : '${coupon.discountValue.toStringAsFixed(0)} EGP';
 
-    return Container(
+    return CustomContainer(
       width: double.infinity,
-      decoration: BoxDecoration(
-        color: AppColor.cardLight,
-        borderRadius: BorderRadius.circular(18),
-        border: Border.all(color: AppColor.divider.withOpacity(.55)),
-        boxShadow: [
-          BoxShadow(
-            color: AppColor.mainColor.withOpacity(.06),
-            blurRadius: 10,
-            offset: const Offset(0, 3),
-          ),
-        ],
-      ),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(18),
         child: Theme(
@@ -650,15 +639,11 @@ class _CouponTableState extends State<CouponTable> {
   }
 
   Widget _buildEmptyState() {
-    return Container(
+    return CustomContainer(
       width: double.infinity,
-      padding: const EdgeInsets.symmetric(vertical: 55, horizontal: 20),
-      decoration: BoxDecoration(
-        color: AppColor.cardLight,
-        borderRadius: BorderRadius.circular(18),
-        border: Border.all(color: AppColor.divider.withOpacity(.55)),
-      ),
+      height: MediaQuery.sizeOf(context).height*0.25,
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
             width: 64,

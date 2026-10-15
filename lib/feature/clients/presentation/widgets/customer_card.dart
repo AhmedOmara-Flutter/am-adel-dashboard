@@ -10,6 +10,7 @@ import 'package:am_adel_dashboard/core/utils/route_manager.dart';
 import 'package:am_adel_dashboard/core/utils/style_manager.dart';
 import 'package:am_adel_dashboard/generated/assets.dart';
 import '../../../../core/helper_function/make_call_function.dart';
+import '../../../../core/widgets/custom_container.dart';
 import '../view_model/clients_cubit.dart';
 import 'customer_stat.dart';
 
@@ -37,20 +38,7 @@ class CustomerCard extends StatelessWidget {
             .read<ClientsCubit>()
             .getCustomerOrdersCount(user.uId);
 
-        return Container(
-          padding: const EdgeInsets.all(14),
-          decoration: BoxDecoration(
-            color: AppColor.cardLight,
-            borderRadius: BorderRadius.circular(AppConstants.borderRadius),
-            border: Border.all(color: AppColor.border.withOpacity(.32)),
-            boxShadow: [
-              BoxShadow(
-                color: AppColor.mainColor.withOpacity(.035),
-                blurRadius: 18,
-                offset: const Offset(0, 6),
-              ),
-            ],
-          ),
+        return CustomContainer(
           child: Column(
             children: [
               Row(

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:am_adel_dashboard/core/enums/order_enum.dart';
 import 'package:am_adel_dashboard/core/helper_function/make_full_name.dart';
-import 'package:am_adel_dashboard/feature/admin/presentation/widgets/skeletonizer_order_item.dart';
+import 'package:am_adel_dashboard/feature/admin/presentation/widgets/mobile/skeletonizer_order_item_mobile.dart';
 import '../../../../../core/cubit/orders_cubit/orders_cubit.dart';
 import '../../../../../core/helper_function/get_date_formate.dart';
 import '../../../../main/presentation/view_model/main_cubit.dart';
@@ -24,7 +24,7 @@ class RecentOrdersListViewMobile extends StatelessWidget {
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             itemCount: 1,
-            itemBuilder: (context, index) => SkeletonizerOrderItem(),
+            itemBuilder: (context, index) => SkeletonizerOrderItemMobile(),
           );
 
         if (recentOrders.isEmpty) {

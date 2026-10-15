@@ -6,6 +6,7 @@ import '../../../../core/helper_function/get_date_formate.dart';
 import '../../../../core/services/print_service.dart';
 import '../../../../core/utils/app_color.dart';
 import '../../../../core/utils/style_manager.dart';
+import '../../../../core/widgets/custom_container.dart';
 import '../../domain/entities/daily_reports_entity.dart';
 import '../view_model/daily_reports_cubit.dart';
 import 'details_value.dart';
@@ -50,20 +51,7 @@ class DailyReportCard extends StatelessWidget {
               },
             );
           },
-          child: Container(
-            padding: const EdgeInsets.all(14),
-            decoration: BoxDecoration(
-              color: AppColor.cardLight,
-              borderRadius: BorderRadius.circular(AppConstants.borderRadius),
-              border: Border.all(color: AppColor.border.withOpacity(.32)),
-              boxShadow: [
-                BoxShadow(
-                  color: AppColor.mainColor.withOpacity(.035),
-                  blurRadius: 18,
-                  offset: const Offset(0, 6),
-                ),
-              ],
-            ),
+          child: CustomContainer(
             child: Column(
               children: [
                 _buildHeader(),

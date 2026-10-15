@@ -2,6 +2,7 @@ import 'package:am_adel_dashboard/core/utils/app_constants.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../core/widgets/custom_container.dart';
 import '../../domain/entities/flash_offer_entity.dart';
 import '../../../../core/helper_function/get_date_formate.dart';
 import '../../../../core/utils/app_color.dart';
@@ -19,25 +20,10 @@ class FlashOfferCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return CustomContainer(
       width: double.infinity,
       height: 155,
-      decoration: BoxDecoration(
-        color: AppColor.cardLight,
-        borderRadius: BorderRadius.circular(
-          AppConstants.borderRadius,
-        ),
-        border: Border.all(
-          color: AppColor.border.withOpacity(.32),
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: AppColor.mainColor.withOpacity(.045),
-            blurRadius: 20,
-            offset: const Offset(0, 7),
-          ),
-        ],
-      ),
+      padding: EdgeInsets.zero,
       clipBehavior: Clip.antiAlias,
       child: Stack(
         fit: StackFit.expand,
@@ -58,7 +44,6 @@ class FlashOfferCard extends StatelessWidget {
               ),
             ),
           ),
-
           /// Flash badge
           Positioned(
             top: 12,

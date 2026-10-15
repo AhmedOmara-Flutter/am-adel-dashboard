@@ -22,12 +22,9 @@ class ProductActionsSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        context.isDesktop ? SizedBox(width: 100,) : SizedBox.shrink(),
         RemoveOfferButton(hasOffer: hasOffer, offer: offer, product: product),
         const SizedBox(width: 10),
         PausedProductButton(product: product),
-        context.isDesktop ? SizedBox(width: 100,) : SizedBox.shrink(),
-
       ],
     );
   }

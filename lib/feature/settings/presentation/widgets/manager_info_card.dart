@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/utils/app_color.dart';
 import '../../../../core/utils/app_constants.dart';
+import '../../../../core/widgets/custom_container.dart';
 import '../../../../generated/assets.dart';
 
 class ManagerInfoCard extends StatelessWidget {
@@ -13,21 +14,8 @@ class ManagerInfoCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return CustomContainer(
       width: double.infinity,
-      padding: const EdgeInsets.fromLTRB(18, 18, 18, 20),
-      decoration: BoxDecoration(
-        color: AppColor.cardLight,
-        borderRadius: BorderRadius.circular(AppConstants.borderRadius),
-        border: Border.all(color: AppColor.border.withOpacity(.32)),
-        boxShadow: [
-          BoxShadow(
-            color: AppColor.mainColor.withOpacity(.035),
-            blurRadius: 18,
-            offset: const Offset(0, 6),
-          ),
-        ],
-      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

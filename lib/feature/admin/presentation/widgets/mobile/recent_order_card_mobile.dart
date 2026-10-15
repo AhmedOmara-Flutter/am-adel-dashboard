@@ -1,11 +1,11 @@
 import 'package:am_adel_dashboard/core/utils/app_color.dart';
-import 'package:am_adel_dashboard/core/utils/app_constants.dart';
 import 'package:am_adel_dashboard/core/utils/style_manager.dart';
 import 'package:am_adel_dashboard/feature/admin/presentation/widgets/mobile/recent_orders_list_view_mobile.dart';
 import 'package:am_adel_dashboard/feature/main/presentation/view_model/main_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../core/cubit/orders_cubit/orders_cubit.dart';
+import '../../../../../core/widgets/custom_container.dart';
 
 class RecentOrderCardMobile extends StatelessWidget {
   const RecentOrderCardMobile({super.key});
@@ -16,17 +16,8 @@ class RecentOrderCardMobile extends StatelessWidget {
     final int ordersCount = ordersCubit.allOrders.length;
     final bool hasOrders = ordersCount > 0;
 
-    return Container(
+    return CustomContainer(
       padding: const EdgeInsets.all(13),
-      decoration: BoxDecoration(
-        color: AppColor.cardLight,
-        borderRadius: BorderRadius.circular(
-          AppConstants.borderRadius,
-        ),
-        border: Border.all(
-          color: AppColor.divider.withOpacity(0.25),
-        ),
-      ),
       clipBehavior: Clip.antiAlias,
       child: Column(
         children: [
@@ -105,7 +96,6 @@ class RecentOrderCardMobile extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 20),
-
           const RecentOrdersListViewMobile(),
         ],
       ),

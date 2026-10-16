@@ -6,11 +6,8 @@ import '../../../../core/utils/app_constants.dart';
 import '../../../../core/widgets/custom_container.dart';
 import '../../../../generated/assets.dart';
 
-class ManagerInfoCard extends StatelessWidget {
-  final String name;
-  final String phone;
-
-  const ManagerInfoCard({super.key, required this.name, required this.phone});
+class ManagerInfoCardMobile extends StatelessWidget {
+  const ManagerInfoCardMobile({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -79,7 +76,7 @@ class ManagerInfoCard extends StatelessWidget {
                 padding: const EdgeInsets.all(3),
                 child: ClipOval(
                   child: Image.asset(
-                    Assets.assets.images.amAdelLogo.path,
+                    Assets.assets.images.me.path,
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -92,7 +89,7 @@ class ManagerInfoCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      name,
+                      'احمد عماره',
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
@@ -124,7 +121,7 @@ class ManagerInfoCard extends StatelessWidget {
 
                         Flexible(
                           child: Text(
-                            phone,
+                            '01098431538',
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: const TextStyle(

@@ -1,6 +1,9 @@
 import 'package:am_adel_dashboard/core/widgets/app_skeleton_effect.dart';
 import 'package:flutter/material.dart';
 import 'package:skeletonizer/skeletonizer.dart';
+import '../../../../core/utils/app_color.dart';
+import '../../../../core/utils/style_manager.dart';
+import '../../../../core/widgets/custom_container.dart';
 import '../../../../generated/assets.dart';
 
 class SkeletonizerReviewItem extends StatelessWidget {
@@ -11,93 +14,126 @@ class SkeletonizerReviewItem extends StatelessWidget {
     return Skeletonizer(
       enabled: true,
       effect: AppSkeletonEffect.shimmer,
-      child: Container(
-        decoration: ShapeDecoration(
-          color: const Color(0xFFF3F5F7),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
-        ),
-        child: Column(
-          children: [
-            Row(
+      child:Material(
+        color: Colors.transparent,
+        child: InkWell(
+          borderRadius: BorderRadius.circular(16),
+          child: CustomContainer(
+            child: Row(
               children: [
                 Container(
-                  margin: EdgeInsets.all(10),
-                  padding: EdgeInsets.symmetric(horizontal: 8, vertical: 5),
+                  width: 82,
+                  height: 82,
+                  padding: const EdgeInsets.all(7),
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadiusGeometry.circular(4),
-                    border: Border.all(color: Colors.grey.shade300),
+                    color: AppColor.background,
+                    borderRadius: BorderRadius.circular(13),
                   ),
-                  child: Row(
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(9),
+                    child: Image.asset(
+                      Assets.assets.images.img.path,
+                      fit: BoxFit.contain,
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 13),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        '{product.reviewsCount}',
-                        style: Theme.of(context).textTheme.titleMedium,
+                        'product.name',
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: StyleManager.font14Weight600(context).copyWith(
+                          color: AppColor.textPrimary,
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
-                      SizedBox(width: 5),
-                      Icon(Icons.message, color: Colors.grey),
+
+                      const SizedBox(height: 8),
+
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.star_rounded,
+                            size: 17,
+                            color: AppColor.accentColor,
+                          ),
+
+                          const SizedBox(width: 4),
+
+                          Text(
+                            'product',
+                            style: StyleManager.font13Weight600(context).copyWith(
+                              color: AppColor.textGold,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+
+                          const SizedBox(width: 9),
+
+                          Container(
+                            width: 3,
+                            height: 3,
+                            decoration: BoxDecoration(
+                              color: AppColor.textSecondary.withOpacity(.5),
+                              shape: BoxShape.circle,
+                            ),
+                          ),
+
+                          const SizedBox(width: 9),
+
+                          Text(
+                            '{product.reviewsCount}',
+                            style: StyleManager.font11Weight400(
+                              context,
+                            ).copyWith(color: AppColor.textSecondary),
+                          ),
+                        ],
+                      ),
+
+                      const SizedBox(height: 9),
+
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.chat_bubble_outline_rounded,
+                            size: 14,
+                            color: AppColor.textSecondary,
+                          ),
+                          const SizedBox(width: 5),
+                          Text(
+                            'عرض تقييمات المنتج',
+                            style: StyleManager.font13Weight600(
+                              context,
+                            ).copyWith(color: AppColor.textSecondary),
+                          ),
+                        ],
+                      ),
                     ],
                   ),
                 ),
-              ],
-            ),
-            SizedBox(height: 5),
-            Column(
-              children: [
-                Image.asset(
-                  Assets.assets.images.img.path,
-                  width: 110,
-                  height: 110,
-                  fit: BoxFit.cover,
-                ),
-                SizedBox(height: 10),
-                Text(
-                  '{product.name}',
-                  style: Theme.of(context).textTheme.labelLarge,
-                ),
-                SizedBox(height: 10),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(Icons.star, color: Colors.orange, size: 16),
-                    SizedBox(width: 5),
-                    Text(
-                      '{product.averageRating}',
-                      style: Theme.of(
-                        context,
-                      ).textTheme.labelSmall!.copyWith(color: Colors.orange),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 10),
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(12),
-                  child: Material(
-                    color: Colors.transparent,
-                    child: InkWell(
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 12,
-                          horizontal: 15,
-                        ),
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.grey.shade300),
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child: Text(
-                          'عرض جميع التعليقات',
-                          style: Theme.of(
-                            context,
-                          ).textTheme.titleSmall!.copyWith(color: Colors.black),
-                        ),
-                      ),
-                    ),
+                const SizedBox(width: 10),
+                Container(
+                  width: 32,
+                  height: 32,
+                  decoration: BoxDecoration(
+                    color: AppColor.background,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Icon(
+                    Icons.arrow_forward_ios_rounded,
+                    size: 13,
+                    color: AppColor.textSecondary,
                   ),
                 ),
               ],
             ),
-          ],
+          ),
         ),
-      ),
+      ) ,
     );
   }
 }

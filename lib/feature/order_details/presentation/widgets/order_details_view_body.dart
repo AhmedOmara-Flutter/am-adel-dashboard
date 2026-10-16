@@ -1,16 +1,11 @@
 import 'package:am_adel_dashboard/core/entities/order_entity.dart';
-import 'package:am_adel_dashboard/core/extension/responsive_extension.dart';
 import 'package:am_adel_dashboard/feature/order_details/presentation/widgets/order_note_card_section.dart';
 import 'package:am_adel_dashboard/feature/order_details/presentation/widgets/order_print_section.dart';
 import 'package:am_adel_dashboard/feature/order_details/presentation/widgets/order_summary_card_section.dart';
 import 'package:am_adel_dashboard/feature/order_details/presentation/widgets/payment_card_section.dart';
 import 'package:am_adel_dashboard/feature/order_details/presentation/widgets/products_section.dart';
 import 'package:flutter/material.dart';
-
 import '../../../../core/services/print_service.dart';
-import '../../../../core/utils/app_color.dart';
-import '../../../../core/utils/config_size.dart';
-import '../../../../core/widgets/custom_back_button.dart';
 import 'customer_info_section.dart';
 import 'delivery_address_section.dart';
 import 'order_header_section.dart';

@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-
 import '../../../../core/cubit/orders_cubit/orders_cubit.dart';
 import '../../../../core/enums/order_enum.dart';
+import '../../../../core/extension/responsive_extension.dart';
 import '../../../../core/utils/app_color.dart';
-import '../../../../core/utils/app_constants.dart';
 import '../../../../core/widgets/custom_container.dart';
 
 class DailyReportStatusSection extends StatelessWidget {
@@ -14,6 +13,8 @@ class DailyReportStatusSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomContainer(
+      padding:EdgeInsets.all(context.isDesktop?22:15),
+
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

@@ -3,7 +3,6 @@ import 'package:am_adel_dashboard/core/utils/app_constants.dart';
 import 'package:am_adel_dashboard/core/utils/style_manager.dart';
 import 'package:am_adel_dashboard/core/widgets/custom_container.dart';
 import 'package:flutter/material.dart';
-
 import '../../domain/entities/selected_location_entity.dart';
 
 class SelectedLocationCard extends StatelessWidget {
@@ -21,10 +20,6 @@ class SelectedLocationCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomContainer(
-      padding: const EdgeInsets.all(16),
-      color: AppColor.cardLight,
-      borderRadius: AppConstants.borderRadius,
-      borderColor: AppColor.divider.withOpacity(.30),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

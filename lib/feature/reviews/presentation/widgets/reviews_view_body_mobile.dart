@@ -32,9 +32,10 @@ class ReviewsViewBodyMobile extends StatelessWidget {
             return const EmptyWidget();
           }
 
-          return ListView.builder(
-            padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+          return ListView.separated(
+            padding: const EdgeInsets.all(10),
             itemCount: state.products.length,
+            separatorBuilder: (context, index) => SizedBox(height: 10,),
             itemBuilder: (context, index) {
               return ReviewItem(
                 product: state.products[index],
@@ -42,15 +43,16 @@ class ReviewsViewBodyMobile extends StatelessWidget {
             },
           );
         }
-
-        return ListView.builder(
+        return ListView.separated(
           padding: const EdgeInsets.fromLTRB(10, 10, 10, 20),
-          itemCount: 6,
+          itemCount: 10,
+          separatorBuilder: (context, index) => SizedBox(height: 10,),
           itemBuilder: (context, index) {
             return SkeletonizerReviewItem(
             );
           },
         );
+
       },
     );
   }

@@ -1,9 +1,11 @@
 import 'package:am_adel_dashboard/core/entities/order_entity.dart';
+import 'package:am_adel_dashboard/core/extension/responsive_extension.dart';
 import 'package:am_adel_dashboard/core/helper_function/get_date_formate.dart';
 import 'package:am_adel_dashboard/core/utils/app_color.dart';
 import 'package:am_adel_dashboard/core/utils/style_manager.dart';
 import 'package:flutter/material.dart';
 import '../../../../core/enums/order_enum.dart';
+import '../../../../core/widgets/custom_container.dart';
 import 'display_product_item.dart';
 import 'order_total_section.dart';
 
@@ -22,19 +24,8 @@ class DisplayOrderCard extends StatelessWidget {
     final location = order.selectedLocationEntity;
     final isCash = order.isCashOnDelivery ?? false;
 
-    return Container(
-      decoration: BoxDecoration(
-        color: AppColor.cardLight,
-        borderRadius: BorderRadius.circular(18),
-        border: Border.all(color: AppColor.divider.withOpacity(.55)),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(.035),
-            blurRadius: 12,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
+    return CustomContainer(
+      padding: context.isDesktop?EdgeInsets.all(12):EdgeInsets.only(top: 5,bottom: 5),
       child: Theme(
         data: Theme.of(context).copyWith(
           dividerColor: Colors.transparent,
@@ -43,8 +34,6 @@ class DisplayOrderCard extends StatelessWidget {
           hoverColor: Colors.transparent,
         ),
         child: ExpansionTile(
-          tilePadding: const EdgeInsets.fromLTRB(14, 8, 14, 8),
-          childrenPadding: EdgeInsets.zero,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(18),
           ),

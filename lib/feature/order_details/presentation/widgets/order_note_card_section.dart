@@ -2,6 +2,8 @@ import 'package:am_adel_dashboard/core/utils/app_color.dart';
 import 'package:am_adel_dashboard/core/utils/style_manager.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../core/widgets/custom_container.dart';
+
 class OrderNoteCardSection extends StatelessWidget {
   const OrderNoteCardSection({
     super.key,
@@ -18,24 +20,9 @@ class OrderNoteCardSection extends StatelessWidget {
       return const SizedBox.shrink();
     }
 
-    return Container(
+    return CustomContainer(
       width: double.infinity,
       margin: EdgeInsets.only(bottom: 10),
-      padding: const EdgeInsets.fromLTRB(16, 14, 16, 16),
-      decoration: BoxDecoration(
-        color: AppColor.cardLight,
-        borderRadius: BorderRadius.circular(18),
-        border: Border.all(
-          color: AppColor.divider.withOpacity(.55),
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(.025),
-            blurRadius: 14,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

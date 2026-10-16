@@ -5,6 +5,7 @@ import 'package:am_adel_dashboard/core/utils/style_manager.dart';
 import 'package:am_adel_dashboard/feature/reviews/domain/entities/review_entity.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../core/widgets/custom_container.dart';
 import '../../../../generated/assets.dart';
 
 class ReviewCard extends StatelessWidget {
@@ -14,21 +15,7 @@ class ReviewCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 12),
-      padding: const EdgeInsets.all(14),
-      decoration: BoxDecoration(
-        color: AppColor.cardLight,
-        borderRadius: BorderRadius.circular(AppConstants.borderRadius),
-        border: Border.all(color: AppColor.divider.withOpacity(.4)),
-        boxShadow: [
-          BoxShadow(
-            color: AppColor.mainColor.withOpacity(.025),
-            blurRadius: 16,
-            offset: const Offset(0, 5),
-          ),
-        ],
-      ),
+    return CustomContainer(
       child: Column(
         children: [
           Row(

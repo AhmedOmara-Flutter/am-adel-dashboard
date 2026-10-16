@@ -5,6 +5,7 @@ import 'package:am_adel_dashboard/core/utils/style_manager.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/enums/order_enum.dart';
+import '../../../../core/widgets/custom_container.dart';
 
 class OrderHeaderSection extends StatelessWidget {
   const OrderHeaderSection({
@@ -16,23 +17,8 @@ class OrderHeaderSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return CustomContainer(
       width: double.infinity,
-      padding: const EdgeInsets.all(18),
-      decoration: BoxDecoration(
-        color: AppColor.cardLight,
-        borderRadius: BorderRadius.circular(18),
-        border: Border.all(
-          color: AppColor.divider.withOpacity(.55),
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(.025),
-            blurRadius: 14,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
       child: Row(
         children: [
           Container(
@@ -63,7 +49,7 @@ class OrderHeaderSection extends StatelessWidget {
                     color: AppColor.textSecondary,
                   ),
                 ),
-                const SizedBox(height: 3),
+                const SizedBox(height: 5),
                 Text(
                   'تفاصيل الطلب',
                   style: StyleManager.font15Weight700(
@@ -72,7 +58,7 @@ class OrderHeaderSection extends StatelessWidget {
                     color: AppColor.textPrimary,
                   ),
                 ),
-                const SizedBox(height: 5),
+                const SizedBox(height: 10),
                 Row(
                   children: [
                     Icon(
@@ -106,15 +92,6 @@ class OrderHeaderSection extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              Text(
-                'رقم الطلب',
-                style: StyleManager.font11Weight400(
-                  context,
-                ).copyWith(
-                  color: AppColor.textSecondary,
-                ),
-              ),
-              const SizedBox(height: 4),
               Container(
                 padding: const EdgeInsets.symmetric(
                   horizontal: 10,

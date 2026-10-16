@@ -13,7 +13,7 @@ import '../../../../core/utils/app_constants.dart';
 import '../../../../core/utils/config_size.dart';
 import '../../../../generated/assets.dart';
 import '../../../cart_status/presentation/view_model/cart_status_cubit.dart';
-import 'manager_info_card.dart';
+import 'manager_info_card_mobile.dart';
 
 class SettingsViewBody extends StatefulWidget {
   const SettingsViewBody({super.key});

@@ -6,6 +6,8 @@ import 'package:am_adel_dashboard/core/utils/style_manager.dart';
 import 'package:am_adel_dashboard/generated/assets.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../core/widgets/custom_container.dart';
+
 class CustomerInfoSection extends StatelessWidget {
   const CustomerInfoSection({
     super.key,
@@ -19,22 +21,7 @@ class CustomerInfoSection extends StatelessWidget {
     final user = order.userEntity!;
     final receiverName = order.addressEntity?.name ?? 'غير محدد';
 
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: AppColor.cardLight,
-        borderRadius: BorderRadius.circular(18),
-        border: Border.all(
-          color: AppColor.divider.withOpacity(.55),
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(.025),
-            blurRadius: 14,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
+    return CustomContainer(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

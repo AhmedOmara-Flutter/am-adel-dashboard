@@ -1,11 +1,14 @@
+
 import 'package:am_adel_dashboard/core/extension/responsive_extension.dart';
 import 'package:flutter/material.dart';
-import '../../../../core/utils/config_size.dart';
 import '../../domain/entities/daily_reports_entity.dart';
 import 'daily_report_stat_card.dart';
 
 class DailyReportStats extends StatelessWidget {
-  const DailyReportStats({super.key, required this.report});
+  const DailyReportStats({
+    super.key,
+    required this.report,
+  });
 
   final DailyReportEntity report;
 
@@ -38,20 +41,29 @@ class DailyReportStats extends StatelessWidget {
         isTotal: true,
       ),
     ];
-    return GridView.builder(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemCount: cards.length,
-            gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: context.isDesktop?4:2,
-              crossAxisSpacing: 10,
-              mainAxisSpacing: 10,
-              childAspectRatio:context.isDesktop?2.2: 1.25,
-            ),
-            itemBuilder: (context, index) {
-              return cards[index];
-            },
-          );
+
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final crossAxisCount = context.isDesktop ? 4 : 2;
+        const spacing = 10.0;
+
+        final cardWidth =
+            (constraints.maxWidth -
+                (spacing * (crossAxisCount - 1))) /
+                crossAxisCount;
+
+        return Wrap(
+          spacing: spacing,
+          runSpacing: spacing,
+          children: cards.map((card) {
+            return SizedBox(
+              width: cardWidth,
+              child: card,
+            );
+          }).toList(),
+        );
+      },
+    );
   }
 
   String _formatMoney(double value) {

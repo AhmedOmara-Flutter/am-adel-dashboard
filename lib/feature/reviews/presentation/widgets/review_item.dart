@@ -2,6 +2,7 @@ import 'package:am_adel_dashboard/core/entities/product_entity.dart';
 import 'package:am_adel_dashboard/core/utils/app_color.dart';
 import 'package:am_adel_dashboard/core/utils/route_manager.dart';
 import 'package:am_adel_dashboard/core/utils/style_manager.dart';
+import 'package:am_adel_dashboard/core/widgets/custom_container.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
@@ -23,18 +24,9 @@ class ReviewItem extends StatelessWidget {
             arguments: product,
           );
         },
-        child: Ink(
-          padding: const EdgeInsets.all(12),
-          decoration: BoxDecoration(
-            color: AppColor.cardLight,
-            borderRadius: BorderRadius.circular(16),
-            border: Border.all(color: AppColor.divider.withOpacity(.55)),
-          ),
+        child: CustomContainer(
           child: Row(
             children: [
-              // --------------------------------------------------------
-              // Product Image
-              // --------------------------------------------------------
               Container(
                 width: 82,
                 height: 82,
@@ -71,12 +63,7 @@ class ReviewItem extends StatelessWidget {
                   ),
                 ),
               ),
-
               const SizedBox(width: 13),
-
-              // --------------------------------------------------------
-              // Product Information
-              // --------------------------------------------------------
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -154,13 +141,8 @@ class ReviewItem extends StatelessWidget {
                   ],
                 ),
               ),
-
               const SizedBox(width: 10),
-
-              // --------------------------------------------------------
-              // Arrow
-              // --------------------------------------------------------
-              Container(
+               Container(
                 width: 32,
                 height: 32,
                 decoration: BoxDecoration(

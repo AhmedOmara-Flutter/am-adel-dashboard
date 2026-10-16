@@ -1,3 +1,4 @@
+import 'package:am_adel_dashboard/core/extension/responsive_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -23,13 +24,9 @@ class _DrawerItemListViewState extends State<DrawerItemListView> {
           itemCount: cubit.drawerItems.length,
           itemBuilder: (context, index) {
             return Padding(
-              padding: EdgeInsets.only(bottom: 30, top: MediaQuery
-                  .sizeOf(context)
-                  .width > ConfigSize.phone ? 10 : 0),
+              padding: EdgeInsets.only(bottom: 30, top: context.isDesktop ? 10 : 0),
               child: GestureDetector(
-                onTap: MediaQuery
-                    .sizeOf(context)
-                    .width > ConfigSize.phone? () {
+                onTap: context.isDesktop? () {
                   cubit.changeIndex(index);
                 }:() async {
                   if (cubit.selectedIndex != index) {

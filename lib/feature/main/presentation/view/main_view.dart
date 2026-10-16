@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/utils/app_color.dart';
 import '../../../../core/utils/config_size.dart';
+import '../../../../core/widgets/custom_app_bar.dart';
 import '../view_model/main_cubit.dart';
 import '../widgets/custom_drawer.dart';
 
@@ -26,42 +27,13 @@ class _MainViewState extends State<MainView> {
         return Scaffold(
           key: _scaffoldKey,
           drawer: SizedBox(width:250,child: CustomDrawer()),
-          appBar: context.isDesktop ? null : AppBar(
-            title: Text(
-              cubit.drawerItems[cubit.selectedIndex].title,
-              style: Theme
-                  .of(context)
-                  .textTheme
-                  .displaySmall!
-                  .copyWith(
-                  color: AppColor.mainColor
-              ),
-            ),
-            centerTitle: true,
-            leading: Padding(
-              padding: const EdgeInsets.all(8),
-              child: Material(
-                color: AppColor.mainColor,
-                borderRadius: BorderRadius.circular(14),
-                child: InkWell(
-                  borderRadius: BorderRadius.circular(14),
-                  onTap: () {
-                    _scaffoldKey.currentState?.openDrawer();
-                  },
-                  child: const Center(
-                    child: Icon(
-                      Icons.menu_rounded,
-                      color: AppColor.white,
-                      size: 22,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            automaticallyImplyLeading: false,
-            backgroundColor: AppColor.background,
+          appBar: context.isDesktop ? null :  CustomAppBar(
+            title: cubit.drawerItems[cubit.selectedIndex].title,
+            buttonType: AppBarButtonType.menu,
+            onMenuPressed: () {
+              _scaffoldKey.currentState?.openDrawer();
+            },
           ),
-
           body: PopScope(
             canPop: false,
             onPopInvoked: (didPop) {
@@ -72,7 +44,7 @@ class _MainViewState extends State<MainView> {
                 SystemNavigator.pop();
               }
             },
-            child:MediaQuery.sizeOf(context).width >ConfigSize.phone? Row(
+            child:context.isDesktop? Row(
               children: [
                 const SizedBox(
                   width: 280,

@@ -85,16 +85,13 @@ class BestSellerListViewDesktop extends StatelessWidget {
             physics: const NeverScrollableScrollPhysics(),
             itemCount: topProducts.take(5).length,
             separatorBuilder: (context, index) =>Container(
+              margin: EdgeInsets.symmetric(vertical: 10),
               height: 1,
               color: AppColor.divider.withOpacity(.65),
             ),
             itemBuilder: (context, index) {
               return Column(
                 children: [
-                  Container(
-                    height: 1,
-                    color: AppColor.divider.withOpacity(.65),
-                  ),
                   ProductItemDesktop(
                     productName: topProducts[index].name,
                     orderCount: topProducts[index].totalOrders.toString(),

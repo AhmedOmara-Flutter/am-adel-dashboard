@@ -10,7 +10,7 @@ class AdminViewMobile extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomScrollView(
       slivers: [
-        SliverToBoxAdapter(child: SizedBox(height: 10,),),
+        SliverToBoxAdapter(child: SizedBox(height: 12,),),
         const SliverToBoxAdapter(child: AdminStatisticsMobile()),
         SliverToBoxAdapter(
           child: Padding(

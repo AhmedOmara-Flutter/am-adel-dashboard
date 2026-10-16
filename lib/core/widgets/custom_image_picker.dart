@@ -51,7 +51,6 @@ class _CustomImagePickerState extends State<CustomImagePicker> {
         children: [
           Container(
             width: double.infinity,
-            padding: EdgeInsets.symmetric(vertical: 10),
             decoration: BoxDecoration(
               color: AppColor.inputFill,
               borderRadius: BorderRadius.circular(12),

@@ -8,6 +8,7 @@ import 'package:am_adel_dashboard/core/utils/route_manager.dart';
 import '../../../../core/cubit/orders_cubit/orders_cubit.dart';
 import '../../../../core/entities/order_entity.dart';
 import '../../../../core/utils/app_constants.dart';
+import '../../../../core/widgets/custom_container.dart';
 import 'order_customer_info.dart';
 import 'order_status_action.dart';
 import 'order_status_badge.dart';
@@ -52,18 +53,8 @@ class _BuildOrderCardState extends State<BuildOrderCard> {
           },
         );
       },
-      child: Container(
+      child: CustomContainer(
         margin: EdgeInsets.only(bottom: 10),
-        padding: const EdgeInsets.all(14),
-        decoration: BoxDecoration(
-          color: AppColor.cardLight,
-          borderRadius: BorderRadius.circular(
-            AppConstants.borderRadius,
-          ),
-          border: Border.all(
-              color: AppColor.divider.withOpacity(0.5)
-          ),
-        ),
         clipBehavior: Clip.antiAliasWithSaveLayer,
         child: Stack(
           alignment: Alignment.topLeft,

@@ -3,7 +3,8 @@ import 'package:am_adel_dashboard/feature/settings/presentation/widgets/build_co
 import 'package:am_adel_dashboard/feature/settings/presentation/widgets/print_settings_tile.dart';
 import 'package:am_adel_dashboard/feature/settings/presentation/widgets/restaurant_status_card.dart';
 import 'package:am_adel_dashboard/feature/settings/presentation/widgets/setting_danger_card.dart';
-import 'manager_info_card.dart';
+import 'manager_info_card_desktop.dart';
+import 'manager_info_card_mobile.dart';
 
 class SettingsMobileLayout extends StatelessWidget {
   const SettingsMobileLayout({super.key});
@@ -12,7 +13,7 @@ class SettingsMobileLayout extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const ManagerInfoCard(name: 'عم عادل', phone: '01098431538'),
+        const ManagerInfoCardMobile(),
         const SizedBox(height: 10),
         const RestaurantStatusCard(),
         const SizedBox(height: 10),

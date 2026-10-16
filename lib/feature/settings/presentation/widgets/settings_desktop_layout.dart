@@ -2,8 +2,7 @@ import 'package:am_adel_dashboard/feature/settings/presentation/widgets/build_co
 import 'package:am_adel_dashboard/feature/settings/presentation/widgets/print_settings_tile.dart';
 import 'package:am_adel_dashboard/feature/settings/presentation/widgets/setting_danger_card.dart';
 import 'package:flutter/material.dart';
-
-import 'manager_info_card.dart';
+import 'manager_info_card_desktop.dart';
 
 class SettingsDesktopLayout extends StatelessWidget {
   const SettingsDesktopLayout({super.key});
@@ -12,10 +11,7 @@ class SettingsDesktopLayout extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const ManagerInfoCard(
-          name: 'عم عادل',
-          phone: '01098431538',
-        ),
+        const ManagerInfoCardDesktop(),
         const SizedBox(height: 10),
         const PrintSettingsTile(),
         const SizedBox(height: 10),
@@ -38,7 +34,7 @@ class SettingsDesktopLayout extends StatelessWidget {
             ),
           ],
         ),
-        SizedBox(height: 50,),
+        SizedBox(height: 100,),
         const BuildCopyRight(),
       ],
     );

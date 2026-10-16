@@ -3,6 +3,7 @@ import 'package:am_adel_dashboard/core/utils/style_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/helper_function/custom_show_snake_bar.dart';
+import '../../../../core/widgets/custom_container.dart';
 import '../../../cart_status/presentation/view_model/cart_status_cubit.dart';
 import '../view_model/settings_cubit.dart';
 
@@ -21,17 +22,7 @@ class RestaurantStatusCard extends StatelessWidget {
         final statusColor =
         isOpen ? AppColor.green : AppColor.red;
 
-        return AnimatedContainer(
-          duration: const Duration(milliseconds: 350),
-          width: double.infinity,
-          padding: const EdgeInsets.all(18),
-          decoration: BoxDecoration(
-            color: AppColor.cardLight,
-            borderRadius: BorderRadius.circular(24),
-            border: Border.all(
-              color: statusColor.withOpacity(.18),
-            ),
-          ),
+        return CustomContainer(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

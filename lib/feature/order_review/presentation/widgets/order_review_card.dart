@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 
 import '../../../../core/helper_function/custom_show_dialog.dart';
 import '../../../../core/helper_function/get_date_formate.dart';
+import '../../../../core/widgets/custom_container.dart';
 import '../../data/models/order_review_model.dart';
 import '../view_model/view_model/order_review_cubit.dart';
 
@@ -21,19 +22,7 @@ class OrderReviewCard extends StatelessWidget {
 
     final phone = review.customerPhone?.trim() ?? '';
 
-    return Container(
-      decoration: BoxDecoration(
-        color: AppColor.cardLight,
-        borderRadius: BorderRadius.circular(AppConstants.borderRadius),
-        border: Border.all(color: AppColor.border.withOpacity(.32)),
-        boxShadow: [
-          BoxShadow(
-            color: AppColor.mainColor.withOpacity(.035),
-            blurRadius: 18,
-            offset: const Offset(0, 6),
-          ),
-        ],
-      ),
+    return CustomContainer(
       child: Stack(
         children: [
           Column(

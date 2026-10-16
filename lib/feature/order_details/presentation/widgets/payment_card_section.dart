@@ -4,6 +4,8 @@ import 'package:am_adel_dashboard/core/utils/style_manager.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../core/widgets/custom_container.dart';
+
 class PaymentCardSection extends StatelessWidget {
   const PaymentCardSection({
     super.key,
@@ -19,23 +21,8 @@ class PaymentCardSection extends StatelessWidget {
     final hasImage =
         paymentImage != null && paymentImage!.trim().isNotEmpty;
 
-    return Container(
+    return CustomContainer(
       width: double.infinity,
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: AppColor.cardLight,
-        borderRadius: BorderRadius.circular(18),
-        border: Border.all(
-          color: AppColor.divider.withOpacity(.55),
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(.025),
-            blurRadius: 14,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

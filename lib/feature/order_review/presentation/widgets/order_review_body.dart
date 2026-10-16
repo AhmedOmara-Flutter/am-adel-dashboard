@@ -112,18 +112,7 @@ class _OrderReviewBodyState extends State<OrderReviewBody> {
                       style: StyleManager.font16Weight700(context),
                     ),
                   ),
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 12,
-                      vertical: 6,
-                    ),
-                    decoration: BoxDecoration(
-                      color: AppColor.cardLight,
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(
-                        color: AppColor.divider.withValues(alpha: 0.6),
-                      ),
-                    ),
+                  CustomContainer(
                     child: Text(
                       '${filteredReviews.length} تقييم',
                       style: StyleManager.font13Weight400(context),

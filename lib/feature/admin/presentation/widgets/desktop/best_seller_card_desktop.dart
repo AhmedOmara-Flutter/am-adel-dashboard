@@ -30,6 +30,7 @@ class BestSellerCardDesktop extends StatelessWidget {
               ),
             ],
           ),
+          SizedBox(height: 12,),
           const Expanded(
             child: BestSellerListViewDesktop(),
           ),

@@ -44,11 +44,13 @@ class OrderReviewStatCard extends StatelessWidget {
                     ),
                   ),
                   SizedBox(width: 10,),
-                  Text(
-                    title,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: StyleManager.font12Weight500(context),
+                  Expanded(
+                    child: Text(
+                      title,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: StyleManager.font12Weight500(context),
+                    ),
                   ),
                 ],
               ),

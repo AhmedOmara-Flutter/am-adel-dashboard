@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:am_adel_dashboard/core/entities/order_entity.dart';
 import 'package:am_adel_dashboard/core/utils/app_color.dart';
-import 'package:am_adel_dashboard/core/widgets/custom_back_button.dart';
 import 'package:am_adel_dashboard/feature/display_order/presentation/widgets/display_orders_view_body.dart';
+import '../../../../core/widgets/custom_app_bar.dart';
 
 class DisplayOrdersView extends StatelessWidget {
   final List<OrderEntity> orders;
@@ -12,26 +11,10 @@ class DisplayOrdersView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: AppColor.mainColor,
-        elevation: 0,
-        leading: Padding(
-          padding: const EdgeInsets.only(right: 10),
-          child: const CustomBackButton(),
-        ),
-        centerTitle: true,
-        title: Text(
-          'عرض الطلبات',
-          style: Theme.of(context)
-              .textTheme
-              .displaySmall!
-              .copyWith(
-            color: AppColor.textOnDark,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
+      appBar: const CustomAppBar(
+        title: 'عرض الطلبات',
+        buttonType: AppBarButtonType.back,
       ),
-
       backgroundColor: AppColor.background,
       body: DisplayOrdersViewBody(orders: orders,),
     );

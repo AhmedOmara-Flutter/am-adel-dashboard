@@ -2,6 +2,8 @@ import 'package:am_adel_dashboard/core/utils/app_color.dart';
 import 'package:am_adel_dashboard/core/utils/style_manager.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../core/widgets/custom_container.dart';
+
 class OrderSummaryCardSection extends StatelessWidget {
   const OrderSummaryCardSection({
     super.key,
@@ -21,23 +23,8 @@ class OrderSummaryCardSection extends StatelessWidget {
     final totalPrice =
         subTotal - couponDiscount + deliveryCost;
 
-    return Container(
+    return CustomContainer(
       width: double.infinity,
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: AppColor.cardLight,
-        borderRadius: BorderRadius.circular(18),
-        border: Border.all(
-          color: AppColor.divider.withOpacity(.55),
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(.025),
-            blurRadius: 14,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
       child: Column(
         children: [
           Row(

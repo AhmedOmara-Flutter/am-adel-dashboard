@@ -28,23 +28,16 @@ class AddProductViewBody extends StatefulWidget {
 class _AddProductViewBodyState extends State<AddProductViewBody> {
   late String name, code, description;
   late num price, expirationMonth, unitAmount, numberOfCalories;
-
   File? image;
   List<File>? subImagesFiles;
-
   bool isFeatured = false;
-
   AutovalidateMode autoValidateMode = AutovalidateMode.disabled;
-
   final nameController = TextEditingController();
   final priceController = TextEditingController();
   final descriptionController = TextEditingController();
-
   final _formKey = GlobalKey<FormState>();
-
   String? selectedCategory;
   String? selectedSize;
-
   CategoryEntity? get currentCategory {
     if (selectedCategory == null) return null;
 
@@ -58,7 +51,6 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
       return null;
     }
   }
-
   bool get isFormComplete {
     final category = currentCategory;
 
@@ -104,13 +96,18 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
         if (state is AddProductFailure) {
           customShowSnakeBar(
             context,
-            color: Colors.red,
+            color: AppColor.red,
             label: state.errMessage,
           );
         }
 
         if (state is AddProductSuccess) {
           context.read<MainCubit>().changeIndex(0);
+          customShowSnakeBar(
+            context,
+            color: AppColor.green,
+            label: 'تم اضافه المنتج بنجاح',
+          );
         }
       },
       builder: (context, state) {
@@ -119,10 +116,7 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
             Form(
               key: _formKey,
               autovalidateMode: autoValidateMode,
-              child: Padding(
-                padding: const EdgeInsets.only(top: 3),
-                child: CustomScrollView(slivers: [buildMobileWidget(context)]),
-              ),
+              child:buildContentWidget(context),
             ),
             if (state is AddProductLoading)
               Positioned.fill(
@@ -144,242 +138,147 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
     );
   }
 
-  SliverToBoxAdapter buildMobileWidget(BuildContext context) {
-    return SliverToBoxAdapter(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          BackgroundCard(
-            label: 'معلومات المنتج',
-            subLabel: 'البيانات الاساسيه للمنتج',
-            icon: Icons.local_offer_outlined,
-            child: Padding(
-              padding: const EdgeInsets.all(10),
-              child: Column(
-                children: [
-                  Row(
-                    children: [
-                      Expanded(
-                        child: CustomTextFormField(
-                          label: 'اسم المنتج',
-                          controller: nameController,
-                          hintText: 'اكتب اسم المنتج',
-                          onSaved: (value) {
-                            name = value!;
-                          },
-                          validator: (value) {
-                            if (value == null || value.trim().isEmpty) {
-                              return 'الحقل مطلوب';
-                            }
-
-                            return null;
-                          },
-                        ),
-                      ),
-                      const SizedBox(width: 10),
-                      Expanded(
-                        child: CustomTextFormField(
-                          label: 'سعر المنتج',
-                          controller: priceController,
-                          hintText: 'اكتب سعر المنتج',
-                          keyboardType: TextInputType.number,
-                          onSaved: (value) {
-                            price = num.parse(value!);
-                          },
-                          validator: (value) {
-                            if (value == null || value.trim().isEmpty) {
-                              return 'الحقل مطلوب';
-                            }
-
-                            if (num.tryParse(value) == null) {
-                              return 'ادخل سعر صحيح';
-                            }
-
-                            return null;
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 10),
-                  Row(
-                    children: [
-                      Text(
-                        'التصنيف',
-                        style: Theme.of(context).textTheme.titleMedium!
-                            .copyWith(
-                              color: AppColor.mainColor,
-                              fontWeight: FontWeight.w700,
-                            ),
-                      ),
-                      const SizedBox(width: 8),
-                      const CircleAvatar(
-                        backgroundColor: AppColor.red,
-                        radius: 2,
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 8),
-                  BlocBuilder<CategoryCubit, CategoryState>(
-                    builder: (context, categoryState) {
-                      final categoryCubit = context.watch<CategoryCubit>();
-
-                      final categories = categoryCubit.categories;
-
-                      if (categoryState is CategoryGetLoading &&
-                          categories.isEmpty) {
-                        return Container(
-                          height: 55,
-                          decoration: BoxDecoration(
-                            color: AppColor.cardLight,
-                            borderRadius: BorderRadius.circular(12),
-                            border: Border.all(color: AppColor.divider),
-                          ),
-                          child: const Center(
-                            child: SizedBox(
-                              width: 22,
-                              height: 22,
-                              child: CircularProgressIndicator(
-                                strokeWidth: 2,
-                                color: AppColor.accentColor,
-                              ),
-                            ),
-                          ),
-                        );
-                      }
-
-                      if (categories.isEmpty) {
-                        return Container(
-                          width: double.infinity,
-                          padding: const EdgeInsets.all(16),
-                          decoration: BoxDecoration(
-                            color: AppColor.cardLight,
-                            borderRadius: BorderRadius.circular(12),
-                            border: Border.all(color: AppColor.divider),
-                          ),
-                          child: Text(
-                            'لا توجد تصنيفات متاحة',
-                            textAlign: TextAlign.center,
-                            style: Theme.of(context).textTheme.titleSmall!
-                                .copyWith(color: AppColor.textSecondary),
-                          ),
-                        );
-                      }
-
-                      return DropdownButtonFormField<String>(
-                        initialValue:
-                            categories.any(
-                              (category) => category.id == selectedCategory,
-                            )
-                            ? selectedCategory
-                            : null,
-                        hint: Text(
-                          'اختر التصنيف',
-                          style: Theme.of(context).textTheme.titleSmall!
-                              .copyWith(color: AppColor.textSecondary),
-                        ),
-                        items: categories.map((category) {
-                          return DropdownMenuItem<String>(
-                            value: category.id,
-                            child: Text(
-                              category.name,
-                              style: const TextStyle(
-                                color: AppColor.textPrimary,
-                              ),
-                            ),
-                          );
-                        }).toList(),
-                        dropdownColor: AppColor.cardLight,
-                        style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                          color: AppColor.textPrimary,
-                        ),
-                        icon: const Icon(
-                          Icons.keyboard_arrow_down_rounded,
-                          color: AppColor.textSecondary,
-                        ),
-                        decoration: InputDecoration(
-                          filled: true,
-                          fillColor: AppColor.inputFill,
-                          contentPadding: const EdgeInsets.symmetric(
-                            horizontal: 14,
-                            vertical: 14,
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(12),
-                            borderSide: BorderSide.none,
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(12),
-                            borderSide: BorderSide.none,
-
-                          ),
-                          errorBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(12),
-                            borderSide: BorderSide.none,
-                          ),
-                          focusedErrorBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(12),
-                            borderSide: BorderSide.none,
-                          ),
-                        ),
-                        onChanged: (value) {
-                          setState(() {
-                            selectedCategory = value;
-                            selectedSize = null;
-                          });
+  Widget buildContentWidget(BuildContext context) {
+    return ListView(
+      padding: const EdgeInsets.all(10),
+      children: [
+        BackgroundCard(
+          label: 'معلومات المنتج',
+          subLabel: 'البيانات الاساسيه للمنتج',
+          icon: Icons.local_offer_outlined,
+          child: Padding(
+            padding: const EdgeInsets.all(10),
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    Expanded(
+                      child: CustomTextFormField(
+                        label: 'اسم المنتج',
+                        controller: nameController,
+                        hintText: 'اكتب اسم المنتج',
+                        onSaved: (value) {
+                          name = value!;
                         },
                         validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'برجاء اختيار التصنيف';
+                          if (value == null || value.trim().isEmpty) {
+                            return 'الحقل مطلوب';
                           }
 
                           return null;
                         },
-                        onSaved: (value) {
-                          selectedCategory = value;
-                        },
-                      );
-                    },
-                  ),
-                  const SizedBox(height: 10),
-                  if (currentCategory != null &&
-                      currentCategory!.sizes.isNotEmpty) ...[
-                    const SizedBox(height: 16),
-                    Row(
-                      children: [
-                        Text(
-                          'الحجم',
-                          style: Theme.of(context).textTheme.titleMedium!
-                              .copyWith(
-                                color: AppColor.mainColor,
-                                fontWeight: FontWeight.w700,
-                              ),
-                        ),
-                        const SizedBox(width: 8),
-                        const CircleAvatar(
-                          backgroundColor: AppColor.red,
-                          radius: 2,
-                        ),
-                      ],
+                      ),
                     ),
-                    const SizedBox(height: 8),
-                    DropdownButtonFormField<String>(
+                    const SizedBox(width: 10),
+                    Expanded(
+                      child: CustomTextFormField(
+                        label: 'سعر المنتج',
+                        controller: priceController,
+                        hintText: 'اكتب سعر المنتج',
+                        keyboardType: TextInputType.number,
+                        onSaved: (value) {
+                          price = num.parse(value!);
+                        },
+                        validator: (value) {
+                          if (value == null || value.trim().isEmpty) {
+                            return 'الحقل مطلوب';
+                          }
+
+                          if (num.tryParse(value) == null) {
+                            return 'ادخل سعر صحيح';
+                          }
+
+                          return null;
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 10),
+                Row(
+                  children: [
+                    Text(
+                      'التصنيف',
+                      style: Theme.of(context).textTheme.titleMedium!
+                          .copyWith(
+                            color: AppColor.mainColor,
+                            fontWeight: FontWeight.w700,
+                          ),
+                    ),
+                    const SizedBox(width: 8),
+                    const CircleAvatar(
+                      backgroundColor: AppColor.red,
+                      radius: 2,
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 8),
+                BlocBuilder<CategoryCubit, CategoryState>(
+                  builder: (context, categoryState) {
+                    final categoryCubit = context.watch<CategoryCubit>();
+
+                    final categories = categoryCubit.categories;
+
+                    if (categoryState is CategoryGetLoading &&
+                        categories.isEmpty) {
+                      return Container(
+                        height: 55,
+                        decoration: BoxDecoration(
+                          color: AppColor.cardLight,
+                          borderRadius: BorderRadius.circular(12),
+                          border: Border.all(color: AppColor.divider),
+                        ),
+                        child: const Center(
+                          child: SizedBox(
+                            width: 22,
+                            height: 22,
+                            child: CircularProgressIndicator(
+                              strokeWidth: 2,
+                              color: AppColor.accentColor,
+                            ),
+                          ),
+                        ),
+                      );
+                    }
+
+                    if (categories.isEmpty) {
+                      return Container(
+                        width: double.infinity,
+                        padding: const EdgeInsets.all(16),
+                        decoration: BoxDecoration(
+                          color: AppColor.cardLight,
+                          borderRadius: BorderRadius.circular(12),
+                          border: Border.all(color: AppColor.divider),
+                        ),
+                        child: Text(
+                          'لا توجد تصنيفات متاحة',
+                          textAlign: TextAlign.center,
+                          style: Theme.of(context).textTheme.titleSmall!
+                              .copyWith(color: AppColor.textSecondary),
+                        ),
+                      );
+                    }
+
+                    return DropdownButtonFormField<String>(
                       initialValue:
-                          currentCategory!.sizes.contains(selectedSize)
-                          ? selectedSize
+                          categories.any(
+                            (category) => category.id == selectedCategory,
+                          )
+                          ? selectedCategory
                           : null,
                       hint: Text(
-                        'اختر الحجم',
-                        style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                          color: AppColor.textSecondary,
-                        ),
+                        'اختر التصنيف',
+                        style: Theme.of(context).textTheme.titleSmall!
+                            .copyWith(color: AppColor.textSecondary),
                       ),
-                      items: currentCategory!.sizes.map((size) {
+                      items: categories.map((category) {
                         return DropdownMenuItem<String>(
-                          value: size,
+                          value: category.id,
                           child: Text(
-                            size,
-                            style: const TextStyle(color: AppColor.textPrimary),
+                            category.name,
+                            style: const TextStyle(
+                              color: AppColor.textPrimary,
+                            ),
                           ),
                         );
                       }).toList(),
@@ -405,7 +304,6 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
                           borderSide: BorderSide.none,
-
                         ),
                         errorBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
@@ -414,118 +312,212 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
                         focusedErrorBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
                           borderSide: BorderSide.none,
-
                         ),
                       ),
                       onChanged: (value) {
                         setState(() {
-                          selectedSize = value;
+                          selectedCategory = value;
+                          selectedSize = null;
                         });
                       },
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'برجاء اختيار الحجم';
+                          return 'برجاء اختيار التصنيف';
                         }
 
                         return null;
                       },
+                      onSaved: (value) {
+                        selectedCategory = value;
+                      },
+                    );
+                  },
+                ),
+                const SizedBox(height: 10),
+                if (currentCategory != null &&
+                    currentCategory!.sizes.isNotEmpty) ...[
+                  const SizedBox(height: 16),
+                  Row(
+                    children: [
+                      Text(
+                        'الحجم',
+                        style: Theme.of(context).textTheme.titleMedium!
+                            .copyWith(
+                              color: AppColor.mainColor,
+                              fontWeight: FontWeight.w700,
+                            ),
+                      ),
+                      const SizedBox(width: 8),
+                      const CircleAvatar(
+                        backgroundColor: AppColor.red,
+                        radius: 2,
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 8),
+                  DropdownButtonFormField<String>(
+                    initialValue:
+                        currentCategory!.sizes.contains(selectedSize)
+                        ? selectedSize
+                        : null,
+                    hint: Text(
+                      'اختر الحجم',
+                      style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                        color: AppColor.textSecondary,
+                      ),
                     ),
-                  ],
-                ],
-              ),
-            ),
-          ),
-          BackgroundCard(
-            icon: Icons.settings_outlined,
-            label: 'اعدادات اضافيه',
-            subLabel: 'خصائص ومميزات المنتج',
-            child: Padding(
-              padding: const EdgeInsets.all(10),
-              child: Column(
-                children: [
-                  CustomTextFormField(
-                    controller: descriptionController,
-                    label: 'وصف المنتج',
-                    hintText: 'اكتب وصف المنتج',
-                    onSaved: (value) {
-                      description = value!;
+                    items: currentCategory!.sizes.map((size) {
+                      return DropdownMenuItem<String>(
+                        value: size,
+                        child: Text(
+                          size,
+                          style: const TextStyle(color: AppColor.textPrimary),
+                        ),
+                      );
+                    }).toList(),
+                    dropdownColor: AppColor.cardLight,
+                    style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                      color: AppColor.textPrimary,
+                    ),
+                    icon: const Icon(
+                      Icons.keyboard_arrow_down_rounded,
+                      color: AppColor.textSecondary,
+                    ),
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: AppColor.inputFill,
+                      contentPadding: const EdgeInsets.symmetric(
+                        horizontal: 14,
+                        vertical: 14,
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        borderSide: BorderSide.none,
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        borderSide: BorderSide.none,
+                      ),
+                      errorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        borderSide: BorderSide.none,
+                      ),
+                      focusedErrorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        borderSide: BorderSide.none,
+                      ),
+                    ),
+                    onChanged: (value) {
+                      setState(() {
+                        selectedSize = value;
+                      });
                     },
                     validator: (value) {
-                      if (value == null || value.trim().isEmpty) {
-                        return 'الحقل مطلوب';
+                      if (value == null || value.isEmpty) {
+                        return 'برجاء اختيار الحجم';
                       }
 
                       return null;
                     },
-                    maxLines: 4,
-                  ),
-                  const SizedBox(height: 10),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: CustomIsFeatured(
-                          isFeatured: isFeatured,
-                          onTap: () {
-                            setState(() {
-                              isFeatured = !isFeatured;
-                            });
-                          },
-                        ),
-                      ),
-                    ],
                   ),
                 ],
-              ),
+              ],
             ),
           ),
-          BackgroundCard(
-            label: 'الصوره الرئيسيه',
-            icon: Icons.image_outlined,
-            subLabel: 'اختر صوره واحده فقط لتكون الصوره الرئيسيه للمنتج',
+        ),
+        SizedBox(height: 10,),
+        BackgroundCard(
+          icon: Icons.settings_outlined,
+          label: 'اعدادات اضافيه',
+          subLabel: 'خصائص ومميزات المنتج',
+          child: Padding(
+            padding: const EdgeInsets.all(10),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: CustomImagePicker(
-                    onImagePicked: (image) {
-                      setState(() {
-                        this.image = image;
-                      });
-                    },
-                  ),
+                CustomTextFormField(
+                  controller: descriptionController,
+                  label: 'وصف المنتج',
+                  hintText: 'اكتب وصف المنتج',
+                  onSaved: (value) {
+                    description = value!;
+                  },
+                  validator: (value) {
+                    if (value == null || value.trim().isEmpty) {
+                      return 'الحقل مطلوب';
+                    }
+
+                    return null;
+                  },
+                  maxLines: 4,
+                ),
+                const SizedBox(height: 10),
+                Row(
+                  children: [
+                    Expanded(
+                      child: CustomIsFeatured(
+                        isFeatured: isFeatured,
+                        onTap: () {
+                          setState(() {
+                            isFeatured = !isFeatured;
+                          });
+                        },
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
           ),
-          BackgroundCard(
-            icon: Icons.photo_library_outlined,
-            label: 'صور المنتج',
-            subLabel: 'يمكنك اضافه اكثر من صوره للمنتج (4 صور فقط)',
-            child: Padding(
-              padding: const EdgeInsets.all(10),
-              child: CustomSubImages(
-                onImagesPicked: (images) {
-                  setState(() {
-                    subImagesFiles = images;
-                  });
-                },
+        ),
+        SizedBox(height: 10,),
+        BackgroundCard(
+          label: 'الصوره الرئيسيه',
+          icon: Icons.image_outlined,
+          subLabel: 'اختر صوره واحده فقط لتكون الصوره الرئيسيه للمنتج',
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(10),
+                child: CustomImagePicker(
+                  onImagePicked: (image) {
+                    setState(() {
+                      this.image = image;
+                    });
+                  },
+                ),
               ),
+            ],
+          ),
+        ),
+        SizedBox(height: 10,),
+        BackgroundCard(
+          icon: Icons.photo_library_outlined,
+          label: 'صور المنتج',
+          subLabel: 'يمكنك اضافه اكثر من صوره للمنتج (4 صور فقط)',
+          child: Padding(
+            padding: const EdgeInsets.all(10),
+            child: CustomSubImages(
+              onImagesPicked: (images) {
+                setState(() {
+                  subImagesFiles = images;
+                });
+              },
             ),
           ),
-          const SizedBox(height: 10),
-          CustomButton(
-            onPressed: isFormComplete ? _addProduct : null,
-            child: Text(
-              'اضافه المنتج',
-              style: StyleManager.font15Weight800(
-                context,
-              ).copyWith(color: AppColor.white),
-            ),
+        ),
+        const SizedBox(height: 10),
+        CustomButton(
+          onPressed: isFormComplete ? _addProduct : null,
+          child: Text(
+            'اضافه المنتج',
+            style: StyleManager.font15Weight800(
+              context,
+            ).copyWith(color: AppColor.white),
           ),
-          const SizedBox(height: 15),
-        ],
-      ),
+        ),
+        const SizedBox(height: 15),
+      ],
     );
   }
 
@@ -574,15 +566,11 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
   @override
   void dispose() {
     nameController.removeListener(_updateFormState);
-
     priceController.removeListener(_updateFormState);
-
     descriptionController.removeListener(_updateFormState);
-
     nameController.dispose();
     priceController.dispose();
     descriptionController.dispose();
-
     super.dispose();
   }
 }

@@ -262,36 +262,6 @@ class _AddLocationBottomSheetState extends State<AddLocationBottomSheet> {
                   ),
                 ),
               ),
-
-              if (isLoading)
-                Positioned.fill(
-                  child: AbsorbPointer(
-                    absorbing: true,
-                    child: Container(
-                      color: AppColor.black.withOpacity(.18),
-                      child: Center(
-                        child: Container(
-                          width: 48,
-                          height: 48,
-                          decoration: BoxDecoration(
-                            color: AppColor.cardLight,
-                            borderRadius: BorderRadius.circular(14),
-                            border: Border.all(
-                              color: AppColor.divider.withOpacity(.6),
-                            ),
-                          ),
-                          child: const Padding(
-                            padding: EdgeInsets.all(13),
-                            child: CircularProgressIndicator(
-                              strokeWidth: 2.2,
-                              color: AppColor.mainColor,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
             ],
           ),
         );

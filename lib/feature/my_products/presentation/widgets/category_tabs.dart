@@ -268,7 +268,7 @@ class _CategoryTabsState extends State<CategoryTabs>
     }
 
     return Container(
-      margin: const EdgeInsets.only(left: 10, right: 10),
+      margin: const EdgeInsets.only(left: 10, right: 15,bottom: 5,top: 5),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

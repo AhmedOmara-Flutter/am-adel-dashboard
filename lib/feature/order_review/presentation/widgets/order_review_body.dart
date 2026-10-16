@@ -312,7 +312,7 @@ class _OrderReviewBodyState extends State<OrderReviewBody> {
   Widget _buildEmptyState() {
     return CustomContainer(
       width: double.infinity,
-      height: MediaQuery.sizeOf(context).height*0.5,
+      height: MediaQuery.sizeOf(context).height*0.47,
       child:  Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

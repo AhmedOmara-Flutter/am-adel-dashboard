@@ -1,3 +1,4 @@
+import 'package:am_adel_dashboard/core/extension/responsive_extension.dart';
 import 'package:am_adel_dashboard/core/helper_function/custom_show_snake_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -96,13 +97,12 @@ class _CouponViewBodyState extends State<CouponViewBody> {
                       : MediaQuery.of(context).size.width;
 
                   return SingleChildScrollView(
-                    padding: const EdgeInsets.all(10),
+                    padding: const EdgeInsets.only(bottom: 10,right: 10,left: 10),
                     child: ConstrainedBox(
                       constraints: BoxConstraints(minWidth: maxWidth - 48),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const CouponHeader(),
                           const SizedBox(height: 10),
                           CouponStatistics(
                             coupons: userCoupons

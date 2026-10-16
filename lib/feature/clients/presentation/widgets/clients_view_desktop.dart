@@ -69,8 +69,8 @@ class ClientsViewDesktop extends StatelessWidget {
                 },
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 3,
-                  crossAxisSpacing: 0,
-                  mainAxisSpacing: 0,
+                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 10,
                   childAspectRatio: 1.62,
                 ),
               ),

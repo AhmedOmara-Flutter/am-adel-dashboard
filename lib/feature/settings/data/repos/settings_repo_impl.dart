@@ -97,6 +97,36 @@ class SettingsRepoImpl implements SettingsRepo {
     }
   }
 
+  // @override
+  // Stream<Either<Failure, RestaurantStatusEntity>> watchRestaurantStatus() async* {
+  //   try {
+  //     await for (final data in _databaseServices.getStreamData(
+  //       path: _path,
+  //       uId: _docId,
+  //     )) {
+  //       final map = Map<String, dynamic>.from(data);
+  //
+  //       if (map.isEmpty) {
+  //         yield const Right(
+  //           RestaurantStatusModel(isOpen: true),
+  //         );
+  //         continue;
+  //       }
+  //
+  //       yield Right(
+  //         RestaurantStatusModel.fromJson(map),
+  //       );
+  //     }
+  //   } catch (e) {
+  //     yield Left(
+  //       Failure(
+  //         errMessage: e.toString(),
+  //       ),
+  //     );
+  //   }
+  // }
+
+
   @override
   Stream<Either<Failure, RestaurantStatusEntity>>
   watchRestaurantStatus() async* {
@@ -105,14 +135,22 @@ class SettingsRepoImpl implements SettingsRepo {
         path: _path,
         uId: _docId,
       )) {
-        final map = Map<String, dynamic>.from(data);
-
-        if (map.isEmpty) {
+        // لو المستند مش موجود، اعتبر المطعم مفتوحًا
+        if (data == null) {
           yield const Right(
             RestaurantStatusModel(isOpen: true),
           );
           continue;
         }
+
+        if (data is! Map) {
+          yield const Right(
+            RestaurantStatusModel(isOpen: true),
+          );
+          continue;
+        }
+
+        final map = Map<String, dynamic>.from(data);
 
         yield Right(
           RestaurantStatusModel.fromJson(map),
@@ -120,10 +158,11 @@ class SettingsRepoImpl implements SettingsRepo {
       }
     } catch (e) {
       yield Left(
-        Failure(
-          errMessage: e.toString(),
-        ),
+        Failure(errMessage: e.toString()),
       );
     }
   }
+
+
+
 }

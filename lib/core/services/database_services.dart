@@ -216,92 +216,43 @@ class FirestoreDatabase implements DatabaseServices {
     await userRef.update(data);
   }
 
-  // @override
-  // Stream<dynamic> getStreamData(
-  //     {required String path, String? uId, Map<String, dynamic>? query}) async*
-  // {
-  //   try {
-  //     if (uId != null) {
-  //       await for (
-  //       final snapshot in FirebaseFirestore.instance
-  //           .collection(path)
-  //           .doc(uId)
-  //           .snapshots()
-  //       ) {
-  //         if (!snapshot.exists || snapshot.data() == null) {
-  //           throw Exception(
-  //             'المستخدم ليس موجود في قاعده البيانات',
-  //           );
-  //         }
-  //
-  //         yield snapshot.data() as Map<String, dynamic>;
-  //       }
-  //     }
-  //     else {
-  //       Query<Map<String, dynamic>> data = FirebaseFirestore.instance
-  //           .collection(path);
-  //
-  //       if (query != null) {
-  //         final limit = query['limit'];
-  //         final orderBy = query['orderBy'];
-  //         final descending = query['descending'];
-  //         final startAt = query['startAt'];
-  //         final endAt = query['endAt'];
-  //         final where = query['where'];
-  //         final isEqualTo = query['isEqualTo'];
-  //
-  //         if (where != null) {
-  //           data = data.where(where, isEqualTo: isEqualTo);
-  //         }
-  //         if (orderBy != null) {
-  //           data = data.orderBy(orderBy, descending: descending);
-  //         }
-  //         if (limit != null) {
-  //           data = data.limit(limit);
-  //         }
-  //         if (startAt != null) {
-  //           data = data.startAt([startAt]);
-  //         }
-  //         if (endAt != null) {
-  //           data = data.endAt([endAt]);
-  //         }
-  //       }
-  //       await for (var snapshot in data.snapshots()) {
-  //         yield snapshot.docs.map((e) {
-  //           return {'id': e.id, ...e.data()};
-  //         }).toList();
-  //       }
-  //     }
-  //   } catch (e) {
-  //     throw Exception(e.toString());
-  //   }
-  // }
+
   @override
   Stream<dynamic> getStreamData({
     required String path,
     String? uId,
     Map<String, dynamic>? query,
-  }) async* {
+  }) async*
+  {
     try {
+      print(
+        'Firebase project: '
+            '${FirebaseFirestore.instance.app.options.projectId}',
+      );
+
       if (uId != null) {
-        await for (
-        final snapshot in FirebaseFirestore.instance
+        print('Collection: $path');
+        print('Document ID: $uId');
+
+        await for (final snapshot in FirebaseFirestore.instance
             .collection(path)
             .doc(uId)
-            .snapshots()
-        ) {
-          final documentData = snapshot.data();
+            .snapshots()) {
+          print('Document exists: ${snapshot.exists}');
 
-          if (!snapshot.exists || documentData == null) {
-            throw Exception(
-              'المستخدم ليس موجود في قاعده البيانات',
-            );
+          if (!snapshot.exists || snapshot.data() == null) {
+            print('Document not found: $path/$uId');
+            yield null;
+          } else {
+            final documentData = snapshot.data()!;
+
+            print('Document data: $documentData');
+
+            yield {
+              ...documentData,
+              'id': snapshot.id,
+            };
           }
-
-          yield {
-            ...documentData,
-            'id': snapshot.id,
-          };
         }
       } else {
         Query<Map<String, dynamic>> data =
@@ -350,9 +301,11 @@ class FirestoreDatabase implements DatabaseServices {
         }
       }
     } catch (e) {
+      print('getStreamData error: $e');
       throw Exception(e.toString());
     }
   }
+
   @override
   Future<void> deleteCollection(String collectionName) async {
     final snapshot = await FirebaseFirestore.instance.collection(collectionName).get();

@@ -29,22 +29,51 @@ class ClientsRepoImpl implements ClientsRepo {
     }
   }
 
+
   @override
   Stream<Either<Failure, int>> getCustomerOrdersCount(
       String uId,
       ) async* {
+    print('Customer ID: $uId');
+
     try {
       await for (final data in _databaseServices.getStreamData(
         path: 'customer_stats',
         uId: uId,
       )) {
-        final customerData = data as Map<String, dynamic>;
-        final count = customerData['totalOrders'];
+        print('Customer stats data: $data');
 
-        yield Right(count is num ? count.toInt() : 0);
+        // لو مستند الإحصائيات غير موجود
+        if (data == null) {
+          print('Customer stats not found for: $uId');
+          yield const Right(0);
+          continue;
+        }
+
+        // التأكد من نوع البيانات
+        if (data is! Map<String, dynamic>) {
+          yield Left(
+            Failure(
+              errMessage: 'Invalid customer stats data for: $uId',
+            ),
+          );
+          continue;
+        }
+
+        final count = data['totalOrders'];
+
+        final totalOrders = count is num ? count.toInt() : 0;
+
+        print('Total orders count: $totalOrders');
+
+        yield Right(totalOrders);
       }
     } catch (e) {
-      yield Left(Failure(errMessage: e.toString()));
+      print('Customer stats error: $e');
+
+      yield Left(
+        Failure(errMessage: e.toString()),
+      );
     }
   }
 }

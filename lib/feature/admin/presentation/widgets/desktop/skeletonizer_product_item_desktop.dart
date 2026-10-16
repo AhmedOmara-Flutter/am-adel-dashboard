@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 import '../../../../../core/utils/app_color.dart';
-import '../../../../../core/utils/app_constants.dart';
 import '../../../../../core/utils/style_manager.dart';
 import '../../../../../generated/assets.dart';
 
@@ -42,7 +41,7 @@ class SkeletonizerProductItemDesktop extends StatelessWidget {
                 ),
                 clipBehavior: Clip.antiAlias,
                 child: Image.asset(
-                Assets.assets.images.img.path,
+                  Assets.assets.images.img.path,
                   fit: BoxFit.contain,
                 ),
               ),
@@ -59,40 +58,49 @@ class SkeletonizerProductItemDesktop extends StatelessWidget {
                       style: StyleManager.font11Weight400(
                         context,
                       ).copyWith(
-                          color: AppColor.textPrimary,
-                          fontWeight: FontWeight.w700
+                        color: AppColor.textPrimary,
+                        fontWeight: FontWeight.w700,
                       ),
                     ),
                     const SizedBox(height: 7),
                     Row(
                       children: [
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 7,
-                            vertical: 4,
-                          ),
-                          decoration: BoxDecoration(
-                            color: AppColor.mainColor.withOpacity(.06),
-                            borderRadius: BorderRadius.circular(7),
-                          ),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              const Icon(
-                                Icons.shopping_bag_outlined,
-                                size: 13,
-                                color: AppColor.mainColor,
-                              ),
-                              const SizedBox(width: 5),
-                              Text(
-                                'orderCount مبيعات',
-                                style: StyleManager.font11Weight400(
-                                  context,
-                                ).copyWith(
+                        Flexible(
+                          child: Container(
+                            constraints: const BoxConstraints(
+                              maxWidth: 150,
+                            ),
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 7,
+                              vertical: 4,
+                            ),
+                            decoration: BoxDecoration(
+                              color: AppColor.mainColor.withOpacity(.06),
+                              borderRadius: BorderRadius.circular(7),
+                            ),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                const Icon(
+                                  Icons.shopping_bag_outlined,
+                                  size: 13,
                                   color: AppColor.mainColor,
                                 ),
-                              ),
-                            ],
+                                const SizedBox(width: 5),
+                                Flexible(
+                                  child: Text(
+                                    'orderCount مبيعات',
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: StyleManager.font11Weight400(
+                                      context,
+                                    ).copyWith(
+                                      color: AppColor.mainColor,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ],
@@ -100,13 +108,13 @@ class SkeletonizerProductItemDesktop extends StatelessWidget {
                   ],
                 ),
               ),
-              const SizedBox(width: 16),
+              const SizedBox(width: 12),
               Container(
                 width: 1,
                 height: 38,
                 color: AppColor.divider.withOpacity(.55),
               ),
-              const SizedBox(width: 16),
+              const SizedBox(width: 12),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 mainAxisSize: MainAxisSize.min,
@@ -136,5 +144,4 @@ class SkeletonizerProductItemDesktop extends StatelessWidget {
       ),
     );
   }
-
 }

@@ -26,6 +26,7 @@ class BundleOfferRepoImpl implements BundleOfferRepo {
 
       return Right(docRef);
     } on Exception catch (e) {
+      print(e);
       return Left(ServerFailure(errMessage: e.toString()));
     }
   }
@@ -58,6 +59,7 @@ class BundleOfferRepoImpl implements BundleOfferRepo {
         yield Right(offers);
       }
     } on Exception catch (e) {
+      print(e);
       yield Left(ServerFailure(errMessage: e.toString()));
     }
   }

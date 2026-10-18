@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/entities/user_entity.dart';
 import '../../../../core/utils/app_color.dart';
+import '../../../../core/widgets/custom_bottom_sheet_container.dart';
+import '../../../../core/widgets/custom_bottom_sheet_loading_overlay.dart';
 import '../../../clients/presentation/view_model/clients_cubit.dart';
 import '../../domain/entities/coupon_entity.dart';
 import '../view_model/add_coupon_cubit/add_coupon_cubit.dart';
@@ -55,7 +57,7 @@ class _AddCouponBottomSheetState extends State<AddCouponBottomSheet> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<AddCouponCubit, AddCouponState>(
+    return BlocConsumer<AddCouponCubit, AddCouponState>(
       listener: (context, state) {
         if (state is AddCouponSuccess) {
           Navigator.pop(context);
@@ -75,97 +77,63 @@ class _AddCouponBottomSheetState extends State<AddCouponBottomSheet> {
           );
         }
       },
-      child: SafeArea(
-        child: LayoutBuilder(
-          builder: (context, constraints) {
-            final maxHeight = MediaQuery.of(context).size.height * 0.85;
+      builder: (BuildContext context, AddCouponState state) {
+        final isLoading = state is AddCouponLoading;
+        final enabled = _canAddCoupon && !isLoading;
 
-            return ConstrainedBox(
-              constraints: BoxConstraints(maxHeight: maxHeight),
-              child: SingleChildScrollView(
-                padding: EdgeInsets.only(
-                  left: 24,
-                  right: 24,
-                  top: 24,
-                  bottom: MediaQuery.of(context).viewInsets.bottom + 24,
-                ),
-                child: Form(
-                  key: _formKey,
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      _buildHeader(),
-                      const SizedBox(height: 24),
-                      _buildUserSection(),
-                      const SizedBox(height: 18),
-                      _buildCodeField(),
-                      const SizedBox(height: 18),
-                      _buildDiscountType(),
-                      const SizedBox(height: 18),
-                      const SizedBox(height: 18),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Expanded(child: _buildDiscountValueField()),
-                          const SizedBox(width: 14),
-                          Expanded(child: _buildMinimumOrderField()),
-                         // Expanded(child: _buildMaxDiscountField()),
-                        ],
+        return  Stack(
+          children: [
+            CustomBottomSheetContainer(
+              title: 'إضافة كوبون',
+              subtitle: 'إنشاء كوبون خصم لعميل محدد',
+              icon: Icons.local_offer,
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _buildUserSection(),
+                    const SizedBox(height: 18),
+                    _buildCodeField(),
+                    const SizedBox(height: 18),
+                    _buildDiscountType(),
+                    const SizedBox(height: 18),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(child: _buildDiscountValueField()),
+                        const SizedBox(width: 14),
+                        Expanded(child: _buildMinimumOrderField()),
+                      ],
+                    ),
+                    const SizedBox(height: 18),
+                    _buildExpiryDate(),
+                    const SizedBox(height: 28),
+                    SizedBox(
+                      width: double.infinity,
+                      height: 52,
+                      child: CustomButton(
+                        onPressed: enabled ? _addCoupon : null,
+                        child:  Text(
+                          'إضافة الكوبون',
+                          style: StyleManager.font15Weight800(
+                            context,
+                          ).copyWith(color: AppColor.white),
+                        ),
                       ),
-                      const SizedBox(height: 18),
-                      _buildExpiryDate(),
-                      const SizedBox(height: 28),
-                      _buildAddButton(),
-                    ],
-                  ),
+                    )
+                  ],
                 ),
               ),
-            );
-          },
-        ),
-      ),
-    );
-  }
+            ),
 
-  Widget _buildHeader() {
-    return Row(
-      children: [
-        Container(
-          width: 46,
-          height: 46,
-          decoration: BoxDecoration(
-            color: AppColor.accentColor.withOpacity(.12),
-            borderRadius: BorderRadius.circular(14),
-          ),
-          child: const Icon(
-            Icons.local_offer_outlined,
-            color: AppColor.accentColor,
-          ),
-        ),
-        const SizedBox(width: 14),
-        const Expanded(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'إضافة كوبون',
-                style: TextStyle(
-                  color: AppColor.textPrimary,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              SizedBox(height: 4),
-              Text(
-                'إنشاء كوبون خصم لعميل محدد',
-                style: TextStyle(color: AppColor.textSecondary, fontSize: 12),
-              ),
-            ],
-          ),
-        ),
-      ],
+            if (isLoading)
+              CustomBottomSheetLoadingOverlay(),
+
+          ],
+        );
+      },
     );
   }
 
@@ -340,7 +308,8 @@ class _AddCouponBottomSheetState extends State<AddCouponBottomSheet> {
     required String title,
     required String value,
     required IconData icon,
-  }) {
+  })
+  {
     final selected = _discountType == value;
 
     return InkWell(
@@ -529,39 +498,6 @@ class _AddCouponBottomSheetState extends State<AddCouponBottomSheet> {
           ),
         ),
       ],
-    );
-  }
-
-  Widget _buildAddButton() {
-    return BlocBuilder<AddCouponCubit, AddCouponState>(
-      builder: (context, state) {
-        final isLoading = state is AddCouponLoading;
-
-        final enabled = _canAddCoupon && !isLoading;
-
-        return SizedBox(
-          width: double.infinity,
-          height: 52,
-          child: CustomButton(
-            onPressed: enabled ? _addCoupon : null,
-            child: isLoading
-                ? const SizedBox(
-                    width: 22,
-                    height: 22,
-                    child: CircularProgressIndicator(
-                      strokeWidth: 2.5,
-                      color: AppColor.white,
-                    ),
-                  )
-                : Text(
-                    'إضافة الكوبون',
-                    style: StyleManager.font15Weight800(
-                      context,
-                    ).copyWith(color: AppColor.white),
-                  ),
-          ),
-        );
-      },
     );
   }
 

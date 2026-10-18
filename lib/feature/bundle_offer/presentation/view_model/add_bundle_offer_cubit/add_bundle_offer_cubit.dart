@@ -27,6 +27,7 @@ class AddBundleOfferCubit extends Cubit<AddBundleOfferState> {
 
     await imageResult.fold(
           (failure) async {
+            print(failure.errMessage);
         emit(AddBundleOfferFailure(failure.errMessage));
       },
           (imageUrl) async {
@@ -44,6 +45,7 @@ class AddBundleOfferCubit extends Cubit<AddBundleOfferState> {
 
         result.fold(
               (failure) {
+                print(failure.errMessage);
             emit(AddBundleOfferFailure(failure.errMessage));
           },
               (success) {

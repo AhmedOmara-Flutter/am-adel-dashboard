@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../core/widgets/custom_bottom_sheet_container.dart';
+import '../../../../core/widgets/custom_bottom_sheet_loading_overlay.dart';
 import '../../domain/entities/bundle_offer_entity.dart';
 import '../../../../core/helper_function/custom_show_snake_bar.dart';
 import '../../../../core/utils/app_color.dart';
@@ -61,7 +63,6 @@ class _AddBundleOfferBottomSheetState
     _titleController.removeListener(_onFormChanged);
     _descriptionController.removeListener(_onFormChanged);
     _priceController.removeListener(_onFormChanged);
-
     _titleController.dispose();
     _descriptionController.dispose();
     _priceController.dispose();
@@ -147,209 +148,141 @@ class _AddBundleOfferBottomSheetState
         final isFormComplete = _isFormComplete;
         final isLoading = state is AddBundleOfferLoading;
 
-        return AnimatedPadding(
-          duration: const Duration(milliseconds: 200),
-          curve: Curves.easeOut,
-          padding: EdgeInsets.only(
-            bottom: MediaQuery.of(context).viewInsets.bottom,
-          ),
-          child: Stack(
-            children: [
-              Form(
+
+        return Stack(
+          children: [
+            CustomBottomSheetContainer(
+              title: 'إضافة باكدج جديد',
+              subtitle: 'أضف الصورة والاسم والسعر والتفاصيل.',
+              icon: Icons.card_giftcard_rounded,
+              maxHeightFactor: 0.9,
+              padding: const EdgeInsets.fromLTRB(18, 10, 18, 20),
+              headerSpacing: 18,
+              child: Form(
                 key: _formKey,
-                child: SingleChildScrollView(
-                  padding: const EdgeInsets.all(24),
-                  child: Center(
-                    child: Column(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    CustomImagePicker(
+                      onImagePicked: (value) {
+                        setState(() {
+                          selectedImage = value;
+                        });
+                      },
+                    ),
+
+                    const SizedBox(height: 20),
+
+                    Text(
+                      'بيانات الباكدج',
+                      style: StyleManager.font14Weight600(context).copyWith(
+                        color: AppColor.textPrimary,
+                      ),
+                    ),
+
+                    const SizedBox(height: 12),
+
+                    Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          'إنشاء باكدج جديد',
-                          style: StyleManager.font23Weight700(
-                            context,
-                          ).copyWith(
-                            color: AppColor.textPrimary,
+                        Expanded(
+                          child: CustomTextFormField(
+                            keyboardType: TextInputType.text,
+                            autoValidateMode: AutovalidateMode.onUserInteraction,
+                            label: 'اسم الباكدج',
+                            controller: _titleController,
+                            hintText: 'مثال: وجبة العيلة',
+                            validator: (value) {
+                              if (value == null || value.trim().isEmpty) {
+                                return 'أدخل اسم الباكدج';
+                              }
+                              return null;
+                            },
                           ),
                         ),
-                        const SizedBox(height: 6),
-                        Text(
-                          'أضف تفاصيل الباكدج والصورة والسعر ليظهر العرض للعملاء.',
-                          style: StyleManager.font14Weight600(
-                            context,
-                          ).copyWith(
-                            color: AppColor.textSecondary,
-                          ),
-                        ),
-                        const SizedBox(height: 24),
-                        Container(
-                          padding: const EdgeInsets.all(24),
-                          decoration: BoxDecoration(
-                            color: AppColor.cardLight,
-                            borderRadius: BorderRadius.circular(22),
-                            border: Border.all(
-                              color: AppColor.divider,
+                        const SizedBox(width: 10),
+                        Expanded(
+                          child: CustomTextFormField(
+                            keyboardType:
+                            const TextInputType.numberWithOptions(
+                              decimal: true,
                             ),
-                          ),
-                          child: Column(
-                            children: [
-                              CustomImagePicker(
-                                onImagePicked: (value) {
-                                  setState(() {
-                                    selectedImage = value;
-                                  });
-                                },
-                              ),
+                            autoValidateMode: AutovalidateMode.onUserInteraction,
+                            label: 'السعر',
+                            controller: _priceController,
+                            hintText: '0.00',
+                            validator: (value) {
+                              if (value == null || value.trim().isEmpty) {
+                                return 'أدخل السعر';
+                              }
 
-                              const SizedBox(height: 24),
+                              final price = double.tryParse(value.trim());
 
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    'بيانات الباكدج',
-                                    style: StyleManager.font16Weight700(
-                                      context,
-                                    ).copyWith(
-                                      color: AppColor.textPrimary,
-                                    ),
-                                  ),
+                              if (price == null || price <= 0) {
+                                return 'أدخل سعرًا صحيحًا';
+                              }
 
-                                  const SizedBox(height: 18),
-
-                                  Row(
-                                    children: [
-                                      Expanded(
-                                        child: CustomTextFormField(
-                                          keyboardType: TextInputType.text,
-                                          autoValidateMode:
-                                          AutovalidateMode
-                                              .onUserInteraction,
-                                          label: 'الاسم',
-                                          controller: _titleController,
-                                          hintText: 'مثال: وجبة العيلة',
-                                          validator: (value) {
-                                            if (value == null ||
-                                                value.trim().isEmpty) {
-                                              return 'أدخل اسم الباكدج';
-                                            }
-
-                                            return null;
-                                          },
-                                        ),
-                                      ),
-
-                                      const SizedBox(width: 10),
-
-                                      Expanded(
-                                        child: CustomTextFormField(
-                                          keyboardType:
-                                          const TextInputType.numberWithOptions(
-                                            decimal: true,
-                                          ),
-                                          autoValidateMode:
-                                          AutovalidateMode
-                                              .onUserInteraction,
-                                          label: 'السعر',
-                                          controller: _priceController,
-                                          hintText: '0.00',
-                                          validator: (value) {
-                                            if (value == null ||
-                                                value.trim().isEmpty) {
-                                              return 'أدخل سعر الباكدج';
-                                            }
-
-                                            final price = double.tryParse(
-                                              value.trim(),
-                                            );
-
-                                            if (price == null) {
-                                              return 'أدخل سعر صحيح';
-                                            }
-
-                                            if (price <= 0) {
-                                              return 'السعر يجب أن يكون أكبر من صفر';
-                                            }
-
-                                            return null;
-                                          },
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-
-                                  const SizedBox(height: 18),
-
-                                  CustomTextFormField(
-                                    keyboardType: TextInputType.text,
-                                    autoValidateMode:
-                                    AutovalidateMode.onUserInteraction,
-                                    label: 'الوصف',
-                                    controller: _descriptionController,
-                                    maxLines: 4,
-                                    hintText:
-                                    'اكتب مكونات العرض والتفاصيل الخاصة به...',
-                                    validator: (value) {
-                                      if (value == null ||
-                                          value.trim().isEmpty) {
-                                        return 'من فضلك أدخل وصف الباكدج';
-                                      }
-
-                                      return null;
-                                    },
-                                  ),
-
-                                  const SizedBox(height: 18),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-
-                        const SizedBox(height: 24),
-
-                        CustomButton(
-                          onPressed: isFormComplete && !isLoading
-                              ? _addBundleOffer
-                              : null,
-                          child: AnimatedOpacity(
-                            duration: const Duration(milliseconds: 200),
-                            opacity: isFormComplete && !isLoading
-                                ? 1
-                                : .45,
-                            child: Text(
-                              'إضافة باكدج',
-                              style: Theme
-                                  .of(context)
-                                  .textTheme
-                                  .labelSmall
-                                  ?.copyWith(
-                                color: AppColor.textOnDark,
-                              ),
-                            ),
+                              return null;
+                            },
                           ),
                         ),
                       ],
                     ),
-                  ),
-                ),
-              ),
 
-              if (state is AddBundleOfferLoading)
-                Positioned.fill(
-                  child: AbsorbPointer(
-                    absorbing: true,
-                    child: Container(
-                      color: AppColor.black.withOpacity(0.25),
-                      child: const Center(
-                        child: CircularProgressIndicator(
-                          color: AppColor.mainColor,
+                    const SizedBox(height: 14),
+
+                    CustomTextFormField(
+                      keyboardType: TextInputType.text,
+                      autoValidateMode: AutovalidateMode.onUserInteraction,
+                      label: 'وصف الباكدج',
+                      controller: _descriptionController,
+                      maxLines: 3,
+                      hintText: 'اكتب مكونات الباكدج...',
+                      validator: (value) {
+                        if (value == null || value.trim().isEmpty) {
+                          return 'أدخل وصف الباكدج';
+                        }
+                        return null;
+                      },
+                    ),
+
+                    const SizedBox(height: 22),
+
+                    SizedBox(
+                      width: double.infinity,
+                      height: 46,
+                      child: CustomButton(
+                        onPressed: isFormComplete && !isLoading
+                            ? _addBundleOffer
+                            : null,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Icon(
+                              Icons.add_rounded,
+                              color: AppColor.textOnDark,
+                              size: 19,
+                            ),
+                            const SizedBox(width: 6),
+                            Text(
+                              'إضافة الباكدج',
+                              style: StyleManager.font14Weight600(context).copyWith(
+                                color: AppColor.textOnDark,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ),
-                  ),
+                  ],
                 ),
-            ],
-          ),
+              ),
+            ),
+
+            if (isLoading)
+              CustomBottomSheetLoadingOverlay(),
+          ],
         );
       },
     );

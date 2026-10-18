@@ -38,13 +38,19 @@ class ClientsBottomSheetState extends State<ClientsBottomSheet> {
           padding: const EdgeInsets.fromLTRB(20, 12, 20, 10),
           child: Column(
             children: [
-              Container(
-                width: 42,
-                height: 4,
-                decoration: BoxDecoration(
-                  color: AppColor.divider,
-                  borderRadius: BorderRadius.circular(10),
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    width: 60,
+                    height: 5,
+                    decoration: BoxDecoration(
+                      color: AppColor.textSecondary,
+                      borderRadius: BorderRadius.circular(13),
+                    ),
+                  ),
+
+                ],
               ),
               const SizedBox(height: 20),
 

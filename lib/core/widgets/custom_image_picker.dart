@@ -1,7 +1,8 @@
 import 'dart:io';
+
 import 'package:flutter/material.dart';
-import 'package:am_adel_dashboard/core/utils/app_color.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:am_adel_dashboard/core/utils/app_color.dart';
 
 class CustomImagePicker extends StatefulWidget {
   final ValueChanged<File?> onImagePicked;
@@ -20,6 +21,7 @@ class CustomImagePicker extends StatefulWidget {
 class _CustomImagePickerState extends State<CustomImagePicker> {
   File? imagePath;
   String? networkImage;
+  bool imageLoadFailed = false;
 
   @override
   void initState() {
@@ -27,34 +29,50 @@ class _CustomImagePickerState extends State<CustomImagePicker> {
     networkImage = widget.initialImage;
   }
 
+  Future<void> pickImage() async {
+    try {
+      final picker = ImagePicker();
+
+      final image = await picker.pickImage(source: ImageSource.gallery);
+
+      if (image == null) return;
+
+      setState(() {
+        imagePath = File(image.path);
+        networkImage = null;
+        imageLoadFailed = false;
+      });
+
+      widget.onImagePicked(imagePath);
+    } catch (e) {
+      debugPrint(e.toString());
+    }
+  }
+
+  void removeImage() {
+    setState(() {
+      imagePath = null;
+      networkImage = null;
+      imageLoadFailed = false;
+    });
+
+    widget.onImagePicked(null);
+  }
+
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () async {
-        try {
-          final picker = ImagePicker();
-          final image = await picker.pickImage(
-            source: ImageSource.gallery,
-          );
+    final bool hasNetworkImage = networkImage != null && !imageLoadFailed;
 
-          if (image != null) {
-            setState(() {
-              imagePath = File(image.path);
-              widget.onImagePicked(imagePath);
-            });
-          }
-        } catch (e) {
-          debugPrint(e.toString());
-        }
-      },
+    return GestureDetector(
+      onTap: pickImage,
       child: Stack(
         children: [
           Container(
             width: double.infinity,
+            padding: const EdgeInsets.symmetric(vertical: 10),
             decoration: BoxDecoration(
               color: AppColor.inputFill,
               borderRadius: BorderRadius.circular(12),
-
             ),
             alignment: Alignment.center,
             child: imagePath != null
@@ -62,47 +80,39 @@ class _CustomImagePickerState extends State<CustomImagePicker> {
               borderRadius: BorderRadius.circular(10),
               child: SizedBox(
                 height: MediaQuery.sizeOf(context).height * .2,
-                child: Image.file(
-                  imagePath!,
-                  fit: BoxFit.cover,
-                ),
+                width: double.infinity,
+                child: Image.file(imagePath!, fit: BoxFit.cover),
               ),
             )
-                : networkImage != null
+                : hasNetworkImage
                 ? ClipRRect(
               borderRadius: BorderRadius.circular(10),
               child: SizedBox(
                 height: MediaQuery.sizeOf(context).height * .2,
+                width: double.infinity,
                 child: Image.network(
                   networkImage!,
                   fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) {
+                    WidgetsBinding.instance.addPostFrameCallback((_) {
+                      if (mounted && !imageLoadFailed) {
+                        setState(() {
+                          imageLoadFailed = true;
+                        });
+                      }
+                    });
+
+                    return _buildMissingImage(context);
+                  },
                 ),
               ),
             )
-                : Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SizedBox(height: 20),
-                Icon(
-                  Icons.add_photo_alternate_outlined,
-                  color: AppColor.mainColor,
-                  size: 40,
-                ),
-                SizedBox(height: 10),
-                Text(
-                  'اضافة صورة',
-                  style: Theme.of(context)
-                      .textTheme
-                      .titleMedium
-                      ?.copyWith(
-                    color: AppColor.mainColor,
-                  ),
-                ),
-                SizedBox(height: 20),
-              ],
-            ),
+                : imageLoadFailed
+                ? _buildMissingImage(context)
+                : _buildEmptyState(context),
           ),
-          if (imagePath != null || networkImage != null)
+
+          if (imagePath != null || hasNetworkImage)
             Positioned(
               top: 8,
               left: 8,
@@ -112,14 +122,8 @@ class _CustomImagePickerState extends State<CustomImagePicker> {
                   shape: BoxShape.circle,
                 ),
                 child: IconButton(
-                  onPressed: () {
-                    setState(() {
-                      imagePath = null;
-                      networkImage = null;
-                      widget.onImagePicked(null);
-                    });
-                  },
-                  icon: Icon(
+                  onPressed: removeImage,
+                  icon: const Icon(
                     Icons.close,
                     color: AppColor.textSecondary,
                     size: 20,
@@ -129,6 +133,62 @@ class _CustomImagePickerState extends State<CustomImagePicker> {
             ),
         ],
       ),
+    );
+  }
+
+  Widget _buildMissingImage(BuildContext context) {
+    return SizedBox(
+      height: MediaQuery.sizeOf(context).height * .2,
+      width: double.infinity,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Icon(
+            Icons.image_not_supported_outlined,
+            color: AppColor.textSecondary,
+            size: 45,
+          ),
+          const SizedBox(height: 10),
+          Text(
+            'الصورة غير موجودة',
+            style: Theme.of(context).textTheme.titleMedium?.copyWith(
+              color: AppColor.textSecondary,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            'اضغط لاختيار صورة جديدة',
+            style: Theme.of(context)
+                .textTheme
+                .bodyMedium
+                ?.copyWith(color: AppColor.textSecondary),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildEmptyState(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        const SizedBox(height: 20),
+        const Icon(
+          Icons.add_photo_alternate_outlined,
+          color: AppColor.mainColor,
+          size: 40,
+        ),
+        const SizedBox(height: 10),
+        Text(
+          'اضافة صورة',
+          style: Theme.of(context)
+              .textTheme
+              .titleMedium
+              ?.copyWith(color: AppColor.mainColor),
+        ),
+        const SizedBox(height: 20),
+      ],
     );
   }
 }

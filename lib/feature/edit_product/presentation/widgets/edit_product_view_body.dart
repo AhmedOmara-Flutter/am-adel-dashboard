@@ -1,3 +1,4 @@
+
 import 'dart:io';
 import 'package:am_adel_dashboard/core/utils/style_manager.dart';
 import 'package:flutter/material.dart';
@@ -28,6 +29,10 @@ class EditProductViewBody extends StatefulWidget {
 class _EditProductViewBodyState extends State<EditProductViewBody> {
   File? image;
   List<File>? subImagesFiles;
+
+  // الصور القديمة التي لم يتم حذفها
+  late List<String> keptOldImages;
+
   bool isFeatured = false;
   AutovalidateMode autoValidateMode = AutovalidateMode.disabled;
   final nameController = TextEditingController();
@@ -36,6 +41,7 @@ class _EditProductViewBodyState extends State<EditProductViewBody> {
   final _formKey = GlobalKey<FormState>();
   String? selectedCategory;
   String? selectedSize;
+
   CategoryEntity? get currentCategory {
     final categoryCubit = context.read<CategoryCubit>();
     final categories = categoryCubit.categories;
@@ -47,19 +53,20 @@ class _EditProductViewBodyState extends State<EditProductViewBody> {
     if (selectedCategory != null) {
       try {
         return categories.firstWhere(
-          (category) => category.id == selectedCategory,
+              (category) => category.id == selectedCategory,
         );
       } catch (_) {}
     }
 
     try {
       return categories.firstWhere(
-        (category) => category.name == widget.product.category,
+            (category) => category.name == widget.product.category,
       );
     } catch (_) {
       return null;
     }
   }
+
   String? get selectedCategoryId {
     if (selectedCategory != null) {
       return selectedCategory;
@@ -88,6 +95,9 @@ class _EditProductViewBodyState extends State<EditProductViewBody> {
 
     selectedSize = product.size;
     isFeatured = product.isFeatured;
+
+    // الاحتفاظ بروابط الصور القديمة
+    keptOldImages = List<String>.from(product.subImages ?? []);
 
     image = null;
     subImagesFiles = null;
@@ -200,9 +210,9 @@ class _EditProductViewBodyState extends State<EditProductViewBody> {
                       'التصنيف',
                       style: Theme.of(context).textTheme.titleMedium!
                           .copyWith(
-                            color: AppColor.mainColor,
-                            fontWeight: FontWeight.w700,
-                          ),
+                        color: AppColor.mainColor,
+                        fontWeight: FontWeight.w700,
+                      ),
                     ),
                     const SizedBox(width: 8),
                     const CircleAvatar(
@@ -260,25 +270,25 @@ class _EditProductViewBodyState extends State<EditProductViewBody> {
 
                     final initialCategoryId =
                         selectedCategory ??
-                        (() {
-                          try {
-                            return categories
-                                .firstWhere(
-                                  (category) =>
-                                      category.name ==
+                            (() {
+                              try {
+                                return categories
+                                    .firstWhere(
+                                      (category) =>
+                                  category.name ==
                                       widget.product.category,
                                 )
-                                .id;
-                          } catch (_) {
-                            return null;
-                          }
-                        })();
+                                    .id;
+                              } catch (_) {
+                                return null;
+                              }
+                            })();
 
                     return DropdownButtonFormField<String>(
                       initialValue:
-                          categories.any(
+                      categories.any(
                             (category) => category.id == initialCategoryId,
-                          )
+                      )
                           ? initialCategoryId
                           : null,
                       hint: Text(
@@ -360,9 +370,9 @@ class _EditProductViewBodyState extends State<EditProductViewBody> {
                         'الحجم',
                         style: Theme.of(context).textTheme.titleMedium!
                             .copyWith(
-                              color: AppColor.mainColor,
-                              fontWeight: FontWeight.w700,
-                            ),
+                          color: AppColor.mainColor,
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
                       const SizedBox(width: 8),
                       const CircleAvatar(
@@ -374,7 +384,7 @@ class _EditProductViewBodyState extends State<EditProductViewBody> {
                   const SizedBox(height: 8),
                   DropdownButtonFormField<String>(
                     initialValue:
-                        currentCategory!.sizes.contains(selectedSize)
+                    currentCategory!.sizes.contains(selectedSize)
                         ? selectedSize
                         : null,
                     hint: Text(
@@ -511,6 +521,9 @@ class _EditProductViewBodyState extends State<EditProductViewBody> {
               onImagesPicked: (images) {
                 subImagesFiles = images;
               },
+              onOldImagesChanged: (urls) {
+                keptOldImages = urls;
+              },
             ),
           ),
         ),
@@ -566,6 +579,7 @@ class _EditProductViewBodyState extends State<EditProductViewBody> {
               size: selectedSize,
               isFeatured: isFeatured,
               imageFile: image,
+              subImages: keptOldImages,
               subImagesFiles: subImagesFiles,
             );
 
@@ -574,7 +588,7 @@ class _EditProductViewBodyState extends State<EditProductViewBody> {
           child: Text(
             'تعديل المنتج',
             style: StyleManager.font15Weight800(context).copyWith(
-              color: AppColor.white
+                color: AppColor.white
             ),
           ),
         ),

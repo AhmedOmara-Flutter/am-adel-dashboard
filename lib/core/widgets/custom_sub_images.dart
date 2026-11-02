@@ -1,4 +1,5 @@
 import 'dart:io';
+
 import 'package:am_adel_dashboard/core/extension/responsive_extension.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
@@ -8,11 +9,13 @@ import '../utils/app_color.dart';
 
 class CustomSubImages extends StatefulWidget {
   final ValueChanged<List<File>> onImagesPicked;
+  final ValueChanged<List<String>>? onOldImagesChanged;
   final List<String>? initialImages;
 
   const CustomSubImages({
     super.key,
     required this.onImagesPicked,
+    this.onOldImagesChanged,
     this.initialImages,
   });
 
@@ -27,21 +30,27 @@ class _CustomSubImagesState extends State<CustomSubImages> {
   @override
   void initState() {
     super.initState();
-    oldImages = widget.initialImages ?? [];
+    oldImages = List<String>.from(widget.initialImages ?? []);
   }
 
   int get totalCount => oldImages.length + newImages.length;
+
+  // بيبلّغ الصفحة بالصور الجديدة + الصور القديمة المتبقية
+  void _notify() {
+    widget.onImagesPicked(List<File>.from(newImages));
+    widget.onOldImagesChanged?.call(List<String>.from(oldImages));
+  }
 
   Future<void> pickImages() async {
     try {
       final ImagePicker picker = ImagePicker();
 
-      final List<XFile> pickedImages =
-      await picker.pickMultiImage();
+      final List<XFile> pickedImages = await picker.pickMultiImage();
 
       if (pickedImages.isEmpty) return;
 
       final int remaining = 4 - totalCount;
+
       if (remaining <= 0) return;
 
       final selectedImages = pickedImages.take(remaining);
@@ -50,7 +59,8 @@ class _CustomSubImagesState extends State<CustomSubImages> {
         selectedImages.map((e) => File(e.path)),
       );
 
-      widget.onImagesPicked(newImages);
+      _notify();
+
       setState(() {});
     } catch (e) {
       debugPrint(e.toString());
@@ -64,7 +74,8 @@ class _CustomSubImagesState extends State<CustomSubImages> {
       newImages.removeAt(index - oldImages.length);
     }
 
-    widget.onImagesPicked(newImages);
+    _notify();
+
     setState(() {});
   }
 
@@ -74,8 +85,8 @@ class _CustomSubImagesState extends State<CustomSubImages> {
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       itemCount: 4,
-      gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount:context.isDesktop? 4:3,
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: context.isDesktop ? 4 : 3,
         crossAxisSpacing: 10,
         mainAxisSpacing: 10,
         childAspectRatio: 1,
@@ -109,11 +120,7 @@ class _CustomSubImagesState extends State<CustomSubImages> {
                     const SizedBox(height: 10),
                     Text(
                       'اضافه صورة',
-                      style: Theme
-                          .of(context)
-                          .textTheme
-                          .titleSmall!
-                          .copyWith(
+                      style: Theme.of(context).textTheme.titleSmall!.copyWith(
                         color: AppColor.mainColor,
                       ),
                     ),
@@ -140,6 +147,9 @@ class _CustomSubImagesState extends State<CustomSubImages> {
                     ? Image.network(
                   oldImages[index],
                   fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) {
+                    return _buildMissingImage();
+                  },
                 )
                     : Image.file(
                   newImages[index - oldImages.length],
@@ -167,6 +177,18 @@ class _CustomSubImagesState extends State<CustomSubImages> {
           ],
         );
       },
+    );
+  }
+
+  Widget _buildMissingImage() {
+    return Container(
+      color: AppColor.inputFill,
+      alignment: Alignment.center,
+      child: Icon(
+        Icons.image_not_supported_outlined,
+        color: AppColor.textSecondary,
+        size: 35,
+      ),
     );
   }
 }
